@@ -10,7 +10,7 @@ using UnityEngine.Tilemaps;
 public class Salle : MonoBehaviour
 {
     //La taille d'une salle
-    static Vector2Int _taille = new Vector2Int(30, 18);
+    static Vector2Int _taille = new Vector2Int(32, 18);
     // Propriété pour accéder à la taille de la salle.
     static public Vector2Int taille => _taille;
 

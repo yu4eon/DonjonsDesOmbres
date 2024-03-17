@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,16 +7,32 @@ using UnityEngine.Tilemaps;
 /// Classe qui gère la tilemap principal, contenant toutes les salles du niveau
 public class Niveau : MonoBehaviour
 {
-    [SerializeField] Tilemap _tilemap; // tilemap du niveau
+    [SerializeField] Tilemap _tilemapNiveau; // tilemap du niveau #tp3 Léon - J'ai changé le nom de la variable pour être plus explicite.
     [SerializeField] Salle[] _tSallesModeles; // Tableau de tous les prefabs de salles disponibles.
     [SerializeField] Vector2Int _taille = new Vector2Int(3, 3); // Taille du niveau en 2 dimensions, sur l'axe x et y.
     [SerializeField] TileBase _tuileModele; // Tuile utilisé pour les bordures
+    
+    List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
+    List<Vector2Int> _lesPosSurReperes = new List<Vector2Int>(); // Liste des positions sur les repères. #tp3 Léon
 
     // Propriété publique qui permet l'accès à la tilemap du niveau.
-    public Tilemap tilemap => _tilemap;
+    public Tilemap tilemap => _tilemapNiveau;
 
-    void Awake()
+    static Niveau _instance; // Instance statique de la classe. #tp3 Léon
+    static public Niveau instance => _instance; // Propriété publique qui permet l'accès à l'instance de la classe. #tp3 Léon
+
+     void Awake()
     {
+        //Singleton #tp3 Léon
+        if(_instance == null) //si l'instance est null
+        {
+            _instance = this; //l'instance est égale à cette instance
+        }
+        else
+        {
+            Destroy(gameObject); //sinon, détruit l'objet
+        }
+
         // Calcul de la taille de la salle avec une bordure.
         Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
 
@@ -50,22 +67,49 @@ public class Niveau : MonoBehaviour
                 if (x == min.x || x == max.x || y == min.y || y == max.y)
                 {
                     Vector3Int pos = new Vector3Int(x, y, 0);
-                    _tilemap.SetTile(pos, _tuileModele);
+                    _tilemapNiveau.SetTile(pos, _tuileModele);
                     Debug.Log(x + " " + y);
                 }
             }
         }
+
+        // #tp3 Léon
+        TrouverPosLibres(); 
+    }
+    /// <summary>
+    /// Trouve les positions dans la scène ou il n'y a aucune tuile. #tp3 Léon
+    /// </summary>
+    void TrouverPosLibres()
+    {
+        BoundsInt bornes = _tilemapNiveau.cellBounds;
+        for(int x = bornes.xMin; x < bornes.xMax; x++) 
+        {
+            for(int y = bornes.yMin; y < bornes.yMax; y++)
+            {
+                Vector2Int posTuile = new Vector2Int(x, y);
+                TileBase tuile = _tilemapNiveau.GetTile((Vector3Int)posTuile);
+                if(tuile == null)
+                {
+                    _lesPosLibres.Add(posTuile);
+                }
+            }
+        }
+        foreach(Vector2Int pos in _lesPosSurReperes)
+        {
+            _lesPosLibres.Remove(pos);
+        }
+        Debug.Log(_lesPosLibres.Count + " espaces libres : "+ string.Join(", ", _lesPosLibres));
     }
 
     /// <summary>
     /// Méthode publique appelé par CarteTuiles qui ajoute une tuile à la tilemap du niveau.
+    /// #tp3 Léon, j'ai enlevé le paramètre niveau, car il n'est plus nécessaire.
     /// </summary>
     /// <param name="tilemap">Tilemap d'ou vient la tuile</param>
-    /// <param name="niveau">Niveau dans laquel ajouter la tuile</param>
     /// <param name="y">Position y de la tuile à ajouter</param>
     /// <param name="x">Position x de la tuile à ajouter</param>
     /// <param name="decalage">Décalage à appliquer à la tuile</param>
-    public void AjouterTuile(Tilemap tilemap, Niveau niveau, int y, int x, Vector3Int decalage)
+    public void AjouterTuile(Tilemap tilemap, int y, int x, Vector3Int decalage)
     {
         Vector3Int pos = new Vector3Int(x, y, 0);
         TileBase tile = tilemap.GetTile(pos);
@@ -73,7 +117,7 @@ public class Niveau : MonoBehaviour
         // Vérifie si la tuile existe.
         if (tile != null)
         {
-            niveau.tilemap.SetTile(pos + decalage, tile);
+            _tilemapNiveau.SetTile(pos + decalage, tile);
         }
     }
 }

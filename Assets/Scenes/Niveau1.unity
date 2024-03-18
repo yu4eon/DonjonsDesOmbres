@@ -161,6 +161,9 @@ MonoBehaviour:
   - {fileID: -987097936463006515, guid: f70df123c2aed10448defc42dcfc3678, type: 3}
   _taille: {x: 3, y: 3}
   _tuileModele: {fileID: 11400000, guid: 39ee99283c0fb2d498d889b85db3986a, type: 2}
+  _tJoyauxModeles:
+  - {fileID: 4263084188647883792, guid: a40bbab19bb0d524587e04508a2232a9, type: 3}
+  _nbJoyauxParSalle: 5
 --- !u!156049354 &308034227
 Grid:
   m_ObjectHideFlags: 0

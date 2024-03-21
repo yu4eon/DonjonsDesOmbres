@@ -15,6 +15,6 @@ MonoBehaviour:
   _nom: "Tr\xE8fle"
   _sprite: {fileID: 0}
   _prixDeBase: 30
-  _niveauRequis: 1
+  _niveauRequis: 3
   _description: 
   _donneDroitRabais: 0

@@ -11,6 +11,7 @@ public class Perso : DetecteurSol
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
     [SerializeField] bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
+    // [SerializeField] SOPerso _donnees;
 
     float _axeHorizontal; // Axe horizontal du personnage.
     int _nbFramesRestants = 0; // Nombre de frames restantes pendant lesquelles le joueur peut sauter.
@@ -37,7 +38,8 @@ public class Perso : DetecteurSol
     {
         base.FixedUpdate(); // Appelle la méthode FixedUpdate de la classe mère.
 
-        if (_rb.velocity.y < 0) // Si le joueur est en train de tomber
+        // #tp3 Leon Ajout d'un check sur les frames, pour si le joueur colisionne avec un plafond.
+        if (_rb.velocity.y < 0 && _nbFramesRestants == 0) // Si le joueur est en train de tomber. 
         {
             _rb.gravityScale = 3f;
         }
@@ -62,8 +64,8 @@ public class Perso : DetecteurSol
         {
             _auDeuxiemeSaut = false; // Réinitialise l'indicateur de deuxième saut.
             _nbFramesRestants = _nbFramesMax; // Réinitialise le nombre de frames restantes pour sauter.
-            if (!_possedeDoublesSauts) return; // Si le joueur ne possède pas le pouvoir de double saut, arrête la méthode ici.
-            _peutDoubleSauter = true; // Autorise le double saut.
+            if (_possedeDoublesSauts) _peutDoubleSauter = true; // Si le joueur ne possède pas le pouvoir de double saut, arrête la méthode ici.
+            // _peutDoubleSauter = true; // Autorise le double saut.
         }
         else // Si le joueur n'est pas au sol et ne maintient pas le bouton de saut.
         {
@@ -115,5 +117,13 @@ public class Perso : DetecteurSol
         {
             _peutDoubleSauter = false; // Déclare que le joueur ne peut plus faire de double saut.
         } 
+    }
+    
+    /// <summary>
+    /// Callback sent to all game objects before the application is quit.
+    /// </summary>
+    void OnApplicationQuit()
+    {
+        // _donnees.Initialiser();
     }
 }

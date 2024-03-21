@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
@@ -14,6 +15,9 @@ public class Niveau : MonoBehaviour
     [SerializeField] TileBase _tuileModele; // Tuile utilisé pour les bordures
     [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
     [SerializeField, Range(0, 20)] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon
+    // [SerializeField] Porte _porteModele //Modele de porte, quand il sera fait
+    // [SerializeField] Cle _cleModele //Modele de clé quand il sera fait
+    [SerializeField] GameObject _specialModele; //Sera changé pour un bonus plus tard, uniquement pour tester en ce moment
     
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
     List<Vector2Int> _lesPosSurReperes = new List<Vector2Int>(); // Liste des positions sur les repères. #tp3 Léon
@@ -78,20 +82,33 @@ public class Niveau : MonoBehaviour
         // Calcul de la taille de la salle avec une bordure.
         Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
 
+        Vector2Int placementSpecial = new Vector2Int(Random.Range(0 ,_taille.x), Random.Range(0, _taille.y));
+
         // Boucle pour placer les salles dans le niveau selon la taille spécifiée dans l'axe x.
         for (int x = 0; x < _taille.x; x++)
         {
             // Boucle pour placer les salles dans le niveau selon la taille spécifiée dans l'axe y.
             for (int y = 0; y < _taille.y; y++)
             {
-                Debug.Log("position actuel" +x + "," + y);
+                // Debug.Log("position actuel" +x + "," + y);
+
+                Vector2Int placementSalle = new Vector2Int(x,y); // #tp3, Léon Yu, Position selon la grille de la salle
+
                 // Position de la salle.
                 Vector2 pos = new Vector2(tailleAvecUneBordure.x * x, tailleAvecUneBordure.y * y);
 
-                Salle planche = Instantiate(_tSallesModeles[Random.Range(0, _tSallesModeles.Length)], pos, Quaternion.identity, transform);
+                Salle salle = Instantiate(_tSallesModeles[Random.Range(0, _tSallesModeles.Length)], pos, Quaternion.identity, transform);
 
                 // Nomme la salle selon sa position dans le niveau.
-                planche.name = "Salle" + x + "_" + y;
+                salle.name = "Salle" + x + "_" + y;
+
+                if(placementSpecial == placementSalle)
+                {
+                    Debug.Log("Salle avec objet special : " + placementSalle);
+                    Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
+                    Vector2Int posRep = salle.PlacerSurRepere(_specialModele) - decalage;
+                    _lesPosSurReperes.Add(posRep);
+                }
             }
         }
 
@@ -140,6 +157,12 @@ public class Niveau : MonoBehaviour
             _lesPosLibres.Remove(pos);
         }
         Debug.Log(_lesPosLibres.Count + " espaces libres : "+ string.Join(", ", _lesPosLibres));
+    }
+
+    public void LibererUnePos(Vector3 posPrecise)
+    {
+        Vector2Int pos = Vector2Int.FloorToInt(posPrecise - _tilemapNiveau.transform.position);
+        _lesPosLibres.Add(pos);
     }
 
     /// <summary>

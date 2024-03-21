@@ -5,6 +5,7 @@ using UnityEngine;
 public class Joyau : MonoBehaviour
 {
     [SerializeField, Range(0, 20)] float _valeur = 5; // Valeur du joyau
+    [SerializeField] Retroaction _retroModele;
     // [SerializeField] SOPerso _donneesPerso;
 
 
@@ -15,13 +16,15 @@ public class Joyau : MonoBehaviour
         
     }
 
-    // OnTriggerEnter2D(Collider2D collision)
-    // {
-    //     if (collision.CompareTag("Player"))
-    //     {
-    //         // Ajouter animation de texte plus tard.
-    //         _donneesPerso.argent += _valeur;
-    //         Destroy(gameObject);
-    //     }
-    // }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Niveau.instance.LibererUnePos(transform.position);
+            Retroaction retro = Instantiate(_retroModele, transform.position, Quaternion.identity, transform.parent);
+            retro.ChangerTexte("+" + _valeur);
+            // _donneesPerso.argent += _valeur; //A ajouter quand on fusionne nos scripts
+            Destroy(gameObject);
+        }
+    }
 }

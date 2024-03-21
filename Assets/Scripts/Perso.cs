@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class Perso : DetecteurSol
 {
     [SerializeField] float _vitesse = 10f; // Vitesse à laquelle le personnage se déplace.
+    [SerializeField] int _attaque = 10; // Force d'attaque.
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
     [SerializeField] bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.

@@ -11,6 +11,7 @@ public class Perso : DetecteurSol
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
     [SerializeField] bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
+    [SerializeField] SOPerso _donneesPerso;
 
     float _axeHorizontal; // Axe horizontal du personnage.
     int _nbFramesRestants = 0; // Nombre de frames restantes pendant lesquelles le joueur peut sauter.
@@ -28,6 +29,9 @@ public class Perso : DetecteurSol
     {
         _rb = GetComponent<Rigidbody2D>(); // Obtient le Rigidbody du personnage.
         _sr = GetComponent<SpriteRenderer>(); // Obtient le SpriteRenderer du personnage.
+
+        AfficherArgent();
+        _donneesPerso.evenementMiseAJour.AddListener(AfficherArgent);
     }
 
     /// <summary>
@@ -115,5 +119,20 @@ public class Perso : DetecteurSol
         {
             _peutDoubleSauter = false; // Déclare que le joueur ne peut plus faire de double saut.
         } 
+    }
+
+    void AfficherArgent()
+    {
+        Debug.Log($"J'ai {_donneesPerso.argent} $ dans mes poches.");
+    }
+
+    void OnApplicationQuit()
+    {
+        _donneesPerso.Initialiser();        
+    }
+
+    void OnDestroy()
+    {
+        _donneesPerso.evenementMiseAJour.RemoveAllListeners();
     }
 }

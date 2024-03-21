@@ -11,6 +11,10 @@ public class Perso : DetecteurSol
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
     [SerializeField] bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
+<<<<<<< HEAD
+=======
+    // [SerializeField] SOPerso _donnees;
+>>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
 
     float _axeHorizontal; // Axe horizontal du personnage.
     int _nbFramesRestants = 0; // Nombre de frames restantes pendant lesquelles le joueur peut sauter.
@@ -37,7 +41,12 @@ public class Perso : DetecteurSol
     {
         base.FixedUpdate(); // Appelle la méthode FixedUpdate de la classe mère.
 
+<<<<<<< HEAD
         if (_rb.velocity.y < 0) // Si le joueur est en train de tomber
+=======
+        // #tp3 Leon Ajout d'un check sur les frames, pour si le joueur colisionne avec un plafond.
+        if (_rb.velocity.y < 0 && _nbFramesRestants == 0) // Si le joueur est en train de tomber. 
+>>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
         {
             _rb.gravityScale = 3f;
         }
@@ -62,8 +71,13 @@ public class Perso : DetecteurSol
         {
             _auDeuxiemeSaut = false; // Réinitialise l'indicateur de deuxième saut.
             _nbFramesRestants = _nbFramesMax; // Réinitialise le nombre de frames restantes pour sauter.
+<<<<<<< HEAD
             if (!_possedeDoublesSauts) return; // Si le joueur ne possède pas le pouvoir de double saut, arrête la méthode ici.
             _peutDoubleSauter = true; // Autorise le double saut.
+=======
+            if (_possedeDoublesSauts) _peutDoubleSauter = true; // Si le joueur ne possède pas le pouvoir de double saut, arrête la méthode ici.
+            // _peutDoubleSauter = true; // Autorise le double saut.
+>>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
         }
         else // Si le joueur n'est pas au sol et ne maintient pas le bouton de saut.
         {
@@ -116,4 +130,15 @@ public class Perso : DetecteurSol
             _peutDoubleSauter = false; // Déclare que le joueur ne peut plus faire de double saut.
         } 
     }
+<<<<<<< HEAD
+=======
+    
+    /// <summary>
+    /// Callback sent to all game objects before the application is quit.
+    /// </summary>
+    void OnApplicationQuit()
+    {
+        // _donnees.Initialiser();
+    }
+>>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
 }

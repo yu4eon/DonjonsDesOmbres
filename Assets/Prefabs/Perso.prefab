@@ -16,7 +16,11 @@ GameObject:
   - component: {fileID: 819095134103182047}
   m_Layer: 0
   m_Name: Perso
+<<<<<<< HEAD
   m_TagString: Untagged
+=======
+  m_TagString: Player
+>>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +80,11 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 886307049
+<<<<<<< HEAD
   m_SortingLayer: 4
+=======
+  m_SortingLayer: 0
+>>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 13677b34438d99c49b63ad88ce3f8562, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

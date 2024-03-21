@@ -622,6 +622,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5036836898586025548, guid: 3d0c754810aa08d479b05deab755edc8, type: 3}
+      propertyPath: _donnees
+      value: 
+      objectReference: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
+    - target: {fileID: 5036836898586025548, guid: 3d0c754810aa08d479b05deab755edc8, type: 3}
       propertyPath: _mask.m_Bits
       value: 8
       objectReference: {fileID: 0}

@@ -71,6 +71,11 @@ public class SOPerso : ScriptableObject
 
     }
 
+    public void AjouterArgent(int value)
+    {
+        argent += value;
+    }
+
     void AfficherInventaire()
     {
         string inventaire = "";
@@ -84,6 +89,7 @@ public class SOPerso : ScriptableObject
         }
         Debug.Log("Inventaire du perso : " + inventaire);
     }
+
 
     void OnValidate()
     {

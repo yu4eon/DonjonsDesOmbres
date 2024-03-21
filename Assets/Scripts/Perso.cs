@@ -11,7 +11,7 @@ public class Perso : DetecteurSol
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
     [SerializeField] bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
-    // [SerializeField] SOPerso _donnees;
+    [SerializeField] SOPerso _donnees;
 
     float _axeHorizontal; // Axe horizontal du personnage.
     int _nbFramesRestants = 0; // Nombre de frames restantes pendant lesquelles le joueur peut sauter.
@@ -124,6 +124,6 @@ public class Perso : DetecteurSol
     /// </summary>
     void OnApplicationQuit()
     {
-        // _donnees.Initialiser();
+        _donnees.Initialiser();
     }
 }

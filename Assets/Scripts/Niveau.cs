@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// Classe qui gère la tilemap principal, contenant toutes les salles du niveau
@@ -11,6 +13,11 @@ public class Niveau : MonoBehaviour
     [SerializeField] Salle[] _tSallesModeles; // Tableau de tous les prefabs de salles disponibles.
     [SerializeField] Vector2Int _taille = new Vector2Int(3, 3); // Taille du niveau en 2 dimensions, sur l'axe x et y.
     [SerializeField] TileBase _tuileModele; // Tuile utilisé pour les bordures
+    [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
+    [SerializeField, Range(0, 20)] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon
+    // [SerializeField] Porte _porteModele //Modele de porte, quand il sera fait
+    // [SerializeField] Cle _cleModele //Modele de clé quand il sera fait
+    [SerializeField] GameObject _specialModele; //Sera changé pour un bonus plus tard, uniquement pour tester en ce moment
     
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
     List<Vector2Int> _lesPosSurReperes = new List<Vector2Int>(); // Liste des positions sur les repères. #tp3 Léon
@@ -24,7 +31,7 @@ public class Niveau : MonoBehaviour
      void Awake()
     {
         //Singleton #tp3 Léon
-        if(_instance == null) //si l'instance est null
+        if (_instance == null) //si l'instance est null
         {
             _instance = this; //l'instance est égale à cette instance
         }
@@ -33,8 +40,49 @@ public class Niveau : MonoBehaviour
             Destroy(gameObject); //sinon, détruit l'objet
         }
 
+        // #tp3 Léon
+        CreerNiveau();
+        // #tp3 Léon
+        TrouverPosLibres();
+        PlacerLesJoyaux();
+    }
+
+    void PlacerLesJoyaux()
+    {
+        Transform contenant = new GameObject("Joyaux").transform; // Crée un GameObject pour contenir les joyaux.
+        contenant.parent = transform; // Assigne le niveau comme parent du contenant.
+        int nbJoyaux = _nbJoyauxParSalle * _taille.x * _taille.y; // Calcul du nombre total de joyaux à placer.
+        for (int i = 0; i < nbJoyaux; i++) // Boucle pour placer les joyaux.
+        {
+            int indexJoyau = Random.Range(0, _tJoyauxModeles.Length); // Sélectionne un joyau aléatoire.
+            Joyau joyauModele = _tJoyauxModeles[indexJoyau]; // Obtient le prefab du joyau.
+
+            Vector2Int pos = ObtenirPosLibre(); // Obtient une position libre aléatoire.
+            Vector3 pos3 = (Vector3)(Vector2)pos + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertit la position
+            Instantiate(joyauModele, pos3, Quaternion.identity, contenant); // Crée le joyau à la position obtenue.
+            if(_lesPosLibres.Count == 0) // Si il n'y a plus de position libre.
+            {
+                Debug.LogWarning("Plus de place pour les joyaux"); // Affiche un message d'avertissement.
+                break; // Sort de la boucle.
+            }
+        }
+    }
+
+    Vector2Int ObtenirPosLibre()
+    {
+        int indexPosLibre = Random.Range(0, _lesPosLibres.Count);
+        Vector2Int pos = _lesPosLibres[indexPosLibre];
+        _lesPosLibres.RemoveAt(indexPosLibre);
+        return pos;
+    }
+
+    void CreerNiveau()
+    {
+
         // Calcul de la taille de la salle avec une bordure.
         Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
+
+        Vector2Int placementSpecial = new Vector2Int(Random.Range(0 ,_taille.x), Random.Range(0, _taille.y));
 
         // Boucle pour placer les salles dans le niveau selon la taille spécifiée dans l'axe x.
         for (int x = 0; x < _taille.x; x++)
@@ -42,13 +90,25 @@ public class Niveau : MonoBehaviour
             // Boucle pour placer les salles dans le niveau selon la taille spécifiée dans l'axe y.
             for (int y = 0; y < _taille.y; y++)
             {
+                // Debug.Log("position actuel" +x + "," + y);
+
+                Vector2Int placementSalle = new Vector2Int(x,y); // #tp3, Léon Yu, Position selon la grille de la salle
+
                 // Position de la salle.
                 Vector2 pos = new Vector2(tailleAvecUneBordure.x * x, tailleAvecUneBordure.y * y);
-                
-                Salle planche = Instantiate(_tSallesModeles[Random.Range(0,_tSallesModeles.Length)], pos, Quaternion.identity, transform);
-                
+
+                Salle salle = Instantiate(_tSallesModeles[Random.Range(0, _tSallesModeles.Length)], pos, Quaternion.identity, transform);
+
                 // Nomme la salle selon sa position dans le niveau.
-                planche.name = "Salle" + x + "_" + y;
+                salle.name = "Salle" + x + "_" + y;
+
+                if(placementSpecial == placementSalle)
+                {
+                    Debug.Log("Salle avec objet special : " + placementSalle);
+                    Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
+                    Vector2Int posRep = salle.PlacerSurRepere(_specialModele) - decalage;
+                    _lesPosSurReperes.Add(posRep);
+                }
             }
         }
 
@@ -60,7 +120,7 @@ public class Niveau : MonoBehaviour
         // Boucle pour la création des bordures du niveau sur l'axe y.
         for (int y = min.y; y <= max.y; y++)
         {
-        // Boucle pour la création des bordures du niveau sur l'axe x.
+            // Boucle pour la création des bordures du niveau sur l'axe x.
             for (int x = min.x; x <= max.x; x++)
             {
                 // Si la position s'agit d'Une position de bordure.
@@ -68,14 +128,12 @@ public class Niveau : MonoBehaviour
                 {
                     Vector3Int pos = new Vector3Int(x, y, 0);
                     _tilemapNiveau.SetTile(pos, _tuileModele);
-                    Debug.Log(x + " " + y);
+                    // Debug.Log(x + " " + y);
                 }
             }
         }
-
-        // #tp3 Léon
-        TrouverPosLibres(); 
     }
+
     /// <summary>
     /// Trouve les positions dans la scène ou il n'y a aucune tuile. #tp3 Léon
     /// </summary>
@@ -99,6 +157,12 @@ public class Niveau : MonoBehaviour
             _lesPosLibres.Remove(pos);
         }
         Debug.Log(_lesPosLibres.Count + " espaces libres : "+ string.Join(", ", _lesPosLibres));
+    }
+
+    public void LibererUnePos(Vector3 posPrecise)
+    {
+        Vector2Int pos = Vector2Int.FloorToInt(posPrecise - _tilemapNiveau.transform.position);
+        _lesPosLibres.Add(pos);
     }
 
     /// <summary>

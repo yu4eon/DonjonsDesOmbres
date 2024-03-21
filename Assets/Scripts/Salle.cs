@@ -14,16 +14,9 @@ public class Salle : MonoBehaviour
     // Propriété pour accéder à la taille de la salle.
     static public Vector2Int taille => _taille;
 
-    [SerializeField] Transform _repere; // Repère pour placer les éléments intéractifs importants, c'est donc un endroit facilement accéssible. #tp3 Léon
+    [SerializeField] Transform[] _tReperes; // Tableau de repères pour placer les éléments intéractifs importants, c'est donc un endroit facilement accéssible. #tp3 Léon
 
-    /// <summary>
-    /// Utiliser purement pour afficher la taille de la salle
-    /// </summary>
-    public void Tester()
-    {
-        // Affiche des informations sur la salle dans la console.
-        Debug.Log($"Planche {name} est à la position {transform.position} et a une taille de {taille} cases.");
-    }
+    // #tp3 leon, Supprimer la methode Tester car elle etait inutile
 
     /// <summary>
     /// Méthode de Unity pour les Gizmos
@@ -40,7 +33,8 @@ public class Salle : MonoBehaviour
     /// <returns>La position ou l'objet doit etre placé</returns>
     public Vector2Int PlacerSurRepere(GameObject _modele)
     {
-        Vector3 pos = _repere.position;
+        int n = Random.Range(0, _tReperes.Length);
+        Vector3 pos = _tReperes[n].position;
         Instantiate(_modele, pos, Quaternion.identity, transform.parent);
         return Vector2Int.FloorToInt(pos);
     }

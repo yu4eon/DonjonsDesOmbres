@@ -161,14 +161,11 @@ MonoBehaviour:
   - {fileID: -987097936463006515, guid: f70df123c2aed10448defc42dcfc3678, type: 3}
   _taille: {x: 3, y: 3}
   _tuileModele: {fileID: 11400000, guid: 39ee99283c0fb2d498d889b85db3986a, type: 2}
-<<<<<<< HEAD
-=======
   _tJoyauxModeles:
   - {fileID: 4263084188647883792, guid: a40bbab19bb0d524587e04508a2232a9, type: 3}
   - {fileID: 210884858974498954, guid: 7c884b051f807ea4db16ed08e7256a30, type: 3}
   _nbJoyauxParSalle: 5
   _specialModele: {fileID: 8828442281800060933, guid: 971990b73e1ae7945ad11c2746786321, type: 3}
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
 --- !u!156049354 &308034227
 Grid:
   m_ObjectHideFlags: 0
@@ -530,8 +527,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
 --- !u!1 &1517503171
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,7 +605,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
 --- !u!1001 &1748515520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -623,13 +617,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Perso
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-=======
     - target: {fileID: 3730320321606764122, guid: 3d0c754810aa08d479b05deab755edc8, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
     - target: {fileID: 5036836898586025548, guid: 3d0c754810aa08d479b05deab755edc8, type: 3}
       propertyPath: _mask.m_Bits
       value: 8
@@ -686,7 +677,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 308034228}
   - {fileID: 1748515520}
-<<<<<<< HEAD
-=======
   - {fileID: 1517503174}
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440

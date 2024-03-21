@@ -1,34 +1,14 @@
 using System.Collections;
-<<<<<<< HEAD
-using UnityEngine;
-using UnityEngine.Tilemaps;
-=======
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
 
 /// <summary>
 /// Classe qui gère la tilemap principal, contenant toutes les salles du niveau
 public class Niveau : MonoBehaviour
 {
-<<<<<<< HEAD
-    [SerializeField] Tilemap _tilemap; // tilemap du niveau
-    [SerializeField] Salle[] _tSallesModeles; // Tableau de tous les prefabs de salles disponibles.
-    [SerializeField] Vector2Int _taille = new Vector2Int(3, 3); // Taille du niveau en 2 dimensions, sur l'axe x et y.
-    [SerializeField] TileBase _tuileModele; // Tuile utilisé pour les bordures
-
-    // Propriété publique qui permet l'accès à la tilemap du niveau.
-    public Tilemap tilemap => _tilemap;
-
-    void Awake()
-    {
-        // Calcul de la taille de la salle avec une bordure.
-        Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
-
-=======
     [SerializeField] Tilemap _tilemapNiveau; // tilemap du niveau #tp3 Léon - J'ai changé le nom de la variable pour être plus explicite.
     [SerializeField] Salle[] _tSallesModeles; // Tableau de tous les prefabs de salles disponibles.
     [SerializeField] Vector2Int _taille = new Vector2Int(3, 3); // Taille du niveau en 2 dimensions, sur l'axe x et y.
@@ -104,22 +84,12 @@ public class Niveau : MonoBehaviour
 
         Vector2Int placementSpecial = new Vector2Int(Random.Range(0 ,_taille.x), Random.Range(0, _taille.y));
 
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
         // Boucle pour placer les salles dans le niveau selon la taille spécifiée dans l'axe x.
         for (int x = 0; x < _taille.x; x++)
         {
             // Boucle pour placer les salles dans le niveau selon la taille spécifiée dans l'axe y.
             for (int y = 0; y < _taille.y; y++)
             {
-<<<<<<< HEAD
-                // Position de la salle.
-                Vector2 pos = new Vector2(tailleAvecUneBordure.x * x, tailleAvecUneBordure.y * y);
-                
-                Salle planche = Instantiate(_tSallesModeles[Random.Range(0,_tSallesModeles.Length)], pos, Quaternion.identity, transform);
-                
-                // Nomme la salle selon sa position dans le niveau.
-                planche.name = "Salle" + x + "_" + y;
-=======
                 // Debug.Log("position actuel" +x + "," + y);
 
                 Vector2Int placementSalle = new Vector2Int(x,y); // #tp3, Léon Yu, Position selon la grille de la salle
@@ -139,7 +109,6 @@ public class Niveau : MonoBehaviour
                     Vector2Int posRep = salle.PlacerSurRepere(_specialModele) - decalage;
                     _lesPosSurReperes.Add(posRep);
                 }
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
             }
         }
 
@@ -151,40 +120,21 @@ public class Niveau : MonoBehaviour
         // Boucle pour la création des bordures du niveau sur l'axe y.
         for (int y = min.y; y <= max.y; y++)
         {
-<<<<<<< HEAD
-        // Boucle pour la création des bordures du niveau sur l'axe x.
-=======
             // Boucle pour la création des bordures du niveau sur l'axe x.
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
             for (int x = min.x; x <= max.x; x++)
             {
                 // Si la position s'agit d'Une position de bordure.
                 if (x == min.x || x == max.x || y == min.y || y == max.y)
                 {
                     Vector3Int pos = new Vector3Int(x, y, 0);
-<<<<<<< HEAD
-                    _tilemap.SetTile(pos, _tuileModele);
-                    Debug.Log(x + " " + y);
-=======
                     _tilemapNiveau.SetTile(pos, _tuileModele);
                     // Debug.Log(x + " " + y);
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
                 }
             }
         }
     }
 
     /// <summary>
-<<<<<<< HEAD
-    /// Méthode publique appelé par CarteTuiles qui ajoute une tuile à la tilemap du niveau.
-    /// </summary>
-    /// <param name="tilemap">Tilemap d'ou vient la tuile</param>
-    /// <param name="niveau">Niveau dans laquel ajouter la tuile</param>
-    /// <param name="y">Position y de la tuile à ajouter</param>
-    /// <param name="x">Position x de la tuile à ajouter</param>
-    /// <param name="decalage">Décalage à appliquer à la tuile</param>
-    public void AjouterTuile(Tilemap tilemap, Niveau niveau, int y, int x, Vector3Int decalage)
-=======
     /// Trouve les positions dans la scène ou il n'y a aucune tuile. #tp3 Léon
     /// </summary>
     void TrouverPosLibres()
@@ -224,7 +174,6 @@ public class Niveau : MonoBehaviour
     /// <param name="x">Position x de la tuile à ajouter</param>
     /// <param name="decalage">Décalage à appliquer à la tuile</param>
     public void AjouterTuile(Tilemap tilemap, int y, int x, Vector3Int decalage)
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
     {
         Vector3Int pos = new Vector3Int(x, y, 0);
         TileBase tile = tilemap.GetTile(pos);
@@ -232,11 +181,7 @@ public class Niveau : MonoBehaviour
         // Vérifie si la tuile existe.
         if (tile != null)
         {
-<<<<<<< HEAD
-            niveau.tilemap.SetTile(pos + decalage, tile);
-=======
             _tilemapNiveau.SetTile(pos + decalage, tile);
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
         }
     }
 }

@@ -19,11 +19,7 @@ public class CarteTuiles : MonoBehaviour
         _tilemap = GetComponent<Tilemap>(); 
 
         BoundsInt bounds = _tilemap.cellBounds; 
-<<<<<<< HEAD
-        Niveau niveau = GetComponentInParent<Niveau>(); 
-=======
         // Niveau niveau = GetComponentInParent<Niveau>(); Plus nécessaire, car il y a un Singleton de Niveau
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
         Vector3Int decalage = Vector3Int.FloorToInt(transform.position); 
 
         // Détermine si les tuiles doit apparaître par un tirage aléatoire
@@ -36,11 +32,7 @@ public class CarteTuiles : MonoBehaviour
                 for (int y = bounds.yMin; y < bounds.yMax; y++)
                 {
                     // Ajoute la tuile à la tilemap principal
-<<<<<<< HEAD
-                    niveau.AjouterTuile(_tilemap, niveau, y, x, decalage);
-=======
                     Niveau.instance.AjouterTuile(_tilemap, y, x, decalage);
->>>>>>> 59219c6536e7217ae3944502671d0c7ec078b440
                 }
             }
             gameObject.SetActive(false);

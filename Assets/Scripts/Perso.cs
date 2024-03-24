@@ -20,7 +20,6 @@ public class Perso : DetecteurSol
             _possedeDoublesSauts = true;
         }
     }
-    [SerializeField] SOPerso _donnees;
 
     float _axeHorizontal; // Axe horizontal du personnage.
     int _nbFramesRestants = 0; // Nombre de frames restantes pendant lesquelles le joueur peut sauter.

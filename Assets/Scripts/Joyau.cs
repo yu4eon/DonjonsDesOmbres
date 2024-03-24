@@ -16,7 +16,6 @@ public class Joyau : MonoBehaviour
             Niveau.instance.LibererUnePos(transform.position);
             Retroaction retro = Instantiate(_retroModele, transform.position, Quaternion.identity, transform.parent);
             retro.ChangerTexte("+" + _valeur + " or");
-            // _donneesPerso.argent += _valeur; //A ajouter quand on fusionne nos scripts
             _donneesPerso.AjouterArgent(_valeur); //Alternatif meilleur
             Destroy(gameObject);
         }

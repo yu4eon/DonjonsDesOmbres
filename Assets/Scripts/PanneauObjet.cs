@@ -18,9 +18,6 @@ public class PanneauObjet : MonoBehaviour
     [SerializeField] Image _image;
     [SerializeField] CanvasGroup _canvasGroup;
 
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
     void Start()
     {
         MettreAJourInfos();

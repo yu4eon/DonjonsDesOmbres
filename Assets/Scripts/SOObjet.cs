@@ -13,6 +13,8 @@ public class SOObjet : ScriptableObject
     [SerializeField][Range(1, 5)] int _niveauRequis = 1;
     [SerializeField, TextArea]/*TextArea*/ string _description;
     [SerializeField][Tooltip("Cet objet donne-t-il droit au rabais?")] bool _donneDroitRabais = false;
+    [SerializeField][Tooltip("Cet objet a t'il été acheter?")] bool _estAcheter = false;
+
 
     public string nom { get => _nom; set => _nom = value; }
     public Sprite sprite { get => _sprite; set => _sprite = value; }
@@ -21,7 +23,7 @@ public class SOObjet : ScriptableObject
         get
         {
             float facteur = 1f;
-            if(Boutique.instance != null) facteur = Boutique.instance.donneesPerso.facteurPrix;
+            if (Boutique.instance != null) facteur = Boutique.instance.donneesPerso.facteurPrix;
             int prix = Mathf.RoundToInt(_prixDeBase * facteur);
             return prix;
         }
@@ -29,4 +31,5 @@ public class SOObjet : ScriptableObject
     public int niveauRequis { get => _niveauRequis; set => _niveauRequis = Mathf.Clamp(value, 0, int.MaxValue); }
     public string description { get => _description; set => _description = value; }
     public bool donneDroitRabais { get => _donneDroitRabais; set => _donneDroitRabais = value; }
+    public bool estAcheter { get => _estAcheter; set => _estAcheter = value; }
 }

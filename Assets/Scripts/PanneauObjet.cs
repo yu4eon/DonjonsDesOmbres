@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class PanneauObjet : MonoBehaviour
 {
@@ -18,9 +18,6 @@ public class PanneauObjet : MonoBehaviour
     [SerializeField] Image _image;
     [SerializeField] CanvasGroup _canvasGroup;
 
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
     void Start()
     {
         MettreAJourInfos();
@@ -30,7 +27,7 @@ public class PanneauObjet : MonoBehaviour
     void MettreAJourInfos()
     {
         _champNom.text = _donnees.nom;
-        _champPrix.text = _donnees.prix + " $";
+        _champPrix.text = _donnees.prix.ToString();
         _champDescription.text = _donnees.description;
         _image.sprite = _donnees.sprite;
         GererDispo();
@@ -40,7 +37,7 @@ public class PanneauObjet : MonoBehaviour
     {
         bool aNiveauRequis = Boutique.instance.donneesPerso.niveau >= _donnees.niveauRequis;
         bool aAssezArgent = Boutique.instance.donneesPerso.argent >= _donnees.prix;
-        if(aNiveauRequis && aAssezArgent)
+        if (aNiveauRequis && aAssezArgent && _donnees.estAcheter == false)
         {
             _canvasGroup.interactable = true;
             _canvasGroup.alpha = 1;
@@ -52,8 +49,11 @@ public class PanneauObjet : MonoBehaviour
         }
     }
 
+
     public void Acheter()
     {
         Boutique.instance.donneesPerso.Acheter(_donnees);
+        MettreAJourInfos();
     }
 }
+

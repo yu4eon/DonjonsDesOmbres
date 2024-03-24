@@ -15,6 +15,13 @@ public class SOPerso : ScriptableObject
     [SerializeField, Range(1, 5)] int _niveauIni = 1;
     [SerializeField, Range(0, 500)] int _argentIni = 100;
 
+    int baseAttaque = 10;
+    int attaqueBonus;
+    int baseDefense = 10;
+    int defenseBonus;
+    int basePv = 10;
+    int pvBonus;
+
     public int niveau
     {
         get => _niveau;
@@ -58,8 +65,15 @@ public class SOPerso : ScriptableObject
     {
         _niveau = _niveauIni;
         _argent = _argentIni;
+        foreach (SOObjet objet in _lesObjets)
+        {
+            objet.estAcheter = false;
+        }
         _lesObjets.Clear();
         _facteurPrix = _facteurPrixIni;
+        attaqueBonus = 0;
+        defenseBonus = 0;
+        // Reset tout les variable des SOObjet estAcheter à false
     }
 
     public void Acheter(SOObjet donneesObjet)
@@ -68,7 +82,17 @@ public class SOPerso : ScriptableObject
         if (donneesObjet.donneDroitRabais) facteurPrix = _facteurPrixSiRabais;
         _lesObjets.Add(donneesObjet);
         AfficherInventaire();
+        if (donneesObjet.nom == "Bonus attaque") attaqueBonus += 10; Debug.Log("Bonus attaque: " + attaqueBonus);
+        if (donneesObjet.nom == "Bonus défense") defenseBonus += 10; Debug.Log("Bonus défence: " + defenseBonus);
+        if (donneesObjet.nom == "Bonus pv") pvBonus += 10; Debug.Log("Bonus pv: " + pvBonus);
+        if (donneesObjet.nom == "Double saut") Perso.possedeDoublesSauts = true;
+        if (donneesObjet.estAcheter == false) donneesObjet.estAcheter = true;
+    }
 
+    public void AjouterArgent(int value)
+    {
+        argent += value;
+        Debug.Log("Argent ajouté: " + argent);
     }
 
     void AfficherInventaire()
@@ -84,6 +108,7 @@ public class SOPerso : ScriptableObject
         }
         Debug.Log("Inventaire du perso : " + inventaire);
     }
+
 
     void OnValidate()
     {

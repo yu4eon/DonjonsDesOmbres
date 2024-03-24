@@ -10,8 +10,15 @@ public class Perso : DetecteurSol
     [SerializeField] float _vitesse = 10f; // Vitesse à laquelle le personnage se déplace.
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
-    [SerializeField] bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
-    // [SerializeField] SOPerso _donnees;
+    [SerializeField] static bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
+    static public bool possedeDoublesSauts
+    {
+        set
+        {
+            _possedeDoublesSauts = true;
+        }
+    }
+    [SerializeField] SOPerso _donnees;
 
     float _axeHorizontal; // Axe horizontal du personnage.
     int _nbFramesRestants = 0; // Nombre de frames restantes pendant lesquelles le joueur peut sauter.
@@ -25,7 +32,7 @@ public class Perso : DetecteurSol
     /// <summary>
     /// Méthode qui est appelée lorsque le script est chargé.
     /// </summary>
-    void Awake() 
+    void Awake()
     {
         _rb = GetComponent<Rigidbody2D>(); // Obtient le Rigidbody du personnage.
         _sr = GetComponent<SpriteRenderer>(); // Obtient le SpriteRenderer du personnage.
@@ -116,14 +123,14 @@ public class Perso : DetecteurSol
         else if (_auDeuxiemeSaut && _nbFramesRestants == 0) // Si le joueur est au deuxième saut et qu'il ne peut plus sauter.
         {
             _peutDoubleSauter = false; // Déclare que le joueur ne peut plus faire de double saut.
-        } 
+        }
     }
-    
+
     /// <summary>
     /// Callback sent to all game objects before the application is quit.
     /// </summary>
     void OnApplicationQuit()
     {
-        // _donnees.Initialiser();
+        _donnees.Initialiser();
     }
 }

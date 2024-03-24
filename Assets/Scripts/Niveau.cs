@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
 /// <summary>
+/// Auteur du code : Léon Yu. Antoine Lachance
+/// Commenteur du code : Léon Yu et Antoine Lachance
 /// Classe qui gère la tilemap principal, contenant toutes les salles du niveau
 public class Niveau : MonoBehaviour
 {
@@ -14,7 +17,7 @@ public class Niveau : MonoBehaviour
     [SerializeField] Vector2Int _taille = new Vector2Int(3, 3); // Taille du niveau en 2 dimensions, sur l'axe x et y.
     [SerializeField] TileBase _tuileModele; // Tuile utilisé pour les bordures
     [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
-    [SerializeField, Range(0, 20)] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon
+    [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     // [SerializeField] Porte _porteModele //Modele de porte, quand il sera fait
     // [SerializeField] Cle _cleModele //Modele de clé quand il sera fait
     [SerializeField] GameObject _specialModele; //Sera changé pour un bonus plus tard, uniquement pour tester en ce moment
@@ -79,6 +82,8 @@ public class Niveau : MonoBehaviour
     void CreerNiveau()
     {
 
+
+
         // Calcul de la taille de la salle avec une bordure.
         Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
 
@@ -101,6 +106,16 @@ public class Niveau : MonoBehaviour
 
                 // Nomme la salle selon sa position dans le niveau.
                 salle.name = "Salle" + x + "_" + y;
+
+                foreach(Transform posEffector in salle.tEffectors)
+                {
+                    for(int i = -1; i < 2; i++)
+                    {
+                        Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
+                        Vector2Int posRep = new Vector2Int(Mathf.FloorToInt(posEffector.position.x - i), Mathf.FloorToInt(posEffector.position.y)) - decalage;
+                        _lesPosSurReperes.Add(posRep);
+                    }
+                }
 
                 if(placementSpecial == placementSalle)
                 {

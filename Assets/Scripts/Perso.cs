@@ -8,9 +8,11 @@ using UnityEngine.InputSystem;
 public class Perso : DetecteurSol
 {
     [SerializeField] float _vitesse = 10f; // Vitesse à laquelle le personnage se déplace.
+    float _vitesseInitial;
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
     [SerializeField] static bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
+    [SerializeField] SOPerso _donnees;
     static public bool possedeDoublesSauts
     {
         set
@@ -25,6 +27,7 @@ public class Perso : DetecteurSol
     bool _veutSauter; // Si le joueur veut sauter.
     bool _peutDoubleSauter = false; // Si le joueur peut faire un double saut.
     bool _auDeuxiemeSaut; // Si le joueur est au deuxième saut.
+    bool _estRapide;
 
     Rigidbody2D _rb; // Rigidbody du personnage.
     SpriteRenderer _sr; // SpriteRenderer du personnage.
@@ -36,6 +39,7 @@ public class Perso : DetecteurSol
     {
         _rb = GetComponent<Rigidbody2D>(); // Obtient le Rigidbody du personnage.
         _sr = GetComponent<SpriteRenderer>(); // Obtient le SpriteRenderer du personnage.
+        _vitesseInitial = _vitesse;
     }
 
     /// <summary>
@@ -126,6 +130,25 @@ public class Perso : DetecteurSol
         }
     }
 
+    public void AugmenterVitesse()
+    {
+        if(_estRapide) return;
+        _vitesse = _vitesse*1.5f;
+        _estRapide = true;
+        StartCoroutine(ChangerVitesse());
+
+    }
+
+    IEnumerator ChangerVitesse()
+    {
+        yield return new WaitForSeconds(2);
+        _vitesse = _vitesse/1.2f;
+        yield return new WaitForSeconds(2);
+        _vitesse = _vitesseInitial;
+        _estRapide = false;
+        
+    }
+    
     /// <summary>
     /// Callback sent to all game objects before the application is quit.
     /// </summary>

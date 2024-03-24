@@ -136,7 +136,7 @@ MonoBehaviour:
   _vitesse: 10
   _forceSaut: 120
   _nbFramesMax: 10
-  _possedeDoublesSauts: 0
+  _donnees: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
 --- !u!60 &3296702771639569974
 PolygonCollider2D:
   m_ObjectHideFlags: 0

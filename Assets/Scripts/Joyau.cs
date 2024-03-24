@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Joyau : MonoBehaviour
 {
-    [SerializeField, Range(0f, 1f)] float _valeur = 0.1f; // Valeur du joyau
+    [SerializeField, Range(0, 10)] int _valeur = 1; // Valeur du joyau
     [SerializeField] Retroaction _retroModele;
     // [SerializeField] SOPerso _donneesPerso;
 

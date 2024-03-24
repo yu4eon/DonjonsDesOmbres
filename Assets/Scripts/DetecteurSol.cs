@@ -29,7 +29,7 @@ public class DetecteurSol : MonoBehaviour
         Vector2 pointDepart = (Vector2)transform.position + _posCentreBoite;
         Collider2D collision = Physics2D.OverlapBox(pointDepart, _tailleBoite, 0, _mask);
         _estAuSol = collision != null;
-        Debug.Log("Est au sol?" +_estAuSol);
+        // Debug.Log("Est au sol?" +_estAuSol);
     }
 
     /// <summary>

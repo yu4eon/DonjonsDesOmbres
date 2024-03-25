@@ -17,6 +17,7 @@ public class Niveau : MonoBehaviour
     [SerializeField] Vector2Int _taille = new Vector2Int(3, 3); // Taille du niveau en 2 dimensions, sur l'axe x et y.
     [SerializeField] TileBase _tuileModele; // Tuile utilisé pour les bordures
     [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
+    [SerializeField] Autels[] _tAutelsModeles; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
     [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     // [SerializeField] Porte _porteModele //Modele de porte, quand il sera fait
     // [SerializeField] Cle _cleModele //Modele de clé quand il sera fait
@@ -70,6 +71,22 @@ public class Niveau : MonoBehaviour
             }
         }
     }
+
+    void PlacerAutels()
+    {
+        Transform contenant = new GameObject("Autels").transform; // Crée un GameObject pour contenir les autels.
+        contenant.parent = transform; // Assigne le niveau comme parent du contenant.
+        int nbAutels = 4; // Nombre d'autels à placer.
+        for (int i = 0; i < nbAutels; i++) // Boucle pour placer les autels.
+        {
+            int indexAutel = i + 1; // Sélectionne 
+            Autels autelModele = _tAutelsModeles[indexAutel]; // Obtient le prefab de l'autel.
+
+            Vector2Int pos = ObtenirPosLibre(); // Obtient une position libre aléatoire.
+            Vector3 pos3 = (Vector3)(Vector2)pos + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertit la position
+        }
+    }
+
 
     Vector2Int ObtenirPosLibre()
     {

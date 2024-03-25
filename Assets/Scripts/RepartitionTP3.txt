@@ -1,0 +1,27 @@
+Léon Yu
+-Placement Joyau (À retravailler)
+-Placement des bonus (Détection et mise à jour des emplacements)
+-Amélioration pv et défense
+-bonus des piliers
+-joyau or
+-Activateur
+-Intéractivité joyau (fini)
+-1 particule à déterminer
+-Placement des repères (Fini)
+-Inventaire des tuiles libres (fini)
+-Hierachisation des objets
+-Intéractivité bonus
+-Effector
+
+Antoine Lachance
+-Boutique (fini)
+-Positionement de la porte, clé, personnage et activateur
+-Intéractivité porte, clé activateur
+-Amélioration attaque (fait)
+-Amélioration double saut (fait)
+-Joyau d'argent (10 pour 1 or) (fait)
+-bonus 2 pilliers
+-Placement de l'activateur
+-Placement de la porte, clé et personnage
+-1 particule à déterminer
+-Navigation

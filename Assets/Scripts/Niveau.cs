@@ -46,7 +46,6 @@ public class Niveau : MonoBehaviour
 
         // #tp3 Léon
         CreerNiveau();
-        // #tp3 Léon
         TrouverPosLibres();
         PlacerLesJoyaux();
     }

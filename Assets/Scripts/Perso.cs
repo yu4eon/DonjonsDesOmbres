@@ -13,6 +13,7 @@ public class Perso : DetecteurSol
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
     [SerializeField] static bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
     [SerializeField] SOPerso _donnees;
+    [SerializeField] ParticleSystem _particuleCourse;
     static public bool possedeDoublesSauts
     {
         set
@@ -60,6 +61,12 @@ public class Perso : DetecteurSol
 
         _rb.velocity = new Vector2(_axeHorizontal * _vitesse, _rb.velocity.y); // Déplace le joueur en fonction de l'entrée horizontale.
 
+        Debug.Log(_particuleCourse.isEmitting);
+        if(_rb.velocity.x ==0)
+        {
+            _particuleCourse.Stop();
+        }
+
         if (_veutSauter) // Si le joueur veut sauter.
         {
             if (_peutDoubleSauter && _auDeuxiemeSaut) // Si le joueur peut faire un double saut.
@@ -81,6 +88,7 @@ public class Perso : DetecteurSol
         {
             _auDeuxiemeSaut = true; // Indique que le joueur est au deuxième saut.
             _nbFramesRestants = 0; // Réinitialise le nombre de frames restantes.
+            _particuleCourse.Stop();
         }
     }
 
@@ -91,13 +99,19 @@ public class Perso : DetecteurSol
     void OnMove(InputValue value)
     {
         _axeHorizontal = value.Get<Vector2>().x; // Obtient la valeur de l'axe horizontal de l'entrée.
+        _particuleCourse.Play();
+        Vector3 scaleParticule = _particuleCourse.transform.localScale;
+        
         if (_axeHorizontal < 0) // Si le joueur se déplace vers la gauche.
         {
             _sr.flipX = true; // Tourne le personnage vers la gauche.
+            _particuleCourse.transform.localScale = new Vector3(-scaleParticule.x, scaleParticule.y, scaleParticule.z);
+            
         }
         else if (_axeHorizontal > 0) // Si le joueur se déplace vers la droite.
         {
             _sr.flipX = false; // Tourne le personnage vers la droite.
+            _particuleCourse.transform.localScale = new Vector3(-scaleParticule.x, scaleParticule.y, scaleParticule.z);
         }
     }
 

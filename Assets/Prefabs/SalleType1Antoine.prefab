@@ -3666,6 +3666,10 @@ PrefabInstance:
       propertyPath: m_ForceAngle
       value: -180
       objectReference: {fileID: 0}
+    - target: {fileID: 5952626329021996496, guid: c8555a8d915f6df40befe0baabae5de5, type: 3}
+      propertyPath: InitialModule.randomizeRotationDirection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8894617243275500178, guid: c8555a8d915f6df40befe0baabae5de5, type: 3}
       propertyPath: m_LocalScale.x
       value: -3.3423

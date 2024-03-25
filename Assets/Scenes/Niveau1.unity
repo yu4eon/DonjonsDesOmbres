@@ -164,6 +164,7 @@ MonoBehaviour:
   _tJoyauxModeles:
   - {fileID: 4263084188647883792, guid: a40bbab19bb0d524587e04508a2232a9, type: 3}
   - {fileID: 210884858974498954, guid: 7c884b051f807ea4db16ed08e7256a30, type: 3}
+  _tAutelsModeles: []
   _nbJoyauxParSalle: 5
   _specialModele: {fileID: 8828442281800060933, guid: 971990b73e1ae7945ad11c2746786321, type: 3}
 --- !u!156049354 &308034227
@@ -613,6 +614,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3515368017084569978, guid: 3d0c754810aa08d479b05deab755edc8, type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3730320321606764122, guid: 3d0c754810aa08d479b05deab755edc8, type: 3}
       propertyPath: m_Name
       value: Perso

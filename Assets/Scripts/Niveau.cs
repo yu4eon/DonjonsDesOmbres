@@ -16,14 +16,15 @@ public class Niveau : MonoBehaviour
     [SerializeField] TileBase _tuileModele; // Tuile utilisé pour les bordures
     [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
     [SerializeField] Autels[] _tAutelsModeles; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
-    [SerializeField] Perso _perso; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
-    [SerializeField] Cle _cle; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
-    [SerializeField] GameObject _porte; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
+    [SerializeField] Perso _perso;
+    [SerializeField] GameObject _cle;
+    [SerializeField] GameObject _porte;
+    [SerializeField] GameObject _activateur;
     [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     // [SerializeField] Porte _porteModele //Modele de porte, quand il sera fait
     // [SerializeField] Cle _cleModele //Modele de clé quand il sera fait
     [SerializeField] GameObject _specialModele; //Sera changé pour un bonus plus tard, uniquement pour tester en ce moment
-    
+
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
     List<Vector2Int> _lesPosSurReperes = new List<Vector2Int>(); // Liste des positions sur les repères. #tp3 Léon
 
@@ -33,7 +34,7 @@ public class Niveau : MonoBehaviour
     static Niveau _instance; // Instance statique de la classe. #tp3 Léon
     static public Niveau instance => _instance; // Propriété publique qui permet l'accès à l'instance de la classe. #tp3 Léon
 
-     void Awake()
+    void Awake()
     {
         //Singleton #tp3 Léon
         if (_instance == null) //si l'instance est null
@@ -49,7 +50,7 @@ public class Niveau : MonoBehaviour
         CreerNiveau();
         TrouverPosLibres();
         PlacerAutels();
-        PlacerItems(_perso, _porte, _cle);
+        PlacerItems(_perso, _porte, _cle, _activateur);
         PlacerLesJoyaux();
     }
 
@@ -66,7 +67,7 @@ public class Niveau : MonoBehaviour
             Vector2Int pos = ObtenirPosLibre(); // Obtient une position libre aléatoire.
             Vector3 pos3 = (Vector3)(Vector2)pos + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertit la position
             Instantiate(joyauModele, pos3, Quaternion.identity, contenant); // Crée le joyau à la position obtenue.
-            if(_lesPosLibres.Count == 0) // Si il n'y a plus de position libre.
+            if (_lesPosLibres.Count == 0) // Si il n'y a plus de position libre.
             {
                 Debug.LogWarning("Plus de place pour les joyaux"); // Affiche un message d'avertissement.
                 break; // Sort de la boucle.
@@ -74,7 +75,7 @@ public class Niveau : MonoBehaviour
         }
     }
 
-   void PlacerAutels() 
+    void PlacerAutels()
     {
         Transform contenant = new GameObject("Autels").transform; // Crée un GameObject pour contenir les autels.
         contenant.parent = transform; // Assigne le niveau comme parent du contenant.
@@ -90,7 +91,7 @@ public class Niveau : MonoBehaviour
             if (PositionDessusEstVide(pos) && PositionDessousEstOccupee(pos))
             {
                 Vector3 pos3 = (Vector3)(Vector2)pos + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertit la position
-                pos3 += new Vector3(0,1,0); // Positionne l'autel au dessus de la position.
+                pos3 += new Vector3(0, 1, 0); // Positionne l'autel au dessus de la position.
                 Instantiate(autelModele, pos3, Quaternion.identity, contenant); // Crée le joyau à la position obtenue.
             }
             else
@@ -99,7 +100,7 @@ public class Niveau : MonoBehaviour
                 i--; // Réduit le compteur pour réessayer de placer un autel.
             }
 
-            if(_lesPosLibres.Count == 0) // Si il n'y a plus de position libre.
+            if (_lesPosLibres.Count == 0) // Si il n'y a plus de position libre.
             {
                 Debug.LogWarning("Plus de place pour les autels"); // Affiche un message d'avertissement.
                 break; // Sort de la boucle.
@@ -128,7 +129,7 @@ public class Niveau : MonoBehaviour
         return !_lesPosLibres.Contains(posDessous);
     }
 
-    void PlacerItems(Perso perso, GameObject porte, Cle cle)
+    void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur)
     {
         Transform contenant = new GameObject("Perso").transform; // Crée un GameObject pour contenir le perso, la porte et la clé.
         contenant.parent = transform; // Assigne le niveau comme parent du contenant.
@@ -139,14 +140,10 @@ public class Niveau : MonoBehaviour
         Instantiate(perso, pos3Perso, Quaternion.identity, contenant);
 
         // Placer la porte.
-        // Vector2Int posPorteRepere = _lesPosSurReperes[Random.Range(0, _lesPosSurReperes.Count)];
-        // Vector3 pos3Porte = (Vector3)(Vector2)posPorteRepere + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor;
-        // Instantiate(porte, pos3Porte, Quaternion.identity, contenant);
-        // Salle salle = GetComponentInChildren<Salle>();
         List<string> extremitees = new List<string>
         {
-            "Salle0_0",
             "Salle0_2",
+            "Salle0_0",
             "Salle2_2",
             "Salle2_0",
         };
@@ -158,16 +155,30 @@ public class Niveau : MonoBehaviour
         contenant = new GameObject("Porte").transform;
         contenant.parent = transform;
 
+
         // Placer la clé.
-        Vector2Int posCle = ObtenirPosLibre();
-        Vector3 pos3Cle = (Vector3)(Vector2)posCle + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor;
-        Instantiate(cle, pos3Cle, Quaternion.identity);
+        extremitees.Reverse();
+        Salle salle2 = GameObject.Find(extremitees[nb]).GetComponentInChildren<Salle>();
+        Vector2Int posRep2 = salle2.PlacerSurRepere(cle) - decalage;
+        extremitees.Reverse();
+
+
+        // Placer l'activateur.
+
+        // Récupérer le composant Niveau
+        Niveau niveau = GetComponent<Niveau>();
+        // Choisir un index aléatoire
+        int index = Random.Range(0, niveau.transform.childCount);
+        // Récupérer la salle aléatoire
+        Salle salleAleatoire = niveau.transform.GetChild(index).GetComponent<Salle>();
+        // Activer la salle
+        salleAleatoire.PlacerSurRepere(activateur);
     }
 
 
 
 
-    
+
 
 
 
@@ -188,7 +199,7 @@ public class Niveau : MonoBehaviour
         // Calcul de la taille de la salle avec une bordure.
         Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
 
-        Vector2Int placementSpecial = new Vector2Int(Random.Range(0 ,_taille.x), Random.Range(0, _taille.y));
+        Vector2Int placementSpecial = new Vector2Int(Random.Range(0, _taille.x), Random.Range(0, _taille.y));
 
         // Boucle pour placer les salles dans le niveau selon la taille spécifiée dans l'axe x.
         for (int x = 0; x < _taille.x; x++)
@@ -198,7 +209,7 @@ public class Niveau : MonoBehaviour
             {
                 // Debug.Log("position actuel" +x + "," + y);
 
-                Vector2Int placementSalle = new Vector2Int(x,y); // #tp3, Léon Yu, Position selon la grille de la salle
+                Vector2Int placementSalle = new Vector2Int(x, y); // #tp3, Léon Yu, Position selon la grille de la salle
 
                 // Position de la salle.
                 Vector2 pos = new Vector2(tailleAvecUneBordure.x * x, tailleAvecUneBordure.y * y);
@@ -208,9 +219,9 @@ public class Niveau : MonoBehaviour
                 // Nomme la salle selon sa position dans le niveau.
                 salle.name = "Salle" + x + "_" + y;
 
-                foreach(Transform posEffector in salle.tEffectors)
+                foreach (Transform posEffector in salle.tEffectors)
                 {
-                    for(int i = -1; i < 2; i++)
+                    for (int i = -1; i < 2; i++)
                     {
                         Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
                         Vector2Int posRep = new Vector2Int(Mathf.FloorToInt(posEffector.position.x - i), Mathf.FloorToInt(posEffector.position.y)) - decalage;
@@ -248,23 +259,23 @@ public class Niveau : MonoBehaviour
     void TrouverPosLibres()
     {
         BoundsInt bornes = _tilemapNiveau.cellBounds;
-        for(int x = bornes.xMin; x < bornes.xMax; x++) 
+        for (int x = bornes.xMin; x < bornes.xMax; x++)
         {
-            for(int y = bornes.yMin; y < bornes.yMax; y++)
+            for (int y = bornes.yMin; y < bornes.yMax; y++)
             {
                 Vector2Int posTuile = new Vector2Int(x, y);
                 TileBase tuile = _tilemapNiveau.GetTile((Vector3Int)posTuile);
-                if(tuile == null)
+                if (tuile == null)
                 {
                     _lesPosLibres.Add(posTuile);
                 }
             }
         }
-        foreach(Vector2Int pos in _lesPosSurReperes)
+        foreach (Vector2Int pos in _lesPosSurReperes)
         {
             _lesPosLibres.Remove(pos);
         }
-        Debug.Log(_lesPosLibres.Count + " espaces libres : "+ string.Join(", ", _lesPosLibres));
+        Debug.Log(_lesPosLibres.Count + " espaces libres : " + string.Join(", ", _lesPosLibres));
     }
 
     public void LibererUnePos(Vector3 posPrecise)

@@ -134,7 +134,7 @@ MonoBehaviour:
   _tailleBoite: {x: 0.5, y: 0.1}
   _mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   _vitesse: 10
   _forceSaut: 120
   _nbFramesMax: 10
@@ -157,7 +157,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_ConstantMin: 0
     m_ConstantMax: 1.5
-  _renderModule: {fileID: 0}
+  _renderModule: {fileID: 7139690204325690075}
 --- !u!60 &3296702771639569974
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1764705, y: 2}
+    oldSize: {x: 1.1764705, y: 1.9988889}
     newSize: {x: 0.8, y: 1.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -483,6 +483,11 @@ PrefabInstance:
 --- !u!198 &3515368017084569978 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2554803424876575596, guid: b8e0c43e4dccc21488a8505328386f53, type: 3}
+  m_PrefabInstance: {fileID: 1422403815056892438}
+  m_PrefabAsset: {fileID: 0}
+--- !u!199 &7139690204325690075 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 8117776613817145549, guid: b8e0c43e4dccc21488a8505328386f53, type: 3}
   m_PrefabInstance: {fileID: 1422403815056892438}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8252025959675487539 stripped

@@ -37,6 +37,7 @@ public class Perso : DetecteurSol
 
     Rigidbody2D _rb; // Rigidbody du personnage.
     SpriteRenderer _sr; // SpriteRenderer du personnage.
+    Animator _animator; 
 
     /// <summary>
     /// Méthode qui est appelée lorsque le script est chargé.
@@ -45,6 +46,7 @@ public class Perso : DetecteurSol
     {
         _rb = GetComponent<Rigidbody2D>(); // Obtient le Rigidbody du personnage.
         _sr = GetComponent<SpriteRenderer>(); // Obtient le SpriteRenderer du personnage.
+        _animator = GetComponent<Animator>();
         _vitesseInitial = _vitesse;
         _mainModule = _particuleCourse.main;
         _startSizeInitial = _mainModule.startSize;
@@ -68,6 +70,8 @@ public class Perso : DetecteurSol
         }
 
         _rb.velocity = new Vector2(_axeHorizontal * _vitesse, _rb.velocity.y); // Déplace le joueur en fonction de l'entrée horizontale.
+
+        _animator.SetFloat("VelocityX", _rb.velocity.x);
 
         // Debug.Log(_particuleCourse.isEmitting);
         // if(_rb.velocity.x ==0)

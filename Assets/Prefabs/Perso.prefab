@@ -139,6 +139,24 @@ MonoBehaviour:
   _nbFramesMax: 10
   _donnees: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
   _particuleCourse: {fileID: 3515368017084569978}
+  _startSizeRapide:
+    m_Mode: 0
+    m_CurveMultiplier: 0
+    m_CurveMin:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_CurveMax:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ConstantMin: 0
+    m_ConstantMax: 1.5
+  _renderModule: {fileID: 0}
 --- !u!60 &3296702771639569974
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -373,6 +391,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2554803424876575596, guid: b8e0c43e4dccc21488a8505328386f53, type: 3}
       propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2554803424876575596, guid: b8e0c43e4dccc21488a8505328386f53, type: 3}
+      propertyPath: InitialModule.startSize.scalar
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5566681888783591105, guid: b8e0c43e4dccc21488a8505328386f53, type: 3}

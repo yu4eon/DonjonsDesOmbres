@@ -14,6 +14,11 @@ public class Perso : DetecteurSol
     [SerializeField] static bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
     [SerializeField] SOPerso _donnees;
     [SerializeField] ParticleSystem _particuleCourse;
+    [SerializeField] ParticleSystem.MinMaxCurve _startSizeRapide;
+    // vv Apparament, tu ne peux pas acceder au module renderer a partir du particle system vv
+    [SerializeField] ParticleSystemRenderer _renderModule; 
+    ParticleSystem.MinMaxCurve _startSizeInitial;
+    ParticleSystem.MainModule _mainModule;
     static public bool possedeDoublesSauts
     {
         set
@@ -29,6 +34,7 @@ public class Perso : DetecteurSol
     bool _auDeuxiemeSaut; // Si le joueur est au deuxième saut.
     bool _estRapide;
 
+
     Rigidbody2D _rb; // Rigidbody du personnage.
     SpriteRenderer _sr; // SpriteRenderer du personnage.
 
@@ -40,6 +46,8 @@ public class Perso : DetecteurSol
         _rb = GetComponent<Rigidbody2D>(); // Obtient le Rigidbody du personnage.
         _sr = GetComponent<SpriteRenderer>(); // Obtient le SpriteRenderer du personnage.
         _vitesseInitial = _vitesse;
+        _mainModule = _particuleCourse.main;
+        _startSizeInitial = _mainModule.startSize;
     }
 
     /// <summary>
@@ -61,11 +69,12 @@ public class Perso : DetecteurSol
 
         _rb.velocity = new Vector2(_axeHorizontal * _vitesse, _rb.velocity.y); // Déplace le joueur en fonction de l'entrée horizontale.
 
-        Debug.Log(_particuleCourse.isEmitting);
-        if(_rb.velocity.x ==0)
-        {
-            _particuleCourse.Stop();
-        }
+        // Debug.Log(_particuleCourse.isEmitting);
+        // if(_rb.velocity.x ==0)
+        // {
+        //     _particuleCourse.Stop();
+        // }
+        // _particuleCourse.Play();
 
         if (_veutSauter) // Si le joueur veut sauter.
         {
@@ -88,8 +97,21 @@ public class Perso : DetecteurSol
         {
             _auDeuxiemeSaut = true; // Indique que le joueur est au deuxième saut.
             _nbFramesRestants = 0; // Réinitialise le nombre de frames restantes.
+            // _particuleCourse.Stop();
+        }
+
+        if (_rb.velocity.x == 0 || !_estAuSol)
+        {
             _particuleCourse.Stop();
         }
+        else if (_rb.velocity.x != 0 && _estAuSol)
+        {
+            if(!_particuleCourse.isEmitting)
+            {
+            _particuleCourse.Play();
+            }
+        }
+
     }
 
     /// <summary>
@@ -99,19 +121,20 @@ public class Perso : DetecteurSol
     void OnMove(InputValue value)
     {
         _axeHorizontal = value.Get<Vector2>().x; // Obtient la valeur de l'axe horizontal de l'entrée.
-        _particuleCourse.Play();
         Vector3 scaleParticule = _particuleCourse.transform.localScale;
         
         if (_axeHorizontal < 0) // Si le joueur se déplace vers la gauche.
         {
             _sr.flipX = true; // Tourne le personnage vers la gauche.
-            _particuleCourse.transform.localScale = new Vector3(-scaleParticule.x, scaleParticule.y, scaleParticule.z);
-            
+
+            _renderModule.flip = new Vector3(1,0);
+            _renderModule.pivot = new Vector3(1,0);
         }
         else if (_axeHorizontal > 0) // Si le joueur se déplace vers la droite.
         {
             _sr.flipX = false; // Tourne le personnage vers la droite.
-            _particuleCourse.transform.localScale = new Vector3(-scaleParticule.x, scaleParticule.y, scaleParticule.z);
+            _renderModule.flip = new Vector3(0,0);
+            _renderModule.pivot = new Vector3(0,0);
         }
     }
 
@@ -147,6 +170,7 @@ public class Perso : DetecteurSol
     {
         if(_estRapide) return;
         _vitesse = _vitesse*1.5f;
+        _mainModule.startSize = _startSizeRapide;
         _estRapide = true;
         StartCoroutine(ChangerVitesse());
 
@@ -158,6 +182,7 @@ public class Perso : DetecteurSol
         _vitesse = _vitesse/1.2f;
         yield return new WaitForSeconds(2);
         _vitesse = _vitesseInitial;
+        _mainModule.startSize = _startSizeInitial;
         _estRapide = false;
         
     }

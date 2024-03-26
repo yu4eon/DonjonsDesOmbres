@@ -14,14 +14,17 @@ Léon Yu
 -Effector
 
 Antoine Lachance
--Boutique (fini)
+Fini:
+-Boutique
+-Amélioration attaque
+-Amélioration double saut
+-Joyau d'argent (1 or)
+-Navigation
+
+À faire:
 -Positionement de la porte, clé, personnage et activateur
 -Intéractivité porte, clé activateur
--Amélioration attaque (fait)
--Amélioration double saut (fait)
--Joyau d'argent (10 pour 1 or) (fait)
 -bonus 2 pilliers
 -Placement de l'activateur
 -Placement de la porte, clé et personnage
 -1 particule à déterminer
--Navigation

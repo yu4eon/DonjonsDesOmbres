@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// Auteur du code : Léon Yu. Antoine Lachance
@@ -18,6 +16,9 @@ public class Niveau : MonoBehaviour
     [SerializeField] TileBase _tuileModele; // Tuile utilisé pour les bordures
     [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
     [SerializeField] Autels[] _tAutelsModeles; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
+    [SerializeField] Perso _perso; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
+    [SerializeField] Cle _cle; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
+    [SerializeField] GameObject _porte; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
     [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     // [SerializeField] Porte _porteModele //Modele de porte, quand il sera fait
     // [SerializeField] Cle _cleModele //Modele de clé quand il sera fait
@@ -48,6 +49,8 @@ public class Niveau : MonoBehaviour
         CreerNiveau();
         // #tp3 Léon
         TrouverPosLibres();
+        PlacerAutels();
+        PlacerItems(_perso, _porte, _cle);
         PlacerLesJoyaux();
     }
 
@@ -72,20 +75,102 @@ public class Niveau : MonoBehaviour
         }
     }
 
-    void PlacerAutels()
+   void PlacerAutels() 
     {
         Transform contenant = new GameObject("Autels").transform; // Crée un GameObject pour contenir les autels.
         contenant.parent = transform; // Assigne le niveau comme parent du contenant.
         int nbAutels = 4; // Nombre d'autels à placer.
         for (int i = 0; i < nbAutels; i++) // Boucle pour placer les autels.
         {
-            int indexAutel = i + 1; // Sélectionne 
+            int indexAutel = i;
             Autels autelModele = _tAutelsModeles[indexAutel]; // Obtient le prefab de l'autel.
 
             Vector2Int pos = ObtenirPosLibre(); // Obtient une position libre aléatoire.
-            Vector3 pos3 = (Vector3)(Vector2)pos + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertit la position
+
+            // Vérifie si la position du dessus est vide et que la position du dessous n'est pas vide.
+            if (PositionDessusEstVide(pos) && PositionDessousEstOccupee(pos))
+            {
+                Vector3 pos3 = (Vector3)(Vector2)pos + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertit la position
+                pos3 += new Vector3(0,1,0); // Positionne l'autel au dessus de la position.
+                Instantiate(autelModele, pos3, Quaternion.identity, contenant); // Crée le joyau à la position obtenue.
+            }
+            else
+            {
+                Debug.LogWarning("Impossible de placer l'autel à la position : " + pos + ". La position du dessus doit être vide et celle du dessous doit être occupée.");
+                i--; // Réduit le compteur pour réessayer de placer un autel.
+            }
+
+            if(_lesPosLibres.Count == 0) // Si il n'y a plus de position libre.
+            {
+                Debug.LogWarning("Plus de place pour les autels"); // Affiche un message d'avertissement.
+                break; // Sort de la boucle.
+            }
         }
     }
+    // Méthode pour vérifier si la position du dessus est vide.
+    bool PositionDessusEstVide(Vector2Int pos)
+    {
+        Vector2Int posDessus = new Vector2Int(pos.x, pos.y + 1);
+        if (_lesPosLibres.Contains(posDessus))
+        {
+            Vector2Int posDeuxDessus = new Vector2Int(pos.x, pos.y + 2);
+            if (_lesPosLibres.Contains(posDeuxDessus))
+            {
+                return _lesPosLibres.Contains(posDessus);
+            }
+        }
+        return false;
+    }
+
+    // Méthode pour vérifier si la position du dessous est occupée.
+    bool PositionDessousEstOccupee(Vector2Int pos)
+    {
+        Vector2Int posDessous = new Vector2Int(pos.x, pos.y - 1);
+        return !_lesPosLibres.Contains(posDessous);
+    }
+
+    void PlacerItems(Perso perso, GameObject porte, Cle cle)
+    {
+        Transform contenant = new GameObject("Perso").transform; // Crée un GameObject pour contenir le perso, la porte et la clé.
+        contenant.parent = transform; // Assigne le niveau comme parent du contenant.
+
+        // Placer le personnage.
+        Vector2Int posPerso = ObtenirPosLibre();
+        Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor;
+        Instantiate(perso, pos3Perso, Quaternion.identity, contenant);
+
+        // Placer la porte.
+        // Vector2Int posPorteRepere = _lesPosSurReperes[Random.Range(0, _lesPosSurReperes.Count)];
+        // Vector3 pos3Porte = (Vector3)(Vector2)posPorteRepere + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor;
+        // Instantiate(porte, pos3Porte, Quaternion.identity, contenant);
+        // Salle salle = GetComponentInChildren<Salle>();
+        List<string> extremitees = new List<string>
+        {
+            "Salle0_0",
+            "Salle0_2",
+            "Salle2_2",
+            "Salle2_0",
+        };
+        int nb = Random.Range(0, extremitees.Count);
+        Salle salle = GameObject.Find(extremitees[nb]).GetComponentInChildren<Salle>();
+        Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
+        Vector2Int posRep = salle.PlacerSurRepere(porte) - decalage;
+
+        contenant = new GameObject("Porte").transform;
+        contenant.parent = transform;
+
+        // Placer la clé.
+        Vector2Int posCle = ObtenirPosLibre();
+        Vector3 pos3Cle = (Vector3)(Vector2)posCle + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor;
+        Instantiate(cle, pos3Cle, Quaternion.identity);
+    }
+
+
+
+
+    
+
+
 
 
     Vector2Int ObtenirPosLibre()
@@ -132,14 +217,6 @@ public class Niveau : MonoBehaviour
                         Vector2Int posRep = new Vector2Int(Mathf.FloorToInt(posEffector.position.x - i), Mathf.FloorToInt(posEffector.position.y)) - decalage;
                         _lesPosSurReperes.Add(posRep);
                     }
-                }
-
-                if(placementSpecial == placementSalle)
-                {
-                    Debug.Log("Salle avec objet special : " + placementSalle);
-                    Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
-                    Vector2Int posRep = salle.PlacerSurRepere(_specialModele) - decalage;
-                    _lesPosSurReperes.Add(posRep);
                 }
             }
         }

@@ -1,4 +1,7 @@
-Léon Yu
+
+/***********************************************************/
+/************************* Léon Yu *************************/
+/***********************************************************/
 -Placement Joyau (À retravailler)
 -Placement des bonus (Détection et mise à jour des emplacements)
 -Amélioration pv et défense
@@ -13,18 +16,21 @@ Léon Yu
 -Intéractivité bonus
 -Effector
 
-Antoine Lachance
+
+/************************************************************/
+/********************* Antoine Lachance *********************/
+/************************************************************/
 Fini:
 -Boutique
 -Amélioration attaque
 -Amélioration double saut
 -Joyau d'argent (1 or)
 -Navigation
-
-À faire:
 -Positionement de la porte, clé, personnage et activateur
--Intéractivité porte, clé activateur
--bonus 2 pilliers
 -Placement de l'activateur
 -Placement de la porte, clé et personnage
+
+À faire:
+-Intéractivité porte, clé activateur
+-bonus 2 pilliers
 -1 particule à déterminer

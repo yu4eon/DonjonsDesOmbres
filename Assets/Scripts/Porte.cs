@@ -34,7 +34,7 @@ public class Porte : MonoBehaviour
         if (aCle && other.CompareTag("Player"))
         {
             _sr.sprite = _sprites[1];
-            Invoke("ChangerScene", 2f);
+            Invoke("ChangerScene", 1f);
             
         }
     }

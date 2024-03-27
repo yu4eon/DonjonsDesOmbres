@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,12 +14,14 @@ public class SOPerso : ScriptableObject
     [SerializeField, Range(1, 5)] int _niveauIni = 1;
     [SerializeField, Range(0, 500)] int _argentIni = 100;
 
-    int baseAttaque = 10;
+    [Header("Stats")]
+    [SerializeField] int baseAttaque = 10;
     int attaqueBonus;
-    int baseDefense = 10;
+    [SerializeField] int baseDefense = 10;
     int defenseBonus;
-    int basePv = 10;
+    [SerializeField] int basePv = 10;
     int pvBonus;
+    List<string> _pouvoirs = new List<string>();
 
     public int niveau
     {
@@ -107,6 +108,14 @@ public class SOPerso : ScriptableObject
             inventaire += objet.nom;
         }
         Debug.Log("Inventaire du perso : " + inventaire);
+    }
+
+    public void AjouterPouvoir(string nomPouvoir)
+    {
+        if (!_pouvoirs.Contains(nomPouvoir))
+        {
+            _pouvoirs.Add(nomPouvoir);
+        }
     }
 
 

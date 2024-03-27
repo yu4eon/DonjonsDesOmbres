@@ -20,6 +20,7 @@ public class Niveau : MonoBehaviour
     [SerializeField] GameObject _cle;
     [SerializeField] GameObject _porte;
     [SerializeField] GameObject _activateur;
+    // [SerializeField] SOActivateur _activateur;
     [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     // [SerializeField] Porte _porteModele //Modele de porte, quand il sera fait
     // [SerializeField] Cle _cleModele //Modele de clé quand il sera fait
@@ -49,8 +50,8 @@ public class Niveau : MonoBehaviour
         // #tp3 Léon
         CreerNiveau();
         TrouverPosLibres();
-        PlacerAutels();
         PlacerItems(_perso, _porte, _cle, _activateur);
+        PlacerAutels();
         PlacerLesJoyaux();
     }
 
@@ -134,6 +135,17 @@ public class Niveau : MonoBehaviour
         Transform contenant = new GameObject("Perso").transform; // Crée un GameObject pour contenir le perso, la porte et la clé.
         contenant.parent = transform; // Assigne le niveau comme parent du contenant.
 
+        // Placer l'activateur.
+
+        // Récupérer le composant Niveau
+        Niveau niveau = GetComponent<Niveau>();
+        // Choisir un index aléatoire
+        int index = Random.Range(0, niveau.transform.childCount);
+        // Récupérer la salle aléatoire
+        Salle salleAleatoire = niveau.transform.GetChild(index).GetComponent<Salle>();
+        // Activer la salle
+        salleAleatoire.PlacerSurRepere(activateur);
+
         // Placer le personnage.
         Vector2Int posPerso = ObtenirPosLibre();
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor;
@@ -163,16 +175,6 @@ public class Niveau : MonoBehaviour
         extremitees.Reverse();
 
 
-        // Placer l'activateur.
-
-        // Récupérer le composant Niveau
-        Niveau niveau = GetComponent<Niveau>();
-        // Choisir un index aléatoire
-        int index = Random.Range(0, niveau.transform.childCount);
-        // Récupérer la salle aléatoire
-        Salle salleAleatoire = niveau.transform.GetChild(index).GetComponent<Salle>();
-        // Activer la salle
-        salleAleatoire.PlacerSurRepere(activateur);
     }
 
 

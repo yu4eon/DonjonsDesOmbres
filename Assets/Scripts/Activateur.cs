@@ -17,6 +17,17 @@ public class Activateur : MonoBehaviour
 
     SpriteRenderer _sr;
 
+    void Awake()
+    {
+        if(_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        _instance = this;
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,17 +43,10 @@ public class Activateur : MonoBehaviour
     /// collider (2D physics only).
     /// </summary>
     /// <param name="other">The Collision2D data associated with this collision.</param>
-    void OnCollisionEnter2D(Collision2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         _sr.sprite = _sActif;
         _evenementActivateur.Invoke();
-
-        // if (Input.GetKeyDown(KeyCode.E)) // Exemple : déclenche l'événement quand la touche E est pressée
-        // {
-        //     _sr.sprite = _sActif;
-        //     _evenementActivateur.Invoke(); // Appel de l'événement
-        // }
-        
     }
 
 }

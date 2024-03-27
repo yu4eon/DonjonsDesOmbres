@@ -47,12 +47,17 @@ public class Niveau : MonoBehaviour
             Destroy(gameObject); //sinon, détruit l'objet
         }
 
-        // #tp3 Léon
-        CreerNiveau();
-        TrouverPosLibres();
-        PlacerItems(_perso, _porte, _cle, _activateur);
-        PlacerAutels();
-        PlacerLesJoyaux();
+        
+    }
+
+    void Start()
+    {
+        
+        CreerNiveau(); // #tp3 Léon
+        TrouverPosLibres(); // #tp3 Léon
+        PlacerItems(_perso, _porte, _cle, _activateur); //#tp3 Antoine
+        PlacerAutels();//#tp3 Antoine
+        PlacerLesJoyaux(); // #tp3 Léon
     }
 
     void PlacerLesJoyaux()

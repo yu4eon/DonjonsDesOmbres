@@ -24,6 +24,7 @@ public class Niveau : MonoBehaviour
     [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
     List<Vector2Int> _lesPosSurReperes = new List<Vector2Int>(); // Liste des positions sur les repères. #tp3 Léon
+    List<Vector2Int> _lesPosEffectors = new List<Vector2Int>(); // Liste des positions des effectors. #tp3 Léon
 
     // Propriété publique qui permet l'accès à la tilemap du niveau.
     public Tilemap tilemap => _tilemapNiveau;
@@ -226,7 +227,7 @@ public class Niveau : MonoBehaviour
                         Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position); // Décalage pour la position.
                         //Les positions sur le repère sur son axe de x
                         Vector2Int posRep = new Vector2Int(Mathf.FloorToInt(posEffector.position.x - i), Mathf.FloorToInt(posEffector.position.y)) - decalage;
-                        _lesPosSurReperes.Add(posRep); // Ajoute la position sur la liste de repères pour simuler une endroit prise.
+                        _lesPosEffectors.Add(posRep); // Ajoute la position sur la liste des positions pour effectors
                     }
                 }
             }
@@ -277,9 +278,13 @@ public class Niveau : MonoBehaviour
             }
 
         // Pour les positions prises par des repères, on les enlève de la liste des positions libres. 
-        //(inclus aussi les positions de effectors) :
         } 
         foreach (Vector2Int pos in _lesPosSurReperes)
+        {
+            _lesPosLibres.Remove(pos);
+        }
+        //Pour les positions prises par des effectors, on les enlève de la liste des positions libres.
+        foreach (Vector2Int pos in _lesPosEffectors)
         {
             _lesPosLibres.Remove(pos);
         }

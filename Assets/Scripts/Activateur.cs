@@ -26,16 +26,13 @@ public class Activateur : MonoBehaviour
         }
         _instance = this;
 
+        _sr = GetComponent<SpriteRenderer>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        _sr = GetComponent<SpriteRenderer>();
-        if (_sr.sprite != _sInactif)
-        {
-            _sr.sprite = _sInactif;
-        }
+        _sr.sprite = _sInactif;
     }
 
     /// <summary>

@@ -56,6 +56,10 @@ public class Niveau : MonoBehaviour
         PlacerLesJoyaux(); // #tp3 Léon
     }
 
+    /// <summary>
+    /// #tp3 Léon
+    /// Méthode pour placer les joyaux dans les salles du niveau. 
+    /// </summary>
     void PlacerLesJoyaux()
     {
         Transform contenant = new GameObject("Joyaux").transform; // Crée un GameObject pour contenir les joyaux.
@@ -172,13 +176,10 @@ public class Niveau : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-
+    
+    /// <summary>
+    /// Méthode pour obtenir une position libre aléatoire dans le niveau. #tp3 Léon
+    /// </summary>
     Vector2Int ObtenirPosLibre()
     {
         int indexPosLibre = Random.Range(0, _lesPosLibres.Count);
@@ -187,11 +188,11 @@ public class Niveau : MonoBehaviour
         return pos;
     }
 
+    /// <summary>
+    /// Méthode pour créer le niveau, incluant enlever les positions prises par des effectors dans la liste des positions libres. #tp3 Léon
+    /// </summary>
     void CreerNiveau()
     {
-
-
-
         // Calcul de la taille de la salle avec une bordure.
         Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
 
@@ -215,13 +216,17 @@ public class Niveau : MonoBehaviour
                 // Nomme la salle selon sa position dans le niveau.
                 salle.name = "Salle" + x + "_" + y;
 
+                // Pour chaque effector de vitesse dans la salle. #tp3 Léon
                 foreach (Transform posEffector in salle.tEffectors)
                 {
+                    // Ajoute les positions des effectors dans la liste des positions sur les repères.
+                    //Ici, le i est -1, 0 et 1 pour les 3 tuiles que les effectors de vitesse prennent.
                     for (int i = -1; i < 2; i++)
                     {
-                        Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
+                        Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position); // Décalage pour la position.
+                        //Les positions sur le repère sur son axe de x
                         Vector2Int posRep = new Vector2Int(Mathf.FloorToInt(posEffector.position.x - i), Mathf.FloorToInt(posEffector.position.y)) - decalage;
-                        _lesPosSurReperes.Add(posRep);
+                        _lesPosSurReperes.Add(posRep); // Ajoute la position sur la liste de repères pour simuler une endroit prise.
                     }
                 }
             }
@@ -238,7 +243,7 @@ public class Niveau : MonoBehaviour
             // Boucle pour la création des bordures du niveau sur l'axe x.
             for (int x = min.x; x <= max.x; x++)
             {
-                // Si la position s'agit d'Une position de bordure.
+                // Si la position s'agit d'Une position de bordure :
                 if (x == min.x || x == max.x || y == min.y || y == max.y)
                 {
                     Vector3Int pos = new Vector3Int(x, y, 0);
@@ -250,30 +255,42 @@ public class Niveau : MonoBehaviour
     }
 
     /// <summary>
-    /// Trouve les positions dans la scène ou il n'y a aucune tuile. #tp3 Léon
+    /// #tp3 Léon
+    /// Trouve les positions dans la scène ou il n'y a aucune tuile. 
     /// </summary>
     void TrouverPosLibres()
     {
         BoundsInt bornes = _tilemapNiveau.cellBounds;
+        // pour les tuiles sur l'axe des x
         for (int x = bornes.xMin; x < bornes.xMax; x++)
         {
+            // pour les tuiles sur l'axe des y
             for (int y = bornes.yMin; y < bornes.yMax; y++)
             {
                 Vector2Int posTuile = new Vector2Int(x, y);
                 TileBase tuile = _tilemapNiveau.GetTile((Vector3Int)posTuile);
-                if (tuile == null)
+                // Si la tuile est vide, ajoute la position à la liste des positions libres :
+                if (tuile == null) 
                 {
                     _lesPosLibres.Add(posTuile);
                 }
             }
-        }
+
+        // Pour les positions prises par des repères, on les enlève de la liste des positions libres. 
+        //(inclus aussi les positions de effectors) :
+        } 
         foreach (Vector2Int pos in _lesPosSurReperes)
         {
             _lesPosLibres.Remove(pos);
         }
+        // un simple debug pour voir combien d'espaces libres il y a dans le niveau
         Debug.Log(_lesPosLibres.Count + " espaces libres : " + string.Join(", ", _lesPosLibres));
     }
 
+    /// <summary>
+    /// #tp3 Léon
+    /// Méthode publique appelé par Joyau qui libère une position dans la liste des positions libres.
+    /// </summary>
     public void LibererUnePos(Vector3 posPrecise)
     {
         Vector2Int pos = Vector2Int.FloorToInt(posPrecise - _tilemapNiveau.transform.position);

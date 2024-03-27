@@ -172,12 +172,15 @@ public class Perso : DetecteurSol
 
     public void AugmenterVitesse()
     {
-        if(_estRapide) return;
+        if(_estRapide)
+        {
+            StopAllCoroutines();
+            _vitesse = _vitesseInitial;
+        }
         _vitesse = _vitesse*1.5f;
         _mainModule.startSize = _startSizeRapide;
         _estRapide = true;
-        StartCoroutine(ChangerVitesse());
-
+        Coroutine coroutineVitesse = StartCoroutine(ChangerVitesse());
     }
 
     IEnumerator ChangerVitesse()

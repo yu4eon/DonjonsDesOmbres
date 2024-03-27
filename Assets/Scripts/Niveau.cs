@@ -18,14 +18,10 @@ public class Niveau : MonoBehaviour
     [SerializeField] Autels[] _tAutelsModeles; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
     [SerializeField] Perso _perso;
     [SerializeField] GameObject _cle;
-    [SerializeField] GameObject _porte;
     [SerializeField] GameObject _activateur;
+    [SerializeField] GameObject _porte;
     // [SerializeField] SOActivateur _activateur;
     [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
-    // [SerializeField] Porte _porteModele //Modele de porte, quand il sera fait
-    // [SerializeField] Cle _cleModele //Modele de clé quand il sera fait
-    [SerializeField] GameObject _specialModele; //Sera changé pour un bonus plus tard, uniquement pour tester en ce moment
-
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
     List<Vector2Int> _lesPosSurReperes = new List<Vector2Int>(); // Liste des positions sur les repères. #tp3 Léon
 
@@ -102,13 +98,13 @@ public class Niveau : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Impossible de placer l'autel à la position : " + pos + ". La position du dessus doit être vide et celle du dessous doit être occupée.");
+                // Debug.LogWarning("Impossible de placer l'autel à la position : " + pos + ". La position du dessus doit être vide et celle du dessous doit être occupée.");
                 i--; // Réduit le compteur pour réessayer de placer un autel.
             }
 
             if (_lesPosLibres.Count == 0) // Si il n'y a plus de position libre.
             {
-                Debug.LogWarning("Plus de place pour les autels"); // Affiche un message d'avertissement.
+                // Debug.LogWarning("Plus de place pour les autels"); // Affiche un message d'avertissement.
                 break; // Sort de la boucle.
             }
         }
@@ -137,10 +133,9 @@ public class Niveau : MonoBehaviour
 
     void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur)
     {
-        Transform contenant = new GameObject("Perso").transform; // Crée un GameObject pour contenir le perso, la porte et la clé.
-        contenant.parent = transform; // Assigne le niveau comme parent du contenant.
-
-        // Placer l'activateur.
+        // Transform contenant = new GameObject("Items").transform; // Crée un GameObject pour contenir le perso, la porte et la clé.
+        // contenant.parent = transform; // Assigne le niveau comme parent du contenant.
+        Transform contenant = transform;
 
         // Récupérer le composant Niveau
         Niveau niveau = GetComponent<Niveau>();
@@ -148,13 +143,11 @@ public class Niveau : MonoBehaviour
         int index = Random.Range(0, niveau.transform.childCount);
         // Récupérer la salle aléatoire
         Salle salleAleatoire = niveau.transform.GetChild(index).GetComponent<Salle>();
-        // Activer la salle
-        salleAleatoire.PlacerSurRepere(activateur);
-
         // Placer le personnage.
         Vector2Int posPerso = ObtenirPosLibre();
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor;
         Instantiate(perso, pos3Perso, Quaternion.identity, contenant);
+
 
         // Placer la porte.
         List<string> extremitees = new List<string>
@@ -169,17 +162,13 @@ public class Niveau : MonoBehaviour
         Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
         Vector2Int posRep = salle.PlacerSurRepere(porte) - decalage;
 
-        contenant = new GameObject("Porte").transform;
-        contenant.parent = transform;
-
 
         // Placer la clé.
         extremitees.Reverse();
         Salle salle2 = GameObject.Find(extremitees[nb]).GetComponentInChildren<Salle>();
         Vector2Int posRep2 = salle2.PlacerSurRepere(cle) - decalage;
         extremitees.Reverse();
-
-
+        salleAleatoire.PlacerSurRepere(activateur);
     }
 
 

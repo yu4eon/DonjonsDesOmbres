@@ -171,10 +171,9 @@ MonoBehaviour:
   - {fileID: 4730163790752088675, guid: e21a91905606b7741941a2160115df0b, type: 3}
   _perso: {fileID: 5036836898586025548, guid: 3d0c754810aa08d479b05deab755edc8, type: 3}
   _cle: {fileID: 5504228281799103865, guid: 9adad19e72d02f54299cc8b29c7a443f, type: 3}
-  _porte: {fileID: 4024076820433731099, guid: b63793f8c462b4b4cbdb0083990c7e06, type: 3}
   _activateur: {fileID: 3763275013830398364, guid: 7615b29c9a74ecf41844e956fe8fed76, type: 3}
+  _porte: {fileID: 4024076820433731099, guid: b63793f8c462b4b4cbdb0083990c7e06, type: 3}
   _nbJoyauxParSalle: 5
-  _specialModele: {fileID: 8828442281800060933, guid: 971990b73e1ae7945ad11c2746786321, type: 3}
 --- !u!156049354 &308034227
 Grid:
   m_ObjectHideFlags: 0

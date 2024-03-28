@@ -5,14 +5,14 @@
 -Placement Joyau (À retravailler)
 -Placement des bonus (Détection et mise à jour des emplacements)
 -Amélioration pv et défense (fini)
--bonus des piliers 
+-bonus de 2 piliers  (fini)
 -joyau or (fini)
 -Activateur (fini)
 -Intéractivité joyau (fini)
 -1 particule à déterminer (fini)
 -Placement des repères (Fini)
 -Inventaire des tuiles libres (fini)
--Intéractivité bonus
+-Intéractivité bonus (fini)
 -Effector (fini)
 -Vidage de l'Inventaire (fini)
 

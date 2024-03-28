@@ -20,37 +20,40 @@ public class PanneauObjet : MonoBehaviour
 
     void Start()
     {
-        MettreAJourInfos();
-        Boutique.instance.donneesPerso.evenementMiseAJour.AddListener(MettreAJourInfos);
+        MettreAJourInfos(); // Met à jour les informations du panneau.
+        Boutique.instance.donneesPerso.evenementMiseAJour.AddListener(MettreAJourInfos); // Ajoute un écouteur pour mettre à jour les informations lorsque les données du personnage changent.
     }
 
     void MettreAJourInfos()
     {
-        _champNom.text = _donnees.nom;
-        _champPrix.text = _donnees.prix + " $";
-        _champDescription.text = _donnees.description;
-        _image.sprite = _donnees.sprite;
-        GererDispo();
+        _champNom.text = _donnees.nom; // Affiche le nom de l'objet.
+        _champPrix.text = _donnees.prix + " $"; // Affiche le prix de l'objet suivi de "$".
+        _champDescription.text = _donnees.description; // Affiche la description de l'objet.
+        _image.sprite = _donnees.sprite; // Affiche l'image de l'objet.
+        GererDispo(); // Gère la disponibilité de l'objet en fonction de l'argent du joueur.
     }
 
     void GererDispo()
     {
-        bool aNiveauRequis = Boutique.instance.donneesPerso.niveau >= _donnees.niveauRequis;
-        bool aAssezArgent = Boutique.instance.donneesPerso.argent >= _donnees.prix;
-        if(aNiveauRequis && aAssezArgent)
+        bool aAssezArgent = Boutique.instance.donneesPerso.argent >= _donnees.prix; // Vérifie si le joueur a assez d'argent pour acheter l'objet.
+        if (aAssezArgent) // Si le joueur a assez d'argent.
         {
-            _canvasGroup.interactable = true;
-            _canvasGroup.alpha = 1;
+            _canvasGroup.interactable = true; // Active l'interaction avec le panneau.
+            _canvasGroup.alpha = 1; // Affiche le panneau normalement.
         }
-        else
+        else // Si le joueur n'a pas assez d'argent.
         {
-            _canvasGroup.interactable = false;
-            _canvasGroup.alpha = .5f;
+            _canvasGroup.interactable = false; // Désactive l'interaction avec le panneau.
+            _canvasGroup.alpha = .5f; // Rend le panneau semi-transparent pour indiquer qu'il n'est pas disponible à l'achat.
         }
     }
 
+    /// <summary>
+    /// Tp3 Antoine
+    /// Méthode appelée lorsqu'un objet est acheté depuis ce panneau.
+    /// </summary>
     public void Acheter()
     {
-        Boutique.instance.donneesPerso.Acheter(_donnees);
+        Boutique.instance.donneesPerso.Acheter(_donnees); // Appelle la méthode d'achat de l'objet dans les données du personnage.
     }
 }

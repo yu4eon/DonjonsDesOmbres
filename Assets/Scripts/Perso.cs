@@ -210,4 +210,8 @@ public class Perso : DetecteurSol
     {
         _donnees.Initialiser();
     }
+    void OnDestroy()
+    {
+        _donnees.evenementMiseAJour.RemoveAllListeners();
+    }
 }

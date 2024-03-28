@@ -11,7 +11,7 @@ TagManager:
   - Tuile
   - Water
   - UI
-  - 
+  - Objets
   - 
   - 
   - 
@@ -40,4 +40,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3314779879
+    locked: 0
+  - name: Tuiles
+    uniqueID: 3765504033
+    locked: 0
+  - name: Objets
+    uniqueID: 468199197
+    locked: 0
+  - name: Joueur
+    uniqueID: 1132468005
+    locked: 0
+  - name: FX
+    uniqueID: 3640313225
+    locked: 0
+  - name: UI
+    uniqueID: 3590671525
     locked: 0

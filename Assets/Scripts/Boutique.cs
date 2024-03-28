@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
+/// <summary>
+/// #tp3
+/// Auteur du code : Antoine Lachance
+/// commentaires ajoutés par : Antoine Lachance
+/// Classe pour la boutique et affiche les informations du personnage.
+/// </summary>
 public class Boutique : MonoBehaviour
 {
     [SerializeField] SOPerso _donneesPerso; // ScriptableObject contenant les données du personnage.

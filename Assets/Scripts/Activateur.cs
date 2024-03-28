@@ -17,9 +17,7 @@ public class Activateur : MonoBehaviour
 
     UnityEvent _evenementActivateur = new UnityEvent(); // Événement Unity déclenché par l'activateur.
     public UnityEvent evenementActivateur => _evenementActivateur; // Propriété publique qui permet l'accès à l'événement de l'activateur.
-
     SpriteRenderer _sr; // Composant SpriteRenderer de l'activateur.
-
     void Awake()
     {
         if (_instance != null)

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Tp3 Antoine
+/// Auteur du code : Antoine Lachance
+/// Commentaires ajoutés par : Antoine Lachance
 /// Classe ScriptableObject pour la navigation entre les scènes du jeu.
 /// </summary>
 [CreateAssetMenu(fileName = "Ma navigation", menuName = "Navigation")]

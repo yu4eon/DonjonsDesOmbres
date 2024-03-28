@@ -4,6 +4,9 @@ using UnityEditor.EditorTools;
 using UnityEngine;
 
 /// <summary>
+/// #tp3
+/// Auteur du code : Antoine Lachance
+/// Commentaires ajoutés par : Antoine Lachance
 /// ScriptableObject pour définir les attributs d'un objet disponible dans la boutique.
 /// </summary>
 [CreateAssetMenu(fileName = "Objet", menuName = "Objet boutique")]

@@ -9,7 +9,6 @@ using UnityEngine;
 /// </summary>
 public class DetecteurSol : MonoBehaviour
 {
-
     [SerializeField] Vector2 _posCentreBoite = new Vector2(0, -1f); //Position du centre de la boite de collision
     [SerializeField] Vector2 _tailleBoite = new Vector2(0.5f, 0.1f); //Taille de la boite de collision
     [SerializeField] LayerMask _mask; //Les Layermasks qui sont considérés comme sol

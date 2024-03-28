@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,7 +15,7 @@ public class Perso : DetecteurSol
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
     [SerializeField] static bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
-    static public bool possedeDoublesSauts
+    static public bool possedeDoublesSauts // Propriété pour accéder à la variable privée _possedeDoublesSauts. 
     {
         set
         {
@@ -26,6 +27,8 @@ public class Perso : DetecteurSol
     [SerializeField] ParticleSystem.MinMaxCurve _startSizeRapide; // Taille des particules lorsque le joueur est rapide #tp3 Leon
     // vv Apparament, tu ne peux pas acceder au module renderer a partir du particle system vv
     [SerializeField] ParticleSystemRenderer _renderModule; // Module de rendu des particules pour la particule de course #tp3 Leon
+    [SerializeField] ParticleSystem[] _particulesPouvoirs; // Particules des pouvoirs #tp3 Leon
+    ParticleSystem _particulePouvoirActuelle; // Particule du pouvoir actuel #tp3 Leon
     ParticleSystem.MinMaxCurve _startSizeInitial; // Taille des particules initiale #tp3 Leon
     ParticleSystem.MainModule _mainModule; // Module principal de la particule de course #tp3 Leon
 
@@ -35,6 +38,7 @@ public class Perso : DetecteurSol
     bool _peutDoubleSauter = false; // Si le joueur peut faire un double saut.
     bool _auDeuxiemeSaut; // Si le joueur est au deuxième saut.
     bool _estRapide; // Si le joueur est rapide #tp3 Leon
+
 
 
     Rigidbody2D _rb; // Rigidbody du personnage.
@@ -143,6 +147,101 @@ public class Perso : DetecteurSol
             _renderModule.pivot = new Vector3(0,0);
         }
     }
+    
+    // Note pour les 4 fonctions suivantes : on n'a pas arrivé à faire que le input system envoie in int spécifique,
+    // donc on a du faire une fonction pour chaque pouvoir. #tp3
+
+    /// <summary>
+    /// Méthode qui est appelée lorsque le joueur appuie sur le 1 ou dpad haut pour
+    /// changer l'élement de pouvoir actuel en glace.
+    /// </summary>
+    void OnChangeGlace()
+    {
+        Vector3 tailleParticules = new Vector3(2,2,2);
+        if(_donnees.pouvoirs.Contains(TypePouvoir.Glace)) // Si le joueur possède le pouvoir.
+        {
+            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
+            {
+                Destroy(_particulePouvoirActuelle);
+                _particulePouvoirActuelle = null;
+            }
+            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[0], transform.position, _particulesPouvoirs[0].transform.rotation, transform);
+            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
+        }
+        else
+        {
+            Debug.Log("Tu ne possède pas le pouvoir de glace");
+        }
+    }
+
+    /// <summary>
+    /// Méthode qui est appelée lorsque le joueur appuie sur le 2 ou dpad droite pour
+    /// changer l'élement de pouvoir actuel en ombre.
+    /// </summary>
+    void OnChangeOmbre()
+    {
+        Vector3 tailleParticules = new Vector3(2,2,2);
+        if(_donnees.pouvoirs.Contains(TypePouvoir.Ombre)) // Si le joueur possède le pouvoir.
+        {
+            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
+            {
+                Destroy(_particulePouvoirActuelle);
+                _particulePouvoirActuelle = null;
+            }
+            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[1], transform.position, _particulesPouvoirs[1].transform.rotation, transform);
+            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
+        }
+        else
+        {
+            Debug.Log("Tu ne possède pas le pouvoir d'ombre");
+        }
+    }
+
+    /// <summary>
+    /// Méthode qui est appelée lorsque le joueur appuie sur le 3 ou dpad bas pour
+    /// changer l'élement de pouvoir actuel en poison.
+    /// </summary>
+    void OnChangePoison()
+    {
+        Vector3 tailleParticules = new Vector3(2,2,2);
+        if(_donnees.pouvoirs.Contains(TypePouvoir.Poison)) // Si le joueur possède le pouvoir.
+        {
+            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
+            {
+                Destroy(_particulePouvoirActuelle);
+                _particulePouvoirActuelle = null;
+            }
+            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[2], transform.position, _particulesPouvoirs[2].transform.rotation, transform);
+            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
+        }
+        else
+        {
+            Debug.Log("Tu ne possède pas le pouvoir de poison");
+        }
+    }
+
+    /// <summary>
+    /// Méthode qui est appelée lorsque le joueur appuie sur le 4 ou dpad gauche pour
+    /// changer l'élement de pouvoir actuel en foudre.
+    /// </summary>
+    void OnChangeFoudre()
+    {
+        Vector3 tailleParticules = new Vector3(2,2,2);
+        if(_donnees.pouvoirs.Contains(TypePouvoir.Foudre)) // Si le joueur possède le pouvoir.
+        {
+            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
+            {
+                Destroy(_particulePouvoirActuelle);
+                _particulePouvoirActuelle = null;
+            }
+            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[3], transform.position, _particulesPouvoirs[3].transform.rotation, transform);
+            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
+        }
+        else
+        {
+            Debug.Log("Tu ne possède pas le pouvoir de foudre");
+        }
+    }
 
     /// <summary>
     /// Méthode qui est appelée lorsque le joueur appuie sur le bouton de saut.
@@ -152,6 +251,7 @@ public class Perso : DetecteurSol
     {
         _veutSauter = value.isPressed; // Active ou désactive le saut en fonction de si le bouton est pressé ou non.
     }
+
 
     /// <summary>
     /// Méthode qui permet au joueur de sauter.

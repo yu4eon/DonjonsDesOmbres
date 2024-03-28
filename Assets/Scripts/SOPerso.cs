@@ -27,7 +27,8 @@ public class SOPerso : ScriptableObject
     int defenseBonus;
     [SerializeField] int basePv = 10;
     int pvBonus;
-    List<string> _pouvoirs = new List<string>();
+    List<TypePouvoir> _pouvoirs = new List<TypePouvoir>();
+    public List<TypePouvoir> pouvoirs => _pouvoirs;
 
     public int niveau
     {
@@ -55,11 +56,11 @@ public class SOPerso : ScriptableObject
 
     List<SOObjet> _lesObjets = new List<SOObjet>();
 
+
     public void Initialiser()
     {
         _niveau = _niveauIni;
         _argent = _argentIni;
-        
         ViderInventaire();
         // Reset tout les variable des SOObjet estAcheter à false
     }
@@ -112,6 +113,7 @@ public class SOPerso : ScriptableObject
         {
             objet.estAcheter = false;
         }
+        _pouvoirs.Clear();
         _lesObjets.Clear();
         attaqueBonus = 0;
         defenseBonus = 0;
@@ -120,10 +122,20 @@ public class SOPerso : ScriptableObject
     }
     public void AjouterPouvoir(TypePouvoir nomPouvoir)
     {
-        // if (!_pouvoirs.Contains(nomPouvoir))
-        // {
-        //     _pouvoirs.Add(nomPouvoir);
-        // }
+        string pouvoirPerso = "";
+        if (!_pouvoirs.Contains(nomPouvoir))
+        {
+            _pouvoirs.Add(nomPouvoir);
+            foreach (TypePouvoir pouvoir in _pouvoirs)
+            {
+                if (pouvoirPerso != "")
+                {
+                    pouvoirPerso += ", ";
+                }
+                pouvoirPerso += pouvoir;
+            }
+            Debug.Log("Pouvoirs actuelles :" + pouvoirPerso);
+        }
     }
 
 

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Autels : MonoBehaviour
 {
-    // [SerializeField] string element;
     [SerializeField] TypePouvoir element;
     [SerializeField] SOPerso _donneesPerso;
     [SerializeField] SpriteRenderer _spriteEteint;
@@ -36,15 +35,12 @@ public class Autels : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && ps.isPlaying)
+        if(collision.CompareTag("Player") && ps.isPlaying)
         {
             Debug.Log("Element : " + element);
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                _donneesPerso.AjouterPouvoir(element);
-                sr.sprite = _spriteEteint.sprite;
-                ps.Stop();
-            }
+            _donneesPerso.AjouterPouvoir(element);
+            sr.sprite = _spriteEteint.sprite;
+            ps.Stop();
         }
     }
 

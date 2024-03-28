@@ -11,12 +11,10 @@ public class Activateur : MonoBehaviour
 
     static Activateur _instance;
     static public Activateur instance => _instance;
+    SpriteRenderer _sr;
 
     UnityEvent _evenementActivateur = new UnityEvent();
     public UnityEvent evenementActivateur => _evenementActivateur;
-
-    SpriteRenderer _sr;
-
     void Awake()
     {
         if(_instance != null)

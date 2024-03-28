@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1686513048415829921}
   - component: {fileID: 5947547870089432483}
   - component: {fileID: 7752918061342527682}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System Bonus Objets 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4804,8 +4804,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -654654071
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0

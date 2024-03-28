@@ -35,7 +35,6 @@ public class Activateur : MonoBehaviour
     {
         _sr.sprite = _sInactif; // Définit le sprite inactif au démarrage.
     }
-
     /// <summary>
     /// #tp3 Léon
     /// Sent when an incoming collider makes contact with this object's

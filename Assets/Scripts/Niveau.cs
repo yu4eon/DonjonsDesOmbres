@@ -170,7 +170,9 @@ public class Niveau : MonoBehaviour
         // Choisir un index aléatoire
         int index = Random.Range(0, niveau.transform.childCount);
         // Récupérer la salle aléatoire
+        // À CHANGER  : Cause des erreurs lorsqu'on ne trouve pas de salle. Possiblement par un GetComponentInChildren()?
         Salle salleAleatoire = niveau.transform.GetChild(index).GetComponent<Salle>();
+        
         // Placer le personnage.
         Vector2Int posPerso = ObtenirPosLibre();
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor;
@@ -197,8 +199,8 @@ public class Niveau : MonoBehaviour
         int id = nb;
         Salle salle2 = GameObject.Find(extremitees[id]).GetComponentInChildren<Salle>();
         Vector2Int posRep2 = salle2.PlacerSurRepere(cle) - decalage;
-
         Vector2Int Rep2 = Vector2Int.FloorToInt((Vector2)salleAleatoire._repere.transform.position);
+        
         _lesPosSurReperes.Add(Rep2);
 
         int index2 = Random.Range(0, extremitees.Count);

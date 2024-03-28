@@ -82,7 +82,11 @@ public class Niveau : MonoBehaviour
         }
     }
 
-    void PlacerAutels() //#tp3 Antoine
+    /// <summary>
+    /// #tp3 Antoine    
+    /// méthode pour placer les autels dans les salles du niveau.
+    /// </summary>
+    void PlacerAutels()
     {
         Transform contenant = new GameObject("Autels").transform; // Crée un GameObject pour contenir les autels.
         contenant.parent = transform; // Assigne le niveau comme parent du contenant.
@@ -114,8 +118,13 @@ public class Niveau : MonoBehaviour
             }
         }
     }
-    // Méthode pour vérifier si la position du dessus est vide.
-    bool PositionDessusEstVide(Vector2Int pos) // #tp3 Antoine
+    /// <summary>
+    /// #tp3 Antoine
+    /// Méthode pour vérifier si la position du dessus est vide.
+    /// </summary>
+    /// <param name="pos">Position à vérifier</param>
+    /// <return>Si la position du dessus est vide</return>
+    bool PositionDessusEstVide(Vector2Int pos)
     {
         Vector2Int posDessus = new Vector2Int(pos.x, pos.y + 1);
         if (_lesPosLibres.Contains(posDessus))
@@ -129,13 +138,27 @@ public class Niveau : MonoBehaviour
         return false;
     }
 
-    // Méthode pour vérifier si la position du dessous est occupée.
+
+    /// <summary>
+    /// #tp3 Antoine
+    /// Méthode pour vérifier si la position du dessous est occupée.
+    /// </summary>
+    /// <param name="pos">Position a verifier</param>
+    /// <returns>Si la position est occuppé</returns>
     bool PositionDessousEstOccupee(Vector2Int pos) // #tp3 Antoine
     {
         Vector2Int posDessous = new Vector2Int(pos.x, pos.y - 1);
         return !_lesPosLibres.Contains(posDessous);
     }
 
+    /// <summary>
+    /// #tp3 Antoine
+    /// Méthode pour placer les items dans les salles du niveau.
+    /// </summary>
+    /// <param name="perso">Personnage à placer</param>
+    /// <param name="porte">Porte à placer</param>
+    /// <param name="cle">Clé à placer</param>
+    /// <param name="activateur">Activateur à placer</param>
     void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur) // #tp3 Antoine
     {
         // Transform contenant = new GameObject("Items").transform; // Crée un GameObject pour contenir le perso, la porte et la clé.
@@ -168,7 +191,6 @@ public class Niveau : MonoBehaviour
         Vector2Int posRep = salle.PlacerSurRepere(porte) - decalage;
         _lesPosSurReperes.Remove(posRep);
 
-
         // Placer la clé.
         extremitees.Reverse();
         Salle salle2 = GameObject.Find(extremitees[nb]).GetComponentInChildren<Salle>();
@@ -180,8 +202,10 @@ public class Niveau : MonoBehaviour
 
     
     /// <summary>
-    /// Méthode pour obtenir une position libre aléatoire dans le niveau. #tp3 Léon
+    /// #tp3 Léon
+    /// Méthode pour obtenir une position libre aléatoire dans le niveau. 
     /// </summary>
+    /// <returns>Position libre aléatoire</returns>
     Vector2Int ObtenirPosLibre()
     {
         int indexPosLibre = Random.Range(0, _lesPosLibres.Count);
@@ -191,7 +215,8 @@ public class Niveau : MonoBehaviour
     }
 
     /// <summary>
-    /// Méthode pour créer le niveau, incluant enlever les positions prises par des effectors dans la liste des positions libres. #tp3 Léon
+    /// #tp3 Léon
+    /// Méthode pour créer le niveau, incluant enlever les positions prises par des effectors dans la liste des positions libres
     /// </summary>
     void CreerNiveau()
     {
@@ -278,8 +303,8 @@ public class Niveau : MonoBehaviour
                 }
             }
 
-        // Pour les positions prises par des repères, on les enlève de la liste des positions libres. 
         } 
+        // Pour les positions prises par des repères, on les enlève de la liste des positions libres. 
         foreach (Vector2Int pos in _lesPosSurReperes)
         {
             _lesPosLibres.Remove(pos);

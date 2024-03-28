@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// #Tp3
+/// Auteur du code : Antoine Lachance
+/// Commentaires ajoutés par : Antoine Lachance
+/// Classe qui gère la porte
+/// </summary>
 public class Porte : MonoBehaviour
 {
     [SerializeField] SONavigation _navigation; // Référence au script de navigation entre les scènes

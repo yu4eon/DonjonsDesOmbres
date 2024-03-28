@@ -13,48 +13,48 @@ using UnityEngine.Events;
 public class SOPerso : ScriptableObject
 {
     [Header("Valeurs actuelles")]
-    [SerializeField, Range(1, 5)] int _niveau = 1;
-    [SerializeField, Range(0, 500)] int _argent = 100;
+    [SerializeField, Range(1, 5)] int _niveau = 1; // Niveau du personnage
+    [SerializeField, Range(0, 500)] int _argent = 100; // Argent du personnage
 
     [Header("Valeurs initiales")]
-    [SerializeField, Range(1, 5)] int _niveauIni = 1;
-    [SerializeField, Range(0, 500)] int _argentIni = 100;
+    [SerializeField, Range(1, 5)] int _niveauIni = 1; // Niveau initial du personnage
+    [SerializeField, Range(0, 500)] int _argentIni = 100; // Argent initial du personnage
 
     [Header("Stats")]
-    [SerializeField] int baseAttaque = 10;
+    [SerializeField] int baseAttaque = 10; // Attaque de base du personnage
     int attaqueBonus;
-    [SerializeField] int baseDefense = 10;
+    [SerializeField] int baseDefense = 10;  // Défense de base du personnage
     int defenseBonus;
-    [SerializeField] int basePv = 10;
-    int pvBonus;
-    List<TypePouvoir> _pouvoirs = new List<TypePouvoir>();
-    public List<TypePouvoir> pouvoirs => _pouvoirs;
+    [SerializeField] int basePv = 10; // Points de vie de base du personnage
+    int pvBonus; // Points de vie bonus du personnage
+    List<TypePouvoir> _pouvoirs = new List<TypePouvoir>(); // Liste des pouvoirs du personnage
+    public List<TypePouvoir> pouvoirs => _pouvoirs; // Propriété pour accéder à la liste des pouvoirs du personnage
 
-    public int niveau
+    public int niveau // Propriété pour accéder et modifier le niveau du personnage
     {
         get => _niveau;
         set
         {
-            _niveau = Mathf.Clamp(value, 1, int.MaxValue);
-            _evenementMiseAJour.Invoke();
+            _niveau = Mathf.Clamp(value, 1, int.MaxValue); 
+            _evenementMiseAJour.Invoke(); // Appelle l'événement de mise à jour
         }
     }
 
-    public int argent
+    public int argent // Propriété pour accéder et modifier l'argent du personnage
     {
         get => _argent;
         set
         {
             _argent = Mathf.Clamp(value, 0, int.MaxValue);
-            _evenementMiseAJour.Invoke();
+            _evenementMiseAJour.Invoke(); // Appelle l'événement de mise à jour
         }
 
     }
 
-    UnityEvent _evenementMiseAJour = new UnityEvent();
-    public UnityEvent evenementMiseAJour => _evenementMiseAJour;
+    UnityEvent _evenementMiseAJour = new UnityEvent(); // Événement de mise à jour
+    public UnityEvent evenementMiseAJour => _evenementMiseAJour; // Propriété pour accéder à l'événement de mise à jour
 
-    List<SOObjet> _lesObjets = new List<SOObjet>();
+    List<SOObjet> _lesObjets = new List<SOObjet>(); // Liste des objets du personnage
 
 
     public void Initialiser()
@@ -65,12 +65,17 @@ public class SOPerso : ScriptableObject
         // Reset tout les variable des SOObjet estAcheter à false
     }
 
+    /// <summary>
+    /// #tp3 Antoine et Léon
+    /// Méthode qui permet d'acheter un objet et d'ajuster les stats du personnage en conséquence
+    /// </summary>
+    /// <param name="donneesObjet"></param>
     public void Acheter(SOObjet donneesObjet)
     {
         argent -= donneesObjet.prix;
         _lesObjets.Add(donneesObjet);
         AfficherInventaire();
-        // Leon J'ai changé les ifs pour que ça check le type d'objet au lieu du nom de l'objet
+        // Leon : J'ai changé les ifs pour que ça check le type d'objet au lieu du nom de l'objet
         if (donneesObjet.typeObjet == TypeObjet.Attaque) attaqueBonus += 10; Debug.Log("Bonus attaque: " + attaqueBonus);
         if (donneesObjet.typeObjet == TypeObjet.DefensePV) //Si l'objet est de type DefensePV, ajoute 10 à la défense et aux points de vie
         {
@@ -83,20 +88,29 @@ public class SOPerso : ScriptableObject
         if (donneesObjet.estAcheter == false) donneesObjet.estAcheter = true;
     }
 
+    /// <summary>
+    /// #tp3 Antoine
+    /// Méthode qui ajoute de l'argent au personnage
+    /// </summary>
+    /// <param name="value">Argent qu'on ajoute au joueur</param>
     public void AjouterArgent(int value)
     {
         argent += value;
         Debug.Log("Argent ajouté: " + argent);
     }
 
+    /// <summary>
+    /// #tp3 Antoine
+    /// Méthode qui affiche l'inventaire du joueur
+    /// </summary>
     void AfficherInventaire()
     {
         string inventaire = "";
-        foreach (SOObjet objet in _lesObjets)
+        foreach (SOObjet objet in _lesObjets) //Pour chaque objet dans la liste des objets
         {
-            if (inventaire != "")
+            if (inventaire != "") //Si l'inventaire n'est pas vide
             {
-                inventaire += ", ";
+                inventaire += ", "; //Ajoute une virgule
             }
             inventaire += objet.nom;
         }
@@ -104,40 +118,44 @@ public class SOPerso : ScriptableObject
     }
 
     /// <summary>
-    /// Leon : 
+    /// #tp3 Leon 
     /// Méthode qui vide l'inventaire du joueur et remet les stats à leur valeur de base
     /// </summary>
     public void ViderInventaire()
     {
-        foreach (SOObjet objet in _lesObjets)
+        foreach (SOObjet objet in _lesObjets) //Pour chaque objet dans la liste des objets
         {
-            objet.estAcheter = false;
+            objet.estAcheter = false; //Remet l'objet à non acheté
         }
-        _pouvoirs.Clear();
-        _lesObjets.Clear();
-        attaqueBonus = 0;
-        defenseBonus = 0;
-        pvBonus = 0;
-        Perso.possedeDoublesSauts = false;
+        _pouvoirs.Clear(); //Vide la liste des pouvoirs 
+        _lesObjets.Clear(); //Vide la liste des objets
+        attaqueBonus = 0; //Remet l'attaque à 0
+        defenseBonus = 0; //Remet la défense à 0
+        pvBonus = 0; //Remet les points de vie à 0
+        Perso.possedeDoublesSauts = false; //Remet le double saut à false
     }
+    /// <summary>
+    /// tp3 Leon
+    /// Méthode qui ajoute un pouvoir au personnage
+    /// </summary>
+    /// <param name="nomPouvoir">Type de pouvoir à ajouter</param>
     public void AjouterPouvoir(TypePouvoir nomPouvoir)
     {
         string pouvoirPerso = "";
-        if (!_pouvoirs.Contains(nomPouvoir))
+        if (!_pouvoirs.Contains(nomPouvoir)) //Si le pouvoir n'est pas déjà dans la liste des pouvoirs
         {
-            _pouvoirs.Add(nomPouvoir);
-            foreach (TypePouvoir pouvoir in _pouvoirs)
+            _pouvoirs.Add(nomPouvoir); //Ajoute le pouvoir à la liste des pouvoirs
+            foreach (TypePouvoir pouvoir in _pouvoirs) //Pour chaque pouvoir dans la liste des pouvoirs
             {
-                if (pouvoirPerso != "")
+                if (pouvoirPerso != "") //Si la liste des pouvoirs n'est pas vide
                 {
-                    pouvoirPerso += ", ";
+                    pouvoirPerso += ", "; //Ajoute une virgule
                 }
-                pouvoirPerso += pouvoir;
+                pouvoirPerso += pouvoir; //Ajoute le pouvoir à la liste des pouvoirs
             }
             Debug.Log("Pouvoirs actuelles :" + pouvoirPerso);
         }
     }
-
 
     void OnValidate()
     {

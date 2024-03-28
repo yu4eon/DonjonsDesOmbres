@@ -15,7 +15,7 @@ public class Perso : DetecteurSol
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
     [SerializeField] static bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
-    static public bool possedeDoublesSauts
+    static public bool possedeDoublesSauts // Propriété pour accéder à la variable privée _possedeDoublesSauts. 
     {
         set
         {
@@ -147,66 +147,100 @@ public class Perso : DetecteurSol
             _renderModule.pivot = new Vector3(0,0);
         }
     }
+    
+    // Note pour les 4 fonctions suivantes : on n'a pas arrivé à faire que le input system envoie in int spécifique,
+    // donc on a du faire une fonction pour chaque pouvoir. #tp3
 
+    /// <summary>
+    /// Méthode qui est appelée lorsque le joueur appuie sur le 1 ou dpad haut pour
+    /// changer l'élement de pouvoir actuel en glace.
+    /// </summary>
     void OnChangeGlace()
     {
         Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Glace))
+        if(_donnees.pouvoirs.Contains(TypePouvoir.Glace)) // Si le joueur possède le pouvoir.
         {
-            if(_particulePouvoirActuelle != null)
+            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
             {
                 Destroy(_particulePouvoirActuelle);
                 _particulePouvoirActuelle = null;
             }
             _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[0], transform.position, _particulesPouvoirs[0].transform.rotation, transform);
-            _particulePouvoirActuelle.transform.localScale = tailleParticules;
+            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
         }
-        Debug.Log("Tu ne possède pas le pouvoir de glace");
+        else
+        {
+            Debug.Log("Tu ne possède pas le pouvoir de glace");
+        }
     }
+
+    /// <summary>
+    /// Méthode qui est appelée lorsque le joueur appuie sur le 2 ou dpad droite pour
+    /// changer l'élement de pouvoir actuel en ombre.
+    /// </summary>
     void OnChangeOmbre()
     {
         Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Ombre))
+        if(_donnees.pouvoirs.Contains(TypePouvoir.Ombre)) // Si le joueur possède le pouvoir.
         {
-            if(_particulePouvoirActuelle != null)
+            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
             {
                 Destroy(_particulePouvoirActuelle);
                 _particulePouvoirActuelle = null;
             }
             _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[1], transform.position, _particulesPouvoirs[1].transform.rotation, transform);
-            _particulePouvoirActuelle.transform.localScale = tailleParticules;
+            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
         }
-        Debug.Log("Tu ne possède pas le pouvoir d'ombre");
+        else
+        {
+            Debug.Log("Tu ne possède pas le pouvoir d'ombre");
+        }
     }
+
+    /// <summary>
+    /// Méthode qui est appelée lorsque le joueur appuie sur le 3 ou dpad bas pour
+    /// changer l'élement de pouvoir actuel en poison.
+    /// </summary>
     void OnChangePoison()
     {
         Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Poison))
+        if(_donnees.pouvoirs.Contains(TypePouvoir.Poison)) // Si le joueur possède le pouvoir.
         {
-            if(_particulePouvoirActuelle != null)
+            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
             {
                 Destroy(_particulePouvoirActuelle);
                 _particulePouvoirActuelle = null;
             }
             _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[2], transform.position, _particulesPouvoirs[2].transform.rotation, transform);
-            _particulePouvoirActuelle.transform.localScale = tailleParticules;
+            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
         }
-        Debug.Log("Tu ne possède pas le pouvoir de poison");
+        else
+        {
+            Debug.Log("Tu ne possède pas le pouvoir de poison");
+        }
     }
+
+    /// <summary>
+    /// Méthode qui est appelée lorsque le joueur appuie sur le 4 ou dpad gauche pour
+    /// changer l'élement de pouvoir actuel en foudre.
+    /// </summary>
     void OnChangeFoudre()
     {
         Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Foudre))
+        if(_donnees.pouvoirs.Contains(TypePouvoir.Foudre)) // Si le joueur possède le pouvoir.
         {
-            if(_particulePouvoirActuelle != null)
+            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
             {
                 Destroy(_particulePouvoirActuelle);
                 _particulePouvoirActuelle = null;
             }
             _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[3], transform.position, _particulesPouvoirs[3].transform.rotation, transform);
-            _particulePouvoirActuelle.transform.localScale = tailleParticules;
+            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
         }
-        Debug.Log("Tu ne possède pas le pouvoir de foudre");
+        else
+        {
+            Debug.Log("Tu ne possède pas le pouvoir de foudre");
+        }
     }
 
     /// <summary>

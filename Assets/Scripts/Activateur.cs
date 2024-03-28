@@ -14,7 +14,6 @@ public class Activateur : MonoBehaviour
 
     static Activateur _instance; // Instance statique de la classe Activateur.
     static public Activateur instance => _instance; // Propriété publique qui permet l'accès à l'instance de la classe Activateur.
-    SpriteRenderer _sr;
 
     UnityEvent _evenementActivateur = new UnityEvent(); // Événement Unity déclenché par l'activateur.
     public UnityEvent evenementActivateur => _evenementActivateur; // Propriété publique qui permet l'accès à l'événement de l'activateur.

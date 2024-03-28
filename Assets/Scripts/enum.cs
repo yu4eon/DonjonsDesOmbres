@@ -10,6 +10,10 @@ public enum TypeObjet
     DefensePV = 2,
 }
 
+/// <summary>
+/// #tp3 Leon
+/// Enumération des types de pouvoirs que le joueur peut obtenir a partir des autels
+/// </summary>
 public enum TypePouvoir
 {
     Poison = 0,

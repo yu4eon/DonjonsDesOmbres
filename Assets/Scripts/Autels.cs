@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// #tp3
+/// Auteur du code : Antoine Lachance
+/// Commetaires ajoutés par : Antoine Lachance
+/// </summary>
 public class Autels : MonoBehaviour
 {
     [SerializeField] TypePouvoir element; // Type de pouvoir de l'autel.
@@ -54,12 +59,15 @@ public class Autels : MonoBehaviour
             StartCoroutine(ArreterParticules()); // Démarre la coroutine pour arrêter les particules.
         }
     }
-
+    /// <summary>
+    /// #Tp3 Antoine
+    /// Coroutine qui arrête le système de particules.
+    /// </summary>
     IEnumerator ArreterParticules()
     {
         yield return new WaitForSeconds(1.5f); // Attend 1.5 secondes.
         ps.Stop(); // Arrête le système de particules.
-
+    }
     /// <summary>
     /// #Tp3 Antoine
     /// Active l'autel.

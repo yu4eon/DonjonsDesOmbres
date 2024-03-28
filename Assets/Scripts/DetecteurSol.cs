@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// Auteur du code : Léon Yu, Antoine Lachance
+/// Commetaires ajoutés par : Léon Yu, Antoine Lachance
 /// Classe qui gère la détection du sol pour les personnages
 /// </summary>
 public class DetecteurSol : MonoBehaviour

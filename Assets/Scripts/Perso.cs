@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
+/// Auteur du code : Léon Yu, Antoine Lachance
+/// Commetaires ajoutés par : Léon Yu, Antoine Lachance
 /// Classe qui contrôle les déplacements du personnage.
 /// </summary>
 public class Perso : DetecteurSol
@@ -12,32 +14,32 @@ public class Perso : DetecteurSol
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
     [SerializeField] static bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
-    [SerializeField] SOPerso _donnees;
-    [SerializeField] ParticleSystem _particuleCourse;
-    [SerializeField] ParticleSystem.MinMaxCurve _startSizeRapide;
-    // vv Apparament, tu ne peux pas acceder au module renderer a partir du particle system vv
-    [SerializeField] ParticleSystemRenderer _renderModule; 
-    ParticleSystem.MinMaxCurve _startSizeInitial;
-    ParticleSystem.MainModule _mainModule;
     static public bool possedeDoublesSauts
     {
         set
         {
-            _possedeDoublesSauts = true;
+            _possedeDoublesSauts = value;
         }
     }
+    [SerializeField] SOPerso _donnees; 
+    [SerializeField] ParticleSystem _particuleCourse; // Particule de course lorsque le joueur bouge #tp3 Leon
+    [SerializeField] ParticleSystem.MinMaxCurve _startSizeRapide; // Taille des particules lorsque le joueur est rapide #tp3 Leon
+    // vv Apparament, tu ne peux pas acceder au module renderer a partir du particle system vv
+    [SerializeField] ParticleSystemRenderer _renderModule; // Module de rendu des particules pour la particule de course #tp3 Leon
+    ParticleSystem.MinMaxCurve _startSizeInitial; // Taille des particules initiale #tp3 Leon
+    ParticleSystem.MainModule _mainModule; // Module principal de la particule de course #tp3 Leon
 
     float _axeHorizontal; // Axe horizontal du personnage.
     int _nbFramesRestants = 0; // Nombre de frames restantes pendant lesquelles le joueur peut sauter.
     bool _veutSauter; // Si le joueur veut sauter.
     bool _peutDoubleSauter = false; // Si le joueur peut faire un double saut.
     bool _auDeuxiemeSaut; // Si le joueur est au deuxième saut.
-    bool _estRapide;
+    bool _estRapide; // Si le joueur est rapide #tp3 Leon
 
 
     Rigidbody2D _rb; // Rigidbody du personnage.
     SpriteRenderer _sr; // SpriteRenderer du personnage.
-    Animator _animator; 
+    Animator _animator; // Animator du personnage. #tp3 Leon
 
     /// <summary>
     /// Méthode qui est appelée lorsque le script est chargé.
@@ -46,10 +48,11 @@ public class Perso : DetecteurSol
     {
         _rb = GetComponent<Rigidbody2D>(); // Obtient le Rigidbody du personnage.
         _sr = GetComponent<SpriteRenderer>(); // Obtient le SpriteRenderer du personnage.
-        _animator = GetComponent<Animator>();
-        _vitesseInitial = _vitesse;
-        _mainModule = _particuleCourse.main;
-        _startSizeInitial = _mainModule.startSize;
+        //#tp3 Leon
+        _animator = GetComponent<Animator>(); // Obtient l'Animator du personnage. 
+        _vitesseInitial = _vitesse; // Sauvegarde la vitesse initiale du personnage.
+        _mainModule = _particuleCourse.main; // Obtient le module principal de la particule de course.
+        _startSizeInitial = _mainModule.startSize; // Sauvegarde la taille initiale des particules.
     }
 
     /// <summary>
@@ -71,14 +74,7 @@ public class Perso : DetecteurSol
 
         _rb.velocity = new Vector2(_axeHorizontal * _vitesse, _rb.velocity.y); // Déplace le joueur en fonction de l'entrée horizontale.
 
-        _animator.SetFloat("VelocityX", _rb.velocity.x);
-
-        // Debug.Log(_particuleCourse.isEmitting);
-        // if(_rb.velocity.x ==0)
-        // {
-        //     _particuleCourse.Stop();
-        // }
-        // _particuleCourse.Play();
+        _animator.SetFloat("VelocityX", _rb.velocity.x); // Donne la vitesse horizontale au paramètre de l'Animator. #tp3 Leon
 
         if (_veutSauter) // Si le joueur veut sauter.
         {
@@ -104,10 +100,13 @@ public class Perso : DetecteurSol
             // _particuleCourse.Stop();
         }
 
+        // #tp3 Leon
+        // Si le joueur ne bouge pas ou n'est pas au sol, arrête les particules de course.
         if (_rb.velocity.x == 0 || !_estAuSol)
         {
             _particuleCourse.Stop();
         }
+        // Si le joueur bouge et est au sol, commence les particules de course.
         else if (_rb.velocity.x != 0 && _estAuSol)
         {
             if(!_particuleCourse.isEmitting)
@@ -125,18 +124,21 @@ public class Perso : DetecteurSol
     void OnMove(InputValue value)
     {
         _axeHorizontal = value.Get<Vector2>().x; // Obtient la valeur de l'axe horizontal de l'entrée.
-        Vector3 scaleParticule = _particuleCourse.transform.localScale;
         
         if (_axeHorizontal < 0) // Si le joueur se déplace vers la gauche.
         {
             _sr.flipX = true; // Tourne le personnage vers la gauche.
 
+            // #tp3 Leon
+            // Tourne les particules de course vers la gauche.
             _renderModule.flip = new Vector3(1,0);
             _renderModule.pivot = new Vector3(1,0);
         }
         else if (_axeHorizontal > 0) // Si le joueur se déplace vers la droite.
         {
             _sr.flipX = false; // Tourne le personnage vers la droite.
+            // #tp3 Leon
+            // Tourne les particules de course vers la droite.
             _renderModule.flip = new Vector3(0,0);
             _renderModule.pivot = new Vector3(0,0);
         }
@@ -170,16 +172,29 @@ public class Perso : DetecteurSol
         }
     }
 
+    /// <summary>
+    /// #tp3 Leon
+    /// Méthode qui augmente la vitesse du personnage, appelé par effector de vitesse.
+    /// </summary>
     public void AugmenterVitesse()
     {
-        if(_estRapide) return;
+        //Si le joueur est déjà rapide, on rafraishie le boost.
+        if(_estRapide)
+        {
+            StopAllCoroutines();
+            _vitesse = _vitesseInitial;
+        }
         _vitesse = _vitesse*1.5f;
         _mainModule.startSize = _startSizeRapide;
         _estRapide = true;
-        StartCoroutine(ChangerVitesse());
-
+        Coroutine coroutineVitesse = StartCoroutine(ChangerVitesse());
     }
 
+    /// <summary>
+    /// #tp3 Leon
+    /// Coroutine qui change la vitesse du personnage et la taille des particules après un certain temps,
+    /// jusqu'à ce qu'il revienne à sa vitesse et taille initiale.
+    /// </summary>
     IEnumerator ChangerVitesse()
     {
         yield return new WaitForSeconds(2);
@@ -191,9 +206,6 @@ public class Perso : DetecteurSol
         
     }
     
-    /// <summary>
-    /// Callback sent to all game objects before the application is quit.
-    /// </summary>
     void OnApplicationQuit()
     {
         _donnees.Initialiser();

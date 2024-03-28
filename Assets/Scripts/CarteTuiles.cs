@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 
 /// <summary>
+/// Auteur du code : Léon Yu, Antoine Lachance
+/// Commetaires ajoutés par : Léon Yu, Antoine Lachance
 /// Classe qui gère l'apparition des tuiles sur la tilemap principal
 /// </summary>
 public class CarteTuiles : MonoBehaviour

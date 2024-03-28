@@ -156,7 +156,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_ConstantMin: 0
-    m_ConstantMax: 1.5
+    m_ConstantMax: 0.7
   _renderModule: {fileID: 7139690204325690075}
   _particulesPouvoirs:
   - {fileID: 7228857694764231008, guid: e1cb443b124393a4cb165ca407d493c2, type: 3}
@@ -421,8 +421,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2554803424876575596, guid: b8e0c43e4dccc21488a8505328386f53, type: 3}
+      propertyPath: EmissionModule.m_BurstCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2554803424876575596, guid: b8e0c43e4dccc21488a8505328386f53, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 1
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2554803424876575596, guid: b8e0c43e4dccc21488a8505328386f53, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2554803424876575596, guid: b8e0c43e4dccc21488a8505328386f53, type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 5566681888783591105, guid: b8e0c43e4dccc21488a8505328386f53, type: 3}
       propertyPath: m_Name

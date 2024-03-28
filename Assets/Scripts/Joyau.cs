@@ -2,29 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// #tp3
+/// Auteur du code : Léon Yu
+/// Commetaires ajoutés par : Léon Yu
+/// classe qui gère les joyaux, qui sont des objets que le joueur peut ramasser pour obtenir de l'or
+/// </summary>
 public class Joyau : MonoBehaviour
 {
-    [SerializeField, Range(0f, 1f)] float _valeur = 0.1f; // Valeur du joyau
-    [SerializeField] Retroaction _retroModele;
-    // [SerializeField] SOPerso _donneesPerso;
+    [SerializeField, Range(0, 20)] int _valeur = 1; // Valeur du joyau en argent
+    [SerializeField] Retroaction _retroModele; // Modèle de rétroaction lorsque le joueur rammase le joyau
+    [SerializeField] SOPerso _donneesPerso; // Données du personnage, (ScriptableObject)
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player")) //Si le joueur entre en collision avec le joyau
         {
-            Niveau.instance.LibererUnePos(transform.position);
+            Niveau.instance.LibererUnePos(transform.position); //Libérer la position du joyau
             Retroaction retro = Instantiate(_retroModele, transform.position, Quaternion.identity, transform.parent);
             retro.ChangerTexte("+" + _valeur + " or");
-            // _donneesPerso.argent += _valeur; //A ajouter quand on fusionne nos scripts
-            // _donneesPerso.AjouterArgent(_valeur); //Alternatif meilleur
+            _donneesPerso.AjouterArgent(_valeur); //Ajouter l'argent au joueur
             Destroy(gameObject);
         }
     }

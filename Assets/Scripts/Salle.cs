@@ -6,15 +6,20 @@ using UnityEngine.Tilemaps;
 
 
 /// <summary>
+/// Auteur du code : Léon Yu, Antoine Lachance
+/// Commetaires ajoutés par : Léon Yu, Antoine Lachance 
 /// Classe pour le conteneur des tuiles, détermine la taille de la salle et affiche des informations sur la salle.
 public class Salle : MonoBehaviour
 {
     //La taille d'une salle
     static Vector2Int _taille = new Vector2Int(32, 18);
-    // Propriété pour accéder à la taille de la salle.
+    // Propriété pour accéder à la taille de la salle :
     static public Vector2Int taille => _taille;
 
-    [SerializeField] Transform[] _tReperes; // Tableau de repères pour placer les éléments intéractifs importants, c'est donc un endroit facilement accéssible. #tp3 Léon
+    [SerializeField] public Transform _repere; //Repère pour placer les objets
+    [SerializeField] Transform[] _tEffectors; //Tableau des effectors dans la salle
+    public Transform[] tEffectors => _tEffectors; //Propriété pour accéder aux effectors
+    
 
     // #tp3 leon, Supprimer la methode Tester car elle etait inutile
 
@@ -33,8 +38,8 @@ public class Salle : MonoBehaviour
     /// <returns>La position ou l'objet doit etre placé</returns>
     public Vector2Int PlacerSurRepere(GameObject _modele)
     {
-        int n = Random.Range(0, _tReperes.Length);
-        Vector3 pos = _tReperes[n].position;
+
+        Vector3 pos = _repere.position;
         Instantiate(_modele, pos, Quaternion.identity, transform.parent);
         return Vector2Int.FloorToInt(pos);
     }

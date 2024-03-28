@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1090707840749926137}
   - component: {fileID: 4263084188647883792}
   - component: {fileID: 3773878502231695436}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PieceArgent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 468199197
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -384761634, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -98,8 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ea31e9a1ea0af4ca5968c0eae61466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _valeur: 0.1
+  _valeur: 1
   _retroModele: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
+  _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
 --- !u!58 &3773878502231695436
 CircleCollider2D:
   m_ObjectHideFlags: 0

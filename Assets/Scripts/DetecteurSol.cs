@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// Auteur du code : Léon Yu, Antoine Lachance
+/// Commetaires ajoutés par : Léon Yu, Antoine Lachance
 /// Classe qui gère la détection du sol pour les personnages
 /// </summary>
 public class DetecteurSol : MonoBehaviour
 {
-
     [SerializeField] Vector2 _posCentreBoite = new Vector2(0, -1f); //Position du centre de la boite de collision
     [SerializeField] Vector2 _tailleBoite = new Vector2(0.5f, 0.1f); //Taille de la boite de collision
     [SerializeField] LayerMask _mask; //Les Layermasks qui sont considérés comme sol
@@ -29,7 +30,7 @@ public class DetecteurSol : MonoBehaviour
         Vector2 pointDepart = (Vector2)transform.position + _posCentreBoite;
         Collider2D collision = Physics2D.OverlapBox(pointDepart, _tailleBoite, 0, _mask);
         _estAuSol = collision != null;
-        Debug.Log("Est au sol?" +_estAuSol);
+        // Debug.Log("Est au sol?" +_estAuSol);
     }
 
     /// <summary>

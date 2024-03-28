@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9a219ae41006b945842c7d6986fcccf, type: 3}
-  m_Name: Maison
+  m_Name: AttaqueBonus
   m_EditorClassIdentifier: 
-  _nom: "Tr\xE8fle"
-  _sprite: {fileID: 0}
+  _nom: Attaque bonus
+  _sprite: {fileID: -96703204, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
   _prixDeBase: 30
-  _niveauRequis: 3
-  _description: 
-  _donneDroitRabais: 0
+  _description: Augmente l'attaque du joueur pour le prochain niveau
+  _estAcheter: 0
+  _typeObjet: 1

@@ -7,6 +7,7 @@ public class Porte : MonoBehaviour
 {
     [SerializeField] SONavigation _navigation;
     [SerializeField] Sprite[] _sprites;
+    [SerializeField] SOPerso _donneesPerso;
 
     SpriteRenderer _sr;
     static public bool aCle = false;
@@ -34,15 +35,20 @@ public class Porte : MonoBehaviour
         if (aCle && other.CompareTag("Player"))
         {
             _sr.sprite = _sprites[1];
-            Invoke("ChangerScene", 2f);
+
+            // Leon : J'ai changer le Invoke en Coroutine
+            Coroutine _coroutine = StartCoroutine(ChangerScene());
             
         }
     }
 
-    void ChangerScene()
+    /// <summary>
+    /// Coroutine qui change de scène après 2 secondes et vide l'inventaire du joueur
+    /// </summary>
+    IEnumerator ChangerScene()
     {
+        yield return new WaitForSeconds(2f);
+        _donneesPerso.ViderInventaire();
         _navigation.AllerSceneSuivante();
     }
-
-    
 }

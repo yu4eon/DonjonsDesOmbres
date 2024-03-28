@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1761666038227600469}
   - component: {fileID: 4730163790752088675}
   - component: {fileID: 8088950852853912576}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AutelEteint 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 468199197
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 929098768, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

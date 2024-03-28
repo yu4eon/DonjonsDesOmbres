@@ -10,25 +10,15 @@ public class SOObjet : ScriptableObject
     [SerializeField] string _nom = "Trèfle";
     [SerializeField, Tooltip("Îcone de l'objet pour la boutique")] Sprite _sprite;
     [SerializeField][Range(0, 200)] int _prixDeBase = 30;
-    [SerializeField][Range(1, 5)] int _niveauRequis = 1;
     [SerializeField, TextArea]/*TextArea*/ string _description;
-    [SerializeField][Tooltip("Cet objet donne-t-il droit au rabais?")] bool _donneDroitRabais = false;
-    [SerializeField][Tooltip("Cet objet donne-t-il droit au rabais?")] bool _estAcheter = false;
+    [SerializeField][Tooltip("Cet objet a-t'il déjà été acheté?")] bool _estAcheter = false;
+    [SerializeField] TypeObjet _typeObjet; // Type de l'objet #tp3 Leon 
 
+    public TypeObjet typeObjet { get => _typeObjet; set => _typeObjet = value; }
     public string nom { get => _nom; set => _nom = value; }
     public Sprite sprite { get => _sprite; set => _sprite = value; }
-    public int prix
-    {
-        get
-        {
-            float facteur = 1f;
-            if(Boutique.instance != null) facteur = Boutique.instance.donneesPerso.facteurPrix;
-            int prix = Mathf.RoundToInt(_prixDeBase * facteur);
-            return prix;
-        }
-    }
-    public int niveauRequis { get => _niveauRequis; set => _niveauRequis = Mathf.Clamp(value, 0, int.MaxValue); }
+    public int prix => _prixDeBase;
+
     public string description { get => _description; set => _description = value; }
-    public bool donneDroitRabais { get => _donneDroitRabais; set => _donneDroitRabais = value; }
     public bool estAcheter { get => _estAcheter; set => _estAcheter = value; }
 }

@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "SOPerso", menuName = "SOPerso")]
+
+/// <summary>
+/// #tp3
+/// Auteur du code : Antoine Lachance, Léon Yu
+/// Commentaires ajoutés par : Antoine Lachance, Léon Yu
+/// </summary>
 public class SOPerso : ScriptableObject
 {
     [Header("Valeurs actuelles")]
@@ -49,44 +55,30 @@ public class SOPerso : ScriptableObject
 
     List<SOObjet> _lesObjets = new List<SOObjet>();
 
-    float _facteurPrixIni = 1;
-    float _facteurPrix = 1;
-    public float facteurPrix
-    {
-        get => _facteurPrix;
-        set
-        {
-            _facteurPrix = Mathf.Clamp(value, 0, int.MaxValue);
-            _evenementMiseAJour.Invoke();
-        }
-    }
-    float _facteurPrixSiRabais = 0.9f;
-
     public void Initialiser()
     {
         _niveau = _niveauIni;
         _argent = _argentIni;
-        foreach (SOObjet objet in _lesObjets)
-        {
-            objet.estAcheter = false;
-        }
-        _lesObjets.Clear();
-        _facteurPrix = _facteurPrixIni;
-        attaqueBonus = 0;
-        defenseBonus = 0;
+        
+        ViderInventaire();
         // Reset tout les variable des SOObjet estAcheter à false
     }
 
     public void Acheter(SOObjet donneesObjet)
     {
         argent -= donneesObjet.prix;
-        if (donneesObjet.donneDroitRabais) facteurPrix = _facteurPrixSiRabais;
         _lesObjets.Add(donneesObjet);
         AfficherInventaire();
-        if (donneesObjet.nom == "Bonus attaque") attaqueBonus += 10; Debug.Log("Bonus attaque: " + attaqueBonus);
-        if (donneesObjet.nom == "Bonus défense") defenseBonus += 10; Debug.Log("Bonus défence: " + defenseBonus);
-        if (donneesObjet.nom == "Bonus pv") pvBonus += 10; Debug.Log("Bonus pv: " + pvBonus);
-        if (donneesObjet.nom == "Double saut") Perso.possedeDoublesSauts = true;
+        // Leon J'ai changé les ifs pour que ça check le type d'objet au lieu du nom de l'objet
+        if (donneesObjet.typeObjet == TypeObjet.Attaque) attaqueBonus += 10; Debug.Log("Bonus attaque: " + attaqueBonus);
+        if (donneesObjet.typeObjet == TypeObjet.DefensePV) //Si l'objet est de type DefensePV, ajoute 10 à la défense et aux points de vie
+        {
+            defenseBonus += 10;
+            pvBonus += 10;
+            Debug.Log("Bonus defense: " + defenseBonus);
+            Debug.Log("Bonus pv: " + pvBonus);
+        } 
+        if (donneesObjet.typeObjet == TypeObjet.DoubleSaut) Perso.possedeDoublesSauts = true;
         if (donneesObjet.estAcheter == false) donneesObjet.estAcheter = true;
     }
 
@@ -110,12 +102,28 @@ public class SOPerso : ScriptableObject
         Debug.Log("Inventaire du perso : " + inventaire);
     }
 
-    public void AjouterPouvoir(string nomPouvoir)
+    /// <summary>
+    /// Leon : 
+    /// Méthode qui vide l'inventaire du joueur et remet les stats à leur valeur de base
+    /// </summary>
+    public void ViderInventaire()
     {
-        if (!_pouvoirs.Contains(nomPouvoir))
+        foreach (SOObjet objet in _lesObjets)
         {
-            _pouvoirs.Add(nomPouvoir);
+            objet.estAcheter = false;
         }
+        _lesObjets.Clear();
+        attaqueBonus = 0;
+        defenseBonus = 0;
+        pvBonus = 0;
+        Perso.possedeDoublesSauts = false;
+    }
+    public void AjouterPouvoir(TypePouvoir nomPouvoir)
+    {
+        // if (!_pouvoirs.Contains(nomPouvoir))
+        // {
+        //     _pouvoirs.Add(nomPouvoir);
+        // }
     }
 
 

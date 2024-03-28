@@ -15,7 +15,6 @@ MonoBehaviour:
   _nom: Attaque bonus
   _sprite: {fileID: -96703204, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
   _prixDeBase: 30
-  _niveauRequis: 1
   _description: Augmente l'attaque du joueur pour le prochain niveau
-  _donneDroitRabais: 0
   _estAcheter: 0
+  _typeObjet: 1

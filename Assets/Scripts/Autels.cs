@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Autels : MonoBehaviour
 {
-    [SerializeField] string element;
+    // [SerializeField] string element;
+    [SerializeField] TypePouvoir element;
     [SerializeField] SOPerso _donneesPerso;
     [SerializeField] SpriteRenderer _spriteEteint;
     SpriteRenderer sr;

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a219ae41006b945842c7d6986fcccf, type: 3}
   m_Name: DefenseBonus
   m_EditorClassIdentifier: 
-  _nom: "D\xE9fence bonus"
+  _nom: Bouclier
   _sprite: {fileID: 1225359135, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
   _prixDeBase: 30
-  _niveauRequis: 1
-  _description: "Augmente la d\xE9fense du joueur pour le prochain niveau"
-  _donneDroitRabais: 0
+  _description: "Augmente la d\xE9fense et points de vies du joueur pour le prochain
+    niveau."
   _estAcheter: 0
+  _typeObjet: 2

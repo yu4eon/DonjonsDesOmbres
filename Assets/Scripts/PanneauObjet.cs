@@ -35,9 +35,8 @@ public class PanneauObjet : MonoBehaviour
 
     void GererDispo()
     {
-        bool aNiveauRequis = Boutique.instance.donneesPerso.niveau >= _donnees.niveauRequis;
         bool aAssezArgent = Boutique.instance.donneesPerso.argent >= _donnees.prix;
-        if(aNiveauRequis && aAssezArgent)
+        if(aAssezArgent)
         {
             _canvasGroup.interactable = true;
             _canvasGroup.alpha = 1;

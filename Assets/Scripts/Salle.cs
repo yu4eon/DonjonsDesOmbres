@@ -16,7 +16,7 @@ public class Salle : MonoBehaviour
     // Propriété pour accéder à la taille de la salle :
     static public Vector2Int taille => _taille;
 
-    [SerializeField] Transform _repere; //Repère pour placer les objets
+    [SerializeField] public Transform _repere; //Repère pour placer les objets
     [SerializeField] Transform[] _tEffectors; //Tableau des effectors dans la salle
     public Transform[] tEffectors => _tEffectors; //Propriété pour accéder aux effectors
     

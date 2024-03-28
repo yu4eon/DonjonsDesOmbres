@@ -166,16 +166,41 @@ public class Niveau : MonoBehaviour
         Salle salle = GameObject.Find(extremitees[nb]).GetComponentInChildren<Salle>();
         Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
         Vector2Int posRep = salle.PlacerSurRepere(porte) - decalage;
-        _lesPosSurReperes.Remove(posRep);
+        Vector2Int Rep = Vector2Int.FloorToInt((Vector2)salle._repere.transform.position);
+        _lesPosSurReperes.Add(Rep);
 
 
         // Placer la clé.
         extremitees.Reverse();
-        Salle salle2 = GameObject.Find(extremitees[nb]).GetComponentInChildren<Salle>();
+        int id = nb;
+        Salle salle2 = GameObject.Find(extremitees[id]).GetComponentInChildren<Salle>();
         Vector2Int posRep2 = salle2.PlacerSurRepere(cle) - decalage;
-        extremitees.Reverse();
-        salleAleatoire.PlacerSurRepere(activateur);
+
+        Vector2Int Rep2 = Vector2Int.FloorToInt((Vector2)salleAleatoire._repere.transform.position);
+        _lesPosSurReperes.Add(Rep2);
+
+        int index2 = Random.Range(0, extremitees.Count);
+        while (index2 == id && index2 == nb)
+        {
+            while (index2 == id)
+            {
+                index2 = Random.Range(0, extremitees.Count);
+            }
+            extremitees.Reverse();
+            while (index2 == nb)
+            {
+                index2 = Random.Range(0, extremitees.Count);
+            }
+            extremitees.Reverse();
+            
+        }
+        // Récupérer la salle aléatoire
+        // Salle salleAleatoire2 = niveau.transform.GetChild(index2).GetComponent<Salle>();
+        Salle salleAleatoire2 = GameObject.Find(extremitees[index2]).GetComponentInChildren<Salle>();
+        // salleAleatoire2.PlacerSurRepere(activateur);
+        Vector2Int posRep3 = salleAleatoire2.PlacerSurRepere(activateur) - decalage;
     }
+
 
 
     

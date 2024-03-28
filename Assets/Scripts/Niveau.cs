@@ -13,13 +13,13 @@ public class Niveau : MonoBehaviour
     [SerializeField] Tilemap _tilemapNiveau; // tilemap du niveau #tp3 Léon - J'ai changé le nom de la variable pour être plus explicite.
     [SerializeField] Salle[] _tSallesModeles; // Tableau de tous les prefabs de salles disponibles.
     [SerializeField] Vector2Int _taille = new Vector2Int(3, 3); // Taille du niveau en 2 dimensions, sur l'axe x et y.
-    [SerializeField] TileBase _tuileModele; // Tuile utilisé pour les bordures
+    [SerializeField] TileBase _tuileModele; // Tuile utilisée pour les bordures
     [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
     [SerializeField] Autels[] _tAutelsModeles; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
-    [SerializeField] Perso _perso;
-    [SerializeField] GameObject _cle;
-    [SerializeField] GameObject _activateur;
-    [SerializeField] GameObject _porte;
+    [SerializeField] Perso _perso; // Tp3 Antoine
+    [SerializeField] GameObject _cle; // Tp3 Antoine
+    [SerializeField] GameObject _activateur; // Tp3 Antoine
+    [SerializeField] GameObject _porte; // Tp3 Antoine
     // [SerializeField] SOActivateur _activateur;
     [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
@@ -82,7 +82,7 @@ public class Niveau : MonoBehaviour
         }
     }
 
-    void PlacerAutels()
+    void PlacerAutels() //#tp3 Antoine
     {
         Transform contenant = new GameObject("Autels").transform; // Crée un GameObject pour contenir les autels.
         contenant.parent = transform; // Assigne le niveau comme parent du contenant.
@@ -115,7 +115,7 @@ public class Niveau : MonoBehaviour
         }
     }
     // Méthode pour vérifier si la position du dessus est vide.
-    bool PositionDessusEstVide(Vector2Int pos)
+    bool PositionDessusEstVide(Vector2Int pos) // #tp3 Antoine
     {
         Vector2Int posDessus = new Vector2Int(pos.x, pos.y + 1);
         if (_lesPosLibres.Contains(posDessus))
@@ -130,13 +130,13 @@ public class Niveau : MonoBehaviour
     }
 
     // Méthode pour vérifier si la position du dessous est occupée.
-    bool PositionDessousEstOccupee(Vector2Int pos)
+    bool PositionDessousEstOccupee(Vector2Int pos) // #tp3 Antoine
     {
         Vector2Int posDessous = new Vector2Int(pos.x, pos.y - 1);
         return !_lesPosLibres.Contains(posDessous);
     }
 
-    void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur)
+    void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur) // #tp3 Antoine
     {
         // Transform contenant = new GameObject("Items").transform; // Crée un GameObject pour contenir le perso, la porte et la clé.
         // contenant.parent = transform; // Assigne le niveau comme parent du contenant.
@@ -166,6 +166,7 @@ public class Niveau : MonoBehaviour
         Salle salle = GameObject.Find(extremitees[nb]).GetComponentInChildren<Salle>();
         Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
         Vector2Int posRep = salle.PlacerSurRepere(porte) - decalage;
+        _lesPosSurReperes.Remove(posRep);
 
 
         // Placer la clé.
@@ -294,7 +295,7 @@ public class Niveau : MonoBehaviour
 
     /// <summary>
     /// #tp3 Léon
-    /// Méthode publique appelé par Joyau qui libère une position dans la liste des positions libres.
+    /// Méthode publique appelée par Joyau qui libère une position dans la liste des positions libres.
     /// </summary>
     public void LibererUnePos(Vector3 posPrecise)
     {
@@ -303,7 +304,7 @@ public class Niveau : MonoBehaviour
     }
 
     /// <summary>
-    /// Méthode publique appelé par CarteTuiles qui ajoute une tuile à la tilemap du niveau.
+    /// Méthode publique appelée par CarteTuiles qui ajoute une tuile à la tilemap du niveau.
     /// #tp3 Léon, j'ai enlevé le paramètre niveau, car il n'est plus nécessaire.
     /// </summary>
     /// <param name="tilemap">Tilemap d'ou vient la tuile</param>

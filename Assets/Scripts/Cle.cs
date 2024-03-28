@@ -5,6 +5,7 @@ using UnityEngine;
 public class Cle : MonoBehaviour
 {
     /// <summary>
+    /// #Tp3 Antoine
     /// Sent when an incoming collider makes contact with this object's
     /// collider (2D physics only).
     /// </summary>

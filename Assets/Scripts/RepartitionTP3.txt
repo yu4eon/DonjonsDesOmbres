@@ -27,10 +27,8 @@ Fini:
 -Joyau d'argent (1 or)
 -Navigation
 -Positionement de la porte, clé, personnage et activateur
--Placement de l'activateur
--Placement de la porte, clé et personnage
-
-À faire:
--Intéractivité porte, clé activateur
+-Intéractivité porte, clé
 -bonus 2 pilliers
 -1 particule à déterminer
+
+À faire:

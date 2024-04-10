@@ -201,8 +201,8 @@ public class Niveau : MonoBehaviour
         Debug.Log(string.Join(", ", niveauSurBordure)); //Test
 
         int nb = Random.Range(0, niveauSurBordure.Count);
-        // Salle salle = GameObject.Find(extremitees[nb]).GetComponentInChildren<Salle>();
-        Salle salle = extremitees[nb].GetComponent<Salle>();
+        Salle salle = GameObject.Find(extremitees[nb]).GetComponentInChildren<Salle>();
+        // Salle salle = extremitees[nb].GetComponent<Salle>();
         Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
         Vector2Int posRep = salle.PlacerSurRepere(porte) - decalage;
         Vector2Int Rep = Vector2Int.FloorToInt((Vector2)salle._repere.transform.position);

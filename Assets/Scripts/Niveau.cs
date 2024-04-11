@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
 
 /// <summary>
@@ -12,7 +13,7 @@ public class Niveau : MonoBehaviour
 {
     [SerializeField] Tilemap _tilemapNiveau; // tilemap du niveau #tp3 Léon - J'ai changé le nom de la variable pour être plus explicite.
     [SerializeField] Salle[] _tSallesModeles; // Tableau de tous les prefabs de salles disponibles.
-    [SerializeField] Vector2Int _taille = new Vector2Int(3, 3); // Taille du niveau en 2 dimensions, sur l'axe x et y.
+    [SerializeField] Vector2Int _taille = new Vector2Int(2, 2); // Taille du niveau en 2 dimensions, sur l'axe x et y.
     [SerializeField] TileBase _tuileModele; // Tuile utilisée pour les bordures
     [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
     [SerializeField] Autels[] _tAutelsModeles; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
@@ -20,6 +21,7 @@ public class Niveau : MonoBehaviour
     [SerializeField] GameObject _cle; // Tp3 Antoine
     [SerializeField] GameObject _activateur; // Tp3 Antoine
     [SerializeField] GameObject _porte; // Tp3 Antoine
+    [SerializeField] SOPerso _donneesPerso; // Tp4 leon
     // [SerializeField] SOActivateur _activateur;
     [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
@@ -31,6 +33,8 @@ public class Niveau : MonoBehaviour
 
     static Niveau _instance; // Instance statique de la classe. #tp3 Léon
     static public Niveau instance => _instance; // Propriété publique qui permet l'accès à l'instance de la classe. #tp3 Léon
+
+    List<Vector2Int> niveauSurBordure = new List<Vector2Int>();
 
     void Awake()
     {
@@ -159,7 +163,7 @@ public class Niveau : MonoBehaviour
     /// <param name="porte">Porte à placer</param>
     /// <param name="cle">Clé à placer</param>
     /// <param name="activateur">Activateur à placer</param>
-    void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur) // #tp3 Antoine
+                                void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur) // #tp3 Antoine
     {
         // Transform contenant = new GameObject("Items").transform; // Crée un GameObject pour contenir le perso, la porte et la clé.
         // contenant.parent = transform; // Assigne le niveau comme parent du contenant.
@@ -187,12 +191,25 @@ public class Niveau : MonoBehaviour
             "Salle2_2",
             "Salle2_0",
         };
-        int nb = Random.Range(0, extremitees.Count);
+
+        for (int y = 1; y < _taille.y - 1; y++)
+        {
+            for (int x = 1; x < _taille.x - 1; x++)
+            {
+                niveauSurBordure.Remove(new Vector2Int(x,y));
+            }
+        }
+        Debug.Log(string.Join(", ", niveauSurBordure)); //Test
+
+        int nb = Random.Range(0, niveauSurBordure.Count);
         Salle salle = GameObject.Find(extremitees[nb]).GetComponentInChildren<Salle>();
+        // Salle salle = extremitees[nb].GetComponent<Salle>();
         Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
         Vector2Int posRep = salle.PlacerSurRepere(porte) - decalage;
         Vector2Int Rep = Vector2Int.FloorToInt((Vector2)salle._repere.transform.position);
         _lesPosSurReperes.Add(Rep);
+
+        
 
         // Placer la clé.
         extremitees.Reverse();
@@ -216,7 +233,7 @@ public class Niveau : MonoBehaviour
                 index2 = Random.Range(0, extremitees.Count);
             }
             extremitees.Reverse();
-            
+
         }
         // Récupérer la salle aléatoire
         // Salle salleAleatoire2 = niveau.transform.GetChild(index2).GetComponent<Salle>();
@@ -224,6 +241,7 @@ public class Niveau : MonoBehaviour
         // salleAleatoire2.PlacerSurRepere(activateur);
         Vector2Int posRep3 = salleAleatoire2.PlacerSurRepere(activateur) - decalage;
     }
+
 
 
 
@@ -247,6 +265,18 @@ public class Niveau : MonoBehaviour
     /// </summary>
     void CreerNiveau()
     {
+        // Si le niveau est plus grand que 1, on ajuste la taille de la salle.
+        if(_donneesPerso.niveau > 1)
+        {
+            if(_donneesPerso.niveau == 2)
+            {
+                _taille = new Vector2Int(2, 3);
+            }
+            else
+            {
+                _taille = new Vector2Int(_donneesPerso.niveau,3);
+            }
+        }
         // Calcul de la taille de la salle avec une bordure.
         Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
 
@@ -270,6 +300,10 @@ public class Niveau : MonoBehaviour
                 // Nomme la salle selon sa position dans le niveau.
                 salle.name = "Salle" + x + "_" + y;
 
+                
+                niveauSurBordure.Add(new Vector2Int(x,y));//Test
+
+
                 // Pour chaque effector de vitesse dans la salle. #tp3 Léon
                 foreach (Transform posEffector in salle.tEffectors)
                 {
@@ -285,6 +319,7 @@ public class Niveau : MonoBehaviour
                 }
             }
         }
+        Debug.Log(string.Join(", ", niveauSurBordure)); //Test
 
         // Calcul pour la taille du niveau avec une bordure, ainsi que les coordonnées minimales et maximales.
         Vector2Int tailleNiveau = _taille * tailleAvecUneBordure;

@@ -163,6 +163,7 @@ MonoBehaviour:
   - {fileID: 6653470305252310338, guid: c0280baa08d7bee448843017177b1be7, type: 3}
   - {fileID: 4662112955779928621, guid: 50939b9b54bbf0f42a2962cdc1d20cd6, type: 3}
   - {fileID: 5721592000770606963, guid: 7da8f70ca474bfa4faceb882f8a99732, type: 3}
+  _donneesNavigation: {fileID: 11400000, guid: 7bfae785291759145a074c72fef7cad2, type: 2}
 --- !u!60 &3296702771639569974
 PolygonCollider2D:
   m_ObjectHideFlags: 0

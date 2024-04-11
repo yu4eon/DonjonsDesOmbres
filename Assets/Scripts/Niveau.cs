@@ -13,7 +13,7 @@ public class Niveau : MonoBehaviour
 {
     [SerializeField] Tilemap _tilemapNiveau; // tilemap du niveau #tp3 Léon - J'ai changé le nom de la variable pour être plus explicite.
     [SerializeField] Salle[] _tSallesModeles; // Tableau de tous les prefabs de salles disponibles.
-    [SerializeField] Vector2Int _taille = new Vector2Int(3, 3); // Taille du niveau en 2 dimensions, sur l'axe x et y.
+    [SerializeField] Vector2Int _taille = new Vector2Int(2, 2); // Taille du niveau en 2 dimensions, sur l'axe x et y.
     [SerializeField] TileBase _tuileModele; // Tuile utilisée pour les bordures
     [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
     [SerializeField] Autels[] _tAutelsModeles; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
@@ -21,6 +21,7 @@ public class Niveau : MonoBehaviour
     [SerializeField] GameObject _cle; // Tp3 Antoine
     [SerializeField] GameObject _activateur; // Tp3 Antoine
     [SerializeField] GameObject _porte; // Tp3 Antoine
+    [SerializeField] SOPerso _donneesPerso; // Tp4 leon
     // [SerializeField] SOActivateur _activateur;
     [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
@@ -264,6 +265,18 @@ public class Niveau : MonoBehaviour
     /// </summary>
     void CreerNiveau()
     {
+        // Si le niveau est plus grand que 1, on ajuste la taille de la salle.
+        if(_donneesPerso.niveau > 1)
+        {
+            if(_donneesPerso.niveau == 2)
+            {
+                _taille = new Vector2Int(2, 3);
+            }
+            else
+            {
+                _taille = new Vector2Int(_donneesPerso.niveau,3);
+            }
+        }
         // Calcul de la taille de la salle avec une bordure.
         Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
 

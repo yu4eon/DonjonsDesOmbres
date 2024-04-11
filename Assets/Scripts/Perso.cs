@@ -121,6 +121,18 @@ public class Perso : DetecteurSol
 
     }
 
+    
+    [SerializeField] SONavigation _donneesNavigation; //à enlever plus tard
+    /// <summary>
+    /// Méthode temporaire à enlever pour la remise
+    /// Permet de skipper le niveau, pour tester
+    /// Pour activer, pèse sur Tab. Marche seulement lorsque le joueur est instancié dans la scène
+    /// </summary>
+    void OnSkipNiveau()
+    {
+        _donneesNavigation.AllerSceneSuivante();
+    }
+
     /// <summary>
     /// Méthode qui est appelée lorsque le joueur appuie sur les touches de déplacement.
     /// </summary>

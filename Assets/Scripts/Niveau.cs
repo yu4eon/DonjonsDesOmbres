@@ -44,12 +44,12 @@ public class Niveau : MonoBehaviour
             Destroy(gameObject); //sinon, détruit l'objet
         }
 
-        
+
     }
 
     void Start()
     {
-        
+
         CreerNiveau(); // #tp3 Léon
         TrouverPosLibres(); // #tp3 Léon
         PlacerItems(_perso, _porte, _cle, _activateur); //#tp3 Antoine
@@ -159,18 +159,16 @@ public class Niveau : MonoBehaviour
     /// <param name="porte">Porte à placer</param>
     /// <param name="cle">Clé à placer</param>
     /// <param name="activateur">Activateur à placer</param>
-    void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur) // #tp3 Antoine
+        void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur) // #tp3 Antoine
     {
-        // Transform contenant = new GameObject("Items").transform; // Crée un GameObject pour contenir le perso, la porte et la clé.
         // contenant.parent = transform; // Assigne le niveau comme parent du contenant.
         Transform contenant = transform;
 
         // Récupérer le composant Niveau
         Niveau niveau = GetComponent<Niveau>();
-        // Choisir un index aléatoire
-        int index = Random.Range(0, niveau.transform.childCount);
-        // Récupérer la salle aléatoire
-        Salle salleAleatoire = niveau.transform.GetChild(index).GetComponent<Salle>();
+
+
+
         // Placer le personnage.
         Vector2Int posPerso = ObtenirPosLibre();
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor;
@@ -178,23 +176,37 @@ public class Niveau : MonoBehaviour
 
 
         // Placer la porte.
-        List<string> extremitees = new List<string>
+        List<string> extremitees = new List<string>(); // Liste des salles qui se trouvent sur les extrémités du niveau.
+
+        for (int x = 0; x < _taille.x; x++)
         {
-            "Salle0_2",
-            "Salle0_0",
-            "Salle2_2",
-            "Salle2_0",
-        };
-        int nb = Random.Range(0, extremitees.Count);
-        Salle salle = GameObject.Find(extremitees[nb]).GetComponentInChildren<Salle>();
+            for (int y = 0; y < _taille.y; y++)
+            {
+                if (x == 0 || y == 0 || x == _taille.x - 1 || y == _taille.y - 1)
+                {
+                    string nom = "Salle" + x + "_" + y;
+                    extremitees.Add(nom);
+                }
+            }
+        }
+        string messageDebug = string.Join(", ", extremitees);
+        Debug.Log(messageDebug);
+
+        int sallePorte = Random.Range(0, extremitees.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.
+        Salle salle = GameObject.Find(extremitees[sallePorte]).GetComponentInChildren<Salle>(); // Récupère la salle.
         Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
-        Vector2Int posRep = salle.PlacerSurRepere(porte) - decalage;
+        Vector2Int posRep = salle.PlacerSurRepere(porte) - decalage; // Placement sur un repère.
         Vector2Int Rep = Vector2Int.FloorToInt((Vector2)salle._repere.transform.position);
         _lesPosSurReperes.Add(Rep);
 
+
         // Placer la clé.
-        extremitees.Reverse();
-        int id = nb;
+
+        int salleCleIndex = Random.Range(0, extremitees.Count); // Choisir un index aléatoire
+        string salleCle = extremitees[salleCleIndex];
+        Salle salleAleatoire = GameObject.Find(salleCle).GetComponentInChildren<Salle>(); // Récupérer la salle aléatoire
+
+        int id = sallePorte;
         Salle salle2 = GameObject.Find(extremitees[id]).GetComponentInChildren<Salle>();
         Vector2Int posRep2 = salle2.PlacerSurRepere(cle) - decalage;
 
@@ -202,19 +214,19 @@ public class Niveau : MonoBehaviour
         _lesPosSurReperes.Add(Rep2);
 
         int index2 = Random.Range(0, extremitees.Count);
-        while (index2 == id && index2 == nb)
+        while (index2 == id && index2 == sallePorte)
         {
             while (index2 == id)
             {
                 index2 = Random.Range(0, extremitees.Count);
             }
             extremitees.Reverse();
-            while (index2 == nb)
+            while (index2 == sallePorte)
             {
                 index2 = Random.Range(0, extremitees.Count);
             }
             extremitees.Reverse();
-            
+
         }
         // Récupérer la salle aléatoire
         // Salle salleAleatoire2 = niveau.transform.GetChild(index2).GetComponent<Salle>();
@@ -225,7 +237,8 @@ public class Niveau : MonoBehaviour
 
 
 
-    
+
+
     /// <summary>
     /// #tp3 Léon
     /// Méthode pour obtenir une position libre aléatoire dans le niveau. 
@@ -322,13 +335,13 @@ public class Niveau : MonoBehaviour
                 Vector2Int posTuile = new Vector2Int(x, y);
                 TileBase tuile = _tilemapNiveau.GetTile((Vector3Int)posTuile);
                 // Si la tuile est vide, ajoute la position à la liste des positions libres :
-                if (tuile == null) 
+                if (tuile == null)
                 {
                     _lesPosLibres.Add(posTuile);
                 }
             }
 
-        } 
+        }
         // Pour les positions prises par des repères, on les enlève de la liste des positions libres. 
         foreach (Vector2Int pos in _lesPosSurReperes)
         {

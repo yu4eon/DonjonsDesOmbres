@@ -159,7 +159,7 @@ MonoBehaviour:
   - {fileID: 47377556503971133, guid: ff9bdfbfabe3446429dfcb6baf2757ae, type: 3}
   - {fileID: 3267342497216375480, guid: 0fdf3e80883b0b142a96998ea7faefef, type: 3}
   - {fileID: -987097936463006515, guid: f70df123c2aed10448defc42dcfc3678, type: 3}
-  _taille: {x: 3, y: 3}
+  _taille: {x: 4, y: 4}
   _tuileModele: {fileID: 11400000, guid: 39ee99283c0fb2d498d889b85db3986a, type: 2}
   _tJoyauxModeles:
   - {fileID: 4263084188647883792, guid: a40bbab19bb0d524587e04508a2232a9, type: 3}

@@ -101,9 +101,18 @@ public class Niveau : MonoBehaviour
             // Vérifie si la position du dessus est vide et que la position du dessous n'est pas vide.
             if (PositionDessusEstVide(pos) && PositionDessousEstOccupee(pos))
             {
+                
                 Vector3 pos3 = (Vector3)(Vector2)pos + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertit la position
                 pos3 += new Vector3(0, 1, 0); // Positionne l'autel au dessus de la position.
-                Instantiate(autelModele, pos3, Quaternion.identity, contenant); // Crée le joyau à la position obtenue.
+                RaycastHit2D hit = Physics2D.Raycast(pos3, Vector2.down, Mathf.Infinity, LayerMask.GetMask("Effector"));
+                if (hit.collider == null)
+                {
+                    Instantiate(autelModele, pos3, Quaternion.identity, contenant); // Crée le joyau à la position obtenue.
+                }
+                else
+                {
+                    i--;
+                }
             }
             else
             {
@@ -145,11 +154,19 @@ public class Niveau : MonoBehaviour
     /// </summary>
     /// <param name="pos">Position a verifier</param>
     /// <returns>Si la position est occuppé</returns>
-    bool PositionDessousEstOccupee(Vector2Int pos) // #tp3 Antoine
+    bool PositionDessousEstOccupee(Vector2Int pos)
     {
+        Debug.Log(pos);
         Vector2Int posDessous = new Vector2Int(pos.x, pos.y - 1);
+
+        // if (Physics2D.OverlapCircle(posDessous, 0.5f).CompareTag("Effector"))
+        // {
+        //     return false;
+        // }
+        
         return !_lesPosLibres.Contains(posDessous);
     }
+
 
     /// <summary>
     /// #tp3 Antoine
@@ -159,80 +176,52 @@ public class Niveau : MonoBehaviour
     /// <param name="porte">Porte à placer</param>
     /// <param name="cle">Clé à placer</param>
     /// <param name="activateur">Activateur à placer</param>
-        void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur) // #tp3 Antoine
+    void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur) // #tp3 Antoine
     {
-        // contenant.parent = transform; // Assigne le niveau comme parent du contenant.
-        Transform contenant = transform;
-
-        // Récupérer le composant Niveau
-        Niveau niveau = GetComponent<Niveau>();
-
+        Transform contenant = transform; // GameObject parent des items
+        Niveau niveau = GetComponent<Niveau>(); // Récupérer le composant Niveau
 
 
         // Placer le personnage.
-        Vector2Int posPerso = ObtenirPosLibre();
-        Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor;
-        Instantiate(perso, pos3Perso, Quaternion.identity, contenant);
+        Vector2Int posPerso = ObtenirPosLibre(); // Obtenir une position libre aléatoire.
+        Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertir la position en Vector3.
+        Instantiate(perso, pos3Perso, Quaternion.identity, contenant); // Instancier le personnage.
 
 
         // Placer la porte.
         List<string> extremitees = new List<string>(); // Liste des salles qui se trouvent sur les extrémités du niveau.
-
-        for (int x = 0; x < _taille.x; x++)
+        for (int x = 0; x < _taille.x; x++) // Boucle sur les abscisses
         {
-            for (int y = 0; y < _taille.y; y++)
+            for (int y = 0; y < _taille.y; y++) // Boucle sur les ordonnées
             {
-                if (x == 0 || y == 0 || x == _taille.x - 1 || y == _taille.y - 1)
+                if (x == 0 || y == 0 || x == _taille.x - 1 || y == _taille.y - 1) // Vérifie si c'est une salle d'extrémité
                 {
-                    string nom = "Salle" + x + "_" + y;
-                    extremitees.Add(nom);
+                    string nom = "Salle" + x + "_" + y; // Nom de la salle
+                    extremitees.Add(nom); // Ajouter le nom à la liste
                 }
             }
         }
-        string messageDebug = string.Join(", ", extremitees);
-        Debug.Log(messageDebug);
-
-        int sallePorte = Random.Range(0, extremitees.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.
-        Salle salle = GameObject.Find(extremitees[sallePorte]).GetComponentInChildren<Salle>(); // Récupère la salle.
-        Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position);
-        Vector2Int posRep = salle.PlacerSurRepere(porte) - decalage; // Placement sur un repère.
-        Vector2Int Rep = Vector2Int.FloorToInt((Vector2)salle._repere.transform.position);
-        _lesPosSurReperes.Add(Rep);
+        int salleAlea = Random.Range(0, extremitees.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.
+        Salle sallePorte = GameObject.Find(extremitees[salleAlea]).GetComponentInChildren<Salle>(); // Récupère la salle.
+        Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position); // Décalage pour la position du repère.
+        Vector2Int posRep = sallePorte.PlacerSurRepere(porte) - decalage; // Placement sur un repère.
+        Vector2Int Rep = Vector2Int.FloorToInt((Vector2)sallePorte._repere.transform.position); // Position du repère
+        _lesPosSurReperes.Add(Rep); // Ajouter la position du repère à la liste
 
 
         // Placer la clé.
+        extremitees.Reverse(); // Inverser la liste des salles
+        string salleCleIndex = extremitees[salleAlea]; // Obtenir l'index opposé à la salle de la porte
+        Salle salleCle = GameObject.Find(salleCleIndex).GetComponentInChildren<Salle>(); // Récupérer la salle aléatoire
+        Vector2Int posRep2 = salleCle.PlacerSurRepere(cle) - decalage; // Placer la clé sur un repère de la salle
+        Vector2Int Rep2 = Vector2Int.FloorToInt((Vector2)salleCle._repere.transform.position); // Obtenir la position du repère
+        _lesPosSurReperes.Add(Rep2); // Ajouter la position du repère à la liste
 
-        int salleCleIndex = Random.Range(0, extremitees.Count); // Choisir un index aléatoire
-        string salleCle = extremitees[salleCleIndex];
-        Salle salleAleatoire = GameObject.Find(salleCle).GetComponentInChildren<Salle>(); // Récupérer la salle aléatoire
 
-        int id = sallePorte;
-        Salle salle2 = GameObject.Find(extremitees[id]).GetComponentInChildren<Salle>();
-        Vector2Int posRep2 = salle2.PlacerSurRepere(cle) - decalage;
-
-        Vector2Int Rep2 = Vector2Int.FloorToInt((Vector2)salleAleatoire._repere.transform.position);
-        _lesPosSurReperes.Add(Rep2);
-
-        int index2 = Random.Range(0, extremitees.Count);
-        while (index2 == id && index2 == sallePorte)
-        {
-            while (index2 == id)
-            {
-                index2 = Random.Range(0, extremitees.Count);
-            }
-            extremitees.Reverse();
-            while (index2 == sallePorte)
-            {
-                index2 = Random.Range(0, extremitees.Count);
-            }
-            extremitees.Reverse();
-
-        }
-        // Récupérer la salle aléatoire
-        // Salle salleAleatoire2 = niveau.transform.GetChild(index2).GetComponent<Salle>();
-        Salle salleAleatoire2 = GameObject.Find(extremitees[index2]).GetComponentInChildren<Salle>();
-        // salleAleatoire2.PlacerSurRepere(activateur);
-        Vector2Int posRep3 = salleAleatoire2.PlacerSurRepere(activateur) - decalage;
+        // Placer l'activateur
+        extremitees.RemoveAt(salleAlea); // Retirer la salle de la porte et de la clé de la liste
+        Salle salleActivateur = GameObject.Find(extremitees[Random.Range(0, extremitees.Count)]).GetComponentInChildren<Salle>(); // Choisir une salle aléatoire restante pour placer l
+        Vector2Int posRep3 = salleActivateur.PlacerSurRepere(activateur) - decalage; // Placer l'activateur sur un repère de la salle choisie
     }
 
 

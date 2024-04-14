@@ -1,0 +1,26 @@
+/***********************************************************/
+/************************* Léon Yu *************************/
+/***********************************************************/
+
+à faire :
+
+Complexification des niveaux
+Ajout d’un système d’enregistrement local des meilleurs scores
+Ajout des lumières et des animations, contrôle des animations
+Interface Jeu
+
+fini :
+
+
+/************************************************************/
+/********************* Antoine Lachance *********************/
+/************************************************************/
+
+à faire :
+
+Confinement Cinemachine
+Déclanchement des effets sonores
+Ajout d’un système de contrôle musical 
+Interface Hors-jeu
+
+fini :

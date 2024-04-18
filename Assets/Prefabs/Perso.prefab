@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _posCentreBoite: {x: 0, y: -1}
-  _tailleBoite: {x: 0.5, y: 0.1}
+  _tailleBoite: {x: 0.6, y: 0.1}
   _mask:
     serializedVersion: 2
     m_Bits: 8

@@ -15,10 +15,12 @@ public class SOPerso : ScriptableObject
     [Header("Valeurs actuelles")]
     [SerializeField, Range(1, 5)] int _niveau = 1; // Niveau du personnage
     [SerializeField, Range(0, 500)] int _argent = 100; // Argent du personnage
+    [SerializeField, Range(0, 100000)] int _score = 0; // Score du personnage #tp4 Leon
 
     [Header("Valeurs initiales")]
     [SerializeField, Range(1, 5)] int _niveauIni = 1; // Niveau initial du personnage
     [SerializeField, Range(0, 500)] int _argentIni = 100; // Argent initial du personnage
+    [SerializeField, Range(0, 100000)] int _scoreIni = 0; // Score du personnage #tp4 Leon
 
     [Header("Stats")]
     [SerializeField] int baseAttaque = 10; // Attaque de base du personnage
@@ -50,6 +52,15 @@ public class SOPerso : ScriptableObject
         }
 
     }
+    public int score // Propriété pour accéder et modifier le score du personnage #tp4 Leon
+    {
+        get => _score;
+        set
+        {
+            _score = Mathf.Clamp(value, 0, int.MaxValue);
+            _evenementMiseAJour.Invoke(); // Appelle l'événement de mise à jour
+        }
+    }
 
     UnityEvent _evenementMiseAJour = new UnityEvent(); // Événement de mise à jour
     public UnityEvent evenementMiseAJour => _evenementMiseAJour; // Propriété pour accéder à l'événement de mise à jour
@@ -61,6 +72,7 @@ public class SOPerso : ScriptableObject
     {
         _niveau = _niveauIni;
         _argent = _argentIni;
+        _score = _scoreIni; //Initialise le score à sa valeur initiale #tp4 Leon
         ViderInventaire();
         // Reset tout les variable des SOObjet estAcheter à false
     }
@@ -97,6 +109,18 @@ public class SOPerso : ScriptableObject
     {
         argent += value;
         Debug.Log("Argent ajouté: " + argent);
+        AjouterScore(value * 10); //Ajoute le montant de l'argent au score multiplié par 10
+    }
+
+    /// <summary>
+    /// #tp4 Leon
+    /// Méthode qui ajoute du score au personnage
+    /// </summary>
+    /// <param name="value">Score qu'on ajoute au joueur</param>
+    public void AjouterScore(int value) 
+    {
+        score += value;
+        Debug.Log("Score ajouté: " + score);
     }
 
     /// <summary>

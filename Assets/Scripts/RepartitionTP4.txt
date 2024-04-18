@@ -4,12 +4,17 @@
 
 à faire :
 
-Complexification des niveaux
-Ajout d’un système d’enregistrement local des meilleurs scores
-Ajout des lumières et des animations, contrôle des animations
+
+
 Interface Jeu
 
+en progrès :
+Ajout d’un système d’enregistrement local des meilleurs scores
+Ajout des lumières et des animations, contrôle des animations
+
 fini :
+
+Complexification des niveaux
 
 
 /************************************************************/

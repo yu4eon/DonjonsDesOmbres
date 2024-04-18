@@ -20,8 +20,7 @@ public class Activateur : MonoBehaviour
     UnityEvent _evenementActivateur = new UnityEvent(); // Événement Unity déclenché par l'activateur.
     public UnityEvent evenementActivateur => _evenementActivateur; // Propriété publique qui permet l'accès à l'événement de l'activateur.
     SpriteRenderer _sr; // Composant SpriteRenderer de l'activateur.
-    int _intensiteLumiereActif = 3; // Intensité de la lumière de l'activateur #tp4 Leon
-    int _intensiteLumiereInactif = 1; // Intensité de la lumière de l'activateur #tp4 Leon
+    int _intensiteLumiereActif = 5; // Intensité de la lumière de l'activateur #tp4 Leon
     void Awake()
     {
         if (_instance != null)
@@ -37,7 +36,7 @@ public class Activateur : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _lumiere.intensity = _intensiteLumiereInactif; // Définit l'intensité de la lumière de l'activateur à 1 #tp4 Leon
+        _lumiere.intensity = 0; // Définit l'intensité de la lumière de l'activateur à 1 #tp4 Leon
         _sr.sprite = _sInactif; // Définit le sprite inactif au démarrage.
     }
     /// <summary>

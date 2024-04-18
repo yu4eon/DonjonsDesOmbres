@@ -66,8 +66,6 @@ public class Perso : DetecteurSol
     {
         base.FixedUpdate(); // Appelle la méthode FixedUpdate de la classe mère.
 
-        _animator.SetFloat("VelocityY", _rb.velocity.y); // Donne la vitesse verticale au paramètre de l'Animator. #tp4 Leon
-        _animator.SetFloat("VelocityX", _rb.velocity.x); // Donne la vitesse horizontale au paramètre de l'Animator. #tp3 Leon
         // #tp3 Leon Ajout d'un check sur les frames, pour si le joueur colisionne avec un plafond.
         if (_rb.velocity.y < 0 && _nbFramesRestants == 0) // Si le joueur est en train de tomber. 
         {
@@ -80,6 +78,20 @@ public class Perso : DetecteurSol
 
         _rb.velocity = new Vector2(_axeHorizontal * _vitesse, _rb.velocity.y); // Déplace le joueur en fonction de l'entrée horizontale.
 
+        _animator.SetFloat("VelocityY", _rb.velocity.y); // Donne la vitesse verticale au paramètre de l'Animator. #tp4 Leon
+        _animator.SetFloat("VelocityX", _rb.velocity.x); // Donne la vitesse horizontale au paramètre de l'Animator. #tp3 Leon
+
+
+        // Si le joueur est en train de tomber ou sauter. J'ai du le mettre dans une autre condition car ça
+        // ne fonctionnait pas si le joueur maintenait la touche de saut. #tp4 Leon
+        if(_rb.velocity.y > 0.1 || _rb.velocity.y < -0.1)
+        {
+            _animator.SetBool("onGround", false); // Donne la valeur true au paramètre de l'Animator. 
+        }
+        else
+        {
+            _animator.SetBool("onGround", true); // Donne la valeur true au paramètre de l'Animator.
+        }
 
         if (_veutSauter) // Si le joueur veut sauter.
         {
@@ -93,7 +105,7 @@ public class Perso : DetecteurSol
         }
         else if (_estAuSol) // Si le joueur est au sol.
         {
-            _animator.SetBool("onGround", true); // Donne la valeur true au paramètre de l'Animator. #tp4 Leon 
+            
             _auDeuxiemeSaut = false; // Réinitialise l'indicateur de deuxième saut.
             _nbFramesRestants = _nbFramesMax; // Réinitialise le nombre de frames restantes pour sauter.
             if (_possedeDoublesSauts) _peutDoubleSauter = true; // Si le joueur ne possède pas le pouvoir de double saut, arrête la méthode ici.
@@ -101,7 +113,7 @@ public class Perso : DetecteurSol
         }
         else // Si le joueur n'est pas au sol et ne maintient pas le bouton de saut.
         {
-            _animator.SetBool("onGround", false); // Donne la valeur false au paramètre de l'Animator. #tp4 Leon
+            
             _auDeuxiemeSaut = true; // Indique que le joueur est au deuxième saut.
             _nbFramesRestants = 0; // Réinitialise le nombre de frames restantes.
             // _particuleCourse.Stop();

@@ -19,7 +19,7 @@ public class Autels : MonoBehaviour
     ParticleSystem.ShapeModule shape; // Module de forme des particules.
     ParticleSystem.EmissionModule emission; // Module d'émission des particules.
     bool estActif = false; // Indique si l'autel est actif ou non.
-    int _intensiteLumiereActif = 2; // Intensité de la lumière de l'autel #tp4 Leon
+    int _intensiteLumiereActif = 5; // Intensité de la lumière de l'autel #tp4 Leon
     Sprite _sBase; // Sprite de base de l'autel.
 
     /// <summary>

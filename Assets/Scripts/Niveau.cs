@@ -48,12 +48,12 @@ public class Niveau : MonoBehaviour
             Destroy(gameObject); //sinon, détruit l'objet
         }
 
-        
+
     }
 
     void Start()
     {
-        
+        DefinirTailleNiveau(); // #tp4 Léon
         CreerNiveau(); // #tp3 Léon
         TrouverPosLibres(); // #tp3 Léon
         PlacerItems(_perso, _porte, _cle, _activateur); //#tp3 Antoine
@@ -163,7 +163,7 @@ public class Niveau : MonoBehaviour
     /// <param name="porte">Porte à placer</param>
     /// <param name="cle">Clé à placer</param>
     /// <param name="activateur">Activateur à placer</param>
-                                void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur) // #tp3 Antoine
+    void PlacerItems(Perso perso, GameObject porte, GameObject cle, GameObject activateur) // #tp3 Antoine
     {
         // Transform contenant = new GameObject("Items").transform; // Crée un GameObject pour contenir le perso, la porte et la clé.
         // contenant.parent = transform; // Assigne le niveau comme parent du contenant.
@@ -176,7 +176,7 @@ public class Niveau : MonoBehaviour
         // Récupérer la salle aléatoire
         // À CHANGER  : Cause des erreurs lorsqu'on ne trouve pas de salle. Possiblement par un GetComponentInChildren()?
         Salle salleAleatoire = niveau.transform.GetChild(index).GetComponent<Salle>();
-        
+
         // Placer le personnage.
         Vector2Int posPerso = ObtenirPosLibre();
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor;
@@ -196,7 +196,7 @@ public class Niveau : MonoBehaviour
         {
             for (int x = 1; x < _taille.x - 1; x++)
             {
-                niveauSurBordure.Remove(new Vector2Int(x,y));
+                niveauSurBordure.Remove(new Vector2Int(x, y));
             }
         }
         Debug.Log(string.Join(", ", niveauSurBordure)); //Test
@@ -209,7 +209,7 @@ public class Niveau : MonoBehaviour
         Vector2Int Rep = Vector2Int.FloorToInt((Vector2)salle._repere.transform.position);
         _lesPosSurReperes.Add(Rep);
 
-        
+
 
         // Placer la clé.
         extremitees.Reverse();
@@ -217,7 +217,7 @@ public class Niveau : MonoBehaviour
         Salle salle2 = GameObject.Find(extremitees[id]).GetComponentInChildren<Salle>();
         Vector2Int posRep2 = salle2.PlacerSurRepere(cle) - decalage;
         Vector2Int Rep2 = Vector2Int.FloorToInt((Vector2)salleAleatoire._repere.transform.position);
-        
+
         _lesPosSurReperes.Add(Rep2);
 
         int index2 = Random.Range(0, extremitees.Count);
@@ -245,7 +245,7 @@ public class Niveau : MonoBehaviour
 
 
 
-    
+
     /// <summary>
     /// #tp3 Léon
     /// Méthode pour obtenir une position libre aléatoire dans le niveau. 
@@ -260,23 +260,32 @@ public class Niveau : MonoBehaviour
     }
 
     /// <summary>
+    /// #tp4 Léon
+    /// Méthode pour définir la taille du niveau selon le niveau du joueur
+    void DefinirTailleNiveau()
+    {
+        //Définir la taille du niveau selon le niveau du joueur
+        switch(_donneesPerso.niveau)
+        {
+            case 1:
+                _taille = new Vector2Int(2, 2);
+                break;
+            case 2:
+                _taille = new Vector2Int(2, 3);
+                break;
+            default:
+                _taille = new Vector2Int(_donneesPerso.niveau, 3);
+                break;
+        }
+    }
+
+    /// <summary>
     /// #tp3 Léon
     /// Méthode pour créer le niveau, incluant enlever les positions prises par des effectors dans la liste des positions libres
     /// </summary>
     void CreerNiveau()
     {
-        // Si le niveau est plus grand que 1, on ajuste la taille de la salle.
-        if(_donneesPerso.niveau > 1)
-        {
-            if(_donneesPerso.niveau == 2)
-            {
-                _taille = new Vector2Int(2, 3);
-            }
-            else
-            {
-                _taille = new Vector2Int(_donneesPerso.niveau,3);
-            }
-        }
+        
         // Calcul de la taille de la salle avec une bordure.
         Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
 
@@ -300,8 +309,8 @@ public class Niveau : MonoBehaviour
                 // Nomme la salle selon sa position dans le niveau.
                 salle.name = "Salle" + x + "_" + y;
 
-                
-                niveauSurBordure.Add(new Vector2Int(x,y));//Test
+
+                niveauSurBordure.Add(new Vector2Int(x, y));//Test
 
 
                 // Pour chaque effector de vitesse dans la salle. #tp3 Léon
@@ -359,13 +368,13 @@ public class Niveau : MonoBehaviour
                 Vector2Int posTuile = new Vector2Int(x, y);
                 TileBase tuile = _tilemapNiveau.GetTile((Vector3Int)posTuile);
                 // Si la tuile est vide, ajoute la position à la liste des positions libres :
-                if (tuile == null) 
+                if (tuile == null)
                 {
                     _lesPosLibres.Add(posTuile);
                 }
             }
 
-        } 
+        }
         // Pour les positions prises par des repères, on les enlève de la liste des positions libres. 
         foreach (Vector2Int pos in _lesPosSurReperes)
         {

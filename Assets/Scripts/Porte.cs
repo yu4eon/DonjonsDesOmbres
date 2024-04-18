@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// #Tp3
@@ -14,15 +15,18 @@ public class Porte : MonoBehaviour
     [SerializeField] SONavigation _navigation; // Référence au script de navigation entre les scènes
     [SerializeField] Sprite[] _sprites; // Tableau des sprites de la porte (ouverte et fermée)
     [SerializeField] SOPerso _donneesPerso; // Données du personnage (ScriptableObject)
+    [SerializeField] GameObject _lumiere; // Référence à la lumière de la porte #tp4 Leon
 
     SpriteRenderer _sr; // Référence au composant SpriteRenderer de la porte
     static public bool aCle = false; // Booléen indiquant si la clé a été trouvée
+
 
     /// <summary>
     /// Start est appelée lors du premier frame où le script est activé, avant n'importe quel Update.
     /// </summary>
     void Start()
     {
+        _lumiere.SetActive(false); // Désactive la lumière de la porte #tp4 Leon
         aCle = false; // Réinitialisation de la variable aCle
         _sr = GetComponent<SpriteRenderer>(); // Obtention du composant SpriteRenderer attaché à cet objet
         _sr.sprite = _sprites[0]; // Définition du sprite initial de la porte (fermée)
@@ -37,6 +41,7 @@ public class Porte : MonoBehaviour
         if (aCle && other.CompareTag("Player")) // Si la clé a été trouvée et le joueur entre en collision avec la porte
         {
             _sr.sprite = _sprites[1]; // Changement du sprite de la porte (ouverte)
+            _lumiere.SetActive(true); // Active la lumière de la porte #tp4 Leon
             Coroutine _coroutine = StartCoroutine(ChangerScene()); // Appel de la coroutine pour changer de scène après un délai
         }
     }

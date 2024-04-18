@@ -76,7 +76,7 @@ public class Niveau : MonoBehaviour
             Instantiate(joyauModele, pos3, Quaternion.identity, contenant); // Crée le joyau à la position obtenue.
             if (_lesPosLibres.Count == 0) // Si il n'y a plus de position libre.
             {
-                Debug.LogWarning("Plus de place pour les joyaux"); // Affiche un message d'avertissement.
+                // Debug.LogWarning("Plus de place pour les joyaux"); // Affiche un message d'avertissement.
                 break; // Sort de la boucle.
             }
         }
@@ -105,7 +105,8 @@ public class Niveau : MonoBehaviour
                 Vector3 pos3 = (Vector3)(Vector2)pos + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertit la position
                 pos3 += new Vector3(0, 1, 0); // Positionne l'autel au dessus de la position.
                 RaycastHit2D hit = Physics2D.Raycast(pos3, Vector2.down, Mathf.Infinity, LayerMask.GetMask("Effector"));
-                if (hit.collider == null)
+                RaycastHit2D hit2 = Physics2D.Raycast(pos3, Vector2.down, Mathf.Infinity, LayerMask.GetMask("Autels"));
+                if (hit.collider == null && hit2.collider == null)
                 {
                     Instantiate(autelModele, pos3, Quaternion.identity, contenant); // Crée le joyau à la position obtenue.
                 }
@@ -156,7 +157,7 @@ public class Niveau : MonoBehaviour
     /// <returns>Si la position est occuppé</returns>
     bool PositionDessousEstOccupee(Vector2Int pos)
     {
-        Debug.Log(pos);
+        // Debug.Log(pos);
         Vector2Int posDessous = new Vector2Int(pos.x, pos.y - 1);
 
         // if (Physics2D.OverlapCircle(posDessous, 0.5f).CompareTag("Effector"))
@@ -210,6 +211,15 @@ public class Niveau : MonoBehaviour
 
 
         // Placer la clé.
+        foreach (string salle in extremitees)
+        {
+            Debug.Log(salle);
+
+        } // Boucle sur les salles
+        Debug.Log("C'est la faute de Léon");
+
+        if (salleAlea > extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
+        else extremitees.RemoveAt(salleAlea);
         extremitees.Reverse(); // Inverser la liste des salles
         string salleCleIndex = extremitees[salleAlea]; // Obtenir l'index opposé à la salle de la porte
         Salle salleCle = GameObject.Find(salleCleIndex).GetComponentInChildren<Salle>(); // Récupérer la salle aléatoire
@@ -219,11 +229,19 @@ public class Niveau : MonoBehaviour
 
 
         // Placer l'activateur
+        foreach (string salle in extremitees)
+        {
+            Debug.Log(salle);
+
+        } 
+
         if (salleAlea > extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
         else extremitees.RemoveAt(salleAlea);
         // extremitees.RemoveAt(salleAlea-1); // Retirer la salle de la porte et de la clé de la liste
         Salle salleActivateur = GameObject.Find(extremitees[Random.Range(0, extremitees.Count)]).GetComponentInChildren<Salle>(); // Choisir une salle aléatoire restante pour placer l
         Vector2Int posRep3 = salleActivateur.PlacerSurRepere(activateur) - decalage; // Placer l'activateur sur un repère de la salle choisie
+        Vector2Int Rep3 = Vector2Int.FloorToInt((Vector2)salleCle._repere.transform.position); // Obtenir la position du repère
+        _lesPosSurReperes.Add(Rep3); // Ajouter la position du repère à la liste
     }
 
 
@@ -344,7 +362,7 @@ public class Niveau : MonoBehaviour
             _lesPosLibres.Remove(pos);
         }
         // un simple debug pour voir combien d'espaces libres il y a dans le niveau
-        Debug.Log(_lesPosLibres.Count + " espaces libres : " + string.Join(", ", _lesPosLibres));
+        // Debug.Log(_lesPosLibres.Count + " espaces libres : " + string.Join(", ", _lesPosLibres));
     }
 
     /// <summary>

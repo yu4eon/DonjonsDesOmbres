@@ -219,7 +219,9 @@ public class Niveau : MonoBehaviour
 
 
         // Placer l'activateur
-        extremitees.RemoveAt(salleAlea); // Retirer la salle de la porte et de la clé de la liste
+        if (salleAlea > extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
+        else extremitees.RemoveAt(salleAlea);
+        // extremitees.RemoveAt(salleAlea-1); // Retirer la salle de la porte et de la clé de la liste
         Salle salleActivateur = GameObject.Find(extremitees[Random.Range(0, extremitees.Count)]).GetComponentInChildren<Salle>(); // Choisir une salle aléatoire restante pour placer l
         Vector2Int posRep3 = salleActivateur.PlacerSurRepere(activateur) - decalage; // Placer l'activateur sur un repère de la salle choisie
     }

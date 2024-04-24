@@ -103,6 +103,7 @@ MonoBehaviour:
   - {fileID: -1554393995, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
   - {fileID: 1734669008, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
+  _sonPorte: {fileID: 8300000, guid: 104ff10a3dbd6c242bd7cb12ee3bb255, type: 3}
 --- !u!61 &-2455830018943470475
 BoxCollider2D:
   m_ObjectHideFlags: 0

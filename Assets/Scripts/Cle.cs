@@ -10,6 +10,7 @@ using UnityEngine;
 /// </summary>
 public class Cle : MonoBehaviour
 {
+    [SerializeField] AudioClip _sonCle; // Référence au son de la clé
     /// <summary>
     /// #Tp3 Antoine
     /// Sent when an incoming collider makes contact with this object's
@@ -21,6 +22,7 @@ public class Cle : MonoBehaviour
         if (other.CompareTag("Player")) //Si le joueur entre en collision avec la clé
         {
             Porte.aCle = true;
+            SoundManager.PlaySound(_sonCle);
             Destroy(gameObject);    
         }
     }

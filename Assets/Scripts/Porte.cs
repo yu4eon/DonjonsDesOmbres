@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +13,7 @@ public class Porte : MonoBehaviour
     [SerializeField] SONavigation _navigation; // Référence au script de navigation entre les scènes
     [SerializeField] Sprite[] _sprites; // Tableau des sprites de la porte (ouverte et fermée)
     [SerializeField] SOPerso _donneesPerso; // Données du personnage (ScriptableObject)
+    [SerializeField] AudioClip _sonPorte;
 
     SpriteRenderer _sr; // Référence au composant SpriteRenderer de la porte
     static public bool aCle = false; // Booléen indiquant si la clé a été trouvée
@@ -37,7 +37,8 @@ public class Porte : MonoBehaviour
         if (aCle && other.CompareTag("Player")) // Si la clé a été trouvée et le joueur entre en collision avec la porte
         {
             _sr.sprite = _sprites[1]; // Changement du sprite de la porte (ouverte)
-            Coroutine _coroutine = StartCoroutine(ChangerScene()); // Appel de la coroutine pour changer de scène après un délai
+            SoundManager.PlaySound(_sonPorte); // Joue le son de la porte qui s'ouvre
+            StartCoroutine(ChangerScene()); // Appel de la coroutine pour changer de scène après un délai
         }
     }
 

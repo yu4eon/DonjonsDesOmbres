@@ -4,15 +4,16 @@
 
 à faire :
 
+
+
 Interface Jeu
 
-en cours :
+en progrès :
 Ajout d’un système d’enregistrement local des meilleurs scores
-
+Ajout des lumières et des animations, contrôle des animations
 
 fini :
 
-Ajout des lumières et des animations, contrôle des animations
 Complexification des niveaux
 
 
@@ -23,17 +24,8 @@ Complexification des niveaux
 à faire :
 
 Confinement Cinemachine
-Interface Hors-jeu
-
-en cours :
-
 Déclanchement des effets sonores
 Ajout d’un système de contrôle musical 
+Interface Hors-jeu
 
 fini :
-
-Règlage de problèmes du tp3 (?)
-
-/********************* Optionnelles *********************/
-
-Minimap

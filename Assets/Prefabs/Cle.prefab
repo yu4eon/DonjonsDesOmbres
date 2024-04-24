@@ -99,7 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17233491e48765e4094ee4850aa1cb13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _retroModele: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
 --- !u!70 &-7378283922779200985
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

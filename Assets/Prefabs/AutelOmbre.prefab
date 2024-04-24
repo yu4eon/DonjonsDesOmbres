@@ -103,7 +103,7 @@ MonoBehaviour:
   element: 1
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
   _spriteEteint: {fileID: 1761666038227600469, guid: 53f04f5be89b9ea41a8d44563a64b6d5, type: 3}
-  _retroModele: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
+  _lumiere: {fileID: 1024337887006982272}
 --- !u!61 &8088950852853912576
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -222,6 +222,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7ad90a93181de649aba55969efb15f0, type: 3}
+--- !u!1 &1024337887006982272 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2941852754828404881, guid: a7ad90a93181de649aba55969efb15f0, type: 3}
+  m_PrefabInstance: {fileID: 2802543676143413265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8206143188666789401 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6270894554693633544, guid: a7ad90a93181de649aba55969efb15f0, type: 3}

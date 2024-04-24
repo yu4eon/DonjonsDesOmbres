@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
 
 /// <summary>
@@ -12,7 +13,7 @@ public class Niveau : MonoBehaviour
 {
     [SerializeField] Tilemap _tilemapNiveau; // tilemap du niveau #tp3 Léon - J'ai changé le nom de la variable pour être plus explicite.
     [SerializeField] Salle[] _tSallesModeles; // Tableau de tous les prefabs de salles disponibles.
-    [SerializeField] Vector2Int _taille = new Vector2Int(3, 3); // Taille du niveau en 2 dimensions, sur l'axe x et y.
+    [SerializeField] Vector2Int _taille = new Vector2Int(2, 2); // Taille du niveau en 2 dimensions, sur l'axe x et y.
     [SerializeField] TileBase _tuileModele; // Tuile utilisée pour les bordures
     [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
     [SerializeField] Autels[] _tAutelsModeles; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
@@ -20,6 +21,7 @@ public class Niveau : MonoBehaviour
     [SerializeField] GameObject _cle; // Tp3 Antoine
     [SerializeField] GameObject _activateur; // Tp3 Antoine
     [SerializeField] GameObject _porte; // Tp3 Antoine
+    [SerializeField] SOPerso _donneesPerso; // Tp4 leon
     // [SerializeField] SOActivateur _activateur;
     [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
@@ -31,6 +33,8 @@ public class Niveau : MonoBehaviour
 
     static Niveau _instance; // Instance statique de la classe. #tp3 Léon
     static public Niveau instance => _instance; // Propriété publique qui permet l'accès à l'instance de la classe. #tp3 Léon
+
+    List<Vector2Int> niveauSurBordure = new List<Vector2Int>();
 
     void Awake()
     {
@@ -49,7 +53,7 @@ public class Niveau : MonoBehaviour
 
     void Start()
     {
-
+        DefinirTailleNiveau(); // #tp4 Léon
         CreerNiveau(); // #tp3 Léon
         TrouverPosLibres(); // #tp3 Léon
         PlacerItems(_perso, _porte, _cle, _activateur); //#tp3 Antoine
@@ -210,6 +214,8 @@ public class Niveau : MonoBehaviour
         _lesPosSurReperes.Add(Rep); // Ajouter la position du repère à la liste
 
 
+
+
         // Placer la clé.
         foreach (string salle in extremitees)
         {
@@ -262,6 +268,26 @@ public class Niveau : MonoBehaviour
     }
 
     /// <summary>
+    /// #tp4 Léon
+    /// Méthode pour définir la taille du niveau selon le niveau du joueur
+    void DefinirTailleNiveau()
+    {
+        //Définir la taille du niveau selon le niveau du joueur
+        switch(_donneesPerso.niveau)
+        {
+            case 1:
+                _taille = new Vector2Int(2, 2);
+                break;
+            case 2:
+                _taille = new Vector2Int(2, 3);
+                break;
+            default:
+                _taille = new Vector2Int(_donneesPerso.niveau, 3);
+                break;
+        }
+    }
+
+    /// <summary>
     /// #tp3 Léon
     /// Méthode pour créer le niveau, incluant enlever les positions prises par des effectors dans la liste des positions libres
     /// </summary>
@@ -290,6 +316,10 @@ public class Niveau : MonoBehaviour
                 // Nomme la salle selon sa position dans le niveau.
                 salle.name = "Salle" + x + "_" + y;
 
+
+                niveauSurBordure.Add(new Vector2Int(x, y));//Test
+
+
                 // Pour chaque effector de vitesse dans la salle. #tp3 Léon
                 foreach (Transform posEffector in salle.tEffectors)
                 {
@@ -305,6 +335,7 @@ public class Niveau : MonoBehaviour
                 }
             }
         }
+        Debug.Log(string.Join(", ", niveauSurBordure)); //Test
 
         // Calcul pour la taille du niveau avec une bordure, ainsi que les coordonnées minimales et maximales.
         Vector2Int tailleNiveau = _taille * tailleAvecUneBordure;

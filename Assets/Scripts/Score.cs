@@ -7,9 +7,10 @@ using UnityEngine;
 [Serializable]
 public class Score : MonoBehaviour
 {
-    public string nom;
-    public float score;
+    public string nom; // Nom du joueur
+    public float score; // Score du joueur
 
+    // Variable pour creer un score plustard
     public Score(string nom, float score)
     {
         this.nom = nom;

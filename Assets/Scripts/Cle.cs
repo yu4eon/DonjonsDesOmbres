@@ -21,9 +21,9 @@ public class Cle : MonoBehaviour
     {
         if (other.CompareTag("Player")) //Si le joueur entre en collision avec la clé
         {
-            Porte.aCle = true;
-            SoundManager.instance.JouerEffetSonore(_sonCle);
-            Destroy(gameObject);    
+            Porte.aCle = true; // Indique que le joueur a la clé
+            SoundManager.instance.JouerEffetSonore(_sonCle); // Joue le son de la clé
+            Destroy(gameObject); //Détruit l'objet clé
         }
     }
 }

@@ -6,9 +6,9 @@ using UnityEngine;
 [Serializable]
 public class ScoreData : MonoBehaviour
 {
-    public List<Score> scores;
+    public List<Score> scores; // Liste des scores
 
-    public ScoreData()
+    public ScoreData() // Constructeur de la classe ScoreData
     {
         scores = new List<Score>();
     }

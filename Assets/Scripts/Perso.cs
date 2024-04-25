@@ -336,15 +336,15 @@ public class Perso : DetecteurSol
     
     void OnApplicationQuit()
     {
-        _donnees.Initialiser();
+        _donnees.Initialiser(); // Initialise les données du personnage
     }
     void OnDestroy()
     {
-        _donnees.evenementMiseAJour.RemoveAllListeners();
+        _donnees.evenementMiseAJour.RemoveAllListeners(); // Supprime tous les écouteurs d'événements de mise à jour des données du personnage
     }
 
     public void JouerSon(int index)
     {
-        SoundManager.instance.JouerEffetSonore(_sonPerso[index]);
+        SoundManager.instance.JouerEffetSonore(_sonPerso[index]); // Joue le son correspondant à l'index passé en paramè
     }
 }

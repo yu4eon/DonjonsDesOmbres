@@ -6,7 +6,7 @@
 
 Interface Jeu
 
-en progrès :
+en cours :
 Ajout d’un système d’enregistrement local des meilleurs scores
 
 
@@ -23,8 +23,17 @@ Complexification des niveaux
 à faire :
 
 Confinement Cinemachine
-Déclanchement des effets sonores
-Ajout d’un système de contrôle musical 
 Interface Hors-jeu
 
+en cours :
+
+Déclanchement des effets sonores
+Ajout d’un système de contrôle musical 
+
 fini :
+
+Règlage de problèmes du tp3 (?)
+
+/********************* Optionnelles *********************/
+
+Minimap

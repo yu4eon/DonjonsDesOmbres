@@ -135,6 +135,11 @@ MonoBehaviour:
   _mask:
     serializedVersion: 2
     m_Bits: 8
+  _sonPerso:
+  - {fileID: 8300000, guid: e4b1de64b19580c4ea36e8ee02b4a413, type: 3}
+  - {fileID: 8300000, guid: 15befbb7111357948869a6490370e04b, type: 3}
+  - {fileID: 8300000, guid: c5366fbc8e48a1749a9ad04faff4152a, type: 3}
+  - {fileID: 8300000, guid: 2075a649e1d377f47b9302fb4a8c065c, type: 3}
   _vitesse: 10
   _forceSaut: 240
   _nbFramesMax: 10

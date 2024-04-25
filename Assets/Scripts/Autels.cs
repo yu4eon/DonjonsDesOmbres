@@ -13,13 +13,14 @@ public class Autels : MonoBehaviour
     [SerializeField] TypePouvoir element; // Type de pouvoir de l'autel.
     [SerializeField] SOPerso _donneesPerso; // ScriptableObject contenant les données du personnage.
     [SerializeField] SpriteRenderer _spriteEteint; // SpriteRenderer de l'autel lorsqu'il est éteint.
+    [SerializeField] Retroaction _retroModele; // Modèle de rétroaction lorsque le joueur active l'autel #tp4 Leon
     Light2D _lumiere; // Référence à la lumière de l'autel #tp4 Leon
     SpriteRenderer sr; // Composant SpriteRenderer de l'autel.
     ParticleSystem ps; // Système de particules de l'autel.
     ParticleSystem.ShapeModule shape; // Module de forme des particules.
     ParticleSystem.EmissionModule emission; // Module d'émission des particules.
     bool estActif = false; // Indique si l'autel est actif ou non.
-    int _intensiteLumiereActif = 2; // Intensité de la lumière de l'autel #tp4 Leon
+    int _intensiteLumiereActif = 5; // Intensité de la lumière de l'autel #tp4 Leon
     Sprite _sBase; // Sprite de base de l'autel.
 
     /// <summary>
@@ -62,6 +63,9 @@ public class Autels : MonoBehaviour
             shape.scale = new Vector3(4f, 5f, 1f); // Modifie l'échelle des particules.
             emission.rateOverTime = 100f; // Modifie le taux d'émission des particules.
             StartCoroutine(ArreterParticules()); // Démarre la coroutine pour arrêter les particules.
+
+            Retroaction retro = Instantiate(_retroModele, transform.position, Quaternion.identity, transform.parent); // Instantie l'objet de retro
+            retro.ChangerTexte(element + " obtenu");
         }
     }
     /// <summary>

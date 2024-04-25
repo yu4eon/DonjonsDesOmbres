@@ -103,7 +103,7 @@ MonoBehaviour:
   element: 2
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
   _spriteEteint: {fileID: 1761666038227600469, guid: 53f04f5be89b9ea41a8d44563a64b6d5, type: 3}
-  _lumiere: {fileID: 7790434839080834993}
+  _retroModele: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
 --- !u!61 &8088950852853912576
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -227,17 +227,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6292409841743363195, guid: dca58465af5b1e94abb5f837a2d357c1, type: 3}
   m_PrefabInstance: {fileID: 1711973652155605745}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7790434839080834993 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8925863718331200832, guid: dca58465af5b1e94abb5f837a2d357c1, type: 3}
-  m_PrefabInstance: {fileID: 1711973652155605745}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2561308212945414068
 PrefabInstance:
   m_ObjectHideFlags: 0

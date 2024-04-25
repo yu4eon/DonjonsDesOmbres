@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class Perso : DetecteurSol
 {
+    [SerializeField] AudioClip[] _sonPerso; // Référence au son du saut
     [SerializeField] float _vitesse = 10f; // Vitesse à laquelle le personnage se déplace.
     float _vitesseInitial;
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
@@ -155,7 +156,7 @@ public class Perso : DetecteurSol
     void OnMove(InputValue value)
     {
         _axeHorizontal = value.Get<Vector2>().x; // Obtient la valeur de l'axe horizontal de l'entrée.
-        
+
         if (_axeHorizontal < 0) // Si le joueur se déplace vers la gauche.
         {
             _sr.flipX = true; // Tourne le personnage vers la gauche.
@@ -173,6 +174,7 @@ public class Perso : DetecteurSol
             _renderModule.flip = new Vector3(0,0);
             _renderModule.pivot = new Vector3(0,0);
         }
+        SoundManager.PlaySound(_sonPerso[1]); // Joue le son de course
     }
     
     // Note pour les 4 fonctions suivantes : on n'a pas arrivé à faire que le input system envoie in int spécifique,
@@ -277,6 +279,7 @@ public class Perso : DetecteurSol
     void OnJump(InputValue value)
     {
         _veutSauter = value.isPressed; // Active ou désactive le saut en fonction de si le bouton est pressé ou non.
+        SoundManager.PlaySound(_sonPerso[2]); // Joue le son du saut.
     }
 
 
@@ -296,6 +299,10 @@ public class Perso : DetecteurSol
         else if (_auDeuxiemeSaut && _nbFramesRestants == 0) // Si le joueur est au deuxième saut et qu'il ne peut plus sauter.
         {
             _peutDoubleSauter = false; // Déclare que le joueur ne peut plus faire de double saut.
+        }
+        if (_rb.velocity.y < 0) // Si le personnage est en train de retomber.
+        {
+            SoundManager.PlaySound(_sonPerso[3]); // Joue le son de chute
         }
     }
 

@@ -106,6 +106,9 @@ MonoBehaviour:
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
   _lumiere: {fileID: 5113009654024537266}
   _sonPorte: {fileID: 8300000, guid: 104ff10a3dbd6c242bd7cb12ee3bb255, type: 3}
+  fond: {fileID: 0}
+  panneauBonus: {fileID: 0}
+  panneauJoueur: []
 --- !u!61 &-2455830018943470475
 BoxCollider2D:
   m_ObjectHideFlags: 0

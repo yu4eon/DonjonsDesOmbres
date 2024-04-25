@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
+using Cinemachine;
 
 /// <summary>
 /// Auteur du code : Léon Yu. Antoine Lachance
@@ -22,6 +23,8 @@ public class Niveau : MonoBehaviour
     [SerializeField] GameObject _activateur; // Tp3 Antoine
     [SerializeField] GameObject _porte; // Tp3 Antoine
     [SerializeField] SOPerso _donneesPerso; // Tp4 leon
+    [SerializeField] GameObject cm_collider;
+    [SerializeField] CinemachineVirtualCamera cvCamera;
     // [SerializeField] SOActivateur _activateur;
     [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
@@ -36,6 +39,7 @@ public class Niveau : MonoBehaviour
 
     List<Vector2Int> niveauSurBordure = new List<Vector2Int>();
 
+    Perso clonePerso;
     void Awake()
     {
         //Singleton #tp3 Léon
@@ -53,12 +57,19 @@ public class Niveau : MonoBehaviour
 
     void Start()
     {
+        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, true);
+        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, false);
+        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, false);
         DefinirTailleNiveau(); // #tp4 Léon
         CreerNiveau(); // #tp3 Léon
         TrouverPosLibres(); // #tp3 Léon
         PlacerItems(_perso, _porte, _cle, _activateur); //#tp3 Antoine
         PlacerAutels();//#tp3 Antoine
         PlacerLesJoyaux(); // #tp3 Léon
+
+        // GameObject persoClone = (GameObject)GameObject.Instantiate(_perso.gameObject, _lesPosLibres[Random.Range(0, _lesPosLibres.Count)], Quaternion.identity);
+        cvCamera.m_Follow = clonePerso.transform;
+        cm_collider.transform.localScale = new Vector2(_taille.x * 32 - 1, _taille.y * 18 - 1);
     }
 
     /// <summary>
@@ -190,7 +201,7 @@ public class Niveau : MonoBehaviour
         // Placer le personnage.
         Vector2Int posPerso = ObtenirPosLibre(); // Obtenir une position libre aléatoire.
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertir la position en Vector3.
-        Instantiate(perso, pos3Perso, Quaternion.identity, contenant); // Instancier le personnage.
+        clonePerso = Instantiate(perso, pos3Perso, Quaternion.identity, contenant); // Instancier le personnage.
 
 
         // Placer la porte.
@@ -293,6 +304,7 @@ public class Niveau : MonoBehaviour
     /// </summary>
     void CreerNiveau()
     {
+        
         // Calcul de la taille de la salle avec une bordure.
         Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
 
@@ -425,4 +437,5 @@ public class Niveau : MonoBehaviour
             _tilemapNiveau.SetTile(pos + decalage, tile);
         }
     }
+
 }

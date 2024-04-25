@@ -19,7 +19,8 @@ public class TableauHonneur : MonoBehaviour
     [SerializeField] GameObject _contenu; // contenant des scores
     [SerializeField] string _fichier = "sauvegarde.TIM"; // Nom du fichier de sauvegarde
     [SerializeField] GameObject _prefabLigne; // Préfab de la ligne de score
-    
+    string _cheminEtFichier;
+
     // On a toute essayer pour essayer de faire fonctionner le bouton mais sans succès.
     // On a essayer avec SerializedField, GetComponentInChildren. Mais rien ne fonctionne.
     // Il semble marcher dans le Start mais pas dans la fonction SauvegarderScore, On est pas sur pourquoi.
@@ -28,18 +29,24 @@ public class TableauHonneur : MonoBehaviour
     static List<JoueurScore> _lesJoueursScores = new List<JoueurScore>(); // Liste des joueurs et leurs scores
     void Awake()
     {
-        string cheminEtFichier = Application.persistentDataPath + "/" + _fichier;
-        Debug.Log(cheminEtFichier);
-        if (File.Exists(cheminEtFichier))
+        _cheminEtFichier = Application.persistentDataPath + "/" + _fichier;
+        Debug.Log(_cheminEtFichier);
+        Debug.Log(_fichier);
+        Debug.Log(Application.persistentDataPath);
+        if (_donneesSauvegarde.LireFichier() != null)
         {
-            string contenue = File.ReadAllText(cheminEtFichier);
-            _lesJoueursScores = JsonUtility.FromJson<List<JoueurScore>>(contenue);
-#if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(this);
-            UnityEditor.AssetDatabase.SaveAssets();
-#endif
-            Debug.Log(contenue);
+            InitialiserDonnees();
         }
+        //         if (File.Exists(cheminEtFichier))
+        //         {
+        //             string contenue = File.ReadAllText(cheminEtFichier);
+        //             _lesJoueursScores = JsonUtility.FromJson<List<JoueurScore>>(contenue);
+        // #if UNITY_EDITOR
+        //             UnityEditor.EditorUtility.SetDirty(this);
+        //             UnityEditor.AssetDatabase.SaveAssets();
+        // #endif
+        //             Debug.Log(contenue);
+        //         }
         else
         {
             Debug.LogWarning("Le fichier n'existe pas");
@@ -50,9 +57,8 @@ public class TableauHonneur : MonoBehaviour
     void Start()
     {
         // _boutonMenu = GetComponentInChildren<Button>();
-
         // Trouver le bouton pour retourner au menu, on sais que c'est interdit mais c'est la seul solution qui marche
-        _boutonMenu = GameObject.Find("BoutonMenu").GetComponent<Button>(); 
+        _boutonMenu = GameObject.Find("BoutonMenu").GetComponent<Button>();
         _boutonMenu.interactable = false;
         // Ajouter le joueur actuel à la liste des scores
         _lesJoueursScores.Add(new JoueurScore { joueur = "Nom", score = _donneesPerso.score, estJoueurActuelle = true });
@@ -68,6 +74,11 @@ public class TableauHonneur : MonoBehaviour
         AfficherScores();
     }
 
+    void InitialiserDonnees()
+    {
+        Debug.Log(_donneesSauvegarde.LireFichier());
+        _lesJoueursScores = _donneesSauvegarde.lesJoueursScores;
+    }
 
     /// <summary>
     /// Affiche les scores des joueurs en instanciant des lignes de score
@@ -94,13 +105,13 @@ public class TableauHonneur : MonoBehaviour
     /// <param name="nom">Nom dont on veut remplacer</param>
     public void SauvegarderScore(string nom)
     {
-        
+
         // _boutonMenu = GetComponentInChildren<Button>();
         // _boutonMenu.interactable = true;
         ActiverBoutonMenu();
         Debug.Log("Sauvegarde du score");
         Debug.Log(_lesJoueursScores.Count);
-        
+
         // Mettre à jour le nom du joueur
         foreach (JoueurScore joueurScore in _lesJoueursScores)
         {
@@ -123,5 +134,11 @@ public class TableauHonneur : MonoBehaviour
     {
         _boutonMenu = GameObject.Find("BoutonMenu").GetComponent<Button>(); // On doit refaire le Find pour trouver le bouton
         _boutonMenu.interactable = true;
+    }
+
+    void OnApplicationQuit()
+    {
+        _donneesPerso.Initialiser(); // Réinitialise les données du personnage.
+        Debug.Log("Quit"); // Affiche un message de débogage.
     }
 }

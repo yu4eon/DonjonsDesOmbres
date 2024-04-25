@@ -19,7 +19,7 @@ public class SOSauvegarde : ScriptableObject
     static extern void SynchroniserWebGL();
 
     [SerializeField] string _fichier = "scores.TIM";
-    public void LireFichier()
+    public string LireFichier()
     {
         string cheminEtFichier = Application.persistentDataPath + "/" + _fichier;
         Debug.Log(cheminEtFichier);
@@ -32,10 +32,12 @@ public class SOSauvegarde : ScriptableObject
             UnityEditor.EditorUtility.SetDirty(this);
             UnityEditor.AssetDatabase.SaveAssets();
 #endif
+            return contenue;
         }
         else
         {
             Debug.LogWarning("Le fichier n'existe pas");
+            return null;
         }
     }
 

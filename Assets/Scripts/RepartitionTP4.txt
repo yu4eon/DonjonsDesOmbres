@@ -4,15 +4,12 @@
 
 à faire :
 
-en progrès :
-Ajout d’un système d’enregistrement local des meilleurs scores
-
-
 fini :
 
 Interface Jeu
 Complexification des niveaux
 Ajout des lumières et des animations, contrôle des animations
+Ajout d’un système d’enregistrement local des meilleurs scores
 
 
 /************************************************************/
@@ -21,9 +18,8 @@ Ajout des lumières et des animations, contrôle des animations
 
 à faire :
 
-Interface Hors-jeu
-
 fini :
 Confinement Cinemachine
 Déclanchement des effets sonores
 Ajout d’un système de contrôle musical 
+Interface Hors-jeu

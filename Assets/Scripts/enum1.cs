@@ -1,1 +1,0 @@
-public enum TypePiste { MusiqueBase=0, MusiqueEvenA=1, MusiqueEvenB=2 }

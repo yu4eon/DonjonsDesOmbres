@@ -21,3 +21,4 @@ public enum TypePouvoir
     Foudre = 2,
     Glace = 3,
 }
+public enum TypePiste { MusiqueBase=0, MusiqueEvenA=1, MusiqueEvenB=2 }

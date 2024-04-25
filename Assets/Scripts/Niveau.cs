@@ -217,6 +217,12 @@ public class Niveau : MonoBehaviour
                 }
             }
         }
+        List<string> extremiteesBackup = new List<string>(); // Liste des salles qui se trouvent sur les extrémités du niveau.
+        foreach (var backup in extremitees)
+        {
+            extremiteesBackup.Add(backup); // Ajouter le nom de la salle à la liste de sauvegarde
+        }
+
         int salleAlea = Random.Range(0, extremitees.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.
         Salle sallePorte = GameObject.Find(extremitees[salleAlea]).GetComponentInChildren<Salle>(); // Récupère la salle.
         Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position); // Décalage pour la position du repère.
@@ -235,7 +241,7 @@ public class Niveau : MonoBehaviour
         } // Boucle sur les salles
         Debug.Log("C'est la faute de Léon");
 
-        if (salleAlea > extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
+        if (salleAlea >= extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
         else extremitees.RemoveAt(salleAlea);
         extremitees.Reverse(); // Inverser la liste des salles
         string salleCleIndex = extremitees[salleAlea]; // Obtenir l'index opposé à la salle de la porte
@@ -252,7 +258,7 @@ public class Niveau : MonoBehaviour
 
         } 
 
-        if (salleAlea > extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
+        if (salleAlea >= extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
         else extremitees.RemoveAt(salleAlea);
         // extremitees.RemoveAt(salleAlea-1); // Retirer la salle de la porte et de la clé de la liste
         Salle salleActivateur = GameObject.Find(extremitees[Random.Range(0, extremitees.Count)]).GetComponentInChildren<Salle>(); // Choisir une salle aléatoire restante pour placer l

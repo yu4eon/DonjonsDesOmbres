@@ -48,8 +48,11 @@ public class Activateur : MonoBehaviour
     /// <param name="other">The Collision2D data associated with this collision.</param>
     void OnTriggerEnter2D(Collider2D other)
     {
-        _sr.sprite = _sActif; // Change le sprite de l'activateur à l'état actif.
-        _lumiere.intensity = _intensiteLumiereActif; // Augmente l'intensité de la lumière de l'activateur à 3 #tp4 Leon
-        _evenementActivateur.Invoke(); // Déclenche l'événement de l'activateur.
+        if (_sr.sprite == _sInactif)
+        {
+            _sr.sprite = _sActif; // Change le sprite de l'activateur à l'état actif.
+            _lumiere.intensity = _intensiteLumiereActif; // Augmente l'intensité de la lumière de l'activateur à 3 #tp4 Leon
+            _evenementActivateur.Invoke(); // Déclenche l'événement de l'activateur.
+        }
     }
 }

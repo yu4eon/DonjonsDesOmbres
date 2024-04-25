@@ -179,6 +179,12 @@ public class SOPerso : ScriptableObject
             }
             Debug.Log("Pouvoirs actuelles :" + pouvoirPerso);
         }
+
+    }
+
+    public bool ContientPouvoir(TypePouvoir nomPouvoir)
+    {
+        return _pouvoirs.Contains(nomPouvoir);
     }
 
     void OnValidate()

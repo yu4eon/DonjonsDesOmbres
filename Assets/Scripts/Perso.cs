@@ -178,6 +178,7 @@ public class Perso : DetecteurSol
     
     // Note pour les 4 fonctions suivantes : on n'a pas arrivé à faire que le input system envoie in int spécifique,
     // donc on a du faire une fonction pour chaque pouvoir. #tp3
+    // Index de chaque pouvoir : 0 = Poison, 1 = Ombre, 2 = Foudre, 3 = Glace
 
     /// <summary>
     /// Méthode qui est appelée lorsque le joueur appuie sur le 1 ou dpad haut pour
@@ -223,6 +224,7 @@ public class Perso : DetecteurSol
         {
             Debug.Log("Tu ne possède pas le pouvoir d'ombre");
         }
+        
     }
 
     /// <summary>

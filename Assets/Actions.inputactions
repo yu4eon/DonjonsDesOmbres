@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChangeGlace",
+                    "name": "ChangePoison",
                     "type": "Button",
                     "id": "d2b6ac76-25d9-4262-a6c5-82c29fe5b419",
                     "expectedControlType": "Button",
@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChangeOmbre",
+                    "name": "ChangeGlace",
                     "type": "Button",
                     "id": "ce75e91b-74ce-4060-ae19-ef24241b9e19",
                     "expectedControlType": "Button",
@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChangePoison",
+                    "name": "ChangeOmbre",
                     "type": "Button",
                     "id": "4e60b1c5-a013-4796-8f45-084abf5da91a",
                     "expectedControlType": "Button",
@@ -337,7 +337,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "ChangeGlace",
+                    "action": "ChangePoison",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -348,7 +348,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "ChangeGlace",
+                    "action": "ChangePoison",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -359,7 +359,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "ChangeOmbre",
+                    "action": "ChangeGlace",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -370,7 +370,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "ChangeOmbre",
+                    "action": "ChangeGlace",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -381,7 +381,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "ChangePoison",
+                    "action": "ChangeOmbre",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -392,7 +392,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "ChangePoison",
+                    "action": "ChangeOmbre",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

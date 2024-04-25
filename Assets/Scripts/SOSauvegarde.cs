@@ -8,10 +8,7 @@ using System.Runtime.InteropServices;
 [CreateAssetMenu(menuName = "Sauvegarde", fileName = "Sauvegarde")]
 public class SOSauvegarde : ScriptableObject
 {
-
-    
-    [SerializeField] int _nb = 10;
-    [SerializeField] string[] _tPays = new string[] { "Canada", "Mexique" };
+    [SerializeField] List<JoueurScore> _lesJoueursScores = new List<JoueurScore>();
 
     [DllImport("__Internal")]
     static extern void SynchroniserWebGL();
@@ -26,7 +23,6 @@ public class SOSauvegarde : ScriptableObject
             string contenue = File.ReadAllText(cheminEtFichier);
             JsonUtility.FromJsonOverwrite(contenue, this);
             Debug.Log(contenue);
-            inputField.text = _nb + "";
             #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);
             UnityEditor.AssetDatabase.SaveAssets();
@@ -40,12 +36,6 @@ public class SOSauvegarde : ScriptableObject
     
     public void EcrireFichier(TMP_InputField inputField)
     {
-        if(int.TryParse(inputField.text, out int nb)) _nb = nb;
-        else
-        {
-            Debug.LogWarning("Le nombre n'est pas valide");
-            return;
-        }
         string cheminEtFichier = Application.persistentDataPath + "/" + _fichier;
         string contenue = JsonUtility.ToJson(this);
         Debug.Log(contenue);

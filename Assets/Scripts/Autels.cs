@@ -58,6 +58,7 @@ public class Autels : MonoBehaviour
             Debug.Log("Element : " + element); // Affiche l'élément de l'autel.
             _lumiere.intensity = 0; // Définit l'intensité de la lumière de l'autel à 0 #tp4 Leon
             _donneesPerso.AjouterPouvoir(element); // Ajoute le pouvoir de l'autel au personnage.
+            _donneesPerso.evenementMiseAJour.Invoke(); // Déclenche l'événement de mise à jour des données du personnage. #tp4 Leon
             sr.sprite = _spriteEteint.sprite; // Change le sprite de l'autel pour indiquer qu'il est éteint.
             shape.scale = new Vector3(4f, 5f, 1f); // Modifie l'échelle des particules.
             emission.rateOverTime = 100f; // Modifie le taux d'émission des particules.

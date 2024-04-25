@@ -16,6 +16,7 @@ public class Porte : MonoBehaviour
     [SerializeField] Sprite[] _sprites; // Tableau des sprites de la porte (ouverte et fermée)
     [SerializeField] SOPerso _donneesPerso; // Données du personnage (ScriptableObject)
     [SerializeField] GameObject _lumiere; // Référence à la lumière de la porte #tp4 Leon
+    [SerializeField] AudioClip _sonPorte;
 
     SpriteRenderer _sr; // Référence au composant SpriteRenderer de la porte
     static public bool aCle = false; // Booléen indiquant si la clé a été trouvée
@@ -43,6 +44,7 @@ public class Porte : MonoBehaviour
             _sr.sprite = _sprites[1]; // Changement du sprite de la porte (ouverte)
             _lumiere.SetActive(true); // Active la lumière de la porte #tp4 Leon
             Coroutine _coroutine = StartCoroutine(ChangerScene()); // Appel de la coroutine pour changer de scène après un délai
+            SoundManager.instance.JouerEffetSonore(_sonPorte); // Joue le son de la porte
         }
     }
 

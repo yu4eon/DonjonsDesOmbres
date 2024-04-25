@@ -23,9 +23,9 @@ Complexification des niveaux
 
 à faire :
 
-Confinement Cinemachine
-Déclanchement des effets sonores
-Ajout d’un système de contrôle musical 
 Interface Hors-jeu
 
 fini :
+Confinement Cinemachine
+Déclanchement des effets sonores
+Ajout d’un système de contrôle musical 

@@ -21,7 +21,7 @@ public class Activateur : MonoBehaviour
     public UnityEvent evenementActivateur => _evenementActivateur; // Propriété publique qui permet l'accès à l'événement de l'activateur.
     SpriteRenderer _sr; // Composant SpriteRenderer de l'activateur.
     int _intensiteLumiereActif = 3; // Intensité de la lumière de l'activateur #tp4 Leon
-    int _intensiteLumiereInactif = 1; // Intensité de la lumière de l'activateur #tp4 Leon
+    int _intensiteLumiereInactif = 0; // Intensité de la lumière de l'activateur #tp4 Leon
     void Awake()
     {
         if (_instance != null)

@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9a219ae41006b945842c7d6986fcccf, type: 3}
-  m_Name: AttaqueBonus
+  m_Name: DefenseBonus
   m_EditorClassIdentifier: 
-  _nom: Attaque bonus
-  _sprite: {fileID: -96703204, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
+  _nom: Bouclier
+  _sprite: {fileID: 1225359135, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
   _prixDeBase: 30
-  _description: Augmente l'attaque du joueur pour le prochain niveau
+  _description: "Augmente la d\xE9fense et points de vies du joueur pour le prochain
+    niveau."
   _estAcheter: 0
-  _typeObjet: 1
+  _typeObjet: 0

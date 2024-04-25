@@ -19,16 +19,16 @@ MonoBehaviour:
   - joueur: Steve
     score: 3222
     estJoueurActuelle: 0
+  - joueur: Adolf
+    score: 2800
+    estJoueurActuelle: 0
   - joueur: Bob
     score: 2000
     estJoueurActuelle: 0
   - joueur: Steve5
     score: 1010
     estJoueurActuelle: 0
-  - joueur: Antoine
-    score: 1000
-    estJoueurActuelle: 0
-  - joueur: Raphael
-    score: 1000
+  - joueur: Peppa pig
+    score: 1010
     estJoueurActuelle: 0
   _fichier: sauvegarde.TIM

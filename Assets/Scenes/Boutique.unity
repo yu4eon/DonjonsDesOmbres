@@ -833,7 +833,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 7bfae785291759145a074c72fef7cad2, type: 2}
         m_TargetAssemblyTypeName: SONavigation, Assembly-CSharp
-        m_MethodName: AllerSceneSuivante
+        m_MethodName: AllerSceneTableauHonneur
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

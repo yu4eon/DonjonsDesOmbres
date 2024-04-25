@@ -467,14 +467,17 @@ MonoBehaviour:
   - {fileID: 4730163790752088675, guid: a0524678d069b0a44824c5b0ec0c82c2, type: 3}
   - {fileID: 4730163790752088675, guid: 11a91fdefba9c6645a71d8648c6b1600, type: 3}
   - {fileID: 4730163790752088675, guid: e21a91905606b7741941a2160115df0b, type: 3}
+  _uiJeu: {fileID: 627743292}
   _perso: {fileID: 5036836898586025548, guid: 3d0c754810aa08d479b05deab755edc8, type: 3}
   _cle: {fileID: 5504228281799103865, guid: 9adad19e72d02f54299cc8b29c7a443f, type: 3}
   _activateur: {fileID: 3763275013830398364, guid: 7615b29c9a74ecf41844e956fe8fed76, type: 3}
   _porte: {fileID: 4024076820433731099, guid: b63793f8c462b4b4cbdb0083990c7e06, type: 3}
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
+  _donneesNavigation: {fileID: 11400000, guid: 7bfae785291759145a074c72fef7cad2, type: 2}
   cm_collider: {fileID: 1838577673}
   cvCamera: {fileID: 1235729713}
   _nbJoyauxParSalle: 5
+  _limiteTemps: 40
 --- !u!156049354 &308034227
 Grid:
   m_ObjectHideFlags: 0
@@ -1106,6 +1109,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408853150}
   m_CullTransparentMesh: 1
+--- !u!114 &627743292 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7072146006700480467, guid: 202628443940f8b4ca4b884d7bd87468, type: 3}
+  m_PrefabInstance: {fileID: 3586792196998098728}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79b44a3819a4bf74fb194788aaee69b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &814344863
 GameObject:
   m_ObjectHideFlags: 0

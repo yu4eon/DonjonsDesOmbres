@@ -18,15 +18,20 @@ public class Niveau : MonoBehaviour
     [SerializeField] TileBase _tuileModele; // Tuile utilisée pour les bordures
     [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
     [SerializeField] Autels[] _tAutelsModeles; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
+    [SerializeField] UIJeu _uiJeu; // Référence à l'interface du jeu. #synthese Léon 
     [SerializeField] Perso _perso; // Tp3 Antoine
     [SerializeField] GameObject _cle; // Tp3 Antoine
     [SerializeField] GameObject _activateur; // Tp3 Antoine
     [SerializeField] GameObject _porte; // Tp3 Antoine
-    [SerializeField] SOPerso _donneesPerso; // Tp4 leon
+    [SerializeField] SOPerso _donneesPerso; // #Tp4 leon
+    [SerializeField] SONavigation _donneesNavigation; // #synthese leon
     [SerializeField] GameObject cm_collider;
     [SerializeField] CinemachineVirtualCamera cvCamera;
     // [SerializeField] SOActivateur _activateur;
-    [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
+    [SerializeField, Range(0,20)] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
+    [SerializeField, Range(40, 200)] int _limiteTemps = 120; // Limite de temps pour le niveau. #synthese Léon
+    int _temps; // Temps écoulé dans le niveau. #synthese Léon
+
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
     List<Vector2Int> _lesPosSurReperes = new List<Vector2Int>(); // Liste des positions sur les repères. #tp3 Léon
     List<Vector2Int> _lesPosEffectors = new List<Vector2Int>(); // Liste des positions des effectors. #tp3 Léon
@@ -66,7 +71,9 @@ public class Niveau : MonoBehaviour
         PlacerItems(_perso, _porte, _cle, _activateur); //#tp3 Antoine
         PlacerAutels();//#tp3 Antoine
         PlacerLesJoyaux(); // #tp3 Léon
-
+        _temps = _limiteTemps; // #synthese Léon
+        _uiJeu.MettreAJourTemps(_temps); // #synthese Léon
+        Coroutine coroutine = StartCoroutine(CoroutineDecoulerTemps()); // #synthese Léon
         // GameObject persoClone = (GameObject)GameObject.Instantiate(_perso.gameObject, _lesPosLibres[Random.Range(0, _lesPosLibres.Count)], Quaternion.identity);
         cvCamera.m_Follow = clonePerso.transform;
         cm_collider.transform.localScale = new Vector2(_taille.x * 32 - 1, _taille.y * 18 - 1);
@@ -241,7 +248,7 @@ public class Niveau : MonoBehaviour
         } // Boucle sur les salles
         Debug.Log("C'est la faute de Léon");
 
-        if (salleAlea >= extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
+        if (salleAlea == extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
         else extremitees.RemoveAt(salleAlea);
         extremitees.Reverse(); // Inverser la liste des salles
         string salleCleIndex = extremitees[salleAlea]; // Obtenir l'index opposé à la salle de la porte
@@ -442,6 +449,20 @@ public class Niveau : MonoBehaviour
         {
             _tilemapNiveau.SetTile(pos + decalage, tile);
         }
+    }
+
+    IEnumerator CoroutineDecoulerTemps()
+    {
+        while (_temps > 0)
+        {
+            Debug.Log("Temps : " + _temps);
+            yield return new WaitForSeconds(1);
+            _temps--;
+            _uiJeu.MettreAJourTemps(_temps);
+        }
+        _donneesNavigation.AllerSceneTableauHonneur();
+        // Debug.Log("Temps écoulé");
+        // SceneManager.LoadScene("SceneTitre");
     }
 
 }

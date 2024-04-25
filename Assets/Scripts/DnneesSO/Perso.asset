@@ -14,5 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _niveau: 1
   _argent: 100
+  _score: 1000
   _niveauIni: 1
   _argentIni: 100
+  _scoreIni: 1000
+  baseAttaque: 10
+  baseDefense: 10
+  basePv: 10

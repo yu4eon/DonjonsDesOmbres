@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 2752817252107459248}
   - component: {fileID: 4038925225022127770}
   m_Layer: 5
-  m_Name: Rank
+  m_Name: Rang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -668,9 +668,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3905f3021e345c14a9a8f40421d18f88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rank: {fileID: 4038925225022127770}
-  nom: {fileID: 1504564616412998419}
-  score: {fileID: 1701300059270046583}
+  _nom: {fileID: 1504564616412998419}
+  _rang: {fileID: 4038925225022127770}
+  _score: {fileID: 1701300059270046583}
+  _tableauHonneur: {fileID: 408633927028776987, guid: 627fc02b144a8f74e8222fde2ad57adc, type: 3}
+  _champNom: {fileID: 4588107926608984645}
+  _boutonValider: {fileID: 2411211480539349645}
 --- !u!1 &3863754806693968321
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,7 +999,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150.5125, y: -15}
+  m_AnchoredPosition: {x: 131.2, y: -15}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4369112148487843830
@@ -1255,4 +1258,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1279221058101982038}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4714338491950986107}
+        m_TargetAssemblyTypeName: RowUI, Assembly-CSharp
+        m_MethodName: ConfirmerNom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

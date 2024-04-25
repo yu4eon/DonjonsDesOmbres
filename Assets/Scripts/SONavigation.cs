@@ -44,6 +44,16 @@ public class SONavigation : ScriptableObject
     }
 
     /// <summary>
+    /// #tp4 Leon
+    /// Méthode appelée pour retourner au menu.
+    /// </summary>
+    public void AllerMenu()
+    {
+        _donneesPerso.Initialiser(); // Initialise les données du personnage
+        SceneManager.LoadScene("SceneTitre");
+    }
+
+    /// <summary>
     /// Tp3 Antoine
     /// Méthode appelée pour charger la scène précédente dans l'ordre de la build.
     /// </summary>

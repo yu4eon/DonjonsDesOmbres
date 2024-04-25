@@ -22,15 +22,12 @@ public class UIJeu : MonoBehaviour
         _champNiveau.text = "Lvl : " + _donneesPerso.niveau;
         _champScore.text = _donneesPerso.score +"";
         _champArgent.text = _donneesPerso.argent +" Gold";
+        _donneesPerso.evenementMiseAJour.AddListener(MettreAJourInfo);
     }
 
-    public void MettreAJourScore()
+    void MettreAJourInfo()
     {
         _champScore.text = _donneesPerso.score + "";
-    }
-
-    public void MettreAJourArgent()
-    {
         _champArgent.text = _donneesPerso.argent + " Gold";
     }
 }

@@ -8,12 +8,25 @@ using System.Runtime.InteropServices;
 [CreateAssetMenu(menuName = "Sauvegarde", fileName = "Sauvegarde")]
 public class SOSauvegarde : ScriptableObject
 {
+    int _nbEntresMax = 7;
     [SerializeField] List<JoueurScore> _lesJoueursScores = new List<JoueurScore>();
+    public List<JoueurScore> lesJoueursScores
+    {
+        get
+        {
+            _lesJoueursScores.Sort((a, b) => b.score.CompareTo(a.score));
+            if(_lesJoueursScores.Count >= _nbEntresMax)
+            {
+                _lesJoueursScores.RemoveAt(_lesJoueursScores.Count - 1);
+            }
+            return _lesJoueursScores;
+        }
+    }
 
     [DllImport("__Internal")]
     static extern void SynchroniserWebGL();
 
-    [SerializeField] string _fichier = "demo.TIM";
+    [SerializeField] string _fichier = "scores.TIM";
     public void LireFichier(TMP_InputField inputField)
     {
         string cheminEtFichier = Application.persistentDataPath + "/" + _fichier;

@@ -182,6 +182,13 @@ public class SOPerso : ScriptableObject
 
     }
 
+
+    /// <summary>
+    /// #tp4 Leon
+    /// méthode qui vérifie si le personnage possède un pouvoir
+    /// </summary>
+    /// <param name="nomPouvoir">Type de pouvoir à vérifier</param>
+    /// <returns>Retourne vrai si le personnage possède le pouvoir, faux sinon</returns>
     public bool ContientPouvoir(TypePouvoir nomPouvoir)
     {
         return _pouvoirs.Contains(nomPouvoir);

@@ -205,6 +205,7 @@ public class Niveau : MonoBehaviour
 
 
         // Placer la porte.
+        PlacerObjets(porte);
         List<string> extremitees = new List<string>(); // Liste des salles qui se trouvent sur les extrémités du niveau.
         for (int x = 0; x < _taille.x; x++) // Boucle sur les abscisses
         {
@@ -223,8 +224,8 @@ public class Niveau : MonoBehaviour
             extremiteesBackup.Add(backup); // Ajouter le nom de la salle à la liste de sauvegarde
         }
 
-        int salleAlea = Random.Range(0, extremitees.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.
-        Salle sallePorte = GameObject.Find(extremitees[salleAlea]).GetComponentInChildren<Salle>(); // Récupère la salle.
+        int salleAlea = Random.Range(0, extremiteesBackup.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.
+        Salle sallePorte = GameObject.Find(extremiteesBackup[salleAlea]).GetComponentInChildren<Salle>(); // Récupère la salle.
         Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position); // Décalage pour la position du repère.
         Vector2Int posRep = sallePorte.PlacerSurRepere(porte) - decalage; // Placement sur un repère.
         Vector2Int Rep = Vector2Int.FloorToInt((Vector2)sallePorte._repere.transform.position); // Position du repère
@@ -239,10 +240,11 @@ public class Niveau : MonoBehaviour
             Debug.Log(salle);
 
         } // Boucle sur les salles
-        Debug.Log("C'est la faute de Léon");
+        Debug.Log("SalleAlea : " + salleAlea);
+        Debug.Log("total salle : " + extremitees.Count);
 
-        if (salleAlea >= extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
-        else extremitees.RemoveAt(salleAlea);
+        if (salleAlea == extremitees.Count) extremiteesBackup.RemoveAt(salleAlea - 1);
+        else extremiteesBackup.RemoveAt(salleAlea);
         extremitees.Reverse(); // Inverser la liste des salles
         string salleCleIndex = extremitees[salleAlea]; // Obtenir l'index opposé à la salle de la porte
         Salle salleCle = GameObject.Find(salleCleIndex).GetComponentInChildren<Salle>(); // Récupérer la salle aléatoire
@@ -258,13 +260,18 @@ public class Niveau : MonoBehaviour
 
         } 
 
-        if (salleAlea >= extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
-        else extremitees.RemoveAt(salleAlea);
+        if (salleAlea == extremitees.Count) extremiteesBackup.RemoveAt(salleAlea - 1);
+        else if(salleAlea >extremitees.Count) extremiteesBackup.RemoveAt(salleAlea - 2);
+        else extremiteesBackup.RemoveAt(salleAlea);
         // extremitees.RemoveAt(salleAlea-1); // Retirer la salle de la porte et de la clé de la liste
-        Salle salleActivateur = GameObject.Find(extremitees[Random.Range(0, extremitees.Count)]).GetComponentInChildren<Salle>(); // Choisir une salle aléatoire restante pour placer l
+        Salle salleActivateur = GameObject.Find(extremiteesBackup[Random.Range(0, extremiteesBackup.Count)]).GetComponentInChildren<Salle>(); // Choisir une salle aléatoire restante pour placer l
         Vector2Int posRep3 = salleActivateur.PlacerSurRepere(activateur) - decalage; // Placer l'activateur sur un repère de la salle choisie
         Vector2Int Rep3 = Vector2Int.FloorToInt((Vector2)salleCle._repere.transform.position); // Obtenir la position du repère
         _lesPosSurReperes.Add(Rep3); // Ajouter la position du repère à la liste
+    }
+    void PlacerObjets(GameObject objet) // #tp3 Antoine
+    {
+        
     }
 
 

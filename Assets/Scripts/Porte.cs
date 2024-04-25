@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using TMPro;
 
 /// <summary>
 /// #Tp3
@@ -17,6 +18,9 @@ public class Porte : MonoBehaviour
     [SerializeField] SOPerso _donneesPerso; // Données du personnage (ScriptableObject)
     [SerializeField] GameObject _lumiere; // Référence à la lumière de la porte #tp4 Leon
     [SerializeField] AudioClip _sonPorte;
+    [SerializeField] GameObject fond;
+    [SerializeField] GameObject panneauBonus;
+    [SerializeField] GameObject[] panneauJoueur;
 
     SpriteRenderer _sr; // Référence au composant SpriteRenderer de la porte
     static public bool aCle = false; // Booléen indiquant si la clé a été trouvée
@@ -27,10 +31,20 @@ public class Porte : MonoBehaviour
     /// </summary>
     void Start()
     {
+        fond = GameObject.Find("Fond");
+        panneauBonus = GameObject.Find("PointsBonus");
+        panneauJoueur = GameObject.FindGameObjectsWithTag("PanneauJoueur");
         _lumiere.SetActive(false); // Désactive la lumière de la porte #tp4 Leon
         aCle = false; // Réinitialisation de la variable aCle
         _sr = GetComponent<SpriteRenderer>(); // Obtention du composant SpriteRenderer attaché à cet objet
         _sr.sprite = _sprites[0]; // Définition du sprite initial de la porte (fermée)
+
+        fond.SetActive(false);
+        panneauBonus.SetActive(false);
+        foreach (var item in panneauJoueur)
+        {
+            item.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -41,9 +55,10 @@ public class Porte : MonoBehaviour
     {
         if (aCle && other.CompareTag("Player")) // Si la clé a été trouvée et le joueur entre en collision avec la porte
         {
+            SceneBonus();
             _sr.sprite = _sprites[1]; // Changement du sprite de la porte (ouverte)
             _lumiere.SetActive(true); // Active la lumière de la porte #tp4 Leon
-            Coroutine _coroutine = StartCoroutine(ChangerScene()); // Appel de la coroutine pour changer de scène après un délai
+            // Coroutine _coroutine = StartCoroutine(ChangerScene()); // Appel de la coroutine pour changer de scène après un délai
             SoundManager.instance.JouerEffetSonore(_sonPorte); // Joue le son de la porte
         }
     }
@@ -56,5 +71,34 @@ public class Porte : MonoBehaviour
         yield return new WaitForSeconds(2f); // Attente de 2 secondes
         _donneesPerso.ViderInventaire(); // Vidage de l'inventaire du joueur
         _navigation.AllerSceneSuivante(); // Appel de la fonction pour aller à la scène suivante dans le script de navigation
+    }
+
+    void SceneBonus()
+    {
+        fond.SetActive(true);
+        panneauBonus.SetActive(true);
+
+        Transform deuxiemeEnfant = panneauBonus.transform.GetChild(1);
+        deuxiemeEnfant.GetComponent<TextMeshProUGUI>().text += "  10000000 points!";
+        Transform troisiemeEnfant = panneauBonus.transform.GetChild(2);
+        troisiemeEnfant.GetComponent<TextMeshProUGUI>().text += "  500000 de plus!";
+        foreach (var item in panneauJoueur)
+        {
+            item.SetActive(false);
+        }
+        panneauBonus.GetComponentInChildren<TextMeshProUGUI>().text = "Bonus Collected!";
+        _donneesPerso.ViderInventaire(); // Vidage de l'inventaire du joueur
+    }
+    /// <summary>
+    /// Callback sent to all game objects before the application is quit.
+    /// </summary>
+    void OnApplicationQuit()
+    {
+        fond.SetActive(false);
+        panneauBonus.SetActive(false);
+        foreach (var item in panneauJoueur)
+        {
+            item.SetActive(true);
+        }
     }
 }

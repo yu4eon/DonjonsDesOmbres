@@ -19,6 +19,10 @@ public class SOSauvegarde : ScriptableObject
     static extern void SynchroniserWebGL();
 
     [SerializeField] string _fichier = "sauvegarde.TIM";
+
+    /// <summary>
+    /// Lit les informations des joueurs dans un fichier
+    /// </summary>
     public string LireFichier()
     {
         string cheminEtFichier = Application.persistentDataPath + "/" + _fichier;
@@ -41,13 +45,16 @@ public class SOSauvegarde : ScriptableObject
         }
     }
 
+
+    /// <summary>
+    /// Écrit les informations des joueurs dans un fichier
+    /// </summary>
     public void EcrireFichier()
     {
-        // Print out the scores before serialization
-        foreach (JoueurScore joueurScore in lesJoueursScores)
-        {
-            Debug.Log(string.Join(" ", joueurScore.joueur, joueurScore.score));
-        }
+        // foreach (JoueurScore joueurScore in lesJoueursScores)
+        // {
+        //     Debug.Log(string.Join(" ", joueurScore.joueur, joueurScore.score));
+        // }
 
         string cheminEtFichier = Application.persistentDataPath + "/" + _fichier;
         string contenue = JsonUtility.ToJson(this);
@@ -59,17 +66,5 @@ public class SOSauvegarde : ScriptableObject
             Debug.Log("Coucou WebGL");
         }
     }
-    // public void EcrireFichier()
-    // {
-    //     string cheminEtFichier = Application.persistentDataPath + "/" + _fichier;
-    //     string contenue = JsonUtility.ToJson(this);
-    //     Debug.Log(contenue);
-    //     File.WriteAllText(cheminEtFichier, contenue);
-    //     if(Application.platform == RuntimePlatform.WebGLPlayer) 
-    //     {
-    //         SynchroniserWebGL();
-    //         Debug.Log("Coucou WebGL");
-    //     }
-    // }
 
 }

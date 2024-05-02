@@ -33,20 +33,10 @@ public class TableauHonneur : MonoBehaviour
         Debug.Log(_cheminEtFichier);
         Debug.Log(_fichier);
         Debug.Log(Application.persistentDataPath);
-        if (_donneesSauvegarde.LireFichier() != null)
+        if (_donneesSauvegarde.LireFichier() != null) // si le fichier existe
         {
             InitialiserDonnees();
         }
-        //         if (File.Exists(cheminEtFichier))
-        //         {
-        //             string contenue = File.ReadAllText(cheminEtFichier);
-        //             _lesJoueursScores = JsonUtility.FromJson<List<JoueurScore>>(contenue);
-        // #if UNITY_EDITOR
-        //             UnityEditor.EditorUtility.SetDirty(this);
-        //             UnityEditor.AssetDatabase.SaveAssets();
-        // #endif
-        //             Debug.Log(contenue);
-        //         }
         else
         {
             Debug.LogWarning("Le fichier n'existe pas");
@@ -74,6 +64,10 @@ public class TableauHonneur : MonoBehaviour
         AfficherScores();
     }
 
+
+    /// <summary>
+    /// Initialise les données des joueurs
+    /// </summary>
     void InitialiserDonnees()
     {
         Debug.Log(_donneesSauvegarde.LireFichier());
@@ -110,7 +104,7 @@ public class TableauHonneur : MonoBehaviour
         // _boutonMenu.interactable = true;
         ActiverBoutonMenu();
         Debug.Log("Sauvegarde du score");
-        Debug.Log(_lesJoueursScores.Count);
+        // Debug.Log(_lesJoueursScores.Count);
 
         // Mettre à jour le nom du joueur
         foreach (JoueurScore joueurScore in _lesJoueursScores)

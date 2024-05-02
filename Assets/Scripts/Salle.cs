@@ -16,7 +16,9 @@ public class Salle : MonoBehaviour
     // Propriété pour accéder à la taille de la salle :
     static public Vector2Int taille => _taille;
 
-    [SerializeField] public Transform _repere; //Repère pour placer les objets
+    [SerializeField] public Transform _repereObjet; //Repère pour placer les objets
+    [SerializeField] Transform[] _tReperesEnnemis; //Tableau des repères pour les ennemis
+    public Transform[] tReperesEnnemis => _tReperesEnnemis; //Propriété pour accéder aux repères des ennemis
     [SerializeField] Transform[] _tEffectors; //Tableau des effectors dans la salle
     public Transform[] tEffectors => _tEffectors; //Propriété pour accéder aux effectors
     
@@ -39,8 +41,14 @@ public class Salle : MonoBehaviour
     public Vector2Int PlacerSurRepere(GameObject _modele)
     {
 
-        Vector3 pos = _repere.position;
+        Vector3 pos = _repereObjet.position;
         Instantiate(_modele, pos, Quaternion.identity, transform.parent);
         return Vector2Int.FloorToInt(pos);
+    }
+
+    public void PlacerEnnemiSurRepere(GameObject _modele, int index, Transform contenant)
+    {
+        Vector3 pos = _tReperesEnnemis[index].position;
+        Instantiate(_modele, pos, Quaternion.identity, contenant);
     }
 }

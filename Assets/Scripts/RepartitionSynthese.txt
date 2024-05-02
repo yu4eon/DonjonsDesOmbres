@@ -4,12 +4,15 @@
 
 à faire :
 
+1 Ennemi
+1 fonctionnalité (à confirmer)
+Placement des ennemis
+
+
 fini :
 
-Interface Jeu
-Complexification des niveaux
-Ajout des lumières et des animations, contrôle des animations
-Ajout d’un système d’enregistrement local des meilleurs scores
+Règlage de bogues du TP4
+
 
 
 /************************************************************/
@@ -18,8 +21,8 @@ Ajout d’un système d’enregistrement local des meilleurs scores
 
 à faire :
 
+1 Ennemi
+1 fonctionnalité (à confirmer)
+Règlage des bogues
+
 fini :
-Confinement Cinemachine
-Déclanchement des effets sonores
-Ajout d’un système de contrôle musical 
-Interface Hors-jeu

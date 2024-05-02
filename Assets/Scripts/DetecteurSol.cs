@@ -6,6 +6,7 @@ using UnityEngine;
 /// Auteur du code : Léon Yu, Antoine Lachance
 /// Commetaires ajoutés par : Léon Yu, Antoine Lachance
 /// Classe qui gère la détection du sol pour les personnages
+/// #synthese leon Sera utilisé pour les ennemis aussi
 /// </summary>
 public class DetecteurSol : MonoBehaviour
 {

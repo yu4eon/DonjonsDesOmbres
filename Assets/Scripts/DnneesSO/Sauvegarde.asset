@@ -22,6 +22,9 @@ MonoBehaviour:
   - joueur: Adolf
     score: 2800
     estJoueurActuelle: 0
+  - joueur: AAAAAAAAAA
+    score: 2750
+    estJoueurActuelle: 0
   - joueur: Bob
     score: 2000
     estJoueurActuelle: 0

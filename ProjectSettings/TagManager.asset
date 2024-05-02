@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Effector
   - PanneauJoueur
+  - Ennemi
   layers:
   - Default
   - TransparentFX
@@ -54,6 +55,9 @@ TagManager:
     locked: 0
   - name: Joueur
     uniqueID: 1132468005
+    locked: 0
+  - name: Ennemis
+    uniqueID: 2030443457
     locked: 0
   - name: FX
     uniqueID: 3640313225

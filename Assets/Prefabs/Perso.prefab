@@ -102,7 +102,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 1.6166974
+  m_Mass: 1.3484218
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -167,7 +167,6 @@ MonoBehaviour:
   - {fileID: 6653470305252310338, guid: c0280baa08d7bee448843017177b1be7, type: 3}
   - {fileID: 4662112955779928621, guid: 50939b9b54bbf0f42a2962cdc1d20cd6, type: 3}
   - {fileID: 5721592000770606963, guid: 7da8f70ca474bfa4faceb882f8a99732, type: 3}
-  _uiJeu: {fileID: 7072146006700480467, guid: 202628443940f8b4ca4b884d7bd87468, type: 3}
   _donneesNavigation: {fileID: 11400000, guid: 7bfae785291759145a074c72fef7cad2, type: 2}
 --- !u!114 &819095134103182047
 MonoBehaviour:
@@ -252,8 +251,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.030338043, y: 0.031538263}
-  m_Size: {x: 0.47412893, y: 1.0462992}
+  m_Offset: {x: -0.022644715, y: 0.0023036255}
+  m_Size: {x: 0.4156599, y: 0.98783034}
   m_Direction: 0
 --- !u!1001 &1422403815056892438
 PrefabInstance:

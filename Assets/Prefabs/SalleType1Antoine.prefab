@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &381755326189603690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1001303174208216050}
+  m_Layer: 0
+  m_Name: RepereEnnemi
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1001303174208216050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381755326189603690}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.04, y: -6.43, z: 0.04586266}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8313656252039483525}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &727688358595492571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,6 +1500,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1001303174208216050}
   - {fileID: 8391359839366727819}
   - {fileID: 4219549649215757061}
   - {fileID: 4100327066220782862}
@@ -1503,7 +1535,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c248b3a6c44b9a418362a8d1912d824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _repere: {fileID: 5700077090785509434}
+  _repereObjet: {fileID: 5700077090785509434}
+  _tReperesEnnemis:
+  - {fileID: 1001303174208216050}
   _tEffectors:
   - {fileID: 4975556331787088321}
   - {fileID: 6225119150644751841}
@@ -3545,7 +3579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5700077090785509434}
   m_Layer: 0
-  m_Name: Repere
+  m_Name: RepereObjet
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

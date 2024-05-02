@@ -479,7 +479,7 @@ MonoBehaviour:
   cm_collider: {fileID: 1838577673}
   cvCamera: {fileID: 1235729713}
   _nbJoyauxParSalle: 5
-  _limiteTemps: 40
+  _limiteTemps: 200
 --- !u!156049354 &308034227
 Grid:
   m_ObjectHideFlags: 0
@@ -2062,6 +2062,10 @@ PrefabInstance:
     - target: {fileID: 5980544699149817388, guid: 202628443940f8b4ca4b884d7bd87468, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 46.199997
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469997795544450526, guid: 202628443940f8b4ca4b884d7bd87468, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -48.600006
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

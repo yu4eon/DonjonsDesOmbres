@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Perso
   m_EditorClassIdentifier: 
   _niveau: 1
-  _argent: 100
-  _score: 1000
+  _argent: 225
+  _score: 2750
   _niveauIni: 1
   _argentIni: 100
   _scoreIni: 1000

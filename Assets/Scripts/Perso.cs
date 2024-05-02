@@ -343,6 +343,7 @@ public class Perso : DetecteurSol
     void OnDestroy()
     {
         _donnees.evenementMiseAJour.RemoveAllListeners(); // Supprime tous les écouteurs d'événements de mise à jour des données du personnage
+        _donnees.ViderInventaire();
     }
 
     public void JouerSon(int index)

@@ -14,7 +14,6 @@ using UnityEngine.InputSystem;
 public class UIJeu : MonoBehaviour
 {
     [SerializeField] private SOPerso _donneesPerso; // Données du personnage, (ScriptableObject)
-
     [SerializeField] private TextMeshProUGUI _champNiveau; // Champ de texte pour le niveau du personnage
     [SerializeField] private TextMeshProUGUI _champTemps; // Champ de texte pour le temps de jeu
     [SerializeField] private TextMeshProUGUI _champScore; // Champ de texte pour le score du personnage
@@ -68,5 +67,12 @@ public class UIJeu : MonoBehaviour
                 entry.Value.enabled = false;
             }
         }
+    } 
+    public void MettreAJourTemps(int temps)
+    {
+        
+        int minutes = (temps / 60);
+        int secondes = (temps % 60);
+        _champTemps.text = ((minutes < 10)? "0" +minutes: minutes) + ":" + ((secondes < 10)? "0" +secondes: secondes);
     }
 }

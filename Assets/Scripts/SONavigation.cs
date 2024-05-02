@@ -61,4 +61,9 @@ public class SONavigation : ScriptableObject
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); // Charge la scène précédente dans l'ordre de la build
     }
+
+    public void AllerSceneTableauHonneur()
+    {
+        SceneManager.LoadScene("Honneur");
+    }
 }

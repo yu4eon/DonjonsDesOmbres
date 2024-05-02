@@ -18,6 +18,7 @@ public class RowUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI _score; // Score du joueur
     [SerializeField] TableauHonneur _tableauHonneur; // Tableau d'honneur
     [SerializeField] TMP_InputField _champNom; // Champ pour entrer le nom du joueur
+    [SerializeField] int _limiteCaractere = 10; // Limite de caractère pour le nom du joueur
     [SerializeField] Button _boutonValider; // Bouton pour valider le nom du joueur
 
     /// <summary>
@@ -64,6 +65,12 @@ public class RowUI : MonoBehaviour
     /// </summary>
     public void ConfirmerNom()
     {
+        string nom = _champNom.text;
+        if(nom.Length > _limiteCaractere)
+        {
+            nom = nom.Substring(0, _limiteCaractere);
+            _champNom.text = nom;
+        }
         _tableauHonneur.SauvegarderScore(_champNom.text);
         _nom.gameObject.SetActive(true);
         _nom.text = _champNom.text;

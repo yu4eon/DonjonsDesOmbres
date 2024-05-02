@@ -13,28 +13,42 @@ using System.Linq;
 /// Classe qui gère la tilemap principal, contenant toutes les salles du niveau
 public class Niveau : MonoBehaviour
 {
+    [Header("Niveau")]
     [SerializeField] Tilemap _tilemapNiveau; // tilemap du niveau #tp3 Léon - J'ai changé le nom de la variable pour être plus explicite.
     [SerializeField] Salle[] _tSallesModeles; // Tableau de tous les prefabs de salles disponibles.
     [SerializeField] Vector2Int _taille = new Vector2Int(2, 2); // Taille du niveau en 2 dimensions, sur l'axe x et y.
     [SerializeField] TileBase _tuileModele; // Tuile utilisée pour les bordures
+    [SerializeField] UIJeu _uiJeu; // Référence à l'interface du jeu. #synthese Léon 
+
+    [Header("Items")]
     [SerializeField] Joyau[] _tJoyauxModeles; // Tableau de tous les prefabs de joyaux disponibles. #tp3 Léon
     [SerializeField] Autels[] _tAutelsModeles; // Tableau de tous les prefabs d'autels disponibles. #tp3 Antoine
     [SerializeField] Perso _perso; // Tp3 Antoine
     [SerializeField] GameObject _cle; // Tp3 Antoine
     [SerializeField] GameObject _activateur; // Tp3 Antoine
     [SerializeField] GameObject _porte; // Tp3 Antoine
-    [SerializeField] SOPerso _donneesPerso; // Tp4 leon
+    [SerializeField] GameObject[] _tEnnemis; // Tableau des ennemis #synthese Leon
+
+    [Header("Données")]
+    [SerializeField] SOPerso _donneesPerso; // #Tp4 leon
+    [SerializeField] SONavigation _donneesNavigation; // #synthese leon
+
+    [Header("Camera")]
     [SerializeField] GameObject cm_collider;
     [SerializeField] CinemachineVirtualCamera cvCamera;
-    // [SerializeField] SOActivateur _activateur;
-    [SerializeField] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
+
+    [Header("Paramètres de jeu")]
+    [SerializeField, Range(0, 20)] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
+    [SerializeField, Range(40, 200)] int _limiteTemps = 120; // Limite de temps pour le niveau. #synthese Léon
+    int _temps; // Temps écoulé dans le niveau. #synthese Léon
+
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
     List<Vector2Int> _lesPosSurReperes = new List<Vector2Int>(); // Liste des positions sur les repères. #tp3 Léon
     List<Vector2Int> _lesPosEffectors = new List<Vector2Int>(); // Liste des positions des effectors. #tp3 Léon
 
     // Propriété publique qui permet l'accès à la tilemap du niveau.
     public Tilemap tilemap => _tilemapNiveau;
-
+    List<Salle> _lesSalles = new List<Salle>(); // Liste des salles instancié du niveau. #tp3 Léon
     static Niveau _instance; // Instance statique de la classe. #tp3 Léon
     static public Niveau instance => _instance; // Propriété publique qui permet l'accès à l'instance de la classe. #tp3 Léon
 
@@ -67,7 +81,10 @@ public class Niveau : MonoBehaviour
         PlacerItems(_perso, _porte, _cle, _activateur); //#tp3 Antoine
         PlacerAutels();//#tp3 Antoine
         PlacerLesJoyaux(); // #tp3 Léon
-
+        PlacerEnnemis(); // #synthese Léon
+        _temps = _limiteTemps; // #synthese Léon
+        _uiJeu.MettreAJourTemps(_temps); // #synthese Léon
+        Coroutine coroutine = StartCoroutine(CoroutineDecoulerTemps()); // #synthese Léon
         // GameObject persoClone = (GameObject)GameObject.Instantiate(_perso.gameObject, _lesPosLibres[Random.Range(0, _lesPosLibres.Count)], Quaternion.identity);
         cvCamera.m_Follow = clonePerso.transform;
         cm_collider.transform.localScale = new Vector2(_taille.x * 32 - 1, _taille.y * 18 - 1);
@@ -117,7 +134,7 @@ public class Niveau : MonoBehaviour
             // Vérifie si la position du dessus est vide et que la position du dessous n'est pas vide.
             if (PositionDessusEstVide(pos) && PositionDessousEstOccupee(pos))
             {
-                
+
                 Vector3 pos3 = (Vector3)(Vector2)pos + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertit la position
                 pos3 += new Vector3(0, 1, 0); // Positionne l'autel au dessus de la position.
                 RaycastHit2D hit = Physics2D.Raycast(pos3, Vector2.down, Mathf.Infinity, LayerMask.GetMask("Effector"));
@@ -144,6 +161,25 @@ public class Niveau : MonoBehaviour
             }
         }
     }
+
+    void PlacerEnnemis()
+    {
+        Transform contenant = new GameObject("Ennemis").transform; // Crée un GameObject pour contenir les ennemis.
+        contenant.parent = transform; // Assigne le niveau comme parent du contenant.
+
+        foreach(Salle salle in _lesSalles)
+        {
+            for (int i = 0; i < salle.tReperesEnnemis.Length; i++)
+            {
+                int indexEnnemi = Random.Range(0, _tEnnemis.Length); // Sélectionne un ennemi aléatoire.
+                GameObject ennemiModele = _tEnnemis[indexEnnemi]; // Obtient le prefab de l'ennemi.
+                salle.PlacerEnnemiSurRepere(ennemiModele, i, contenant); // Place l'ennemi sur le repère de la salle.
+            }
+        
+        }
+
+    }
+
     /// <summary>
     /// #tp3 Antoine
     /// Méthode pour vérifier si la position du dessus est vide.
@@ -180,7 +216,7 @@ public class Niveau : MonoBehaviour
         // {
         //     return false;
         // }
-        
+
         return !_lesPosLibres.Contains(posDessous);
     }
 
@@ -249,7 +285,7 @@ public class Niveau : MonoBehaviour
     {
         Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position); // Décalage pour la position du repère.
         Vector2Int posRep = salle.PlacerSurRepere(objet) - decalage; // Placer l'objet sur un repère aléatoire de la salle
-        Vector2Int Rep = Vector2Int.FloorToInt((Vector2)salle._repere.transform.position); // Position du repère
+        Vector2Int Rep = Vector2Int.FloorToInt((Vector2)salle._repereObjet.transform.position); // Position du repère
         _lesPosSurReperes.Add(Rep); // Ajouter la position du repère à la liste
     }
 
@@ -276,7 +312,7 @@ public class Niveau : MonoBehaviour
     void DefinirTailleNiveau()
     {
         //Définir la taille du niveau selon le niveau du joueur
-        switch(_donneesPerso.niveau)
+        switch (_donneesPerso.niveau)
         {
             case 1:
                 _taille = new Vector2Int(2, 2);
@@ -296,7 +332,7 @@ public class Niveau : MonoBehaviour
     /// </summary>
     void CreerNiveau()
     {
-        
+
         // Calcul de la taille de la salle avec une bordure.
         Vector2Int tailleAvecUneBordure = Salle.taille - Vector2Int.one;
 
@@ -317,9 +353,11 @@ public class Niveau : MonoBehaviour
 
                 Salle salle = Instantiate(_tSallesModeles[Random.Range(0, _tSallesModeles.Length)], pos, Quaternion.identity, transform);
 
+
                 // Nomme la salle selon sa position dans le niveau.
                 salle.name = "Salle" + x + "_" + y;
 
+                _lesSalles.Add(salle); // Ajoute la salle au tableau des salles.
 
                 niveauSurBordure.Add(new Vector2Int(x, y));//Test
 
@@ -428,6 +466,20 @@ public class Niveau : MonoBehaviour
         {
             _tilemapNiveau.SetTile(pos + decalage, tile);
         }
+    }
+
+    IEnumerator CoroutineDecoulerTemps()
+    {
+        while (_temps > 0)
+        {
+            Debug.Log("Temps : " + _temps);
+            yield return new WaitForSeconds(1);
+            _temps--;
+            _uiJeu.MettreAJourTemps(_temps);
+        }
+        _donneesNavigation.AllerSceneTableauHonneur();
+        // Debug.Log("Temps écoulé");
+        // SceneManager.LoadScene("SceneTitre");
     }
 
 }

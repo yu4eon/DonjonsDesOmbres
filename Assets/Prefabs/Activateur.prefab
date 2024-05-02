@@ -146,7 +146,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sActif: {fileID: 588868666, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
   _sInactif: {fileID: -1030684043, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
-  _lumiere: {fileID: 879794997477080218}
 --- !u!1001 &2704845139088452212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -157,19 +156,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
       propertyPath: m_LocalBounds.m_Center.x
-      value: -0.023449987
+      value: -0.0229
       objectReference: {fileID: 0}
     - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
       propertyPath: m_LocalBounds.m_Center.y
-      value: 0.020900011
+      value: 0.021099985
       objectReference: {fileID: 0}
     - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
       propertyPath: m_LocalBounds.m_Extent.x
-      value: 0.48465
+      value: 0.4846
       objectReference: {fileID: 0}
     - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
       propertyPath: m_LocalBounds.m_Extent.y
-      value: 0.6534
+      value: 0.6538
+      objectReference: {fileID: 0}
+    - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[0]
+      value: -980187417
+      objectReference: {fileID: 0}
+    - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[1]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6893635011218140854, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
       propertyPath: m_Name
@@ -220,17 +231,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
---- !u!114 &879794997477080218 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
-  m_PrefabInstance: {fileID: 2704845139088452212}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5810717130558766755 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8442659558617535703, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}

@@ -18,8 +18,12 @@ public class SOSauvegarde : ScriptableObject
     [DllImport("__Internal")]
     static extern void SynchroniserWebGL();
 
-    [SerializeField] string _fichier = "scores.TIM";
-    public void LireFichier()
+    [SerializeField] string _fichier = "sauvegarde.TIM";
+
+    /// <summary>
+    /// Lit les informations des joueurs dans un fichier
+    /// </summary>
+    public string LireFichier()
     {
         string cheminEtFichier = Application.persistentDataPath + "/" + _fichier;
         Debug.Log(cheminEtFichier);
@@ -32,20 +36,25 @@ public class SOSauvegarde : ScriptableObject
             UnityEditor.EditorUtility.SetDirty(this);
             UnityEditor.AssetDatabase.SaveAssets();
 #endif
+            return contenue;
         }
         else
         {
             Debug.LogWarning("Le fichier n'existe pas");
+            return null;
         }
     }
 
+
+    /// <summary>
+    /// Écrit les informations des joueurs dans un fichier
+    /// </summary>
     public void EcrireFichier()
     {
-        // Print out the scores before serialization
-        foreach (JoueurScore joueurScore in lesJoueursScores)
-        {
-            Debug.Log(string.Join(" ", joueurScore.joueur, joueurScore.score));
-        }
+        // foreach (JoueurScore joueurScore in lesJoueursScores)
+        // {
+        //     Debug.Log(string.Join(" ", joueurScore.joueur, joueurScore.score));
+        // }
 
         string cheminEtFichier = Application.persistentDataPath + "/" + _fichier;
         string contenue = JsonUtility.ToJson(this);
@@ -57,17 +66,5 @@ public class SOSauvegarde : ScriptableObject
             Debug.Log("Coucou WebGL");
         }
     }
-    // public void EcrireFichier()
-    // {
-    //     string cheminEtFichier = Application.persistentDataPath + "/" + _fichier;
-    //     string contenue = JsonUtility.ToJson(this);
-    //     Debug.Log(contenue);
-    //     File.WriteAllText(cheminEtFichier, contenue);
-    //     if(Application.platform == RuntimePlatform.WebGLPlayer) 
-    //     {
-    //         SynchroniserWebGL();
-    //         Debug.Log("Coucou WebGL");
-    //     }
-    // }
 
 }

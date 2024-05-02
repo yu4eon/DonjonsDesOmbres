@@ -31,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6109784832751137888}
   - {fileID: 1795545519979869095}
   - {fileID: 4359898735998522644}
   - {fileID: 1210790609951605953}
@@ -64,7 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c248b3a6c44b9a418362a8d1912d824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _repere: {fileID: 3587662743653028148}
+  _repereObjet: {fileID: 3587662743653028148}
+  _tReperesEnnemis:
+  - {fileID: 6109784832751137888}
   _tEffectors:
   - {fileID: 2112938755248074735}
 --- !u!1 &4163967780552915993
@@ -730,6 +733,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chanceApparition: 25
+--- !u!1 &4185650986233596252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6109784832751137888}
+  m_Layer: 0
+  m_Name: RepereEnnemi
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6109784832751137888
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185650986233596252}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -9.95, y: -6.97, z: 0.04586266}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 912417874615819227}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7997232150084655149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,7 +1249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3587662743653028148}
   m_Layer: 0
-  m_Name: Repere
+  m_Name: RepereObjet
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

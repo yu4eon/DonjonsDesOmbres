@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
 using Cinemachine;
+using System.Linq;
 
 /// <summary>
 /// Auteur du code : Léon Yu. Antoine Lachance
@@ -233,69 +234,39 @@ public class Niveau : MonoBehaviour
         Transform contenant = transform; // GameObject parent des items
         Niveau niveau = GetComponent<Niveau>(); // Récupérer le composant Niveau
 
-
         // Placer le personnage.
         Vector2Int posPerso = ObtenirPosLibre(); // Obtenir une position libre aléatoire.
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertir la position en Vector3.
         clonePerso = Instantiate(perso, pos3Perso, Quaternion.identity, contenant); // Instancier le personnage.
 
-
         // Placer la porte.
-        List<string> extremitees = new List<string>(); // Liste des salles qui se trouvent sur les extrémités du niveau.
-        for (int x = 0; x < _taille.x; x++) // Boucle sur les abscisses
-        {
-            for (int y = 0; y < _taille.y; y++) // Boucle sur les ordonnées
-            {
-                if (x == 0 || y == 0 || x == _taille.x - 1 || y == _taille.y - 1) // Vérifie si c'est une salle d'extrémité
-                {
-                    string nom = "Salle" + x + "_" + y; // Nom de la salle
-                    extremitees.Add(nom); // Ajouter le nom à la liste
-                }
-            }
-        }
-        List<string> extremiteesBackup = new List<string>(); // Liste des salles qui se trouvent sur les extrémités du niveau.
-        foreach (var backup in extremitees)
-        {
-            extremiteesBackup.Add(backup); // Ajouter le nom de la salle à la liste de sauvegarde
-        }
-
-        int salleAlea = Random.Range(0, extremitees.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.
-        Salle sallePorte = GameObject.Find(extremitees[salleAlea]).GetComponentInChildren<Salle>(); // Récupère la salle.
-        Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position); // Décalage pour la position du repère.
-        Vector2Int posRep = sallePorte.PlacerSurRepere(porte) - decalage; // Placement sur un repère.
-        Vector2Int Rep = Vector2Int.FloorToInt((Vector2)sallePorte._repereObjet.transform.position); // Position du repère
-        _lesPosSurReperes.Add(Rep); // Ajouter la position du repère à la liste
-
-
-
+        int sallePorteIndex = Random.Range(0, _lesSallesSurBordure.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.
+        Salle sallePorte = _lesSallesSurBordure[sallePorteIndex]; // Récupère la salle aléatoire
+        PlacerObjets(porte, sallePorte); // Placer la porte sur le repère de sa salle
+        _lesSallesSurBordure.Remove(sallePorte); // Retirer la salle de la liste
 
         // Placer la clé.
-        foreach (string salle in extremitees)
-        {
-            Debug.Log(salle);
-
-        } // Boucle sur les salles
-        Debug.Log("C'est la faute de Léon");
-
-        if (salleAlea == extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
-        else extremitees.RemoveAt(salleAlea);
-        extremitees.Reverse(); // Inverser la liste des salles
-        string salleCleIndex = extremitees[salleAlea]; // Obtenir l'index opposé à la salle de la porte
-        Salle salleCle = GameObject.Find(salleCleIndex).GetComponentInChildren<Salle>(); // Récupérer la salle aléatoire
-        Vector2Int posRep2 = salleCle.PlacerSurRepere(cle) - decalage; // Placer la clé sur un repère de la salle
-        Vector2Int Rep2 = Vector2Int.FloorToInt((Vector2)salleCle._repereObjet.transform.position); // Obtenir la position du repère
-        _lesPosSurReperes.Add(Rep2); // Ajouter la position du repère à la liste
-
+        _lesSallesSurBordure.Reverse();
+        Salle salleCle = _lesSallesSurBordure[sallePorteIndex]; // Récupère la salle opposée à la salle de la
+        PlacerObjets(cle, salleCle); // Placer la clé sur le repère de sa salle
+        _lesSallesSurBordure.Remove(salleCle); // Retirer la salle de la liste
 
         // Placer l'activateur
+        Salle salleActivateur = _lesSallesSurBordure[Random.Range(0, _lesSallesSurBordure.Count)]; // Choisir une salle aléatoire restante pour placer l
+        PlacerObjets(activateur, salleActivateur); // Placer l'activateur sur le repère choisi
+    }
 
-        if (salleAlea >= extremitees.Count) extremitees.RemoveAt(salleAlea - 1);
-        else extremitees.RemoveAt(salleAlea);
-        // extremitees.RemoveAt(salleAlea-1); // Retirer la salle de la porte et de la clé de la liste
-        Salle salleActivateur = GameObject.Find(extremitees[Random.Range(0, extremitees.Count)]).GetComponentInChildren<Salle>(); // Choisir une salle aléatoire restante pour placer l
-        Vector2Int posRep3 = salleActivateur.PlacerSurRepere(activateur) - decalage; // Placer l'activateur sur un repère de la salle choisie
-        Vector2Int Rep3 = Vector2Int.FloorToInt((Vector2)salleCle._repereObjet.transform.position); // Obtenir la position du repère
-        _lesPosSurReperes.Add(Rep3); // Ajouter la position du repère à la liste
+    /// <summary>
+    /// Méthode qui permet de placer les objets désirés dans les salles du niveau
+    /// </summary>
+    /// <param name="objet">Objet que l'on veut placer</param>
+    /// <param name="salle">Salle à faire apparaître l'objet</param>
+    void PlacerObjets(GameObject objet, Salle salle) // #synthese Antoine
+    {
+        Vector2Int decalage = Vector2Int.CeilToInt(_tilemapNiveau.transform.position); // Décalage pour la position du repère.
+        Vector2Int posRep = salle.PlacerSurRepere(objet) - decalage; // Placer l'objet sur un repère aléatoire de la salle
+        Vector2Int Rep = Vector2Int.FloorToInt((Vector2)salle._repereObjet.transform.position); // Position du repère
+        _lesPosSurReperes.Add(Rep); // Ajouter la position du repère à la liste
     }
 
 

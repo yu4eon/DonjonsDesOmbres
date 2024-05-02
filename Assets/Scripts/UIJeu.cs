@@ -13,13 +13,14 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class UIJeu : MonoBehaviour
 {
-    [SerializeField] private SOPerso _donneesPerso; // Données du personnage, (ScriptableObject)
-    [SerializeField] private TextMeshProUGUI _champNiveau; // Champ de texte pour le niveau du personnage
-    [SerializeField] private TextMeshProUGUI _champTemps; // Champ de texte pour le temps de jeu
-    [SerializeField] private TextMeshProUGUI _champScore; // Champ de texte pour le score du personnage
-    [SerializeField] private TextMeshProUGUI _champArgent; // Champ de texte pour l'argent du personnage
-    [SerializeField] private Image _barreVie; // Barre de vie du personnage (non utilisée)
-    [SerializeField] private Image[] _tCrystalsPouvoir; // Tableau d'images pour les cristaux de pouvoir
+    [SerializeField] SOPerso _donneesPerso; // Données du personnage, (ScriptableObject)
+    [SerializeField] TextMeshProUGUI _champNiveau; // Champ de texte pour le niveau du personnage
+    [SerializeField] TextMeshProUGUI _champTemps; // Champ de texte pour le temps de jeu
+    [SerializeField] TextMeshProUGUI _champScore; // Champ de texte pour le score du personnage
+    [SerializeField] TextMeshProUGUI _champArgent; // Champ de texte pour l'argent du personnage
+    [SerializeField] Image _barreVie; // Barre de vie du personnage (non utilisée)
+    [SerializeField] Image[] _tCrystalsPouvoir; // Tableau d'images pour les cristaux de pouvoir
+    [SerializeField] ParticleSystem[] _tParticulesPouvoir; // Particules de pouvoir
     Dictionary<TypePouvoir, Image> _dCrystalsPouvoir = new Dictionary<TypePouvoir, Image>(); // Dictionnaire de cristaux de pouvoir
 
 
@@ -43,6 +44,11 @@ public class UIJeu : MonoBehaviour
         _dCrystalsPouvoir.Add(TypePouvoir.Foudre, _tCrystalsPouvoir[2]);
         _dCrystalsPouvoir.Add(TypePouvoir.Glace, _tCrystalsPouvoir[3]);
 
+
+        foreach(ParticleSystem particule in _tParticulesPouvoir)
+        {
+            particule.Stop();
+        }
     }
 
 
@@ -74,5 +80,23 @@ public class UIJeu : MonoBehaviour
         int minutes = (temps / 60);
         int secondes = (temps % 60);
         _champTemps.text = ((minutes < 10)? "0" +minutes: minutes) + ":" + ((secondes < 10)? "0" +secondes: secondes);
+    }
+
+    public void ActiverParticulesPouvoir(int index)
+    {
+        foreach (ParticleSystem particule in _tParticulesPouvoir)
+        {
+            particule.Stop();
+        }
+        Debug.Log("Activer particules");
+        _tParticulesPouvoir[index].Play();
+    }
+
+    public void DesactiverParticulesPouvoir()
+    {
+        foreach (ParticleSystem particule in _tParticulesPouvoir)
+        {
+            particule.Stop();
+        }
     }
 }

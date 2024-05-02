@@ -29,6 +29,14 @@ public class Perso : DetecteurSol
     // vv Apparament, tu ne peux pas acceder au module renderer a partir du particle system vv
     [SerializeField] ParticleSystemRenderer _renderModule; // Module de rendu des particules pour la particule de course #tp3 Leon
     [SerializeField] ParticleSystem[] _particulesPouvoirs; // Particules des pouvoirs #tp3 Leon
+    UIJeu _uiJeu; // Référence à l'UI du jeu #synthese Leon
+    public UIJeu uIJeu // Propriété pour accéder à la variable privée _uiJeu. 
+    {
+        set
+        {
+            _uiJeu = value;
+        }
+    }
     ParticleSystem _particulePouvoirActuelle; // Particule du pouvoir actuel #tp3 Leon
     ParticleSystem.MinMaxCurve _startSizeInitial; // Taille des particules initiale #tp3 Leon
     ParticleSystem.MainModule _mainModule; // Module principal de la particule de course #tp3 Leon
@@ -196,6 +204,7 @@ public class Perso : DetecteurSol
             }
             _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[0], transform.position, _particulesPouvoirs[0].transform.rotation, transform);
             _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
+            _uiJeu.ActiverParticulesPouvoir(3); // Active les particules de pouvoir de glace dans l'UI. #synthese Leon
         }
         else
         {
@@ -219,6 +228,7 @@ public class Perso : DetecteurSol
             }
             _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[1], transform.position, _particulesPouvoirs[1].transform.rotation, transform);
             _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
+            _uiJeu.ActiverParticulesPouvoir(1); // Active les particules de pouvoir d'ombre dans l'UI. #synthese Leon
         }
         else
         {
@@ -243,6 +253,7 @@ public class Perso : DetecteurSol
             }
             _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[2], transform.position, _particulesPouvoirs[2].transform.rotation, transform);
             _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
+            _uiJeu.ActiverParticulesPouvoir(0); // Active les particules de pouvoir de poison dans l'UI. #synthese Leon
         }
         else
         {
@@ -266,6 +277,7 @@ public class Perso : DetecteurSol
             }
             _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[3], transform.position, _particulesPouvoirs[3].transform.rotation, transform);
             _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
+            _uiJeu.ActiverParticulesPouvoir(2); // Active les particules de pouvoir de foudre dans l'UI. #synthese Leon
         }
         else
         {

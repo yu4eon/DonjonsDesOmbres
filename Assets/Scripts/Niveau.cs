@@ -238,18 +238,19 @@ public class Niveau : MonoBehaviour
         Vector2Int posPerso = ObtenirPosLibre(); // Obtenir une position libre aléatoire.
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertir la position en Vector3.
         clonePerso = Instantiate(perso, pos3Perso, Quaternion.identity, contenant); // Instancier le personnage.
+        clonePerso.uIJeu = _uiJeu; // Assigner l'interface du jeu au personnage.
 
         // Placer la porte.
         int sallePorteIndex = Random.Range(0, _lesSallesSurBordure.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.
         Salle sallePorte = _lesSallesSurBordure[sallePorteIndex]; // Récupère la salle aléatoire
         PlacerObjets(porte, sallePorte); // Placer la porte sur le repère de sa salle
-        _lesSallesSurBordure.Remove(sallePorte); // Retirer la salle de la liste
 
         // Placer la clé.
         _lesSallesSurBordure.Reverse();
         Salle salleCle = _lesSallesSurBordure[sallePorteIndex]; // Récupère la salle opposée à la salle de la
         PlacerObjets(cle, salleCle); // Placer la clé sur le repère de sa salle
         _lesSallesSurBordure.Remove(salleCle); // Retirer la salle de la liste
+        _lesSallesSurBordure.Remove(sallePorte); // Retirer la salle de la liste
 
         // Placer l'activateur
         Salle salleActivateur = _lesSallesSurBordure[Random.Range(0, _lesSallesSurBordure.Count)]; // Choisir une salle aléatoire restante pour placer l
@@ -467,4 +468,8 @@ public class Niveau : MonoBehaviour
         // SceneManager.LoadScene("SceneTitre");
     }
 
+    public void ArreterCoroutine()
+    {
+        StopAllCoroutines();
+    }
 }

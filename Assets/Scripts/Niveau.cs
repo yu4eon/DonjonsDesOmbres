@@ -49,6 +49,7 @@ public class Niveau : MonoBehaviour
     // Propriété publique qui permet l'accès à la tilemap du niveau.
     public Tilemap tilemap => _tilemapNiveau;
     List<Salle> _lesSalles = new List<Salle>(); // Liste des salles instancié du niveau. #tp3 Léon
+    List<Salle> _lesSallesSurBordure = new List<Salle>(); // Liste des salles sur la bordure du niveau. #tp3 Léon
     static Niveau _instance; // Instance statique de la classe. #tp3 Léon
     static public Niveau instance => _instance; // Propriété publique qui permet l'accès à l'instance de la classe. #tp3 Léon
 
@@ -177,7 +178,6 @@ public class Niveau : MonoBehaviour
             }
         
         }
-
     }
 
     /// <summary>
@@ -253,6 +253,7 @@ public class Niveau : MonoBehaviour
         }
 
         // Placer le personnage.
+        // _lesSallesSurBordure
         Vector2Int posPerso = ObtenirPosLibre(); // Obtenir une position libre aléatoire.
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertir la position en Vector3.
         clonePerso = Instantiate(perso, pos3Perso, Quaternion.identity, contenant); // Instancier le personnage.
@@ -353,6 +354,10 @@ public class Niveau : MonoBehaviour
 
                 Salle salle = Instantiate(_tSallesModeles[Random.Range(0, _tSallesModeles.Length)], pos, Quaternion.identity, transform);
 
+                if(x == 0 || y == 0 || x == _taille.x - 1 || y == _taille.y - 1)
+                {
+                    _lesSallesSurBordure.Add(salle);
+                }
 
                 // Nomme la salle selon sa position dans le niveau.
                 salle.name = "Salle" + x + "_" + y;
@@ -377,7 +382,8 @@ public class Niveau : MonoBehaviour
                 }
             }
         }
-        Debug.Log(string.Join(", ", niveauSurBordure)); //Test
+        Debug.Log(string.Join(", ", _lesSallesSurBordure)); //Test
+        // Debug.Log(string.Join(", ", niveauSurBordure)); //Test
 
         // Calcul pour la taille du niveau avec une bordure, ainsi que les coordonnées minimales et maximales.
         Vector2Int tailleNiveau = _taille * tailleAvecUneBordure;
@@ -472,7 +478,7 @@ public class Niveau : MonoBehaviour
     {
         while (_temps > 0)
         {
-            Debug.Log("Temps : " + _temps);
+            // Debug.Log("Temps : " + _temps);
             yield return new WaitForSeconds(1);
             _temps--;
             _uiJeu.MettreAJourTemps(_temps);

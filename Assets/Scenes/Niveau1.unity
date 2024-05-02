@@ -479,7 +479,7 @@ MonoBehaviour:
   cm_collider: {fileID: 1838577673}
   cvCamera: {fileID: 1235729713}
   _nbJoyauxParSalle: 5
-  _limiteTemps: 40
+  _limiteTemps: 120
 --- !u!156049354 &308034227
 Grid:
   m_ObjectHideFlags: 0

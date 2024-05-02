@@ -243,13 +243,13 @@ public class Niveau : MonoBehaviour
         int sallePorteIndex = Random.Range(0, _lesSallesSurBordure.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.
         Salle sallePorte = _lesSallesSurBordure[sallePorteIndex]; // Récupère la salle aléatoire
         PlacerObjets(porte, sallePorte); // Placer la porte sur le repère de sa salle
-        _lesSallesSurBordure.Remove(sallePorte); // Retirer la salle de la liste
 
         // Placer la clé.
         _lesSallesSurBordure.Reverse();
         Salle salleCle = _lesSallesSurBordure[sallePorteIndex]; // Récupère la salle opposée à la salle de la
         PlacerObjets(cle, salleCle); // Placer la clé sur le repère de sa salle
         _lesSallesSurBordure.Remove(salleCle); // Retirer la salle de la liste
+        _lesSallesSurBordure.Remove(sallePorte); // Retirer la salle de la liste
 
         // Placer l'activateur
         Salle salleActivateur = _lesSallesSurBordure[Random.Range(0, _lesSallesSurBordure.Count)]; // Choisir une salle aléatoire restante pour placer l

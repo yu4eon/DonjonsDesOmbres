@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,6 +38,8 @@ public class Perso : DetecteurSol
     bool _peutDoubleSauter = false; // Si le joueur peut faire un double saut.
     bool _auDeuxiemeSaut; // Si le joueur est au deuxième saut.
     bool _estRapide; // Si le joueur est rapide #tp3 Leon
+    [SerializeField] int _dashForce = 200; // Force du dash #synthese Antoine
+    bool _peutDash = true; // Si le joueur peut faire un dash #synthese Antoine
 
 
 
@@ -70,11 +71,11 @@ public class Perso : DetecteurSol
         // #tp3 Leon Ajout d'un check sur les frames, pour si le joueur colisionne avec un plafond.
         if (_rb.velocity.y < 0 && _nbFramesRestants == 0) // Si le joueur est en train de tomber. 
         {
-            _rb.gravityScale = 3f;
+            _rb.gravityScale = 6.5f;
         }
         else
         {
-            _rb.gravityScale = 1.5f;
+            _rb.gravityScale = 5f;
         }
 
         _rb.velocity = new Vector2(_axeHorizontal * _vitesse, _rb.velocity.y); // Déplace le joueur en fonction de l'entrée horizontale.
@@ -111,6 +112,7 @@ public class Perso : DetecteurSol
             _nbFramesRestants = _nbFramesMax; // Réinitialise le nombre de frames restantes pour sauter.
             if (_possedeDoublesSauts) _peutDoubleSauter = true; // Si le joueur ne possède pas le pouvoir de double saut, arrête la méthode ici.
             // _peutDoubleSauter = true; // Autorise le double saut.
+            _peutDash = true; // Autorise le dash
         }
         else // Si le joueur n'est pas au sol et ne maintient pas le bouton de saut.
         {
@@ -173,6 +175,19 @@ public class Perso : DetecteurSol
             // Tourne les particules de course vers la droite.
             _renderModule.flip = new Vector3(0,0);
             _renderModule.pivot = new Vector3(0,0);
+        }
+    }
+
+    void OnDash()
+    {
+        if (_peutDash == true)
+        {
+            Debug.Log("Dash");
+            _peutDash = false;
+            _rb.velocity = new Vector2(_rb.velocity.x, 0); // Annule la vitesse verticale du joueur
+
+            // AppliqAue une force de dash
+            _rb.AddForce(Vector2.right * _dashForce, ForceMode2D.Impulse); 
         }
     }
     

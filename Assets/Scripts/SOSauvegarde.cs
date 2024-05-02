@@ -18,7 +18,7 @@ public class SOSauvegarde : ScriptableObject
     [DllImport("__Internal")]
     static extern void SynchroniserWebGL();
 
-    [SerializeField] string _fichier = "scores.TIM";
+    [SerializeField] string _fichier = "sauvegarde.TIM";
     public string LireFichier()
     {
         string cheminEtFichier = Application.persistentDataPath + "/" + _fichier;

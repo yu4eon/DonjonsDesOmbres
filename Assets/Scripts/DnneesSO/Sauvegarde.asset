@@ -25,10 +25,7 @@ MonoBehaviour:
   - joueur: Bob
     score: 2000
     estJoueurActuelle: 0
-  - joueur: Steve5
-    score: 1010
-    estJoueurActuelle: 0
-  - joueur: Peppa pig
-    score: 1010
+  - joueur: Steven
+    score: 1240
     estJoueurActuelle: 0
   _fichier: sauvegarde.TIM

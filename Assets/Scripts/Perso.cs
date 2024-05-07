@@ -49,6 +49,16 @@ public class Perso : DetecteurSol
     [SerializeField] int _dashForce = 200; // Force du dash #synthese Antoine
     bool _peutDash = true; // Si le joueur peut faire un dash #synthese Antoine
 
+    [Header("Attaque")]
+    // Le tout devra être changé pour pouvoir avoir plusieurs attaques différentes
+    [SerializeField] Vector2 _posCentreBoite = new Vector2(0.5f, 0); //Position du centre de la boite de collision pour l'attaque
+    [SerializeField] Vector2 _tailleBoite = new Vector2(1f, 0.5f); //Taille de la boite de collision
+    [SerializeField] LayerMask _mask; //Les Layermasks qui sont considérés comme ennemis
+    bool _peutAttaquer = true; // Si le joueur peut attaquer #synthese Leon
+    bool _estEnAttaque; // Si le joueur est en train d'attaquer #synthese Leon
+    float _delaiAttaqueLourd = 1.5f; // Delai entre les attaques #synthese Leon
+    float _delaiAttaqueLeger = 0.5f; // Delai entre les attaques #synthese Leon
+
 
 
     Rigidbody2D _rb; // Rigidbody du personnage.
@@ -360,6 +370,70 @@ public class Perso : DetecteurSol
         _vitesse = _vitesseInitial;
         _mainModule.startSize = _startSizeInitial;
         _estRapide = false;
+        
+    }
+
+    void OnLightAttack()
+    {
+        if(_peutAttaquer)
+        {
+            _peutAttaquer = false;
+            Debug.Log("Attaque légère");
+            Attaquer(true);
+            StartCoroutine(AjusterTimerAttaque(_delaiAttaqueLeger));       
+        }
+        else
+        {
+            Debug.Log("Tu ne peux pas attaquer pour l'instant");
+        }
+    }
+
+    void OnHeavyAttack()
+    {
+        if(_peutAttaquer)
+        {
+            _peutAttaquer = false;
+            Debug.Log("Attaque lourde");
+            Attaquer(false);
+            StartCoroutine(AjusterTimerAttaque(_delaiAttaqueLourd));       
+        }
+        else
+        {
+            Debug.Log("Tu ne peux pas attaquer pour l'instant");
+        }
+    }
+
+    void Attaquer(bool estLeger)
+    {
+        // Attaque légère
+        if (estLeger)
+        {
+            _estEnAttaque = true;
+            // _animator.SetTrigger("AttaqueLeger");
+        }
+        // Attaque lourde
+        else
+        {
+            // _animator.SetTrigger("AttaqueLourde");
+        }
+    }
+
+    IEnumerator AjusterTimerAttaque(float delai)
+    {
+        yield return new WaitForSeconds(delai);
+        _peutAttaquer = true;
+    }
+
+    public void TerminerAttaque()
+    {
+        _estEnAttaque = false;
+    }
+    
+    /// <summary>
+    /// Callback to draw gizmos that are pickable and always drawn.
+    /// </summary>
+    void OnDrawGizmos()
+    {
         
     }
     

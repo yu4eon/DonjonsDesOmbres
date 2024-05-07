@@ -105,7 +105,7 @@ Rigidbody2D:
   m_Mass: 1.3484218
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 60.68
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -140,7 +140,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c5366fbc8e48a1749a9ad04faff4152a, type: 3}
   - {fileID: 8300000, guid: 2075a649e1d377f47b9302fb4a8c065c, type: 3}
   _vitesse: 10
-  _forceSaut: 240
+  _forceSaut: 300
   _nbFramesMax: 10
   _donnees: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
   _particuleCourse: {fileID: 3515368017084569978}

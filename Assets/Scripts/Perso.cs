@@ -49,6 +49,7 @@ public class Perso : DetecteurSol
     float _dashDelai;
     bool _veutDasher = false;
     TrailRenderer _tr;
+    bool _estInvincible = false;
 
     [Header("Attaque")]
     TypePouvoir _pouvoirActuel; // Pouvoir actuel du joueur #synthese Leon
@@ -225,12 +226,17 @@ public class Perso : DetecteurSol
     {
         if (_peutDash)
         {
+            float graviteBase = _rb.gravityScale;
             _veutDasher = false;
             _peutDash = false;
             _estEntrainDeDasher = true;
             _tr.emitting = true;
+            _rb.gravityScale = 0;
             _rb.velocity = new Vector2(_direction * _dashForce, 0f);
+            _estInvincible = true;
             yield return new WaitForSeconds(_tDash);
+            _rb.gravityScale = graviteBase;
+            _estInvincible = false;
             _estEntrainDeDasher = false;
             _tr.emitting = false;
             _rb.velocity = Vector2.zero;

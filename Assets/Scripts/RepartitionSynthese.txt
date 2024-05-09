@@ -21,8 +21,9 @@ Règlage de bogues du TP4
 
 à faire :
 
+Sonorisation
 1 Ennemi
-1 fonctionnalité (à confirmer)
 Règlage des bogues
 
 fini :
+1 fonctionnalité (à confirmer)

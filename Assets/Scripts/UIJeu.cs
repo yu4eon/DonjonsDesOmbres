@@ -55,7 +55,7 @@ public class UIJeu : MonoBehaviour
     /// <summary>
     /// Méthode qui met à jour les informations du personnage
     /// </summary>
-    void MettreAJourInfo()
+    public void MettreAJourInfo()
     {
         _champScore.text = _donneesPerso.score + "";
         _champArgent.text = _donneesPerso.argent + " Gold";

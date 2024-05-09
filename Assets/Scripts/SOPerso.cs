@@ -25,10 +25,20 @@ public class SOPerso : ScriptableObject
     [Header("Stats")]
     [SerializeField] int baseAttaque = 10; // Attaque de base du personnage
     int attaqueBonus;
+    // Attaque du personnage en ajoutant l'attaque de base et l'attaque bonus  #synthese Leon
+    int _attaque => baseAttaque + attaqueBonus; 
+    public int attaque => _attaque; // Propriété pour accéder à l'attaque du personnage
+
     [SerializeField] int baseDefense = 10;  // Défense de base du personnage
     int defenseBonus;
+    // Défense du personnage en ajoutant la défense de base et la défense bonus  #synthese Leon
+    int _defense => baseDefense + defenseBonus;
+    public int defense => _defense; // Propriété pour accéder à la défense du personnage
     [SerializeField] int basePv = 10; // Points de vie de base du personnage
     int pvBonus; // Points de vie bonus du personnage
+    // Points de vie du personnage en ajoutant les points de vie de base et les points de vie bonus  #synthese Leon
+    int _pv => basePv + pvBonus;
+    public int pv => _pv; // Propriété pour accéder aux points de vie du personnage
     List<TypePouvoir> _pouvoirs = new List<TypePouvoir>(); // Liste des pouvoirs du personnage
     public List<TypePouvoir> pouvoirs => _pouvoirs; // Propriété pour accéder à la liste des pouvoirs du personnage
 

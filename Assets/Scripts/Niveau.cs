@@ -54,8 +54,10 @@ public class Niveau : MonoBehaviour
     static public Niveau instance => _instance; // Propriété publique qui permet l'accès à l'instance de la classe. #tp3 Léon
 
     List<Vector2Int> niveauSurBordure = new List<Vector2Int>();
+     // Tableau des pouvoirs disponibles. #synthese Leon
+    TypePouvoir[] _pouvoirs = { TypePouvoir.Poison, TypePouvoir.Ombre, TypePouvoir.Foudre, TypePouvoir.Glace };
 
-    Perso clonePerso;
+    Perso _clonePerso;
     void Awake()
     {
         //Singleton #tp3 Léon
@@ -87,7 +89,7 @@ public class Niveau : MonoBehaviour
         _uiJeu.MettreAJourTemps(_temps); // #synthese Léon
         Coroutine coroutine = StartCoroutine(CoroutineDecoulerTemps()); // #synthese Léon
         // GameObject persoClone = (GameObject)GameObject.Instantiate(_perso.gameObject, _lesPosLibres[Random.Range(0, _lesPosLibres.Count)], Quaternion.identity);
-        cvCamera.m_Follow = clonePerso.transform;
+        cvCamera.m_Follow = _clonePerso.transform;
         cm_collider.transform.localScale = new Vector2(_taille.x * 32 - 1, _taille.y * 18 - 1);
     }
 
@@ -125,10 +127,20 @@ public class Niveau : MonoBehaviour
         Transform contenant = new GameObject("Autels").transform; // Crée un GameObject pour contenir les autels.
         contenant.parent = transform; // Assigne le niveau comme parent du contenant.
         int nbAutels = 4; // Nombre d'autels à placer.
+
+        // Sélectionne un pouvoir aléatoire pour donner au personnage. #synthese Leon
+        TypePouvoir pouvoirAleatoire = _pouvoirs[Random.Range(0, _pouvoirs.Length)];
+        Debug.Log("Pouvoir du personnage : " + pouvoirAleatoire); // Affiche le pouvoir du personnage.
+        _clonePerso.Initialiser(pouvoirAleatoire, _uiJeu); // Donne le pouvoir au joueur #synthese Leon
+
         for (int i = 0; i < nbAutels; i++) // Boucle pour placer les autels.
         {
             int indexAutel = i;
             Autels autelModele = _tAutelsModeles[indexAutel]; // Obtient le prefab de l'autel.
+            if(autelModele.pouvoir == pouvoirAleatoire) // Si le pouvoir de l'autel est le même que celui du personnage.
+            {
+                continue; // Passe à l'itération suivante.
+            }
 
             Vector2Int pos = ObtenirPosLibre(); // Obtient une position libre aléatoire.
 
@@ -237,8 +249,7 @@ public class Niveau : MonoBehaviour
         // Placer le personnage.
         Vector2Int posPerso = ObtenirPosLibre(); // Obtenir une position libre aléatoire.
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertir la position en Vector3.
-        clonePerso = Instantiate(perso, pos3Perso, Quaternion.identity, contenant); // Instancier le personnage.
-        clonePerso.uIJeu = _uiJeu; // Assigner l'interface du jeu au personnage.
+        _clonePerso = Instantiate(perso, pos3Perso, Quaternion.identity, contenant); // Instancier le personnage.
 
         // Placer la porte.
         int sallePorteIndex = Random.Range(0, _lesSallesSurBordure.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.

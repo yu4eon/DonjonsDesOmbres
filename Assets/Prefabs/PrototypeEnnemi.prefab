@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2842290461143601122}
   - component: {fileID: 6581791419401639503}
   - component: {fileID: 4232966963512934572}
+  - component: {fileID: 25739071416105062}
   m_Layer: 6
   m_Name: PrototypeEnnemi
   m_TagString: Ennemi
@@ -148,3 +149,17 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.99999994, y: 1.9999999}
   m_Direction: 0
+--- !u!114 &25739071416105062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7507459871063405426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b703a59c2b6c54291839266f162e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _typePouvoirEnnemi: 1
+  _pointsDeVieIni: 100

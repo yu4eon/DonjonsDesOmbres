@@ -17,9 +17,10 @@ public class Retroaction : MonoBehaviour
     /// <summary>
     /// Méthode qui change le texte de la rétroaction selon le texte donné
     /// </summary>
-    public void ChangerTexte(string texte)
+    public void ChangerTexte(string texte, string couleur = "#FFFFFF")
     {
         _champ.text = texte;
+        _champ.color = ColorUtility.TryParseHtmlString(couleur, out Color couleurTexte) ? couleurTexte : Color.white;
     }
 
     /// <summary>

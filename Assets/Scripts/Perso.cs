@@ -22,7 +22,7 @@ public class Perso : DetecteurSol
             _possedeDoublesSauts = value;
         }
     }
-    [SerializeField] SOPerso _donnees; 
+    [SerializeField] SOPerso _donnees;
     [SerializeField] ParticleSystem _particuleCourse; // Particule de course lorsque le joueur bouge #tp3 Leon
     [SerializeField] ParticleSystem.MinMaxCurve _startSizeRapide; // Taille des particules lorsque le joueur est rapide #tp3 Leon
     // vv Apparament, tu ne peux pas acceder au module renderer a partir du particle system vv
@@ -38,8 +38,15 @@ public class Perso : DetecteurSol
     bool _peutDoubleSauter = false; // Si le joueur peut faire un double saut.
     bool _auDeuxiemeSaut; // Si le joueur est au deuxième saut.
     bool _estRapide; // Si le joueur est rapide #tp3 Leon
-    [SerializeField] int _dashForce = 200; // Force du dash #synthese Antoine
+
     bool _peutDash = true; // Si le joueur peut faire un dash #synthese Antoine
+    bool _estEntrainDeDasher;
+    [SerializeField] float _dashForce = 24; // Force du dash #synthese Antoine
+    int _direction = 1;
+    float _tDash = 0.2f;
+    float _dashDelai;
+    bool _veutDasher = false;
+    TrailRenderer _tr;
 
 
 
@@ -54,6 +61,7 @@ public class Perso : DetecteurSol
     {
         _rb = GetComponent<Rigidbody2D>(); // Obtient le Rigidbody du personnage.
         _sr = GetComponent<SpriteRenderer>(); // Obtient le SpriteRenderer du personnage.
+        _tr = GetComponent<TrailRenderer>();
         //#tp3 Leon
         _animator = GetComponent<Animator>(); // Obtient l'Animator du personnage. 
         _vitesseInitial = _vitesse; // Sauvegarde la vitesse initiale du personnage.
@@ -66,6 +74,10 @@ public class Perso : DetecteurSol
     /// </summary>
     override protected void FixedUpdate()
     {
+        if (_estEntrainDeDasher)
+        {
+            return;
+        }
         base.FixedUpdate(); // Appelle la méthode FixedUpdate de la classe mère.
 
         // #tp3 Leon Ajout d'un check sur les frames, pour si le joueur colisionne avec un plafond.
@@ -86,7 +98,7 @@ public class Perso : DetecteurSol
 
         // Si le joueur est en train de tomber ou sauter. J'ai du le mettre dans une autre condition car ça
         // ne fonctionnait pas si le joueur maintenait la touche de saut. #tp4 Leon
-        if(_rb.velocity.y > 0.1 || _rb.velocity.y < -0.1)
+        if (_rb.velocity.y > 0.1 || _rb.velocity.y < -0.1)
         {
             _animator.SetBool("onGround", false); // Donne la valeur true au paramètre de l'Animator. 
         }
@@ -107,16 +119,15 @@ public class Perso : DetecteurSol
         }
         else if (_estAuSol) // Si le joueur est au sol.
         {
-            
+
             _auDeuxiemeSaut = false; // Réinitialise l'indicateur de deuxième saut.
             _nbFramesRestants = _nbFramesMax; // Réinitialise le nombre de frames restantes pour sauter.
             if (_possedeDoublesSauts) _peutDoubleSauter = true; // Si le joueur ne possède pas le pouvoir de double saut, arrête la méthode ici.
             // _peutDoubleSauter = true; // Autorise le double saut.
-            _peutDash = true; // Autorise le dash
         }
         else // Si le joueur n'est pas au sol et ne maintient pas le bouton de saut.
         {
-            
+
             _auDeuxiemeSaut = true; // Indique que le joueur est au deuxième saut.
             _nbFramesRestants = 0; // Réinitialise le nombre de frames restantes.
             // _particuleCourse.Stop();
@@ -131,16 +142,23 @@ public class Perso : DetecteurSol
         // Si le joueur bouge et est au sol, commence les particules de course.
         else if (_rb.velocity.x != 0 && _estAuSol)
         {
-            if(!_particuleCourse.isEmitting)
+            if (!_particuleCourse.isEmitting)
             {
-            _particuleCourse.Play();
+                _particuleCourse.Play();
             }
+        }
+
+        if (_veutDasher)
+        {
+            StartCoroutine(Dash());
+            Debug.Log("Nooonnnnnn");
         }
 
     }
 
-    
+
     [SerializeField] SONavigation _donneesNavigation; //à enlever plus tard
+
     /// <summary>
     /// Méthode temporaire à enlever pour la remise
     /// Permet de skipper le niveau, pour tester
@@ -162,19 +180,21 @@ public class Perso : DetecteurSol
         if (_axeHorizontal < 0) // Si le joueur se déplace vers la gauche.
         {
             _sr.flipX = true; // Tourne le personnage vers la gauche.
+            _direction = -1;
 
             // #tp3 Leon
             // Tourne les particules de course vers la gauche.
-            _renderModule.flip = new Vector3(1,0);
-            _renderModule.pivot = new Vector3(1,0);
+            _renderModule.flip = new Vector3(1, 0);
+            _renderModule.pivot = new Vector3(1, 0);
         }
         else if (_axeHorizontal > 0) // Si le joueur se déplace vers la droite.
         {
             _sr.flipX = false; // Tourne le personnage vers la droite.
+            _direction = 1;
             // #tp3 Leon
             // Tourne les particules de course vers la droite.
-            _renderModule.flip = new Vector3(0,0);
-            _renderModule.pivot = new Vector3(0,0);
+            _renderModule.flip = new Vector3(0, 0);
+            _renderModule.pivot = new Vector3(0, 0);
         }
     }
 
@@ -182,15 +202,27 @@ public class Perso : DetecteurSol
     {
         if (_peutDash == true)
         {
-            Debug.Log("Dash");
-            _peutDash = false;
-            _rb.velocity = new Vector2(_rb.velocity.x, 0); // Annule la vitesse verticale du joueur
-
-            // AppliqAue une force de dash
-            _rb.AddForce(Vector2.right * _dashForce, ForceMode2D.Impulse); 
+            _veutDasher = true;
         }
     }
-    
+    private IEnumerator Dash()
+    {
+        if (_peutDash)
+        {
+            _veutDasher = false;
+            _peutDash = false;
+            _estEntrainDeDasher = true;
+            _tr.emitting = true;
+            _rb.velocity = new Vector2(_direction * _dashForce, 0f);
+            yield return new WaitForSeconds(_tDash);
+            _estEntrainDeDasher = false;
+            _tr.emitting = false;
+            _rb.velocity = Vector2.zero;
+            yield return new WaitForSeconds(2f);
+            _peutDash = true;
+        }
+    }
+
     // Note pour les 4 fonctions suivantes : on n'a pas arrivé à faire que le input system envoie in int spécifique,
     // donc on a du faire une fonction pour chaque pouvoir. #tp3
     // Index de chaque pouvoir : 0 = Poison, 1 = Ombre, 2 = Foudre, 3 = Glace
@@ -201,10 +233,10 @@ public class Perso : DetecteurSol
     /// </summary>
     void OnChangeGlace()
     {
-        Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Glace)) // Si le joueur possède le pouvoir.
+        Vector3 tailleParticules = new Vector3(2, 2, 2);
+        if (_donnees.pouvoirs.Contains(TypePouvoir.Glace)) // Si le joueur possède le pouvoir.
         {
-            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
+            if (_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
             {
                 Destroy(_particulePouvoirActuelle);
                 _particulePouvoirActuelle = null;
@@ -224,10 +256,10 @@ public class Perso : DetecteurSol
     /// </summary>
     void OnChangeOmbre()
     {
-        Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Ombre)) // Si le joueur possède le pouvoir.
+        Vector3 tailleParticules = new Vector3(2, 2, 2);
+        if (_donnees.pouvoirs.Contains(TypePouvoir.Ombre)) // Si le joueur possède le pouvoir.
         {
-            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
+            if (_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
             {
                 Destroy(_particulePouvoirActuelle);
                 _particulePouvoirActuelle = null;
@@ -239,7 +271,7 @@ public class Perso : DetecteurSol
         {
             Debug.Log("Tu ne possède pas le pouvoir d'ombre");
         }
-        
+
     }
 
     /// <summary>
@@ -248,10 +280,10 @@ public class Perso : DetecteurSol
     /// </summary>
     void OnChangePoison()
     {
-        Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Poison)) // Si le joueur possède le pouvoir.
+        Vector3 tailleParticules = new Vector3(2, 2, 2);
+        if (_donnees.pouvoirs.Contains(TypePouvoir.Poison)) // Si le joueur possède le pouvoir.
         {
-            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
+            if (_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
             {
                 Destroy(_particulePouvoirActuelle);
                 _particulePouvoirActuelle = null;
@@ -271,10 +303,10 @@ public class Perso : DetecteurSol
     /// </summary>
     void OnChangeFoudre()
     {
-        Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Foudre)) // Si le joueur possède le pouvoir.
+        Vector3 tailleParticules = new Vector3(2, 2, 2);
+        if (_donnees.pouvoirs.Contains(TypePouvoir.Foudre)) // Si le joueur possède le pouvoir.
         {
-            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
+            if (_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
             {
                 Destroy(_particulePouvoirActuelle);
                 _particulePouvoirActuelle = null;
@@ -324,12 +356,12 @@ public class Perso : DetecteurSol
     public void AugmenterVitesse()
     {
         //Si le joueur est déjà rapide, on rafraishie le boost.
-        if(_estRapide)
+        if (_estRapide)
         {
             StopAllCoroutines();
             _vitesse = _vitesseInitial;
         }
-        _vitesse = _vitesse*1.5f;
+        _vitesse = _vitesse * 1.5f;
         _mainModule.startSize = _startSizeRapide;
         _estRapide = true;
         Coroutine coroutineVitesse = StartCoroutine(ChangerVitesse());
@@ -343,14 +375,14 @@ public class Perso : DetecteurSol
     IEnumerator ChangerVitesse()
     {
         yield return new WaitForSeconds(2);
-        _vitesse = _vitesse/1.2f;
+        _vitesse = _vitesse / 1.2f;
         yield return new WaitForSeconds(2);
         _vitesse = _vitesseInitial;
         _mainModule.startSize = _startSizeInitial;
         _estRapide = false;
-        
+
     }
-    
+
     void OnApplicationQuit()
     {
         _donnees.Initialiser(); // Initialise les données du personnage

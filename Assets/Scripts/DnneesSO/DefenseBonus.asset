@@ -15,7 +15,6 @@ MonoBehaviour:
   _nom: Bouclier
   _sprite: {fileID: 1225359135, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
   _prixDeBase: 30
-  _description: "Augmente la d\xE9fense et points de vies du joueur pour le prochain
-    niveau."
+  _description: Augmente la survie du joueur pour le prochain niveau.
   _estAcheter: 0
   _typeObjet: 0

@@ -1,0 +1,1117 @@
+fileFormatVersion: 2
+guid: 11237860951ce784fba34ac7d1e5484a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 192
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ennemi_Idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 808
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 535458ad432adc7469e7ac1294401d1f
+      internalID: 670694562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_1
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 808
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 135bf66861459f84685a4c8d52439213
+      internalID: 662123120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_2
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 808
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7900564fa2c862488128aaa31b7f349
+      internalID: -1234017072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_3
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 808
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f757f94ab546794b91ccf7d6ace53e3
+      internalID: -769829938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_4
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 808
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bfab09db488cff4a97e220ad6e397e8
+      internalID: -1855322366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_5
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 808
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac1cc1794ba4aaf41927cdde31376520
+      internalID: 465556144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_6
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 808
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80586db3d4d645b4eb3113c06b3b853d
+      internalID: -829806491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_7
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 808
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86e1b9e488f51264c8c88c02238cb287
+      internalID: 1698141934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_8
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 808
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5019f8527333d8469c8dbe670687a50
+      internalID: -469676649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_9
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 808
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bea1c30c57dacd49a0881e433fce54b
+      internalID: -455985785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 606
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e42776fd85373c4e9ae2f0832a55879
+      internalID: -1427403470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_11
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 606
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48ea21f3d7dc884428c8fb03280dda43
+      internalID: -1133780023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_12
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 606
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ca6305f7afcff34d8d192b314c4b489
+      internalID: 1142579449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_13
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 606
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bde5eb1183418e848af8b5eb07cb3ee4
+      internalID: 1731225799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_14
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 606
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67c06ae1e9e8b144ab05e8838fd235ea
+      internalID: -2019035542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_15
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 606
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0d4e29095aefe54ea895665166ff961
+      internalID: -1243927727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_16
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 606
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55058833f266c9b48b50126a934fce67
+      internalID: -1333432065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_17
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 606
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27ddd877766a07b4e98079eae0a005df
+      internalID: -302177691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_18
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 606
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b27ad811ab3f8da4da1327b88277aa82
+      internalID: -905302236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_19
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 606
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 084e6b0be6690c840981bb4e156edb24
+      internalID: 84199071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 404
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 736901de796532646baf0f3981c99c5a
+      internalID: 1531238090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_21
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 404
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11e2b48ab7cacbe49844132f076bd61b
+      internalID: -1548816437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_22
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 404
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e97073e945f597479be785e67788281
+      internalID: 1650599276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_23
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 404
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9964bcf9b004d4a4bb6e14ce02a14ce4
+      internalID: 1566297673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_24
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 404
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 889c81f9b92326b48a2074c8535098e0
+      internalID: -679281338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_25
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 404
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5458dfafae7c7114b9304cb6062e8f35
+      internalID: 909643780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_26
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 404
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa6cda4415fe2a3489154837908fbe3f
+      internalID: 268485002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_27
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 404
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6fa4b79f2be3464d8d8241ce51d170f
+      internalID: -41270985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_28
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 404
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c87c4a6b830c253498221970a046f95a
+      internalID: -207072973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_29
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 404
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19e88e4441e1fc346a59f7eb363ddf91
+      internalID: -1809691628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 202
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e5e904df829fa04cbcc2793a3f7029a
+      internalID: 427013607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_31
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 202
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7fe3dacb653ddb48be9abade2629824
+      internalID: 2106103795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_32
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 202
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 869044acaaf17cb4cb2936dc21daa51a
+      internalID: -967987940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_33
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 202
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a56a2fd35ff6ad74084993fd4dcab47e
+      internalID: 187882667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_34
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 202
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e935eb097e8982f4bbf41509c26c8863
+      internalID: 367513202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_35
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 202
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7681d53cf96141468f7d870477daec9
+      internalID: 1100509232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_36
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 202
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28767896e1e113d43bc6725fc2deccda
+      internalID: 1650047479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_37
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 202
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31998dc142d172e4f9c755cbce0817db
+      internalID: -836238876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_38
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 202
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 381c67962dcf35148ba1948d12675b63
+      internalID: -2024049644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_39
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 202
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dbedd7ff2f003a4b9e534ac6e0bc14c
+      internalID: 1191348293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a8eb23a70cbbe84084fbcbb4c4f11d0
+      internalID: -796658943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_41
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 0
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 447e42fab897cef47a07d21355046b77
+      internalID: -1400460143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_42
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 0
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82f92281e7e97c646a0fa41897484755
+      internalID: -1721714431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_43
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 0
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ba0d69e756ad994ab2b793db107ea30
+      internalID: 469084818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ennemi_Idle_44
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 0
+        width: 98.4
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fb30685278e535478c7f0e5ce6701ba
+      internalID: 1109657421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Ennemi_Idle_0: 670694562
+      Ennemi_Idle_1: 662123120
+      Ennemi_Idle_10: -1427403470
+      Ennemi_Idle_11: -1133780023
+      Ennemi_Idle_12: 1142579449
+      Ennemi_Idle_13: 1731225799
+      Ennemi_Idle_14: -2019035542
+      Ennemi_Idle_15: -1243927727
+      Ennemi_Idle_16: -1333432065
+      Ennemi_Idle_17: -302177691
+      Ennemi_Idle_18: -905302236
+      Ennemi_Idle_19: 84199071
+      Ennemi_Idle_2: -1234017072
+      Ennemi_Idle_20: 1531238090
+      Ennemi_Idle_21: -1548816437
+      Ennemi_Idle_22: 1650599276
+      Ennemi_Idle_23: 1566297673
+      Ennemi_Idle_24: -679281338
+      Ennemi_Idle_25: 909643780
+      Ennemi_Idle_26: 268485002
+      Ennemi_Idle_27: -41270985
+      Ennemi_Idle_28: -207072973
+      Ennemi_Idle_29: -1809691628
+      Ennemi_Idle_3: -769829938
+      Ennemi_Idle_30: 427013607
+      Ennemi_Idle_31: 2106103795
+      Ennemi_Idle_32: -967987940
+      Ennemi_Idle_33: 187882667
+      Ennemi_Idle_34: 367513202
+      Ennemi_Idle_35: 1100509232
+      Ennemi_Idle_36: 1650047479
+      Ennemi_Idle_37: -836238876
+      Ennemi_Idle_38: -2024049644
+      Ennemi_Idle_39: 1191348293
+      Ennemi_Idle_4: -1855322366
+      Ennemi_Idle_40: -796658943
+      Ennemi_Idle_41: -1400460143
+      Ennemi_Idle_42: -1721714431
+      Ennemi_Idle_43: 469084818
+      Ennemi_Idle_44: 1109657421
+      Ennemi_Idle_5: 465556144
+      Ennemi_Idle_6: -829806491
+      Ennemi_Idle_7: 1698141934
+      Ennemi_Idle_8: -469676649
+      Ennemi_Idle_9: -455985785
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

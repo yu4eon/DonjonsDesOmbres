@@ -212,28 +212,12 @@ public class Perso : DetecteurSol
     // Index de chaque pouvoir : 0 = Poison, 1 = Ombre, 2 = Foudre, 3 = Glace
 
     /// <summary>
-    /// Méthode qui est appelée lorsque le joueur appuie sur le 1 ou dpad haut pour
-    /// changer l'élement de pouvoir actuel en glace.
+    /// Méthode qui est appelée lorsque le joueur appuie sur le 3 ou dpad bas pour
+    /// /// changer l'élement de pouvoir actuel en poison.
     /// </summary>
-    void OnChangeGlace()
+    void OnChangePoison()
     {
-        Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Glace)) // Si le joueur possède le pouvoir.
-        {
-            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
-            {
-                Destroy(_particulePouvoirActuelle);
-                _particulePouvoirActuelle = null;
-            }
-            _pouvoirActuel = TypePouvoir.Glace; // Change le pouvoir actuel en glace.
-            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[3], transform.position, _particulesPouvoirs[3].transform.rotation, transform);
-            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
-            _uiJeu.ActiverParticulesPouvoir(3); // Active les particules de pouvoir de glace dans l'UI. #synthese Leon
-        }
-        else
-        {
-            Debug.Log("Tu ne possède pas le pouvoir de glace");
-        }
+        InstantierParticules(0);
     }
 
     /// <summary>
@@ -242,49 +226,7 @@ public class Perso : DetecteurSol
     /// </summary>
     void OnChangeOmbre()
     {
-        Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Ombre)) // Si le joueur possède le pouvoir.
-        {
-            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
-            {
-                Destroy(_particulePouvoirActuelle);
-                _particulePouvoirActuelle = null;
-            }
-            _pouvoirActuel = TypePouvoir.Ombre; // Change le pouvoir actuel en ombre.
-            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[1], transform.position, _particulesPouvoirs[1].transform.rotation, transform);
-            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
-            _uiJeu.ActiverParticulesPouvoir(1); // Active les particules de pouvoir d'ombre dans l'UI. #synthese Leon
-        }
-        else
-        {
-            Debug.Log("Tu ne possède pas le pouvoir d'ombre");
-        }
-        
-    }
-
-    /// <summary>
-    /// Méthode qui est appelée lorsque le joueur appuie sur le 3 ou dpad bas pour
-    /// changer l'élement de pouvoir actuel en poison.
-    /// </summary>
-    void OnChangePoison()
-    {
-        Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Poison)) // Si le joueur possède le pouvoir.
-        {
-            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
-            {
-                Destroy(_particulePouvoirActuelle);
-                _particulePouvoirActuelle = null;
-            }
-            _pouvoirActuel = TypePouvoir.Poison; // Change le pouvoir actuel en poison.
-            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[0], transform.position, _particulesPouvoirs[0].transform.rotation, transform);
-            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
-            _uiJeu.ActiverParticulesPouvoir(0); // Active les particules de pouvoir de poison dans l'UI. #synthese Leon
-        }
-        else
-        {
-            Debug.Log("Tu ne possède pas le pouvoir de poison");
-        }
+        InstantierParticules(1);
     }
 
     /// <summary>
@@ -293,36 +235,37 @@ public class Perso : DetecteurSol
     /// </summary>
     void OnChangeFoudre()
     {
-        Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains(TypePouvoir.Foudre)) // Si le joueur possède le pouvoir.
-        {
-            if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
-            {
-                Destroy(_particulePouvoirActuelle);
-                _particulePouvoirActuelle = null;
-            }
-            _pouvoirActuel = TypePouvoir.Foudre; // Change le pouvoir actuel en foudre.
-            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[2], transform.position, _particulesPouvoirs[2].transform.rotation, transform);
-            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
-            _uiJeu.ActiverParticulesPouvoir(2); // Active les particules de pouvoir de foudre dans l'UI. #synthese Leon
-        }
-        else
-        {
-            Debug.Log("Tu ne possède pas le pouvoir de foudre");
-        }
+        InstantierParticules(2);
     }
+    /// <summary>
+    /// Méthode qui est appelée lorsque le joueur appuie sur le 1 ou dpad haut pour
+    /// changer l'élement de pouvoir actuel en glace.
+    /// </summary>
+    void OnChangeGlace()
+    {
+        InstantierParticules(3);
+    }
+
 
     public void InstantierParticules(int index)
     {
         Vector3 tailleParticules = new Vector3(2,2,2);
+        if(_donnees.pouvoirs.Contains((TypePouvoir)index))
+        {
         if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
         {
             Destroy(_particulePouvoirActuelle);
             _particulePouvoirActuelle = null;
         }
+        _pouvoirActuel = (TypePouvoir)index; // Change le pouvoir actuel en celle du pouvoir index.
         _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[index], transform.position, _particulesPouvoirs[index].transform.rotation, transform);
         _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
         _uiJeu.ActiverParticulesPouvoir(index); // Active les particules de pouvoir dans l'UI. #synthese Leon
+        }
+        else
+        {
+            Debug.Log("Tu ne possède pas le pouvoir de " + ((TypePouvoir)index));
+        }
     }
 
     /// <summary>

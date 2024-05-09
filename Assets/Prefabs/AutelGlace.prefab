@@ -100,10 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df66d8b3013fc7c4e8aaf94acfc91c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  element: 3
+  _pouvoir: 3
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
   _spriteEteint: {fileID: 1761666038227600469, guid: 53f04f5be89b9ea41a8d44563a64b6d5, type: 3}
-  _uiJeu: {fileID: 3061393080108525314, guid: ffc749f42f763b641b4691d61cb844ed, type: 3}
 --- !u!61 &8088950852853912576
 BoxCollider2D:
   m_ObjectHideFlags: 0

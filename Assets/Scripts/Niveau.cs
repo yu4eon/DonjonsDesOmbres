@@ -54,7 +54,7 @@ public class Niveau : MonoBehaviour
     static public Niveau instance => _instance; // Propriété publique qui permet l'accès à l'instance de la classe. #tp3 Léon
 
     List<Vector2Int> niveauSurBordure = new List<Vector2Int>();
-     // Tableau des pouvoirs disponibles. #synthese Leon
+    // Tableau des pouvoirs disponibles. #synthese Leon
     TypePouvoir[] _pouvoirs = { TypePouvoir.Poison, TypePouvoir.Ombre, TypePouvoir.Foudre, TypePouvoir.Glace };
 
     Perso _clonePerso;
@@ -137,10 +137,7 @@ public class Niveau : MonoBehaviour
         {
             int indexAutel = i;
             Autels autelModele = _tAutelsModeles[indexAutel]; // Obtient le prefab de l'autel.
-            if(autelModele.pouvoir == pouvoirAleatoire) // Si le pouvoir de l'autel est le même que celui du personnage.
-            {
-                continue; // Passe à l'itération suivante.
-            }
+
 
             Vector2Int pos = ObtenirPosLibre(); // Obtient une position libre aléatoire.
 
@@ -148,6 +145,11 @@ public class Niveau : MonoBehaviour
             if (PositionDessusEstVide(pos) && PositionDessousEstOccupee(pos))
             {
 
+                if (autelModele.pouvoir == pouvoirAleatoire) // Si le pouvoir de l'autel est le même que celui du personnage.
+                {
+                    Debug.LogWarning("Même pouvoir que le personnage, " + pouvoirAleatoire); // Affiche un message d'avertissement.
+                    continue; // Passe à l'itération suivante.
+                }
                 Vector3 pos3 = (Vector3)(Vector2)pos + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertit la position
                 pos3 += new Vector3(0, 1, 0); // Positionne l'autel au dessus de la position.
                 RaycastHit2D hit = Physics2D.Raycast(pos3, Vector2.down, Mathf.Infinity, LayerMask.GetMask("Effector"));
@@ -180,7 +182,7 @@ public class Niveau : MonoBehaviour
         Transform contenant = new GameObject("Ennemis").transform; // Crée un GameObject pour contenir les ennemis.
         contenant.parent = transform; // Assigne le niveau comme parent du contenant.
 
-        foreach(Salle salle in _lesSalles)
+        foreach (Salle salle in _lesSalles)
         {
             for (int i = 0; i < salle.tReperesEnnemis.Length; i++)
             {
@@ -188,7 +190,7 @@ public class Niveau : MonoBehaviour
                 GameObject ennemiModele = _tEnnemis[indexEnnemi]; // Obtient le prefab de l'ennemi.
                 salle.PlacerEnnemiSurRepere(ennemiModele, i, contenant); // Place l'ennemi sur le repère de la salle.
             }
-        
+
         }
     }
 
@@ -345,7 +347,7 @@ public class Niveau : MonoBehaviour
 
                 Salle salle = Instantiate(_tSallesModeles[Random.Range(0, _tSallesModeles.Length)], pos, Quaternion.identity, transform);
 
-                if(x == 0 || y == 0 || x == _taille.x - 1 || y == _taille.y - 1)
+                if (x == 0 || y == 0 || x == _taille.x - 1 || y == _taille.y - 1)
                 {
                     _lesSallesSurBordure.Add(salle);
                 }

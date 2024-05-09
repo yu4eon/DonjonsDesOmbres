@@ -132,6 +132,11 @@ public class Niveau : MonoBehaviour
         TypePouvoir pouvoirAleatoire = _pouvoirs[Random.Range(0, _pouvoirs.Length)];
         Debug.Log("Pouvoir du personnage : " + pouvoirAleatoire); // Affiche le pouvoir du personnage.
         _clonePerso.Initialiser(pouvoirAleatoire, _uiJeu); // Donne le pouvoir au joueur #synthese Leon
+        _clonePerso.InstantierParticules((int)pouvoirAleatoire); // Instancie les particules du pouvoir du personnage. #synthese Leon
+        Debug.Log(_uiJeu.name);
+        _donneesPerso.evenementMiseAJour.Invoke();
+        // _uiJeu.MettreAJourInfo(); // Met à jour les informations du personnage
+        // _uiJeu.ActiverParticulesPouvoir((int)pouvoirAleatoire); // Active les particules du pouvoir du personnage. #synthese Leon
 
         for (int i = 0; i < nbAutels; i++) // Boucle pour placer les autels.
         {

@@ -67,7 +67,12 @@ public class Perso : DetecteurSol
         _vitesseInitial = _vitesse; // Sauvegarde la vitesse initiale du personnage.
         _mainModule = _particuleCourse.main; // Obtient le module principal de la particule de course.
         _startSizeInitial = _mainModule.startSize; // Sauvegarde la taille initiale des particules.
-        _arme = GetComponentInChildren<ArmePerso>(); // Obtient l'arme du personnage.
+    }
+
+    void Start()
+    {
+        _arme = GetComponentInChildren<ArmePerso>(); // Obtient l'arme du personnage
+        // _arme.gameObject.SetActive(false); // Désactive l'arme du personnage
     }
 
     /// <summary>
@@ -180,7 +185,7 @@ public class Perso : DetecteurSol
         }
         else if (_axeHorizontal > 0) // Si le joueur se déplace vers la droite.
         {
-            
+            _arme.ChangerDirection(false); // Change la direction de l'arme du personnage.
             _sr.flipX = false; // Tourne le personnage vers la droite.
             // #tp3 Leon
             // Tourne les particules de course vers la droite.
@@ -221,7 +226,7 @@ public class Perso : DetecteurSol
                 _particulePouvoirActuelle = null;
             }
             _pouvoirActuel = TypePouvoir.Glace; // Change le pouvoir actuel en glace.
-            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[0], transform.position, _particulesPouvoirs[0].transform.rotation, transform);
+            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[3], transform.position, _particulesPouvoirs[3].transform.rotation, transform);
             _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
             _uiJeu.ActiverParticulesPouvoir(3); // Active les particules de pouvoir de glace dans l'UI. #synthese Leon
         }
@@ -272,7 +277,7 @@ public class Perso : DetecteurSol
                 _particulePouvoirActuelle = null;
             }
             _pouvoirActuel = TypePouvoir.Poison; // Change le pouvoir actuel en poison.
-            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[2], transform.position, _particulesPouvoirs[2].transform.rotation, transform);
+            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[0], transform.position, _particulesPouvoirs[0].transform.rotation, transform);
             _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
             _uiJeu.ActiverParticulesPouvoir(0); // Active les particules de pouvoir de poison dans l'UI. #synthese Leon
         }
@@ -297,7 +302,7 @@ public class Perso : DetecteurSol
                 _particulePouvoirActuelle = null;
             }
             _pouvoirActuel = TypePouvoir.Foudre; // Change le pouvoir actuel en foudre.
-            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[3], transform.position, _particulesPouvoirs[3].transform.rotation, transform);
+            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[2], transform.position, _particulesPouvoirs[2].transform.rotation, transform);
             _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
             _uiJeu.ActiverParticulesPouvoir(2); // Active les particules de pouvoir de foudre dans l'UI. #synthese Leon
         }
@@ -305,6 +310,19 @@ public class Perso : DetecteurSol
         {
             Debug.Log("Tu ne possède pas le pouvoir de foudre");
         }
+    }
+
+    public void InstantierParticules(int index)
+    {
+        Vector3 tailleParticules = new Vector3(2,2,2);
+        if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
+        {
+            Destroy(_particulePouvoirActuelle);
+            _particulePouvoirActuelle = null;
+        }
+        _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[index], transform.position, _particulesPouvoirs[index].transform.rotation, transform);
+        _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
+        _uiJeu.ActiverParticulesPouvoir(index); // Active les particules de pouvoir dans l'UI. #synthese Leon
     }
 
     /// <summary>
@@ -380,8 +398,7 @@ public class Perso : DetecteurSol
         // Debug.Log("Pouvoir initialisé : " + pouvoir);
         _pouvoirActuel = pouvoir;
         _donnees.AjouterPouvoir(pouvoir); // Ajoute le pouvoir au personnage
-        _uiJeu.MettreAJourInfo(); // Met à jour les informations du personnage
-        _uiJeu.ActiverParticulesPouvoir((int)pouvoir);
+        // _arme.GetComponentInChildren<ArmePerso>(); // Initialise l'arme du personnage
         Debug.Log("Pouvoir actuel : " + _pouvoirActuel);
     }
 
@@ -418,21 +435,20 @@ public class Perso : DetecteurSol
     void Attaquer(bool estLeger)
     {
         // Debug.Log(_pouvoirActuel);
-        Debug.Log(_arme);
+        // Debug.Log(_arme);
         _arme.gameObject.SetActive(true);
         _estEnAttaque = true;
+        _arme.InitialiserArme(_pouvoirActuel, estLeger); // Initialise l'arme du personnage
         // Attaque légère
-        if (estLeger)
-        {
-            _arme.InitialiserArme(_pouvoirActuel, true); // Initialise l'arme du personnage
-            // _animator.SetTrigger("AttaqueLeger");
-        }
-        // Attaque lourde
-        else
-        {
-            _arme.InitialiserArme(_pouvoirActuel, false); // Initialise l'arme du personnage
-            // _animator.SetTrigger("AttaqueLourde");
-        }
+        // if (estLeger)
+        // {
+        //     // _animator.SetTrigger("AttaqueLeger");
+        // }
+        // // Attaque lourde
+        // else
+        // {
+        //     // _animator.SetTrigger("AttaqueLourde");
+        // }
     }
 
     public void PermettreAttaque()

@@ -164,12 +164,11 @@ MonoBehaviour:
     m_ConstantMax: 0.7
   _renderModule: {fileID: 7139690204325690075}
   _particulesPouvoirs:
-  - {fileID: 7228857694764231008, guid: e1cb443b124393a4cb165ca407d493c2, type: 3}
-  - {fileID: 6653470305252310338, guid: c0280baa08d7bee448843017177b1be7, type: 3}
   - {fileID: 4662112955779928621, guid: 50939b9b54bbf0f42a2962cdc1d20cd6, type: 3}
+  - {fileID: 6653470305252310338, guid: c0280baa08d7bee448843017177b1be7, type: 3}
   - {fileID: 5721592000770606963, guid: 7da8f70ca474bfa4faceb882f8a99732, type: 3}
+  - {fileID: 7228857694764231008, guid: e1cb443b124393a4cb165ca407d493c2, type: 3}
   _dashForce: 200
-  _arme: {fileID: 1896222083405044834}
   _donneesNavigation: {fileID: 11400000, guid: 7bfae785291759145a074c72fef7cad2, type: 2}
 --- !u!114 &819095134103182047
 MonoBehaviour:
@@ -356,10 +355,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tDonneesArmes:
-  - {fileID: 11400000, guid: f33d05d0130381647871b84d5a02d499, type: 2}
   - {fileID: 11400000, guid: 5764dd21462d87d4aa70c762419d8650, type: 2}
   - {fileID: 11400000, guid: d86c200f4cb1c0242afa51a2626bddad, type: 2}
   - {fileID: 11400000, guid: fa33ca96d9de85e46a5b0a4db2d90f32, type: 2}
+  - {fileID: 11400000, guid: f33d05d0130381647871b84d5a02d499, type: 2}
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
 --- !u!61 &2308263315230612281
 BoxCollider2D:

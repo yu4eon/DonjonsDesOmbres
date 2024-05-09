@@ -100,8 +100,8 @@ public class TableauHonneur : MonoBehaviour
     public void SauvegarderScore(string nom)
     {
 
-        // _boutonMenu = GetComponentInChildren<Button>();
-        // _boutonMenu.interactable = true;
+        _boutonMenu = GetComponentInChildren<Button>();
+        _boutonMenu.interactable = true;
         ActiverBoutonMenu();
         Debug.Log("Sauvegarde du score");
         // Debug.Log(_lesJoueursScores.Count);
@@ -126,7 +126,7 @@ public class TableauHonneur : MonoBehaviour
     /// </summary>
     public void ActiverBoutonMenu()
     {
-        _boutonMenu = GameObject.Find("BoutonMenu").GetComponent<Button>(); // On doit refaire le Find pour trouver le bouton
+        // _boutonMenu = GameObject.Find("BoutonMenu").GetComponent<Button>(); // On doit refaire le Find pour trouver le bouton
         _boutonMenu.interactable = true;
     }
 

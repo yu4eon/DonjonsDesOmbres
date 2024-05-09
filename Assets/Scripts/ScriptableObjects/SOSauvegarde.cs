@@ -67,4 +67,12 @@ public class SOSauvegarde : ScriptableObject
         }
     }
 
+    public void Reinitialiser()
+    {
+        _lesJoueursScores.Clear();
+        _lesJoueursScores.Add(new JoueurScore { joueur = "Bob", score = 7000, estJoueurActuelle = false });
+        _lesJoueursScores.Add(new JoueurScore { joueur = "Alice", score = 5000, estJoueurActuelle = false });
+        EcrireFichier();
+    }
+
 }

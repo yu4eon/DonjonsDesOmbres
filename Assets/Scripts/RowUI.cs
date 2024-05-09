@@ -16,11 +16,17 @@ public class RowUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI _nom; // Nom du joueur
     [SerializeField] TextMeshProUGUI _rang; // Rang du joueur
     [SerializeField] TextMeshProUGUI _score; // Score du joueur
-    [SerializeField] TableauHonneur _tableauHonneur; // Tableau d'honneur
+    // [SerializeField] TableauHonneur _tableauHonneur; // Tableau d'honneur
+    TableauHonneur _tableauHonneur; // Tableau d'honneur
     [SerializeField] TMP_InputField _champNom; // Champ pour entrer le nom du joueur
     [SerializeField] int _limiteCaractere = 10; // Limite de caractère pour le nom du joueur
     [SerializeField] Button _boutonValider; // Bouton pour valider le nom du joueur
 
+
+    void Awake()
+    {
+        _tableauHonneur = GetComponentInParent<TableauHonneur>();
+    }
     /// <summary>
     /// Affiche les informations du joueur
     /// </summary>

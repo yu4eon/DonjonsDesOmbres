@@ -9,15 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3efbc997c07ddf04aaa7dbfba2910fa7, type: 3}
-  m_Name: Perso
+  m_Script: {fileID: 11500000, guid: bd45fe4cf80302646b858249c17a1ddb, type: 3}
+  m_Name: Faux
   m_EditorClassIdentifier: 
-  _niveau: 1
-  _argent: 100
-  _score: 1000
-  _niveauIni: 1
-  _argentIni: 100
-  _scoreIni: 1000
-  baseAttaque: 10
-  baseDefense: 10
-  basePv: 10
+  _nom: Faux
+  _sprite: {fileID: 0}
+  _degatsBase: 3
+  _typePouvoir: 1

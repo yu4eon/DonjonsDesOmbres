@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.RenderGraphModule;
 
 /// <summary>
 /// #tp3
@@ -17,9 +18,13 @@ public class Retroaction : MonoBehaviour
     /// <summary>
     /// Méthode qui change le texte de la rétroaction selon le texte donné
     /// </summary>
-    public void ChangerTexte(string texte)
+    public void ChangerTexte(string texte, string couleur = "#FFFFFF")
     {
         _champ.text = texte;
+        ColorUtility.TryParseHtmlString(couleur, out Color couleurTexte);
+        Debug.Log(couleurTexte);
+        _champ.color = new Color(couleurTexte.r, couleurTexte.g, couleurTexte.b, 1);
+        // _champ.color = hexToColor(couleur);
     }
 
     /// <summary>

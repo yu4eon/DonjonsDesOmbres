@@ -10,7 +10,8 @@ using UnityEngine.Rendering.Universal;
 /// </summary>
 public class Autels : MonoBehaviour
 {
-    [SerializeField] TypePouvoir element; // Type de pouvoir de l'autel.
+    [SerializeField] TypePouvoir _pouvoir; // Type de pouvoir de l'autel.
+    public TypePouvoir pouvoir { get => _pouvoir;} // Propriété pour accéder à l'élément de l'autel. #synthese Leon
     [SerializeField] SOPerso _donneesPerso; // ScriptableObject contenant les données du personnage.
     [SerializeField] SpriteRenderer _spriteEteint; // SpriteRenderer de l'autel lorsqu'il est éteint.
     Light2D _lumiere; // Référence à la lumière de l'autel #tp4 Leon
@@ -55,9 +56,9 @@ public class Autels : MonoBehaviour
     {
         if(collision.CompareTag("Player") && ps.isPlaying)
         {
-            Debug.Log("Element : " + element); // Affiche l'élément de l'autel.
+            Debug.Log("Element : " + _pouvoir); // Affiche l'élément de l'autel.
             _lumiere.intensity = 0; // Définit l'intensité de la lumière de l'autel à 0 #tp4 Leon
-            _donneesPerso.AjouterPouvoir(element); // Ajoute le pouvoir de l'autel au personnage.
+            _donneesPerso.AjouterPouvoir(_pouvoir); // Ajoute le pouvoir de l'autel au personnage.
             _donneesPerso.evenementMiseAJour.Invoke(); // Déclenche l'événement de mise à jour des données du personnage. #tp4 Leon
             sr.sprite = _spriteEteint.sprite; // Change le sprite de l'autel pour indiquer qu'il est éteint.
             shape.scale = new Vector3(4f, 5f, 1f); // Modifie l'échelle des particules.

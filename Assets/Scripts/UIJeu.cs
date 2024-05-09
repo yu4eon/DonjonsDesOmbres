@@ -13,14 +13,16 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class UIJeu : MonoBehaviour
 {
-    [SerializeField] private SOPerso _donneesPerso; // Données du personnage, (ScriptableObject)
-    [SerializeField] private TextMeshProUGUI _champNiveau; // Champ de texte pour le niveau du personnage
-    [SerializeField] private TextMeshProUGUI _champTemps; // Champ de texte pour le temps de jeu
-    [SerializeField] private TextMeshProUGUI _champScore; // Champ de texte pour le score du personnage
-    [SerializeField] private TextMeshProUGUI _champArgent; // Champ de texte pour l'argent du personnage
-    [SerializeField] private Image _barreVie; // Barre de vie du personnage (non utilisée)
-    [SerializeField] private Image[] _tCrystalsPouvoir; // Tableau d'images pour les cristaux de pouvoir
+    [SerializeField] SOPerso _donneesPerso; // Données du personnage, (ScriptableObject)
+    [SerializeField] TextMeshProUGUI _champNiveau; // Champ de texte pour le niveau du personnage
+    [SerializeField] TextMeshProUGUI _champTemps; // Champ de texte pour le temps de jeu
+    [SerializeField] TextMeshProUGUI _champScore; // Champ de texte pour le score du personnage
+    [SerializeField] TextMeshProUGUI _champArgent; // Champ de texte pour l'argent du personnage
+    [SerializeField] Image _barreVie; // Barre de vie du personnage (non utilisée)
+    [SerializeField] Image[] _tCrystalsPouvoir; // Tableau d'images pour les cristaux de pouvoir
+    [SerializeField] ParticleSystem[] _tParticulesPouvoir; // Particules de pouvoir
     Dictionary<TypePouvoir, Image> _dCrystalsPouvoir = new Dictionary<TypePouvoir, Image>(); // Dictionnaire de cristaux de pouvoir
+    Color _couleurCrystalInactif = new Color(0.7f, 0.7f, 0.7f); // Couleur des cristaux inactifs
 
 
 
@@ -29,7 +31,7 @@ public class UIJeu : MonoBehaviour
     void Start()
     {
         // Initialisation des champs de texte
-        _champNiveau.text = "Lvl : " + _donneesPerso.niveau; 
+        _champNiveau.text = "Niv : " + _donneesPerso.niveau; 
         _champScore.text = _donneesPerso.score +"";
         _champArgent.text = _donneesPerso.argent +" Gold";
         _donneesPerso.evenementMiseAJour.AddListener(MettreAJourInfo); // Ajoute l'événement de mise à jour
@@ -43,16 +45,25 @@ public class UIJeu : MonoBehaviour
         _dCrystalsPouvoir.Add(TypePouvoir.Foudre, _tCrystalsPouvoir[2]);
         _dCrystalsPouvoir.Add(TypePouvoir.Glace, _tCrystalsPouvoir[3]);
 
+        foreach (KeyValuePair<TypePouvoir, Image> entry in _dCrystalsPouvoir)
+        {
+            entry.Value.color = _couleurCrystalInactif;
+        }
+        
+        foreach(ParticleSystem particule in _tParticulesPouvoir)
+        {
+            particule.Stop();
+        }
     }
 
 
     /// <summary>
     /// Méthode qui met à jour les informations du personnage
     /// </summary>
-    void MettreAJourInfo()
+    public void MettreAJourInfo()
     {
         _champScore.text = _donneesPerso.score + "";
-        _champArgent.text = _donneesPerso.argent + " Gold";
+        _champArgent.text = _donneesPerso.argent + " Or";
 
         //Mettre à jour les cristaux de pouvoir
         foreach (KeyValuePair<TypePouvoir, Image> entry in _dCrystalsPouvoir)
@@ -61,6 +72,7 @@ public class UIJeu : MonoBehaviour
             if (_donneesPerso.ContientPouvoir(entry.Key)) // Assuming SOPerso has a method to check this
             {
                 entry.Value.enabled = true;
+                
             }
             else
             {
@@ -75,4 +87,28 @@ public class UIJeu : MonoBehaviour
         int secondes = (temps % 60);
         _champTemps.text = ((minutes < 10)? "0" +minutes: minutes) + ":" + ((secondes < 10)? "0" +secondes: secondes);
     }
+
+    public void ActiverParticulesPouvoir(int index)
+    {
+        foreach (KeyValuePair<TypePouvoir, Image> entry in _dCrystalsPouvoir)
+        {
+            entry.Value.color = _couleurCrystalInactif;
+        }
+        foreach (ParticleSystem particule in _tParticulesPouvoir)
+        {
+            particule.Stop();
+        }
+
+        Debug.Log("Activer particules " + index);
+        _tParticulesPouvoir[index].Play();
+        _tCrystalsPouvoir[index].color = Color.white;
+    }
+
+    // public void DesactiverParticulesPouvoir()
+    // {
+    //     foreach (ParticleSystem particule in _tParticulesPouvoir)
+    //     {
+    //         particule.Stop();
+    //     }
+    // }
 }

@@ -80,6 +80,8 @@ public class Porte : MonoBehaviour
         // Active l'objet 'panneauBonus' dans la scène.
         panneauBonus.SetActive(true);
 
+        Niveau.instance.ArreterCoroutine(); // Arrête la coroutine du niveau
+
         // Récupère le deuxième enfant du GameObject 'panneauBonus'.
         Transform deuxiemeEnfant = panneauBonus.transform.GetChild(1);
         // Ajoute du texte au composant TextMeshProUGUI du deuxième enfant.

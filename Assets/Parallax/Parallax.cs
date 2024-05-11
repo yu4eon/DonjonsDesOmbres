@@ -78,7 +78,7 @@ public class Parallax : MonoBehaviour
         if (startPositions != null) startPositions.Clear();
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (parallaxLayerGOs.Count > 0) {
             for (int i = 0; i < parallaxLayers.Count; i++) {

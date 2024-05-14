@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nom: Dague
   _sprite: {fileID: 309679917, guid: afa65bc523b92c842bae364040e7304e, type: 3}
-  _degatsBase: 1
+  _degatsBase: 1.5
   _typePouvoir: 0

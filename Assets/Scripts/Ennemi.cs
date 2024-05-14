@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph;
@@ -7,14 +8,17 @@ public class Ennemi : MonoBehaviour
 {
     [SerializeField] TypePouvoir _typePouvoirEnnemi; // Type de pouvoir de l'ennemi
     [SerializeField] int _pointsDeVieIni = 100; // Points de vie initial de l'ennemi
-    [SerializeField] int _scoreDonnee = 100; // Score donné par l'ennemi
-    [SerializeField] int _argentDonnee = 20; // Argent donné par l'ennemi
-    [SerializeField] Retroaction _retroModele; // Modèle de rétroaction lorsque l'ennemi prend des dégats
-    [SerializeField] Color _couleurEndommage = new Color(1, 0.6f, 0.6f); // Couleur de l'ennemi lorsqu'il est endommagé
     int _pointsDeVie; // Points de vie actuels de l'ennemi
+    [SerializeField] int _valeurScore = 250; // Score donné par l'ennemi
+    [SerializeField] Retroaction _retroModele; // Modèle de rétroaction lorsque l'ennemi prend des dégats
+    [SerializeField] SOPerso _donneesPerso; // Données du joueur
+    [SerializeField] Color _couleurEndommage = new Color(1, 0.6f, 0.6f); // Couleur de l'ennemi lorsqu'il est endommagé
+    [SerializeField] GameObject _contenantBarreVie; // Contenant de la barre de vie de l'ennemi
+    [SerializeField] GameObject _barreVie; // Barre de vie de l'ennemi
     float _delaiCouleur = 0.4f; // Délai pour reajuster la couleur de l'ennemi
     SpriteRenderer _spriteRenderer; // Sprite de l'ennemi
     bool _estInvulnerable = false; // Indique si l'ennemi est invulnérable
+    bool _degatCritique = false; // Indique si l'ennemi a subi un dégât critique
 
     // Dictionnaire des faiblesses de chaque pouvoir (a changer selon les demandes de l'artiste)
     Dictionary<TypePouvoir, TypePouvoir> _faiblesses = new Dictionary<TypePouvoir, TypePouvoir>
@@ -36,7 +40,8 @@ public class Ennemi : MonoBehaviour
     void Start()
     {
         _pointsDeVie = _pointsDeVieIni;
-        
+        _contenantBarreVie.SetActive(false);
+        _barreVie.SetActive(false);
     }
 
     // Update is called once per frame
@@ -46,6 +51,9 @@ public class Ennemi : MonoBehaviour
     }
     public void SubirDegats(int degats, TypePouvoir typePouvoir)
     {
+        _contenantBarreVie.SetActive(true);
+        _barreVie.SetActive(true);
+        _degatCritique = false;
         if(_estInvulnerable) return; // Si l'ennemi est invulnérable, ne fait rien
         Debug.Log("L'ennemi subit " + degats + " dégâts de type " + typePouvoir);
         if (_faiblesses[typePouvoir] == _typePouvoirEnnemi)
@@ -53,6 +61,7 @@ public class Ennemi : MonoBehaviour
             Debug.Log(_faiblesses[typePouvoir] + " " + _typePouvoirEnnemi);
             degats *= 2; // Double les dégâts si l'ennemi est faible contre le pouvoir
             Debug.Log("Double dégâts");
+            _degatCritique = true;
         }
         else
         {
@@ -62,8 +71,19 @@ public class Ennemi : MonoBehaviour
         _spriteRenderer.color = _couleurEndommage; // Change la couleur de l'ennemi
         StartCoroutine(CoroutineReajusterCouleur()); // Réajuste la couleur de l'ennemi
         Retroaction retro = Instantiate(_retroModele, transform.position, Quaternion.identity, transform.parent);
-        retro.ChangerTexte("-" + degats, "#FF3535");
-        _pointsDeVie -= degats; // Réduit les points de vie de l'ennemi
+        if(_degatCritique)
+        {
+            retro.ChangerTexte("-" + degats + "!", "#FF3535", 1f, 2f);
+        }
+        else
+        {
+            retro.ChangerTexte("-" + degats, "#FFE32E");
+        }
+        Mathf.Clamp(_pointsDeVie -= degats, 0, _pointsDeVieIni); // Réduit les points de vie de l'ennemi
+        float fractionVie = (float)_pointsDeVie / _pointsDeVieIni;
+        Debug.Log("Fraction de vie : " + fractionVie);
+        _barreVie.transform.localScale = new Vector3(fractionVie, 1, 1);
+
         Debug.Log("Points de vie restants : " + _pointsDeVie);
         // Réduit les points de vie de l'ennemi
         if(_pointsDeVie <= 0)
@@ -82,6 +102,9 @@ public class Ennemi : MonoBehaviour
     void Mourir()
     {
         Debug.Log("L'ennemi est mort");
+        _contenantBarreVie.SetActive(false);
+        _barreVie.SetActive(false);
+        _donneesPerso.AjouterScore(_valeurScore);
         // _animator.SetTrigger("Meurt");
         gameObject.SetActive(false);
     }

@@ -24,9 +24,10 @@ public class Retroaction : MonoBehaviour
     /// <summary>
     /// Méthode qui change le texte de la rétroaction selon le texte donné
     /// </summary>
-    public void ChangerTexte(string texte, string couleur = "#FFFFFF", float vitesse = 1f)
+    public void ChangerTexte(string texte, string couleur = "#FFFFFF", float vitesse = 1f, float taille = 1f)
     {
         _animator.speed = vitesse;
+        transform.localScale = transform.localScale * taille;
         _champ.text = texte;
         ColorUtility.TryParseHtmlString(couleur, out Color couleurTexte);
         Debug.Log(couleurTexte);

@@ -54,6 +54,7 @@ public class Perso : DetecteurSol
     TypePouvoir _pouvoirActuel; // Pouvoir actuel du joueur #synthese Leon
     bool _peutAttaquer = true; // Si le joueur peut attaquer #synthese Leon
     bool _estEnAttaqueLourd; // Si le joueur est en train d'attaquer #synthese Leon
+    [SerializeField] float _delaiAttaque = 0.1f; // Delai avant d'instancier l'arme #synthese Leon
     ArmePerso _arme; // Référence à l'arme du personnage #synthese Leon
 
 
@@ -194,7 +195,7 @@ public class Perso : DetecteurSol
     {
         if(_estEnAttaqueLourd)
         {
-            
+            _axeHorizontal = 0;
             return;
         }
         _axeHorizontal = value.Get<Vector2>().x; // Obtient la valeur de l'axe horizontal de l'entrée.
@@ -396,7 +397,8 @@ public class Perso : DetecteurSol
             _peutAttaquer = false;
             Debug.Log("Attaque légère");
             _animator.SetTrigger("AttaqueLight");
-            Attaquer(true);      
+            Coroutine coroutine = StartCoroutine(CoroutineAttaquer(true));
+            CoroutineAttaquer(true);      
         }
         else
         {
@@ -411,7 +413,7 @@ public class Perso : DetecteurSol
             _peutAttaquer = false;
             Debug.Log("Attaque lourde");
             _animator.SetTrigger("AttaqueHeavy");
-            Attaquer(false);      
+            Coroutine coroutine = StartCoroutine(CoroutineAttaquer(false));
         }
         else
         {
@@ -419,23 +421,14 @@ public class Perso : DetecteurSol
         }
     }
 
-    void Attaquer(bool estLeger)
+    IEnumerator CoroutineAttaquer(bool estLeger)
     {
         // Debug.Log(_pouvoirActuel);
         // Debug.Log(_arme);
+        yield return new WaitForSeconds(_delaiAttaque);
         _arme.gameObject.SetActive(true);
         _estEnAttaqueLourd = !estLeger;
         _arme.InitialiserArme(_pouvoirActuel, estLeger); // Initialise l'arme du personnage
-        // Attaque légère
-        // if (estLeger)
-        // {
-        //     // _animator.SetTrigger("AttaqueLeger");
-        // }
-        // // Attaque lourde
-        // else
-        // {
-        //     // _animator.SetTrigger("AttaqueLourde");
-        // }
     }
 
     public void PermettreAttaque()

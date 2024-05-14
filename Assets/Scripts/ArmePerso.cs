@@ -12,6 +12,7 @@ public class ArmePerso : MonoBehaviour
     Animator _animator; // Animator de l'arme
     Perso _perso; // Script du joueur
     Vector3 _positionInitiale; // Position initiale de l'arme
+    Collider2D _collider; // Collider de l'arme
     bool _estLeger; // Si l'attaque est léger
 
 
@@ -19,10 +20,12 @@ public class ArmePerso : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _collider = GetComponent<Collider2D>();
     }
 
     void Start()
     {
+        _collider.enabled = false;
         _positionInitiale = transform.localPosition;
         _perso = GetComponentInParent<Perso>();
         DesactiverArme();
@@ -41,42 +44,47 @@ public class ArmePerso : MonoBehaviour
         // Changer le sprite de l'arme
 
         // Temporairement, en attendant les sprites de l'arme
-        switch (typePouvoir)
-        {
-            case TypePouvoir.Poison:
-                _spriteRenderer.color = Color.green;
-                break;
-            case TypePouvoir.Ombre:
-                _spriteRenderer.color = Color.blue;
-                break;
-            case TypePouvoir.Foudre:
-                _spriteRenderer.color = Color.yellow;
-                break;
-            default:
-                _spriteRenderer.color = Color.white;
-                break;
-        }
+        // switch (typePouvoir)
+        // {
+        //     case TypePouvoir.Poison:
+        //         _spriteRenderer.color = Color.green;
+        //         break;
+        //     case TypePouvoir.Ombre:
+        //         _spriteRenderer.color = Color.blue;
+        //         break;
+        //     case TypePouvoir.Foudre:
+        //         _spriteRenderer.color = Color.yellow;
+        //         break;
+        //     default:
+        //         _spriteRenderer.color = Color.white;
+        //         break;
+        // }
 
-        StartCoroutine(CoroutineDesactiverArme(estLeger));
+        // Jouer animation de l'arme
+        string nomAnimation = _armeEquipee.nom;
+        _animator.SetTrigger(nomAnimation);
+        _animator.SetBool("estLeger", estLeger);
+
+        // StartCoroutine(CoroutineDesactiverArme(estLeger));
         Debug.Log("Arme activée");
         // _spriteRenderer.sprite = _armeEquipee.sprite;
 
     }
 
-    IEnumerator CoroutineDesactiverArme(bool _estLeger)
-    {
-        if (_estLeger)
-        {
-            yield return new WaitForSeconds(0.5f);
-            DesactiverArme();
-        }
-        else
-        {
-            yield return new WaitForSeconds(1.5f);
-            DesactiverArme();
-        }
+    // IEnumerator CoroutineDesactiverArme(bool _estLeger)
+    // {
+    //     if (_estLeger)
+    //     {
+    //         yield return new WaitForSeconds(0.5f);
+    //         DesactiverArme();
+    //     }
+    //     else
+    //     {
+    //         yield return new WaitForSeconds(1.5f);
+    //         DesactiverArme();
+    //     }
 
-    }
+    // }
 
 
     public void ChangerDirection(bool _estGauche)
@@ -87,20 +95,31 @@ public class ArmePerso : MonoBehaviour
         {
             // Debug.Log(transform.localPosition);
             transform.localPosition = new Vector3(-_positionInitiale.x, _positionInitiale.y, _positionInitiale.z);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
         else
         {
             // Debug.Log(transform.localPosition);
             transform.localPosition = _positionInitiale;
+            transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
+    public void DesactiverCollider()
+    {
+        _collider.enabled = false;
+    }
+    public void ActiverCollider()
+    {
+        _collider.enabled = true;
+    }
     /// <summary>
     /// Sera appelé pour desactiver l'arme par animation event plus tard, pour l'instant, on l'appelleras par Coroutine
     /// </summary>
     public void DesactiverArme()
     {
         // _perso = GetComponentInParent<Perso>();
+        DesactiverCollider();
         _perso.PermettreAttaque();
         gameObject.SetActive(false);
         // Désactiver l'arme

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Dague
   m_EditorClassIdentifier: 
   _nom: Dague
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 309679917, guid: afa65bc523b92c842bae364040e7304e, type: 3}
   _degatsBase: 1
   _typePouvoir: 0

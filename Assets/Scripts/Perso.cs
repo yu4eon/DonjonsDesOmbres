@@ -300,7 +300,7 @@ public class Perso : DetecteurSol
         _pouvoirActuel = (TypePouvoir)index; // Change le pouvoir actuel en celle du pouvoir index.
         _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[index], transform.position, _particulesPouvoirs[index].transform.rotation, transform);
         _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
-        _uiJeu.ActiverParticulesPouvoir(index); // Active les particules de pouvoir dans l'UI. #synthese Leon
+        _uiJeu.ActiverPouvoir(index); // Active les particules de pouvoir dans l'UI. #synthese Leon
         }
         else
         {

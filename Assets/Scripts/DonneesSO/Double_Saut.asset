@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Double_Saut
   m_EditorClassIdentifier: 
   _nom: Double saut
-  _sprite: {fileID: -1554393995, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
+  _sprite: {fileID: 21300000, guid: c392c6a84244840408c702252fca4700, type: 3}
   _prixDeBase: 50
-  _niveauRequis: 2
   _description: Permet au joueur de faire un double saut
-  _donneDroitRabais: 0
   _estAcheter: 0
+  _typeObjet: 0

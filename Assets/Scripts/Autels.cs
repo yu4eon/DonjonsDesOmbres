@@ -14,6 +14,7 @@ public class Autels : MonoBehaviour
     public TypePouvoir pouvoir { get => _pouvoir;} // Propriété pour accéder à l'élément de l'autel. #synthese Leon
     [SerializeField] SOPerso _donneesPerso; // ScriptableObject contenant les données du personnage.
     [SerializeField] SpriteRenderer _spriteEteint; // SpriteRenderer de l'autel lorsqu'il est éteint.
+    [SerializeField] Retroaction _modeleRetro; // Modèle de rétroaction pour l'autel.
     Light2D _lumiere; // Référence à la lumière de l'autel #tp4 Leon
     SpriteRenderer sr; // Composant SpriteRenderer de l'autel.
     ParticleSystem ps; // Système de particules de l'autel.
@@ -36,7 +37,6 @@ public class Autels : MonoBehaviour
         emission = ps.emission; // Obtient le module d'émission des particules.
         estActif = false; // Initialise l'état actif de l'autel à faux.
         ps.Stop(); // Arrête le système de particules.
-
         _sBase = sr.sprite; // Sauvegarde le sprite de base de l'autel.
         sr.sprite = _spriteEteint.sprite; // Définit le sprite de l'autel comme étant éteint.
     }
@@ -54,16 +54,17 @@ public class Autels : MonoBehaviour
     /// <param name="collision">Collider2D de la collision.</param>
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && ps.isPlaying)
+        if(collision.CompareTag("Player") && estActif)
         {
             Debug.Log("Element : " + _pouvoir); // Affiche l'élément de l'autel.
-            _lumiere.intensity = 0; // Définit l'intensité de la lumière de l'autel à 0 #tp4 Leon
             _donneesPerso.AjouterPouvoir(_pouvoir); // Ajoute le pouvoir de l'autel au personnage.
             _donneesPerso.evenementMiseAJour.Invoke(); // Déclenche l'événement de mise à jour des données du personnage. #tp4 Leon
-            sr.sprite = _spriteEteint.sprite; // Change le sprite de l'autel pour indiquer qu'il est éteint.
+            Desactiver(); // Désactive l'autel.
             shape.scale = new Vector3(4f, 5f, 1f); // Modifie l'échelle des particules.
             emission.rateOverTime = 100f; // Modifie le taux d'émission des particules.
-            StartCoroutine(ArreterParticules()); // Démarre la coroutine pour arrêter les particules.
+            Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity); // Instancie une rétroaction.
+            retro.ChangerTexte("Pouvoir obtenu : " + _pouvoir, "#FFFFFF", 0.5f); // Change le texte de la rétroaction.
+            UIJeu.instance.JouerParticulesPouvoir((int)_pouvoir); // Joue les particules du pouvoir.
         }
     }
     /// <summary>
@@ -85,5 +86,13 @@ public class Autels : MonoBehaviour
         estActif = true; // Active l'autel.
         sr.sprite = _sBase; // Change le sprite de l'autel à l'état actif.
         ps.Play(); // Démarre le système de particules.
+    }
+
+    void Desactiver()
+    {
+        _lumiere.intensity = 0; // Définit l'intensité de la lumière de l'autel à 0 #tp4 Leon
+        sr.sprite = _spriteEteint.sprite; // Change le sprite de l'autel pour indiquer qu'il est éteint.
+        StartCoroutine(ArreterParticules()); // Démarre la coroutine pour arrêter les particules.
+        estActif = false; // Désactive l'autel.
     }
 }

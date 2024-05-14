@@ -34,7 +34,7 @@ public class SOPerso : ScriptableObject
     // Défense du personnage en ajoutant la défense de base et la défense bonus  #synthese Leon
     int _defense => baseDefense + defenseBonus;
     public int defense => _defense; // Propriété pour accéder à la défense du personnage
-    [SerializeField] int basePv = 10; // Points de vie de base du personnage
+    [SerializeField] int basePv = 100; // Points de vie de base du personnage
     int pvBonus; // Points de vie bonus du personnage
     // Points de vie du personnage en ajoutant les points de vie de base et les points de vie bonus  #synthese Leon
     int _pv => basePv + pvBonus;
@@ -102,7 +102,7 @@ public class SOPerso : ScriptableObject
         if (donneesObjet.typeObjet == TypeObjet.DefensePV) //Si l'objet est de type DefensePV, ajoute 10 à la défense et aux points de vie
         {
             defenseBonus += 10;
-            pvBonus += 10;
+            pvBonus += 100;
             Debug.Log("Bonus defense: " + defenseBonus);
             Debug.Log("Bonus pv: " + pvBonus);
         } 

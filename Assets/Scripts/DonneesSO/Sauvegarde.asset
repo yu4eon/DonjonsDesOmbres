@@ -16,6 +16,9 @@ MonoBehaviour:
   - joueur: Stev4
     score: 7000
     estJoueurActuelle: 0
+  - joueur: Bobette
+    score: 6260
+    estJoueurActuelle: 0
   - joueur: Steve
     score: 3222
     estJoueurActuelle: 0

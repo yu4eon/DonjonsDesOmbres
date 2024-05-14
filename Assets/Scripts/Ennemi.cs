@@ -9,7 +9,7 @@ public class Ennemi : MonoBehaviour
     [SerializeField] TypePouvoir _typePouvoirEnnemi; // Type de pouvoir de l'ennemi
     [SerializeField] int _pointsDeVieIni = 100; // Points de vie initial de l'ennemi
     int _pointsDeVie; // Points de vie actuels de l'ennemi
-    [SerializeField] int _valeurScore = 250; // Score donné par l'ennemi
+    [SerializeField] int _valeurScore = 500; // Score donné par l'ennemi
     [SerializeField] Retroaction _retroModele; // Modèle de rétroaction lorsque l'ennemi prend des dégats
     [SerializeField] SOPerso _donneesPerso; // Données du joueur
     [SerializeField] Color _couleurEndommage = new Color(1, 0.6f, 0.6f); // Couleur de l'ennemi lorsqu'il est endommagé
@@ -119,7 +119,8 @@ public class Ennemi : MonoBehaviour
         if(other.gameObject.GetComponent<Perso>() != null)
         {
             Debug.Log("Collision avec le joueur");
-            // Perso perso = other.gameObject.GetComponent<Perso>();
+            Perso perso = other.gameObject.GetComponent<Perso>();
+            
         }
     }
 }

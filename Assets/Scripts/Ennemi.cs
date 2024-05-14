@@ -12,8 +12,9 @@ public class Ennemi : MonoBehaviour
     [SerializeField] Retroaction _retroModele; // Modèle de rétroaction lorsque l'ennemi prend des dégats
     [SerializeField] Color _couleurEndommage = new Color(1, 0.6f, 0.6f); // Couleur de l'ennemi lorsqu'il est endommagé
     int _pointsDeVie; // Points de vie actuels de l'ennemi
-    float _delaiCouleur = 0.25f; // Délai pour reajuster la couleur de l'ennemi
+    float _delaiCouleur = 0.4f; // Délai pour reajuster la couleur de l'ennemi
     SpriteRenderer _spriteRenderer; // Sprite de l'ennemi
+    bool _estInvulnerable = false; // Indique si l'ennemi est invulnérable
 
     // Dictionnaire des faiblesses de chaque pouvoir (a changer selon les demandes de l'artiste)
     Dictionary<TypePouvoir, TypePouvoir> _faiblesses = new Dictionary<TypePouvoir, TypePouvoir>
@@ -45,6 +46,7 @@ public class Ennemi : MonoBehaviour
     }
     public void SubirDegats(int degats, TypePouvoir typePouvoir)
     {
+        if(_estInvulnerable) return; // Si l'ennemi est invulnérable, ne fait rien
         Debug.Log("L'ennemi subit " + degats + " dégâts de type " + typePouvoir);
         if (_faiblesses[typePouvoir] == _typePouvoirEnnemi)
         {
@@ -56,6 +58,7 @@ public class Ennemi : MonoBehaviour
         {
             Debug.Log("Dégâts normaux");
         }
+        _estInvulnerable = true; // L'ennemi est invulnérable
         _spriteRenderer.color = _couleurEndommage; // Change la couleur de l'ennemi
         StartCoroutine(CoroutineReajusterCouleur()); // Réajuste la couleur de l'ennemi
         Retroaction retro = Instantiate(_retroModele, transform.position, Quaternion.identity, transform.parent);
@@ -73,6 +76,7 @@ public class Ennemi : MonoBehaviour
     {
         yield return new WaitForSeconds(_delaiCouleur);
         _spriteRenderer.color = Color.white;
+        _estInvulnerable = false;
     }
 
     void Mourir()

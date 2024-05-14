@@ -53,7 +53,7 @@ public class Perso : DetecteurSol
     [Header("Attaque")]
     TypePouvoir _pouvoirActuel; // Pouvoir actuel du joueur #synthese Leon
     bool _peutAttaquer = true; // Si le joueur peut attaquer #synthese Leon
-    bool _estEnAttaque; // Si le joueur est en train d'attaquer #synthese Leon
+    bool _estEnAttaqueLourd; // Si le joueur est en train d'attaquer #synthese Leon
     ArmePerso _arme; // Référence à l'arme du personnage #synthese Leon
 
 
@@ -105,7 +105,10 @@ public class Perso : DetecteurSol
         }
 
         _rb.velocity = new Vector2(_axeHorizontal * _vitesse, _rb.velocity.y); // Déplace le joueur en fonction de l'entrée horizontale.
-
+        if(_estEnAttaqueLourd)
+        {
+            _rb.velocity = new Vector2(0, _rb.velocity.y);
+        }
         _animator.SetFloat("VelocityY", _rb.velocity.y); // Donne la vitesse verticale au paramètre de l'Animator. #tp4 Leon
         _animator.SetFloat("VelocityX", _rb.velocity.x); // Donne la vitesse horizontale au paramètre de l'Animator. #tp3 Leon
 
@@ -189,6 +192,11 @@ public class Perso : DetecteurSol
     /// <param name="value">La valeur retournée par le Input system.</param>
     void OnMove(InputValue value)
     {
+        if(_estEnAttaqueLourd)
+        {
+            
+            return;
+        }
         _axeHorizontal = value.Get<Vector2>().x; // Obtient la valeur de l'axe horizontal de l'entrée.
 
         if (_axeHorizontal < 0) // Si le joueur se déplace vers la gauche.
@@ -305,7 +313,11 @@ public class Perso : DetecteurSol
     /// </summary>
     /// <param name="value">La valeur retournée par le Input system.</param>
     void OnJump(InputValue value)
-    {
+    {   
+        if(_estEnAttaqueLourd)
+        {
+            return;
+        }
         _veutSauter = value.isPressed; // Active ou désactive le saut en fonction de si le bouton est pressé ou non.
     }
 
@@ -383,8 +395,8 @@ public class Perso : DetecteurSol
         {
             _peutAttaquer = false;
             Debug.Log("Attaque légère");
-            Attaquer(true);
-            // StartCoroutine(AjusterTimerAttaque(_delaiAttaqueLeger));       
+            _animator.SetTrigger("AttaqueLight");
+            Attaquer(true);      
         }
         else
         {
@@ -398,8 +410,8 @@ public class Perso : DetecteurSol
         {
             _peutAttaquer = false;
             Debug.Log("Attaque lourde");
-            Attaquer(false);
-            // StartCoroutine(AjusterTimerAttaque(_delaiAttaqueLourd));       
+            _animator.SetTrigger("AttaqueHeavy");
+            Attaquer(false);      
         }
         else
         {
@@ -412,7 +424,7 @@ public class Perso : DetecteurSol
         // Debug.Log(_pouvoirActuel);
         // Debug.Log(_arme);
         _arme.gameObject.SetActive(true);
-        _estEnAttaque = true;
+        _estEnAttaqueLourd = !estLeger;
         _arme.InitialiserArme(_pouvoirActuel, estLeger); // Initialise l'arme du personnage
         // Attaque légère
         // if (estLeger)
@@ -428,6 +440,7 @@ public class Perso : DetecteurSol
 
     public void PermettreAttaque()
     {
+        _estEnAttaqueLourd = false;
         _peutAttaquer = true;
     }
 
@@ -439,7 +452,7 @@ public class Perso : DetecteurSol
 
     public void TerminerAttaque()
     {
-        _estEnAttaque = false;
+        _estEnAttaqueLourd = false;
     }
     
     void OnApplicationQuit()

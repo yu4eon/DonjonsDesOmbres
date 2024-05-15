@@ -37,7 +37,7 @@ public class PanneauObjet : MonoBehaviour
     void MettreAJourInfos()
     {
         _champNom.text = _donnees.nom; // Affiche le nom de l'objet.
-        _champPrix.text = _donnees.prix + " $"; // Affiche le prix de l'objet suivi de "$".
+        _champPrix.text = _donnees.prix + "$"; // Affiche le prix de l'objet suivi de "$".
         _champDescription.text = _donnees.description; // Affiche la description de l'objet.
         _image.sprite = _donnees.sprite; // Affiche l'image de l'objet.
         GererDispo(); // Gère la disponibilité de l'objet en fonction de l'argent du joueur.

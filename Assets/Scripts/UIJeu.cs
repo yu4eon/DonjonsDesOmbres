@@ -22,20 +22,47 @@ public class UIJeu : MonoBehaviour
     [SerializeField] Image[] _tCrystalsPouvoir; // Tableau d'images pour les cristaux de pouvoir
     [SerializeField] ParticleSystem[] _tParticulesPouvoir; // Particules de pouvoir
     Dictionary<TypePouvoir, Image> _dCrystalsPouvoir = new Dictionary<TypePouvoir, Image>(); // Dictionnaire de cristaux de pouvoir
+    RectTransform[] _tRectCrystalsPouvoir; // Tableau de RectTransform pour les cristaux de pouvoir
+    Vector2 _tailleInactif = new Vector2(50, 50); // Taille des cristaux inactifs
+    Vector2 _tailleIni; // Taille initiale des cristaux
     Color _couleurCrystalInactif = new Color(0.7f, 0.7f, 0.7f); // Couleur des cristaux inactifs
+    static UIJeu _instance; // Instance statique de l'interface du jeu
+    static public UIJeu instance => _instance; // Propriété publique pour accéder à l'instance de l'interface du jeu
 
 
 
-    
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        _instance = this;
+        _tRectCrystalsPouvoir = new RectTransform[_tCrystalsPouvoir.Length];
+        for (int i = 0; i < _tCrystalsPouvoir.Length; i++)
+        {
+            _tRectCrystalsPouvoir[i] = _tCrystalsPouvoir[i].GetComponent<RectTransform>();
+        }
+        _tailleIni = _tRectCrystalsPouvoir[0].sizeDelta;
+    }
     // Start is called before the first frame update
     void Start()
     {
         // Initialisation des champs de texte
+        
         _champNiveau.text = "Niv : " + _donneesPerso.niveau; 
         _champScore.text = _donneesPerso.score +"";
         _champArgent.text = _donneesPerso.argent +" Gold";
         _donneesPerso.evenementMiseAJour.AddListener(MettreAJourInfo); // Ajoute l'événement de mise à jour
 
+        foreach (RectTransform rect in _tRectCrystalsPouvoir)
+        {
+            rect.sizeDelta = new Vector2(0, 0);
+        }
 
 
         // Initialisation du dictionnaire de cristaux de pouvoir
@@ -88,20 +115,30 @@ public class UIJeu : MonoBehaviour
         _champTemps.text = ((minutes < 10)? "0" +minutes: minutes) + ":" + ((secondes < 10)? "0" +secondes: secondes);
     }
 
-    public void ActiverParticulesPouvoir(int index)
+    public void ActiverPouvoir(int index)
     {
+        foreach (RectTransform rect in _tRectCrystalsPouvoir)
+        {
+            rect.sizeDelta = _tailleInactif;
+        }
         foreach (KeyValuePair<TypePouvoir, Image> entry in _dCrystalsPouvoir)
         {
             entry.Value.color = _couleurCrystalInactif;
         }
-        foreach (ParticleSystem particule in _tParticulesPouvoir)
-        {
-            particule.Stop();
-        }
+        // foreach (ParticleSystem particule in _tParticulesPouvoir)
+        // {
+        //     particule.Stop();
+        // }
 
+        _tRectCrystalsPouvoir[index].sizeDelta = _tailleIni;
         Debug.Log("Activer particules " + index);
-        _tParticulesPouvoir[index].Play();
+        // _tParticulesPouvoir[index].Play();
         _tCrystalsPouvoir[index].color = Color.white;
+    }
+
+    public void JouerParticulesPouvoir(int index)
+    {
+        _tParticulesPouvoir[index].Play();
     }
 
     // public void DesactiverParticulesPouvoir()

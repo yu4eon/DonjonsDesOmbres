@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8578062340247433501}
   - component: {fileID: 6348664974891872714}
   - component: {fileID: -2601706122692347428}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Perso
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -170,6 +170,7 @@ MonoBehaviour:
   - {fileID: 5721592000770606963, guid: 7da8f70ca474bfa4faceb882f8a99732, type: 3}
   - {fileID: 7228857694764231008, guid: e1cb443b124393a4cb165ca407d493c2, type: 3}
   _dashForce: 24
+  _delaiAttaque: 0.1
   _donneesNavigation: {fileID: 11400000, guid: 7bfae785291759145a074c72fef7cad2, type: 2}
 --- !u!114 &819095134103182047
 MonoBehaviour:
@@ -382,7 +383,8 @@ GameObject:
   - component: {fileID: 4292277948903571691}
   - component: {fileID: 1896222083405044834}
   - component: {fileID: 2308263315230612281}
-  m_Layer: 6
+  - component: {fileID: 7863820363939636382}
+  m_Layer: 7
   m_Name: Arme
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -398,9 +400,9 @@ Transform:
   m_GameObject: {fileID: 8377937508916527091}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.709, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.3125, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.788, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5549177563643262076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -442,8 +444,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 468199197
-  m_SortingLayer: 3
+  m_SortingLayerID: -654654071
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -519,6 +521,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &7863820363939636382
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8377937508916527091}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4bd417f708211a84e83c7da8ae5c6b0a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1422403815056892438
 PrefabInstance:
   m_ObjectHideFlags: 0

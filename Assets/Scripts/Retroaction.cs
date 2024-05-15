@@ -14,12 +14,20 @@ using UnityEngine.Experimental.Rendering.RenderGraphModule;
 public class Retroaction : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _champ; // Champ de texte de la rétroaction
+    [SerializeField] Animator _animator; // Animator de la rétroaction
     
+    void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
     /// <summary>
     /// Méthode qui change le texte de la rétroaction selon le texte donné
     /// </summary>
-    public void ChangerTexte(string texte, string couleur = "#FFFFFF")
+    public void ChangerTexte(string texte, string couleur = "#FFFFFF", float vitesse = 1f, float taille = 1f)
     {
+        _animator.speed = vitesse;
+        transform.localScale = transform.localScale * taille;
         _champ.text = texte;
         ColorUtility.TryParseHtmlString(couleur, out Color couleurTexte);
         Debug.Log(couleurTexte);

@@ -228,8 +228,23 @@ public class Niveau : MonoBehaviour
     /// <returns>Si la position est occuppé</returns>
     bool PositionDessousEstOccupee(Vector2Int pos)
     {
-        Vector2Int posDessous = new Vector2Int(pos.x, pos.y - 1); // Définir la position du dessous
-        return !_lesPosLibres.Contains(posDessous); // Vérifier si la position du dessous n'est pas libre
+        // Debug.Log(pos);
+        Vector2Int posDessous = new Vector2Int(pos.x, pos.y - 1);
+
+        // Changement du fonctionnement pour utiliser le tilemap car les 
+        // positions libres ne sont pas toujours fiables. #synthese Leon
+        if (_tilemapNiveau.GetTile((Vector3Int)posDessous) != null)
+        {
+            return true;
+        }
+        return false;
+
+        // if (Physics2D.OverlapCircle(posDessous, 0.5f).CompareTag("Effector"))
+        // {
+        //     return false;
+        // }
+
+        // return !_lesPosLibres.Contains(posDessous);
     }
 
 

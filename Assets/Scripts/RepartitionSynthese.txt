@@ -6,11 +6,12 @@
 
 1 Ennemi
 1 fonctionnalité (à confirmer)
-Placement des ennemis
+
 
 
 fini :
 
+Placement des ennemis
 Règlage de bogues du TP4
 
 

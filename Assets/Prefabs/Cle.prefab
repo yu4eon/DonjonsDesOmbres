@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sonCle: {fileID: 8300000, guid: c462a386fd367b248a3ed41d36051dd0, type: 3}
+  _modeleRetro: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
 --- !u!70 &-7378283922779200985
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

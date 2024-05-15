@@ -11,6 +11,7 @@ using UnityEngine;
 public class Cle : MonoBehaviour
 {
     [SerializeField] AudioClip _sonCle;
+    [SerializeField] Retroaction _modeleRetro; // Modèle de rétroaction #synthese Leon
     /// <summary>
     /// #Tp3 Antoine
     /// Sent when an incoming collider makes contact with this object's
@@ -22,6 +23,8 @@ public class Cle : MonoBehaviour
         if (other.CompareTag("Player")) //Si le joueur entre en collision avec la clé
         {
             Porte.aCle = true; // Indique que le joueur a la clé
+            Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity, transform.parent); // Crée une rétroaction
+            retro.ChangerTexte("Clé obtenue", "#FFFFFF", 0.5f); // Change le texte de la rétroaction
             SoundManager.instance.JouerEffetSonore(_sonCle); // Joue le son de la clé
             Destroy(gameObject); //Détruit l'objet clé
         }

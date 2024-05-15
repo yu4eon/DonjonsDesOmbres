@@ -15,19 +15,19 @@ public class Ennemi : MonoBehaviour
     [SerializeField] Color _couleurEndommage = new Color(1, 0.6f, 0.6f); // Couleur de l'ennemi lorsqu'il est endommagé
     [SerializeField] GameObject _contenantBarreVie; // Contenant de la barre de vie de l'ennemi
     [SerializeField] GameObject _barreVie; // Barre de vie de l'ennemi
-    float _delaiCouleur = 0.4f; // Délai pour reajuster la couleur de l'ennemi
+    float _delaiCouleur = 0.3f; // Délai pour reajuster la couleur de l'ennemi
     SpriteRenderer _spriteRenderer; // Sprite de l'ennemi
     bool _estInvulnerable = false; // Indique si l'ennemi est invulnérable
     bool _degatCritique = false; // Indique si l'ennemi a subi un dégât critique
 
     // Dictionnaire des faiblesses de chaque pouvoir (a changer selon les demandes de l'artiste)
-    Dictionary<TypePouvoir, TypePouvoir> _faiblesses = new Dictionary<TypePouvoir, TypePouvoir>
-    {
-        { TypePouvoir.Poison, TypePouvoir.Glace },
-        { TypePouvoir.Ombre, TypePouvoir.Foudre },
-        { TypePouvoir.Foudre, TypePouvoir.Poison },
-        { TypePouvoir.Glace, TypePouvoir.Ombre }
-    };
+    // Dictionary<TypePouvoir, TypePouvoir> _faiblesses = new Dictionary<TypePouvoir, TypePouvoir>
+    // {
+    //     { TypePouvoir.Poison, TypePouvoir.Glace },
+    //     { TypePouvoir.Ombre, TypePouvoir.Foudre },
+    //     { TypePouvoir.Foudre, TypePouvoir.Poison },
+    //     { TypePouvoir.Glace, TypePouvoir.Ombre }
+    // };
 
     Animator _animator; // Animator de l'ennemi
 
@@ -56,17 +56,22 @@ public class Ennemi : MonoBehaviour
         _degatCritique = false;
         if(_estInvulnerable) return; // Si l'ennemi est invulnérable, ne fait rien
         Debug.Log("L'ennemi subit " + degats + " dégâts de type " + typePouvoir);
-        if (_faiblesses[typePouvoir] == _typePouvoirEnnemi)
+        if(typePouvoir == _typePouvoirEnnemi)
         {
-            Debug.Log(_faiblesses[typePouvoir] + " " + _typePouvoirEnnemi);
-            degats *= 2; // Double les dégâts si l'ennemi est faible contre le pouvoir
-            Debug.Log("Double dégâts");
+            degats *= 2;
             _degatCritique = true;
         }
-        else
-        {
-            Debug.Log("Dégâts normaux");
-        }
+        // if (_faiblesses[typePouvoir] == _typePouvoirEnnemi)
+        // {
+        //     Debug.Log(_faiblesses[typePouvoir] + " " + _typePouvoirEnnemi);
+        //     degats *= 2; // Double les dégâts si l'ennemi est faible contre le pouvoir
+        //     Debug.Log("Double dégâts");
+        //     _degatCritique = true;
+        // }
+        // else
+        // {
+        //     Debug.Log("Dégâts normaux");
+        // }
         _estInvulnerable = true; // L'ennemi est invulnérable
         _spriteRenderer.color = _couleurEndommage; // Change la couleur de l'ennemi
         StartCoroutine(CoroutineReajusterCouleur()); // Réajuste la couleur de l'ennemi

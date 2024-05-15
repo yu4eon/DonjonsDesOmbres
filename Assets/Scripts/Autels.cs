@@ -63,7 +63,27 @@ public class Autels : MonoBehaviour
             shape.scale = new Vector3(4f, 5f, 1f); // Modifie l'échelle des particules.
             emission.rateOverTime = 100f; // Modifie le taux d'émission des particules.
             Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity); // Instancie une rétroaction.
-            retro.ChangerTexte("Pouvoir obtenu : " + _pouvoir, "#FFFFFF", 0.5f); // Change le texte de la rétroaction.
+            string couleur;
+            switch (_pouvoir) // Change la couleur de la rétroaction selon le pouvoir obtenu.
+            {
+                case TypePouvoir.Glace:
+                    couleur = "#c1dee2";
+                    break;
+                case TypePouvoir.Foudre:
+                    couleur = "#ff9900";
+                    break;
+                case TypePouvoir.Ombre:
+                    couleur = "#9946ff";
+                    break;
+                case TypePouvoir.Poison:
+                    couleur = "#65b872";
+                    break;
+                default:
+                    couleur = "#FFFFFF";
+                    break;
+            }
+
+            retro.ChangerTexte("Pouvoir obtenu : " + _pouvoir, couleur, 0.5f); // Change le texte de la rétroaction.
             UIJeu.instance.JouerParticulesPouvoir((int)_pouvoir); // Joue les particules du pouvoir.
         }
     }

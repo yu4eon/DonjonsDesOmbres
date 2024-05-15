@@ -35,6 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 679488735672819969}
+  - {fileID: 6839497438485867836}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1671290047436969922
@@ -361,3 +362,77 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &6197187427001128471
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8879150438733019884}
+    m_Modifications:
+    - target: {fileID: 642347404570377003, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 642347404570377003, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.009056606
+      objectReference: {fileID: 0}
+    - target: {fileID: 642347404570377003, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 642347404570377003, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 642347404570377003, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 642347404570377003, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 642347404570377003, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 642347404570377003, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 642347404570377003, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 642347404570377003, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2480169651424821578, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_Name
+      value: LightEnnemi
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_Color.b
+      value: 0.44705883
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_Color.r
+      value: 0.2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+--- !u!4 &6839497438485867836 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 642347404570377003, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+  m_PrefabInstance: {fileID: 6197187427001128471}
+  m_PrefabAsset: {fileID: 0}

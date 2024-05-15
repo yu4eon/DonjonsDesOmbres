@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Ennemi : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Ennemi : MonoBehaviour
     [SerializeField] Color _couleurEndommage = new Color(1, 0.6f, 0.6f); // Couleur de l'ennemi lorsqu'il est endommagé
     [SerializeField] GameObject _contenantBarreVie; // Contenant de la barre de vie de l'ennemi
     [SerializeField] GameObject _barreVie; // Barre de vie de l'ennemi
+    Light2D _lumiere; // Lumière de l'ennemi
     float _delaiCouleur = 0.3f; // Délai pour reajuster la couleur de l'ennemi
     SpriteRenderer _spriteRenderer; // Sprite de l'ennemi
     bool _estInvulnerable = false; // Indique si l'ennemi est invulnérable
@@ -35,6 +37,7 @@ public class Ennemi : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _lumiere = GetComponentInChildren<Light2D>();
     }
     // Start is called before the first frame update
     void Start()
@@ -42,12 +45,22 @@ public class Ennemi : MonoBehaviour
         _pointsDeVie = _pointsDeVieIni;
         _contenantBarreVie.SetActive(false);
         _barreVie.SetActive(false);
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        switch (_typePouvoirEnnemi)
+        {
+        case TypePouvoir.Poison:
+            _lumiere.color = new Color(0.302f, 0.55f, 0.34f);
+            break;
+        case TypePouvoir.Ombre:
+            _lumiere.color = new Color(0.2f, 0, 0.45f);
+            break;
+        case TypePouvoir.Foudre:
+            _lumiere.color = new Color(1, 0.6f, 0);
+            break;
+        default:
+            _lumiere.color = new Color(0.76f, 0.87f,0.89f);
+            break;
+        }
     }
     public void SubirDegats(int degats, TypePouvoir typePouvoir)
     {

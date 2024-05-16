@@ -10,6 +10,7 @@ public class ArmePerso : MonoBehaviour
     [SerializeField] SOPerso _donneesPerso; // Données du joueur
     [SerializeField] Vector3 _tailleJavelin = new Vector3(0.8f, 0.8f, 0.8f); // Taille de la javelin
     [SerializeField] Vector3 _tailleMarteau = new Vector3(1.2f, 1.2f, 1.2f); // Taille du marteau
+    [SerializeField] float _delaiAlpha = 0.05f; // Délai pour changer l'alpha de l'arme
     SOArme _armeEquipee; // Arme équipée par le joueur
     SpriteRenderer _spriteRenderer; // Sprite de l'arme
     Animator _animator; // Animator de l'arme
@@ -40,7 +41,7 @@ public class ArmePerso : MonoBehaviour
         _estLeger = estLeger;
         _armeEquipee = _tDonneesArmes[(int)typePouvoir];
         if(_armeEquipee == null) Debug.LogWarning("Arme non trouvée");
-
+        Coroutine coroutine = StartCoroutine(CoroutineChangerAlpha());
         switch(_armeEquipee.nom)
         {
             case "Javelin":
@@ -120,6 +121,17 @@ public class ArmePerso : MonoBehaviour
         _perso.PermettreAttaque();
         gameObject.SetActive(false);
         // Désactiver l'arme
+    }
+
+    IEnumerator CoroutineChangerAlpha()
+    {
+        float alpha = 0;
+        while(alpha < 1)
+        {
+            alpha += 0.2f;
+            _spriteRenderer.color = new Color(1, 1, 1, alpha);
+            yield return new WaitForSeconds(_delaiAlpha);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

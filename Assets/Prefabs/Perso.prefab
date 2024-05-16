@@ -479,6 +479,7 @@ MonoBehaviour:
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
   _tailleJavelin: {x: 0.75, y: 0.75, z: 0.75}
   _tailleMarteau: {x: 1.5, y: 1.5, z: 1.5}
+  _delaiAlpha: 0.05
 --- !u!61 &2308263315230612281
 BoxCollider2D:
   m_ObjectHideFlags: 0

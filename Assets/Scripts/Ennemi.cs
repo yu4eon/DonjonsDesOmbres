@@ -18,6 +18,10 @@ public class Ennemi : MonoBehaviour
     [SerializeField] Color _couleurEndommage = new Color(1, 0.6f, 0.6f); // Couleur de l'ennemi lorsqu'il est endommagé
     [SerializeField] GameObject _contenantBarreVie; // Contenant de la barre de vie de l'ennemi
     [SerializeField] GameObject _barreVie; // Barre de vie de l'ennemi
+    [SerializeField] Sprite[] _spritesDegats; // Sprites des particules lorsqu'il prend des dégats
+    ParticleSystem _particulesDegats; // Particules lorsqu'un ennemi prend des dégats
+    ParticleSystem.TextureSheetAnimationModule _textureSheet; // Module de texture des particules
+    ParticleSystem.MainModule _mainModule; // Module principal des particules
     Light2D _lumiere; // Lumière de l'ennemi
     float _delaiCouleur = 0.3f; // Délai pour reajuster la couleur de l'ennemi
     SpriteRenderer _spriteRenderer; // Sprite de l'ennemi
@@ -40,17 +44,16 @@ public class Ennemi : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _lumiere = GetComponentInChildren<Light2D>();
+        _particulesDegats = GetComponentInChildren<ParticleSystem>();
+        _textureSheet = _particulesDegats.textureSheetAnimation;
+        _mainModule = _particulesDegats.main;
     }
     // Start is called before the first frame update
     void Start()
-    {
-        
+    {   
+
 
         Initialiser();
-
-        
-
-        
     }
 
     void Initialiser()
@@ -86,6 +89,8 @@ public class Ennemi : MonoBehaviour
         _degatCritique = false;
         if(_estInvulnerable) return; // Si l'ennemi est invulnérable, ne fait rien
         Debug.Log("L'ennemi subit " + degats + " dégâts de type " + typePouvoir);
+
+
         if(typePouvoir == _typePouvoirEnnemi)
         {
             degats *= 2;
@@ -102,6 +107,10 @@ public class Ennemi : MonoBehaviour
         // {
         //     Debug.Log("Dégâts normaux");
         // }
+        _textureSheet.SetSprite(0, _spritesDegats[(int)typePouvoir]);
+        _particulesDegats.Play();
+
+        _mainModule.startSize = Mathf.Clamp(degats/50,0.2f, 0.6f);
         _estInvulnerable = true; // L'ennemi est invulnérable
         _spriteRenderer.color = _couleurEndommage; // Change la couleur de l'ennemi
         StartCoroutine(CoroutineReajusterCouleur()); // Réajuste la couleur de l'ennemi

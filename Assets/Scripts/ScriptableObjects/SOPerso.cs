@@ -23,21 +23,21 @@ public class SOPerso : ScriptableObject
     [SerializeField, Range(0, 100000)] int _scoreIni = 0; // Score du personnage #tp4 Leon
 
     [Header("Stats")]
-    [SerializeField] int baseAttaque = 10; // Attaque de base du personnage
-    int attaqueBonus = 0;
+    [SerializeField] int _baseAttaque = 10; // Attaque de base du personnage
+    int _attaqueBonus = 0;
     // Attaque du personnage en ajoutant l'attaque de base et l'attaque bonus  #synthese Leon
-    int _attaque => baseAttaque + attaqueBonus; 
+    int _attaque => _baseAttaque + _attaqueBonus; 
     public int attaque => _attaque; // Propriété pour accéder à l'attaque du personnage
 
     [SerializeField] int baseDefense = 10;  // Défense de base du personnage
-    int defenseBonus;
+    int _defenseBonus;
     // Défense du personnage en ajoutant la défense de base et la défense bonus  #synthese Leon
-    int _defense => baseDefense + defenseBonus;
+    int _defense => baseDefense + _defenseBonus;
     public int defense => _defense; // Propriété pour accéder à la défense du personnage
-    [SerializeField] int basePv = 100; // Points de vie de base du personnage
-    int pvBonus; // Points de vie bonus du personnage
+    [SerializeField] int _basePv = 100; // Points de vie de base du personnage
+    int _pvBonus; // Points de vie bonus du personnage
     // Points de vie du personnage en ajoutant les points de vie de base et les points de vie bonus  #synthese Leon
-    int _pvIni => basePv + pvBonus;
+    int _pvIni => _basePv + _pvBonus;
     public int pvIni => _pvIni; // Propriété pour accéder aux points de vie du personnage
     int _pv; // Points de vie actuels du personnage
     List<TypePouvoir> _pouvoirs = new List<TypePouvoir>(); // Liste des pouvoirs du personnage
@@ -115,13 +115,13 @@ public class SOPerso : ScriptableObject
         _lesObjets.Add(donneesObjet);
         AfficherInventaire();
         // Leon : J'ai changé les ifs pour que ça check le type d'objet au lieu du nom de l'objet
-        if (donneesObjet.typeObjet == TypeObjet.Attaque) attaqueBonus += 10; Debug.Log("Bonus attaque: " + attaqueBonus);
+        if (donneesObjet.typeObjet == TypeObjet.Attaque) _attaqueBonus += 10; Debug.Log("Bonus attaque: " + _attaqueBonus);
         if (donneesObjet.typeObjet == TypeObjet.DefensePV) //Si l'objet est de type DefensePV, ajoute 10 à la défense et aux points de vie
         {
-            defenseBonus += 10;
-            pvBonus += 50;
-            Debug.Log("Bonus defense: " + defenseBonus);
-            Debug.Log("Bonus pv: " + pvBonus);
+            _defenseBonus += 10;
+            _pvBonus += 50;
+            Debug.Log("Bonus defense: " + _defenseBonus);
+            Debug.Log("Bonus pv: " + _pvBonus);
         } 
         if (donneesObjet.typeObjet == TypeObjet.DoubleSaut) Perso.possedeDoublesSauts = true;
         if (donneesObjet.estAcheter == false) donneesObjet.estAcheter = true;
@@ -180,9 +180,9 @@ public class SOPerso : ScriptableObject
         }
         _pouvoirs.Clear(); //Vide la liste des pouvoirs 
         _lesObjets.Clear(); //Vide la liste des objets
-        attaqueBonus = 0; //Remet l'attaque à 0
-        defenseBonus = 0; //Remet la défense à 0
-        pvBonus = 0; //Remet les points de vie à 0
+        _attaqueBonus = 0; //Remet l'attaque à 0
+        _defenseBonus = 0; //Remet la défense à 0
+        _pvBonus = 0; //Remet les points de vie à 0
         Perso.possedeDoublesSauts = false; //Remet le double saut à false
     }
     /// <summary>

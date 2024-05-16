@@ -1,7 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph;
+// using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -62,6 +61,8 @@ public class Ennemi : MonoBehaviour
             _lumiere.color = new Color(0.76f, 0.87f,0.89f);
             break;
         }
+
+        
     }
     public void SubirDegats(int degats, TypePouvoir typePouvoir)
     {

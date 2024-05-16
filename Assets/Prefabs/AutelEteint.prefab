@@ -98,10 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df66d8b3013fc7c4e8aaf94acfc91c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pouvoir: 0
+  _pouvoir: 1
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
   _spriteEteint: {fileID: 1761666038227600469}
   _modeleRetro: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
+  _sonAutel: {fileID: 8300000, guid: d4f84975fd4452844b5336d04a015304, type: 3}
 --- !u!61 &8088950852853912576
 BoxCollider2D:
   m_ObjectHideFlags: 0

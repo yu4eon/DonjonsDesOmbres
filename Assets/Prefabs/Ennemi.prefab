@@ -185,6 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b703a59c2b6c54291839266f162e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sonEnnemi:
+  - {fileID: 8300000, guid: a7435a4d2c44a7e4c891cbc217e01640, type: 3}
+  - {fileID: 8300000, guid: dcbe1e85f7bf71648bac04afd9db59ea, type: 3}
   _typePouvoirEnnemi: 0
   _pointsDeVieIni: 150
   _valeurScore: 500
@@ -426,6 +429,22 @@ PrefabInstance:
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_Color.r
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalBounds.m_Center.x
+      value: -0.08059999
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalBounds.m_Center.y
+      value: -0.002849996
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.x
+      value: 0.66349995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.y
+      value: 1.48685
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -10,6 +10,7 @@ public class ArmePerso : MonoBehaviour
     [SerializeField] SOPerso _donneesPerso; // Données du joueur
     [SerializeField] Vector3 _tailleJavelin = new Vector3(0.8f, 0.8f, 0.8f); // Taille de la javelin
     [SerializeField] Vector3 _tailleMarteau = new Vector3(1.2f, 1.2f, 1.2f); // Taille du marteau
+    [SerializeField] AudioClip[] _tSons;
     SOArme _armeEquipee; // Arme équipée par le joueur
     SpriteRenderer _spriteRenderer; // Sprite de l'arme
     Animator _animator; // Animator de l'arme
@@ -41,10 +42,13 @@ public class ArmePerso : MonoBehaviour
         _armeEquipee = _tDonneesArmes[(int)typePouvoir];
         if(_armeEquipee == null) Debug.LogWarning("Arme non trouvée");
 
+
         switch(_armeEquipee.nom)
         {
             case "Javelin":
                 transform.localScale = _tailleJavelin;
+                SoundManager.instance.JouerEffetSonore(_tSons[1]);
+                SoundManager.instance.JouerEffetSonore(_tSons[4]);
                 if(_estGauche)
                 {
                     transform.localScale = new Vector3(-_tailleJavelin.x, _tailleJavelin.y, _tailleJavelin.z);
@@ -52,13 +56,26 @@ public class ArmePerso : MonoBehaviour
                 break;
             case "Marteau":
                 transform.localScale = _tailleMarteau;
+                SoundManager.instance.JouerEffetSonore(_tSons[0]);
+                SoundManager.instance.JouerEffetSonore(_tSons[4]);
                 if(_estGauche)
                 {
                     transform.localScale = new Vector3(-_tailleMarteau.x, _tailleMarteau.y, _tailleMarteau.z);
                 }
                 break;
+            case "Dague":
+                transform.localScale = new Vector3(1, 1, 1);
+                SoundManager.instance.JouerEffetSonore(_tSons[2]);
+                SoundManager.instance.JouerEffetSonore(_tSons[4]);
+                if(_estGauche)
+                {
+                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                }
+                break;
             default:
                 transform.localScale = new Vector3(1, 1, 1);
+                SoundManager.instance.JouerEffetSonore(_tSons[3]);
+                SoundManager.instance.JouerEffetSonore(_tSons[4]);
                 if(_estGauche)
                 {
                     transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -88,8 +105,8 @@ public class ArmePerso : MonoBehaviour
             // Debug.Log(transform.localPosition);
             transform.localPosition = new Vector3(-_positionInitiale.x, _positionInitiale.y, _positionInitiale.z);
             // _spriteRenderer.flipX = true;
-            transform.localScale = new Vector3(-1, 1, 1);
-            // transform.localScale = new Vector3(-Mathf.Abs(tailleActuelle.x), tailleActuelle.y, tailleActuelle.z);
+            // transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-Mathf.Abs(tailleActuelle.x), tailleActuelle.y, tailleActuelle.z);
         }
         else
         {
@@ -97,8 +114,8 @@ public class ArmePerso : MonoBehaviour
             // Debug.Log(transform.localPosition);
             transform.localPosition = _positionInitiale;
             // _spriteRenderer.flipX = false;
-            transform.localScale = new Vector3(1, 1, 1);
-            // transform.localScale = new Vector3(Mathf.Abs(tailleActuelle.x), tailleActuelle.y, tailleActuelle.z);
+            // transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(Mathf.Abs(tailleActuelle.x), tailleActuelle.y, tailleActuelle.z);
         }
     }
 

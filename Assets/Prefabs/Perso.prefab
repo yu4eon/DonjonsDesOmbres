@@ -141,6 +141,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 15befbb7111357948869a6490370e04b, type: 3}
   - {fileID: 8300000, guid: c5366fbc8e48a1749a9ad04faff4152a, type: 3}
   - {fileID: 8300000, guid: 2075a649e1d377f47b9302fb4a8c065c, type: 3}
+  - {fileID: 8300000, guid: 51577cd4510496e41854baa33eae59ab, type: 3}
+  - {fileID: 8300000, guid: fd56492cade23164fab8be17898e2e53, type: 3}
+  _sonElements:
+  - {fileID: 8300000, guid: 99b1cb3602c61dd4db41d3a8ccbd3dac, type: 3}
+  - {fileID: 8300000, guid: 315b9b0810bb6db499fe14e9cb1e6898, type: 3}
+  - {fileID: 8300000, guid: 75548d38c2d0f0b40b43bd4d5c052bd5, type: 3}
+  - {fileID: 8300000, guid: 6c94e1fc494721943a5308e0fea6a96b, type: 3}
   _vitesse: 10
   _forceSaut: 300
   _nbFramesMax: 10
@@ -479,6 +486,12 @@ MonoBehaviour:
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
   _tailleJavelin: {x: 0.75, y: 0.75, z: 0.75}
   _tailleMarteau: {x: 1.5, y: 1.5, z: 1.5}
+  _tSons:
+  - {fileID: 8300000, guid: a1778aaeafd943a4ea1fe9ce54192d04, type: 3}
+  - {fileID: 8300000, guid: bd0f2d97a20974f4fad21d5620119448, type: 3}
+  - {fileID: 8300000, guid: b7bb0368d8e223c4986e028416c59a10, type: 3}
+  - {fileID: 8300000, guid: f5d1288164eb46d42a324b2fdaef0e02, type: 3}
+  - {fileID: 8300000, guid: 368e715eb377e84418ec1cc66e169529, type: 3}
 --- !u!61 &2308263315230612281
 BoxCollider2D:
   m_ObjectHideFlags: 0

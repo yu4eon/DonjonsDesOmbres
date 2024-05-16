@@ -9,7 +9,7 @@ using UnityEngine;
 /// classe qui gère l'effector de vitesse, qui est actif en tout temps
 public class EffectorVitesse : MonoBehaviour
 {
-
+    [SerializeField] AudioClip _sonEffector;
     /// <summary>
     /// Simplement, lorsque le joueur entre en collision avec l'effector, on augmente sa vitesse.
     /// </summary>
@@ -18,6 +18,7 @@ public class EffectorVitesse : MonoBehaviour
     {
         if(other.CompareTag("Player") )
         {
+            SoundManager.instance.JouerEffetSonore(_sonEffector);
             other.GetComponent<Perso>().AugmenterVitesse();
         }
 

@@ -8,6 +8,7 @@ using UnityEngine.Rendering.Universal;
 
 public class Ennemi : MonoBehaviour
 {
+    [SerializeField] AudioClip[] _sonEnnemi; // Sons de l'ennemi
     [SerializeField] TypePouvoir _typePouvoirEnnemi; // Type de pouvoir de l'ennemi
     [SerializeField] int _pointsDeVieIni = 100; // Points de vie initial de l'ennemi
     int _pointsDeVie; // Points de vie actuels de l'ennemi

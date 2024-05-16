@@ -15,6 +15,7 @@ public class Autels : MonoBehaviour
     [SerializeField] SOPerso _donneesPerso; // ScriptableObject contenant les données du personnage.
     [SerializeField] SpriteRenderer _spriteEteint; // SpriteRenderer de l'autel lorsqu'il est éteint.
     [SerializeField] Retroaction _modeleRetro; // Modèle de rétroaction pour l'autel.
+    [SerializeField] AudioClip _sonAutel;
     Light2D _lumiere; // Référence à la lumière de l'autel #tp4 Leon
     SpriteRenderer sr; // Composant SpriteRenderer de l'autel.
     ParticleSystem ps; // Système de particules de l'autel.
@@ -56,6 +57,7 @@ public class Autels : MonoBehaviour
     {
         if(collision.CompareTag("Player") && estActif)
         {
+            SoundManager.instance.JouerEffetSonore(_sonAutel);
             Debug.Log("Element : " + _pouvoir); // Affiche l'élément de l'autel.
             _donneesPerso.AjouterPouvoir(_pouvoir); // Ajoute le pouvoir de l'autel au personnage.
             _donneesPerso.evenementMiseAJour.Invoke(); // Déclenche l'événement de mise à jour des données du personnage. #tp4 Leon

@@ -467,7 +467,7 @@ MonoBehaviour:
   _champTemps: {fileID: 1491215341735202058}
   _champScore: {fileID: 6947502825338029957}
   _champArgent: {fileID: 8892986210201809761}
-  _barreVie: {fileID: 6136743667524938171}
+  _barreVie: {fileID: 1666698988426048624}
   _tCrystalsPouvoir:
   - {fileID: 1001305483409229443}
   - {fileID: 763840766749331965}
@@ -1879,16 +1879,16 @@ RectTransform:
   m_GameObject: {fileID: 9203337976510973937}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.88467693, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5980544699149817388}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -7.199894}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: -0.99998856, y: -7.2000475}
   m_SizeDelta: {x: 72, y: 72}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &8771831850541333854
 CanvasRenderer:
   m_ObjectHideFlags: 0

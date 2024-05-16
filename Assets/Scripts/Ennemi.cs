@@ -1,7 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph;
+using Unity.Mathematics;
+
+// using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -11,6 +12,7 @@ public class Ennemi : MonoBehaviour
     [SerializeField] int _pointsDeVieIni = 100; // Points de vie initial de l'ennemi
     int _pointsDeVie; // Points de vie actuels de l'ennemi
     [SerializeField] int _valeurScore = 500; // Score donné par l'ennemi
+    [SerializeField] int _degatsInfliges = 20; // Dégâts infligés par l'ennemi
     [SerializeField] Retroaction _retroModele; // Modèle de rétroaction lorsque l'ennemi prend des dégats
     [SerializeField] SOPerso _donneesPerso; // Données du joueur
     [SerializeField] Color _couleurEndommage = new Color(1, 0.6f, 0.6f); // Couleur de l'ennemi lorsqu'il est endommagé
@@ -42,6 +44,19 @@ public class Ennemi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+
+        Initialiser();
+
+        
+
+        
+    }
+
+    void Initialiser()
+    {
+        _pointsDeVieIni = Mathf.FloorToInt((float)_pointsDeVieIni + ((float)_donneesPerso.niveau/4 * (float)_pointsDeVieIni));
+        Debug.Log("Points de vie de l'ennemi : " + _pointsDeVieIni);
         _pointsDeVie = _pointsDeVieIni;
         _contenantBarreVie.SetActive(false);
         _barreVie.SetActive(false);
@@ -61,6 +76,8 @@ public class Ennemi : MonoBehaviour
             _lumiere.color = new Color(0.76f, 0.87f,0.89f);
             break;
         }
+
+
     }
     public void SubirDegats(int degats, TypePouvoir typePouvoir)
     {
@@ -138,7 +155,7 @@ public class Ennemi : MonoBehaviour
         {
             Debug.Log("Collision avec le joueur");
             Perso perso = other.gameObject.GetComponent<Perso>();
-            
+            perso.SubirDegats(_degatsInfliges);
         }
     }
 }

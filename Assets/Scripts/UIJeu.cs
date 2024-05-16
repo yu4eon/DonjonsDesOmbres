@@ -18,7 +18,7 @@ public class UIJeu : MonoBehaviour
     [SerializeField] TextMeshProUGUI _champTemps; // Champ de texte pour le temps de jeu
     [SerializeField] TextMeshProUGUI _champScore; // Champ de texte pour le score du personnage
     [SerializeField] TextMeshProUGUI _champArgent; // Champ de texte pour l'argent du personnage
-    [SerializeField] Image _barreVie; // Barre de vie du personnage (non utilisée)
+    [SerializeField] RectTransform _barreVie; // Barre de vie du personnage
     [SerializeField] Image[] _tCrystalsPouvoir; // Tableau d'images pour les cristaux de pouvoir
     [SerializeField] ParticleSystem[] _tParticulesPouvoir; // Particules de pouvoir
     Dictionary<TypePouvoir, Image> _dCrystalsPouvoir = new Dictionary<TypePouvoir, Image>(); // Dictionnaire de cristaux de pouvoir
@@ -28,6 +28,7 @@ public class UIJeu : MonoBehaviour
     Color _couleurCrystalInactif = new Color(0.7f, 0.7f, 0.7f); // Couleur des cristaux inactifs
     static UIJeu _instance; // Instance statique de l'interface du jeu
     static public UIJeu instance => _instance; // Propriété publique pour accéder à l'instance de l'interface du jeu
+
 
 
 
@@ -91,6 +92,12 @@ public class UIJeu : MonoBehaviour
     {
         _champScore.text = _donneesPerso.score + "";
         _champArgent.text = _donneesPerso.argent + " Or";
+
+
+        float fractionVie;
+        fractionVie = (float)_donneesPerso.pv / (float)_donneesPerso.pvIni;
+        // Debug.Log("Fraction de vie : " + fractionVie);
+        _barreVie.localScale = new Vector3(fractionVie, _barreVie.localScale.y, 1);
 
         //Mettre à jour les cristaux de pouvoir
         foreach (KeyValuePair<TypePouvoir, Image> entry in _dCrystalsPouvoir)

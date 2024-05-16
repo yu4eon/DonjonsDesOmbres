@@ -169,9 +169,10 @@ MonoBehaviour:
   - {fileID: 6653470305252310338, guid: c0280baa08d7bee448843017177b1be7, type: 3}
   - {fileID: 5721592000770606963, guid: 7da8f70ca474bfa4faceb882f8a99732, type: 3}
   - {fileID: 7228857694764231008, guid: e1cb443b124393a4cb165ca407d493c2, type: 3}
+  _modeleRetro: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
+  _donneesNavigation: {fileID: 11400000, guid: 7bfae785291759145a074c72fef7cad2, type: 2}
   _dashForce: 24
   _delaiAttaque: 0.1
-  _donneesNavigation: {fileID: 11400000, guid: 7bfae785291759145a074c72fef7cad2, type: 2}
 --- !u!114 &819095134103182047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,6 +477,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa33ca96d9de85e46a5b0a4db2d90f32, type: 2}
   - {fileID: 11400000, guid: f33d05d0130381647871b84d5a02d499, type: 2}
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
+  _tailleJavelin: {x: 0.75, y: 0.75, z: 0.75}
+  _tailleMarteau: {x: 1.5, y: 1.5, z: 1.5}
 --- !u!61 &2308263315230612281
 BoxCollider2D:
   m_ObjectHideFlags: 0

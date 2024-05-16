@@ -41,6 +41,7 @@ public class Niveau : MonoBehaviour
     [SerializeField, Range(0, 20)] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     [SerializeField, Range(40, 200)] int _limiteTemps = 120; // Limite de temps pour le niveau. #synthese Léon
     int _temps; // Temps écoulé dans le niveau. #synthese Léon
+    public int temps => _temps; // Propriété publique pour accéder au temps écoulé. #synthese Léon
 
     List<Vector2Int> _lesPosLibres = new List<Vector2Int>(); // Liste des positions libres dans le niveau. #tp3 Léon 
     List<Vector2Int> _lesPosSurReperes = new List<Vector2Int>(); // Liste des positions sur les repères. #tp3 Léon
@@ -260,7 +261,7 @@ public class Niveau : MonoBehaviour
     {
         Transform contenant = transform; // GameObject parent des items
         Niveau niveau = GetComponent<Niveau>(); // Récupérer le composant Niveau
-
+        
         // Placer le personnage.
         Vector2Int posPerso = ObtenirPosLibre(); // Obtenir une position libre aléatoire.
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertir la position en Vector3.

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3efbc997c07ddf04aaa7dbfba2910fa7, type: 3}
   m_Name: Perso
   m_EditorClassIdentifier: 
-  _niveau: 1
-  _argent: 100
-  _score: 1000
+  _niveau: 3
+  _argent: 440
+  _score: 640
   _niveauIni: 1
-  _argentIni: 100
-  _scoreIni: 1000
+  _argentIni: 0
+  _scoreIni: 0
   baseAttaque: 10
   baseDefense: 10
-  basePv: 10
+  basePv: 100

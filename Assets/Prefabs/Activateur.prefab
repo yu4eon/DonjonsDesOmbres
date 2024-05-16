@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sActif: {fileID: 588868666, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
   _sInactif: {fileID: -1030684043, guid: d482da7edbd2648419cb87d0efba2e88, type: 3}
+  _modeleRetro: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
 --- !u!1001 &2704845139088452212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156,7 +157,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
       propertyPath: m_LocalBounds.m_Center.x
-      value: -0.0229
+      value: -0.022500008
       objectReference: {fileID: 0}
     - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
       propertyPath: m_LocalBounds.m_Center.y
@@ -164,11 +165,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
       propertyPath: m_LocalBounds.m_Extent.x
-      value: 0.4846
+      value: 0.4844
       objectReference: {fileID: 0}
     - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
       propertyPath: m_LocalBounds.m_Extent.y
-      value: 0.6538
+      value: 0.6533
       objectReference: {fileID: 0}
     - target: {fileID: 3007316795788252910, guid: 67431084edef6ab4ead3a75cd8796322, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size

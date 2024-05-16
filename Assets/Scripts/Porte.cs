@@ -56,6 +56,8 @@ public class Porte : MonoBehaviour
         if (aCle && other.CompareTag("Player")) // Si la clé a été trouvée et le joueur entre en collision avec la porte
         {
             SceneBonus();
+            Perso perso = other.GetComponent<Perso>();
+            perso.DesactiverInputs();
             _sr.sprite = _sprites[1]; // Changement du sprite de la porte (ouverte)
             _lumiere.SetActive(true); // Active la lumière de la porte #tp4 Leon
             // Coroutine _coroutine = StartCoroutine(ChangerScene()); // Appel de la coroutine pour changer de scène après un délai
@@ -82,15 +84,7 @@ public class Porte : MonoBehaviour
 
         Niveau.instance.ArreterCoroutine(); // Arrête la coroutine du niveau
 
-        // Récupère le deuxième enfant du GameObject 'panneauBonus'.
-        Transform deuxiemeEnfant = panneauBonus.transform.GetChild(1);
-        // Ajoute du texte au composant TextMeshProUGUI du deuxième enfant.
-        deuxiemeEnfant.GetComponent<TextMeshProUGUI>().text += "  10000000 points!";
-
-        // Récupère le troisième enfant du GameObject 'panneauBonus'.
-        Transform troisiemeEnfant = panneauBonus.transform.GetChild(2);
-        // Ajoute du texte au composant TextMeshProUGUI du troisième enfant.
-        troisiemeEnfant.GetComponent<TextMeshProUGUI>().text += "  500000 de plus!";
+        panneauBonus.GetComponent<PanneauBonus>().CalculerPoints(); // Appelle la fonction 'CalculerPoints' du script 'PanneauBonus'
 
         // Désactive tous les objets enfants de 'panneauJoueur'.
         foreach (var item in panneauJoueur)

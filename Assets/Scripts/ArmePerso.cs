@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class ArmePerso : MonoBehaviour
 {
     [SerializeField] SOArme[] _tDonneesArmes; // Tableau des données des armes
     [SerializeField] SOPerso _donneesPerso; // Données du joueur
-    // int _indexPouvoir; // Index du pouvoir
+    [SerializeField] Vector3 _tailleJavelin = new Vector3(0.75f, 0.75f, 0.75f); // Taille de la javelin
+    [SerializeField] Vector3 _tailleMarteau = new Vector3(1.2f, 1.2f, 1.2f); // Taille du marteau
     SOArme _armeEquipee; // Arme équipée par le joueur
     SpriteRenderer _spriteRenderer; // Sprite de l'arme
     Animator _animator; // Animator de l'arme
@@ -36,7 +38,20 @@ public class ArmePerso : MonoBehaviour
 
         _estLeger = estLeger;
         _armeEquipee = _tDonneesArmes[(int)typePouvoir];
+        if(_armeEquipee == null) Debug.LogWarning("Arme non trouvée");
 
+        // switch(_armeEquipee.nom)
+        // {
+        //     case "Javelin":
+        //         transform.localScale = _tailleJavelin;
+        //         break;
+        //     case "Marteau":
+        //         transform.localScale = _tailleMarteau;
+        //         break;
+        //     default:
+        //         transform.localScale = new Vector3(1, 1, 1);
+        //         break;
+        // }
 
         // Jouer animation de l'arme
         string nomAnimation = _armeEquipee.nom;
@@ -53,17 +68,22 @@ public class ArmePerso : MonoBehaviour
     {
         // Debug.Log(_armeEquipee.nom);
         // Debug.Log("Changer direction " + _estGauche);
+        Vector3 tailleActuelle = transform.localScale;
         if (_estGauche)
         {
             // Debug.Log(transform.localPosition);
             transform.localPosition = new Vector3(-_positionInitiale.x, _positionInitiale.y, _positionInitiale.z);
+            // _spriteRenderer.flipX = true;
             transform.localScale = new Vector3(-1, 1, 1);
+            // transform.localScale = new Vector3(-Mathf.Abs(tailleActuelle.x), tailleActuelle.y, tailleActuelle.z);
         }
         else
         {
             // Debug.Log(transform.localPosition);
             transform.localPosition = _positionInitiale;
+            // _spriteRenderer.flipX = false;
             transform.localScale = new Vector3(1, 1, 1);
+            // transform.localScale = new Vector3(Mathf.Abs(tailleActuelle.x), tailleActuelle.y, tailleActuelle.z);
         }
     }
 
@@ -95,8 +115,9 @@ public class ArmePerso : MonoBehaviour
         if (other.GetComponent<Ennemi>() != null)
         {
             // Debug.Log(_armeEquipee.nom);
-            Debug.Log(_armeEquipee.nom);
-            Debug.Log("Collision avec ennemi");
+            // Debug.Log(_armeEquipee.nom);
+            // Debug.Log("Collision avec ennemi");
+            Debug.Log(_donneesPerso.attaque);
             Ennemi ennemi = other.GetComponent<Ennemi>();
             float degatInfligee = _armeEquipee.degats * _donneesPerso.attaque;
             if(!_estLeger) degatInfligee *= 2;

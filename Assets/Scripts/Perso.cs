@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Linq.Expressions;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,6 +31,8 @@ public class Perso : DetecteurSol
     // vv Apparament, tu ne peux pas acceder au module renderer a partir du particle system vv
     [SerializeField] ParticleSystemRenderer _renderModule; // Module de rendu des particules pour la particule de course #tp3 Leon
     [SerializeField] ParticleSystem[] _particulesPouvoirs; // Particules des pouvoirs #tp3 Leon
+    [SerializeField] Retroaction _modeleRetro; // Modèle de rétroaction #synthese Leon
+    [SerializeField] SONavigation _donneesNavigation; // Référence à la navigation du personnage #tp4 Leon
     UIJeu _uiJeu; // Référence à l'UI du jeu #synthese Leon
     ParticleSystem _particulePouvoirActuelle; // Particule du pouvoir actuel #tp3 Leon
     ParticleSystem.MinMaxCurve _startSizeInitial; // Taille des particules initiale #tp3 Leon
@@ -40,6 +44,7 @@ public class Perso : DetecteurSol
     bool _peutDoubleSauter = false; // Si le joueur peut faire un double saut.
     bool _auDeuxiemeSaut; // Si le joueur est au deuxième saut.
     bool _estRapide; // Si le joueur est rapide #tp3 Leon
+    bool _estInvincible; // Si le joueur est invincible #synthese Leon
 
     bool _peutDash = true; // Si le joueur peut faire un dash #synthese Antoine
     bool _estEntrainDeDasher;
@@ -49,7 +54,7 @@ public class Perso : DetecteurSol
     float _dashDelai;
     bool _veutDasher = false;
     TrailRenderer _tr;
-    bool _estInvincible = false;
+    // bool _estInvincible = false;
 
     [Header("Attaque")]
     TypePouvoir _pouvoirActuel; // Pouvoir actuel du joueur #synthese Leon
@@ -57,12 +62,15 @@ public class Perso : DetecteurSol
     bool _estEnAttaqueLourd; // Si le joueur est en train d'attaquer #synthese Leon
     [SerializeField] float _delaiAttaque = 0.1f; // Delai avant d'instancier l'arme #synthese Leon
     ArmePerso _arme; // Référence à l'arme du personnage #synthese Leon
-
+    
+    int _LayerInvincibilite;
+    int _LayerDefault;
 
 
     Rigidbody2D _rb; // Rigidbody du personnage.
     SpriteRenderer _sr; // SpriteRenderer du personnage.
     Animator _animator; // Animator du personnage. #tp3 Leon
+    PlayerInput _playerInput; // Input du joueur.
 
     /// <summary>
     /// Méthode qui est appelée lorsque le script est chargé.
@@ -72,16 +80,24 @@ public class Perso : DetecteurSol
         _rb = GetComponent<Rigidbody2D>(); // Obtient le Rigidbody du personnage.
         _sr = GetComponent<SpriteRenderer>(); // Obtient le SpriteRenderer du personnage.
         _tr = GetComponent<TrailRenderer>();
+        _playerInput = GetComponent<PlayerInput>(); // Obtient l'Input du joueur.
         //#tp3 Leon
         _animator = GetComponent<Animator>(); // Obtient l'Animator du personnage. 
         _vitesseInitial = _vitesse; // Sauvegarde la vitesse initiale du personnage.
         _mainModule = _particuleCourse.main; // Obtient le module principal de la particule de course.
         _startSizeInitial = _mainModule.startSize; // Sauvegarde la taille initiale des particules.
+
+        _LayerInvincibilite = LayerMask.NameToLayer("JoueurInvincible");
+        _LayerDefault = LayerMask.NameToLayer("Joueur");
     }
 
     void Start()
     {
         _arme = GetComponentInChildren<ArmePerso>(); // Obtient l'arme du personnage
+        _donnees.InitialiserVie(); // Initialise les données du personnage
+        UIJeu.instance.MettreAJourInfo(); // Initialise les points de vie dans l'UI #synthese Leon
+        Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite(2f));
+        Debug.Log("Vie du personnage : " + _donnees.pv);
         // _arme.gameObject.SetActive(false); // Désactive l'arme du personnage
     }
 
@@ -90,10 +106,6 @@ public class Perso : DetecteurSol
     /// </summary>
     override protected void FixedUpdate()
     {
-        if (_donnees.pv <= _donnees.pv)
-        {
-            SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, true);
-        }
         if (_estEntrainDeDasher)
         {
             return;
@@ -179,9 +191,6 @@ public class Perso : DetecteurSol
 
     }
 
-
-    [SerializeField] SONavigation _donneesNavigation; //à enlever plus tard
-
     /// <summary>
     /// Méthode temporaire à enlever pour la remise
     /// Permet de skipper le niveau, pour tester
@@ -246,10 +255,12 @@ public class Perso : DetecteurSol
             _tr.emitting = true;
             _rb.gravityScale = 0;
             _rb.velocity = new Vector2(_direction * _dashForce, 0f);
-            _estInvincible = true;
+            // _estInvincible = true;
+            Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibiliteDash());
+
             yield return new WaitForSeconds(_tDash);
             _rb.gravityScale = graviteBase;
-            _estInvincible = false;
+            // _estInvincible = false;
             _estEntrainDeDasher = false;
             _tr.emitting = false;
             _rb.velocity = Vector2.zero;
@@ -473,10 +484,59 @@ public class Perso : DetecteurSol
         SoundManager.instance.JouerEffetSonore(_sonPerso[index]); // Joue le son correspondant à l'index passé en paramè
     }
 
-
-    void OnTestSons()
+    public void SubirDegats(int degats)
     {
-        Debug.Log("Test de sons: ");
-        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, false);
+        int degatsFinaux = Mathf.Clamp((degats - (degats * _donnees.defense / 100)), 1, int.MaxValue);
+        Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity, transform.parent);
+        retro.ChangerTexte("-" + degatsFinaux, "#FF3535");
+        _donnees.pv -= degatsFinaux;
+        UIJeu.instance.MettreAJourInfo();
+        Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite());
+        Debug.Log("Points de vie restants : " + _donnees.pv);
+        if(_donnees.pv <= 0)
+        {
+            Debug.Log("Le joueur est mort");
+            Mourir();
+        }
+    }
+
+    IEnumerator CoroutineAjusterInvincibiliteDash(float duree = 0.5f)
+    {
+        gameObject.layer = _LayerInvincibilite;
+        _estInvincible = true;
+        yield return new WaitForSeconds(duree);
+        _estInvincible = false;
+        gameObject.layer = _LayerDefault;
+
+    }
+    IEnumerator CoroutineAjusterInvincibilite(float duree = 1f)
+    {
+        gameObject.layer = _LayerInvincibilite;
+        _estInvincible = true;
+        Coroutine coroutine = StartCoroutine(CoroutineChangerCouleur());
+        yield return new WaitForSeconds(duree);
+        _estInvincible = false;
+        gameObject.layer = _LayerDefault;
+        
+    }
+
+    IEnumerator CoroutineChangerCouleur()
+    {
+        while(_estInvincible)
+        {
+        yield return new WaitForSeconds(0.1f);
+        _sr.enabled = !_sr.enabled;
+        }
+        _sr.enabled = true;
+    }
+
+    void Mourir()
+    {
+        _donneesNavigation.AllerSceneTableauHonneur();
+    }
+
+    public void DesactiverInputs()
+    {
+        _playerInput.actions.Disable();
     }
 }

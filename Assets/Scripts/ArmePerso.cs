@@ -7,7 +7,6 @@ public class ArmePerso : MonoBehaviour
 {
     [SerializeField] SOArme[] _tDonneesArmes; // Tableau des données des armes
     [SerializeField] SOPerso _donneesPerso; // Données du joueur
-    // int _indexPouvoir; // Index du pouvoir
     SOArme _armeEquipee; // Arme équipée par le joueur
     SpriteRenderer _spriteRenderer; // Sprite de l'arme
     Animator _animator; // Animator de l'arme

@@ -260,7 +260,7 @@ public class Niveau : MonoBehaviour
     {
         Transform contenant = transform; // GameObject parent des items
         Niveau niveau = GetComponent<Niveau>(); // Récupérer le composant Niveau
-
+        
         // Placer le personnage.
         Vector2Int posPerso = ObtenirPosLibre(); // Obtenir une position libre aléatoire.
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertir la position en Vector3.

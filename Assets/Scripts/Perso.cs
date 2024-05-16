@@ -29,6 +29,7 @@ public class Perso : DetecteurSol
     // vv Apparament, tu ne peux pas acceder au module renderer a partir du particle system vv
     [SerializeField] ParticleSystemRenderer _renderModule; // Module de rendu des particules pour la particule de course #tp3 Leon
     [SerializeField] ParticleSystem[] _particulesPouvoirs; // Particules des pouvoirs #tp3 Leon
+    [SerializeField] Retroaction _modeleRetro; // Modèle de rétroaction #synthese Leon
     UIJeu _uiJeu; // Référence à l'UI du jeu #synthese Leon
     ParticleSystem _particulePouvoirActuelle; // Particule du pouvoir actuel #tp3 Leon
     ParticleSystem.MinMaxCurve _startSizeInitial; // Taille des particules initiale #tp3 Leon
@@ -40,6 +41,7 @@ public class Perso : DetecteurSol
     bool _peutDoubleSauter = false; // Si le joueur peut faire un double saut.
     bool _auDeuxiemeSaut; // Si le joueur est au deuxième saut.
     bool _estRapide; // Si le joueur est rapide #tp3 Leon
+    bool _estInvinicible; // Si le joueur est invincible #synthese Leon
 
     bool _peutDash = true; // Si le joueur peut faire un dash #synthese Antoine
     bool _estEntrainDeDasher;
@@ -56,7 +58,9 @@ public class Perso : DetecteurSol
     bool _estEnAttaqueLourd; // Si le joueur est en train d'attaquer #synthese Leon
     [SerializeField] float _delaiAttaque = 0.1f; // Delai avant d'instancier l'arme #synthese Leon
     ArmePerso _arme; // Référence à l'arme du personnage #synthese Leon
-
+    
+    int _LayerInvincibilite;
+    int _LayerDefault;
 
 
     Rigidbody2D _rb; // Rigidbody du personnage.
@@ -76,11 +80,16 @@ public class Perso : DetecteurSol
         _vitesseInitial = _vitesse; // Sauvegarde la vitesse initiale du personnage.
         _mainModule = _particuleCourse.main; // Obtient le module principal de la particule de course.
         _startSizeInitial = _mainModule.startSize; // Sauvegarde la taille initiale des particules.
+
+        _LayerInvincibilite = LayerMask.NameToLayer("JoueurInvincible");
+        _LayerDefault = LayerMask.NameToLayer("Joueur");
     }
 
     void Start()
     {
         _arme = GetComponentInChildren<ArmePerso>(); // Obtient l'arme du personnage
+        _donnees.InitialiserVie(); // Initialise les données du personnage
+        Debug.Log("Vie du personnage : " + _donnees.pv);
         // _arme.gameObject.SetActive(false); // Désactive l'arme du personnage
     }
 
@@ -466,6 +475,43 @@ public class Perso : DetecteurSol
     public void SubirDegats(int degats)
     {
         int degatsFinaux = degats - (degats * _donnees.defense / 100);
+        Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity, transform.parent);
+        retro.ChangerTexte("-" + degatsFinaux, "#FF3535");
+        _donnees.pv -= degatsFinaux;
+        UIJeu.instance.MettreAJourInfo();
+        Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite());
+        Debug.Log("Points de vie restants : " + _donnees.pv);
+        if(_donnees.pv <= 0)
+        {
+            Debug.Log("Le joueur est mort");
+            Mourir();
+        }
+    }
 
+    IEnumerator CoroutineAjusterInvincibilite()
+    {
+        gameObject.layer = _LayerInvincibilite;
+        _estInvinicible = true;
+        Coroutine coroutine = StartCoroutine(CoroutineChangerCouleur());
+        yield return new WaitForSeconds(1);
+        _estInvinicible = false;
+        // StopCoroutine(coroutine);
+        gameObject.layer = _LayerDefault;
+        
+    }
+
+    IEnumerator CoroutineChangerCouleur()
+    {
+        while(_estInvinicible)
+        {
+        yield return new WaitForSeconds(0.1f);
+        _sr.enabled = !_sr.enabled;
+        }
+        _sr.enabled = true;
+    }
+
+    void Mourir()
+    {
+        _donneesNavigation.AllerSceneTableauHonneur();
     }
 }

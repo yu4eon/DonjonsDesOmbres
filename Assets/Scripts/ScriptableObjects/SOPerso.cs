@@ -37,10 +37,21 @@ public class SOPerso : ScriptableObject
     [SerializeField] int basePv = 100; // Points de vie de base du personnage
     int pvBonus; // Points de vie bonus du personnage
     // Points de vie du personnage en ajoutant les points de vie de base et les points de vie bonus  #synthese Leon
-    int _pv => basePv + pvBonus;
-    public int pv => _pv; // Propriété pour accéder aux points de vie du personnage
+    int _pvIni => basePv + pvBonus;
+    public int pvIni => _pvIni; // Propriété pour accéder aux points de vie du personnage
+    int _pv; // Points de vie actuels du personnage
     List<TypePouvoir> _pouvoirs = new List<TypePouvoir>(); // Liste des pouvoirs du personnage
     public List<TypePouvoir> pouvoirs => _pouvoirs; // Propriété pour accéder à la liste des pouvoirs du personnage
+
+    public int pv // Propriété pour accéder et modifier les points de vie du personnage
+    {
+        get => _pv;
+        set
+        {
+            _pv = Mathf.Clamp(value, 0, pvIni);
+            _evenementMiseAJour.Invoke(); // Appelle l'événement de mise à jour
+        }
+    }
 
     public int niveau // Propriété pour accéder et modifier le niveau du personnage
     {
@@ -84,7 +95,13 @@ public class SOPerso : ScriptableObject
         _argent = _argentIni;
         _score = _scoreIni; //Initialise le score à sa valeur initiale #tp4 Leon
         ViderInventaire();
+        InitialiserVie();
         // Reset tout les variable des SOObjet estAcheter à false
+    }
+
+    public void InitialiserVie()
+    {
+        _pv = _pvIni;
     }
 
     /// <summary>

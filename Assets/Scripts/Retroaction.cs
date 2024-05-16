@@ -30,7 +30,7 @@ public class Retroaction : MonoBehaviour
         transform.localScale = transform.localScale * taille;
         _champ.text = texte;
         ColorUtility.TryParseHtmlString(couleur, out Color couleurTexte);
-        Debug.Log(couleurTexte);
+        // Debug.Log(couleurTexte);
         _champ.color = new Color(couleurTexte.r, couleurTexte.g, couleurTexte.b, 1);
         // _champ.color = hexToColor(couleur);
     }

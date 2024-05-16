@@ -13,13 +13,22 @@ MonoBehaviour:
   m_Name: Sauvegarde
   m_EditorClassIdentifier: 
   _lesJoueursScores:
-  - joueur: Stev4
-    score: 7000
-    estJoueurActuelle: 0
-  - joueur: Bobette
-    score: 6260
-    estJoueurActuelle: 0
   - joueur: Steve
     score: 3222
+    estJoueurActuelle: 0
+  - joueur: Bob
+    score: 2000
+    estJoueurActuelle: 0
+  - joueur: Steve
+    score: 1820
+    estJoueurActuelle: 0
+  - joueur: Antoine
+    score: 1000
+    estJoueurActuelle: 0
+  - joueur: Steve
+    score: 1000
+    estJoueurActuelle: 0
+  - joueur: Robert
+    score: 1000
     estJoueurActuelle: 0
   _fichier: sauvegarde.TIM

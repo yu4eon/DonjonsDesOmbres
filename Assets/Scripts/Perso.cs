@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Linq.Expressions;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -68,6 +70,7 @@ public class Perso : DetecteurSol
     Rigidbody2D _rb; // Rigidbody du personnage.
     SpriteRenderer _sr; // SpriteRenderer du personnage.
     Animator _animator; // Animator du personnage. #tp3 Leon
+    PlayerInput _playerInput; // Input du joueur.
 
     /// <summary>
     /// Méthode qui est appelée lorsque le script est chargé.
@@ -77,6 +80,7 @@ public class Perso : DetecteurSol
         _rb = GetComponent<Rigidbody2D>(); // Obtient le Rigidbody du personnage.
         _sr = GetComponent<SpriteRenderer>(); // Obtient le SpriteRenderer du personnage.
         _tr = GetComponent<TrailRenderer>();
+        _playerInput = GetComponent<PlayerInput>(); // Obtient l'Input du joueur.
         //#tp3 Leon
         _animator = GetComponent<Animator>(); // Obtient l'Animator du personnage. 
         _vitesseInitial = _vitesse; // Sauvegarde la vitesse initiale du personnage.
@@ -482,7 +486,7 @@ public class Perso : DetecteurSol
 
     public void SubirDegats(int degats)
     {
-        int degatsFinaux = degats - (degats * _donnees.defense / 100);
+        int degatsFinaux = Mathf.Clamp((degats - (degats * _donnees.defense / 100)), 1, int.MaxValue);
         Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity, transform.parent);
         retro.ChangerTexte("-" + degatsFinaux, "#FF3535");
         _donnees.pv -= degatsFinaux;
@@ -529,5 +533,10 @@ public class Perso : DetecteurSol
     void Mourir()
     {
         _donneesNavigation.AllerSceneTableauHonneur();
+    }
+
+    public void DesactiverInputs()
+    {
+        _playerInput.actions.Disable();
     }
 }

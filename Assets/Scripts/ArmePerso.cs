@@ -73,6 +73,7 @@ public class ArmePerso : MonoBehaviour
         {
             // Debug.Log(transform.localPosition);
             transform.localPosition = new Vector3(-_positionInitiale.x, _positionInitiale.y, _positionInitiale.z);
+            // _spriteRenderer.flipX = true;
             transform.localScale = new Vector3(-1, 1, 1);
             // transform.localScale = new Vector3(-Mathf.Abs(tailleActuelle.x), tailleActuelle.y, tailleActuelle.z);
         }
@@ -80,6 +81,7 @@ public class ArmePerso : MonoBehaviour
         {
             // Debug.Log(transform.localPosition);
             transform.localPosition = _positionInitiale;
+            // _spriteRenderer.flipX = false;
             transform.localScale = new Vector3(1, 1, 1);
             // transform.localScale = new Vector3(Mathf.Abs(tailleActuelle.x), tailleActuelle.y, tailleActuelle.z);
         }

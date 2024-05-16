@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+
 // using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -53,7 +55,8 @@ public class Ennemi : MonoBehaviour
 
     void Initialiser()
     {
-        _pointsDeVieIni = _pointsDeVieIni + (_donneesPerso.niveau/4 * _pointsDeVieIni);
+        _pointsDeVieIni = Mathf.FloorToInt((float)_pointsDeVieIni + ((float)_donneesPerso.niveau/4 * (float)_pointsDeVieIni));
+        Debug.Log("Points de vie de l'ennemi : " + _pointsDeVieIni);
         _pointsDeVie = _pointsDeVieIni;
         _contenantBarreVie.SetActive(false);
         _barreVie.SetActive(false);

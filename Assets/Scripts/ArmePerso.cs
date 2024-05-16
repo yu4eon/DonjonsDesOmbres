@@ -8,7 +8,7 @@ public class ArmePerso : MonoBehaviour
 {
     [SerializeField] SOArme[] _tDonneesArmes; // Tableau des données des armes
     [SerializeField] SOPerso _donneesPerso; // Données du joueur
-    [SerializeField] Vector3 _tailleJavelin = new Vector3(0.75f, 0.75f, 0.75f); // Taille de la javelin
+    [SerializeField] Vector3 _tailleJavelin = new Vector3(0.8f, 0.8f, 0.8f); // Taille de la javelin
     [SerializeField] Vector3 _tailleMarteau = new Vector3(1.2f, 1.2f, 1.2f); // Taille du marteau
     SOArme _armeEquipee; // Arme équipée par le joueur
     SpriteRenderer _spriteRenderer; // Sprite de l'arme
@@ -17,6 +17,7 @@ public class ArmePerso : MonoBehaviour
     Vector3 _positionInitiale; // Position initiale de l'arme
     Collider2D _collider; // Collider de l'arme
     bool _estLeger; // Si l'attaque est léger
+    bool _estGauche; // Si l'attaque est à gauche
 
 
     void Awake()
@@ -40,18 +41,30 @@ public class ArmePerso : MonoBehaviour
         _armeEquipee = _tDonneesArmes[(int)typePouvoir];
         if(_armeEquipee == null) Debug.LogWarning("Arme non trouvée");
 
-        // switch(_armeEquipee.nom)
-        // {
-        //     case "Javelin":
-        //         transform.localScale = _tailleJavelin;
-        //         break;
-        //     case "Marteau":
-        //         transform.localScale = _tailleMarteau;
-        //         break;
-        //     default:
-        //         transform.localScale = new Vector3(1, 1, 1);
-        //         break;
-        // }
+        switch(_armeEquipee.nom)
+        {
+            case "Javelin":
+                transform.localScale = _tailleJavelin;
+                if(_estGauche)
+                {
+                    transform.localScale = new Vector3(-_tailleJavelin.x, _tailleJavelin.y, _tailleJavelin.z);
+                }
+                break;
+            case "Marteau":
+                transform.localScale = _tailleMarteau;
+                if(_estGauche)
+                {
+                    transform.localScale = new Vector3(-_tailleMarteau.x, _tailleMarteau.y, _tailleMarteau.z);
+                }
+                break;
+            default:
+                transform.localScale = new Vector3(1, 1, 1);
+                if(_estGauche)
+                {
+                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                }
+                break;
+        }
 
         // Jouer animation de l'arme
         string nomAnimation = _armeEquipee.nom;
@@ -64,13 +77,14 @@ public class ArmePerso : MonoBehaviour
 
 
 
-    public void ChangerDirection(bool _estGauche)
+    public void ChangerDirection(bool estGauche)
     {
         // Debug.Log(_armeEquipee.nom);
         // Debug.Log("Changer direction " + _estGauche);
         Vector3 tailleActuelle = transform.localScale;
-        if (_estGauche)
+        if (estGauche)
         {
+            _estGauche = true;
             // Debug.Log(transform.localPosition);
             transform.localPosition = new Vector3(-_positionInitiale.x, _positionInitiale.y, _positionInitiale.z);
             // _spriteRenderer.flipX = true;
@@ -79,6 +93,7 @@ public class ArmePerso : MonoBehaviour
         }
         else
         {
+            _estGauche = false;
             // Debug.Log(transform.localPosition);
             transform.localPosition = _positionInitiale;
             // _spriteRenderer.flipX = false;

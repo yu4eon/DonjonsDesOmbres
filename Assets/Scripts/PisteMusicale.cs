@@ -21,6 +21,7 @@ public class PisteMusicale : MonoBehaviour
             AjusterVolume();
         }
     }
+    public float volume = 1;
 
     // Composant AudioSource associé à la piste musicale.
     AudioSource _source;
@@ -30,7 +31,7 @@ public class PisteMusicale : MonoBehaviour
     void Awake() 
     {
         // Ajoute le composant AudioSource au GameObject.
-        _source = gameObject.AddComponent<AudioSource>();
+        _source = gameObject.GetComponent<AudioSource>();
         // Initialise l'état actif à partir de la valeur par défaut.
         _estActif = _estActifParDefaut;
         // Définit la piste comme en boucle.

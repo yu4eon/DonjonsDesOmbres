@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Classe responsable de la gestion des sons dans le jeu.
 public class SoundManager : MonoBehaviour
@@ -33,15 +36,6 @@ public class SoundManager : MonoBehaviour
         _sourceEffetsSonores = gameObject.AddComponent<AudioSource>();
     }
 
-    // Fonction appelée à chaque frame de framerate fixe, si le MonoBehaviour est activé.
-    void FixedUpdate()
-    {
-        // Si la touche Espace est enfoncée, active la lecture de la piste de musique de base.
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ChangerEtatLecturePiste(TypePiste.MusiqueBase, true);
-        }
-    }
 
     // Change le volume général de toutes les pistes musicales.
     public void ChangerVolumeGeneral(float volume)
@@ -64,7 +58,12 @@ public class SoundManager : MonoBehaviour
     {
         foreach(PisteMusicale piste in _tPistes)
         {
-            if(piste.type == type) piste.estActif = estActive;
+            if(piste.type == type)
+            {
+                piste.estActif = estActive;
+                // StartCoroutine(FadeIn(piste, 2f));
+            }
+            // else StartCoroutine(FadeOut(piste, 2f));
         }
     }
 
@@ -88,4 +87,35 @@ public class SoundManager : MonoBehaviour
         _instance = this;
         return true; // Succès !
     }
+
+
+    public IEnumerator FadeIn(PisteMusicale piste, float dureeFade)
+    {
+        float tempsEcoule = 0f;
+        float volumeInitial = 0f;
+
+        while(tempsEcoule < dureeFade)
+        {
+            piste.volume = Mathf.Lerp(volumeInitial, _volumeMusicalRef, tempsEcoule/dureeFade);
+            tempsEcoule += Time.deltaTime;
+            yield return null;
+        }
+        piste.volume = _volumeMusicalRef;
+        piste.estActif = true;
+    }
+    public IEnumerator FadeOut(PisteMusicale piste, float dureeFade)
+    {
+        float tempsEcoule = 0f;
+        float volumeInitial = piste.volume;
+
+        while(tempsEcoule < dureeFade)
+        {
+            piste.volume = Mathf.Lerp(volumeInitial, 0f, tempsEcoule/dureeFade);
+            tempsEcoule += Time.deltaTime;
+            yield return null;
+        }
+        piste.volume = 0f;
+        piste.estActif = false;
+    }
+
 }

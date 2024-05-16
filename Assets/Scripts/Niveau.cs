@@ -489,6 +489,10 @@ public class Niveau : MonoBehaviour
             yield return new WaitForSeconds(1);
             _temps--;
             _uiJeu.MettreAJourTemps(_temps);
+            if (_temps <= _limiteTemps / 4)
+            {
+                SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, true);
+            }
         }
         _donneesNavigation.AllerSceneTableauHonneur();
         // Debug.Log("Temps écoulé");

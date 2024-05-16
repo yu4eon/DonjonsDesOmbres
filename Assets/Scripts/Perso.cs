@@ -498,6 +498,10 @@ public class Perso : DetecteurSol
             Debug.Log("Le joueur est mort");
             Mourir();
         }
+        if (_donnees.pv <= _donnees.pvIni / 4)
+        {
+            SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, true);
+        }
     }
 
     IEnumerator CoroutineAjusterInvincibiliteDash(float duree = 0.5f)

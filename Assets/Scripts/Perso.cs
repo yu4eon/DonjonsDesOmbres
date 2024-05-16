@@ -90,6 +90,10 @@ public class Perso : DetecteurSol
     /// </summary>
     override protected void FixedUpdate()
     {
+        if (_donnees.pv <= _donnees.pv)
+        {
+            SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, true);
+        }
         if (_estEntrainDeDasher)
         {
             return;
@@ -467,5 +471,12 @@ public class Perso : DetecteurSol
     public void JouerSon(int index)
     {
         SoundManager.instance.JouerEffetSonore(_sonPerso[index]); // Joue le son correspondant à l'index passé en paramè
+    }
+
+
+    void OnTestSons()
+    {
+        Debug.Log("Test de sons: ");
+        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, false);
     }
 }

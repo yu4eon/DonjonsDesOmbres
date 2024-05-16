@@ -75,9 +75,6 @@ public class Niveau : MonoBehaviour
 
     void Start()
     {
-        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, true);
-        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, false);
-        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, false);
         DefinirTailleNiveau(); // #tp4 Léon
         CreerNiveau(); // #tp3 Léon
         TrouverPosLibres(); // #tp3 Léon
@@ -91,6 +88,9 @@ public class Niveau : MonoBehaviour
         // GameObject persoClone = (GameObject)GameObject.Instantiate(_perso.gameObject, _lesPosLibres[Random.Range(0, _lesPosLibres.Count)], Quaternion.identity);
         cvCamera.m_Follow = _clonePerso.transform;
         cm_collider.transform.localScale = new Vector2(_taille.x * 32 - 1, _taille.y * 18 - 1);
+        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, true);
+        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, false);
+        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, false);
     }
 
     /// <summary>

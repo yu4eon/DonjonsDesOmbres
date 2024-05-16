@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "TestSons",
+                    "type": "Button",
+                    "id": "6353552f-58e2-4ec9-b018-37b084c445db",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -488,6 +497,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "HeavyAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f4c848a3-3779-4d34-831a-0bfdf0347bac",
+                    "path": "<Keyboard>/h",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "TestSons",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

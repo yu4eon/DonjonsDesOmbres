@@ -89,6 +89,7 @@ public class Perso : DetecteurSol
     {
         _arme = GetComponentInChildren<ArmePerso>(); // Obtient l'arme du personnage
         _donnees.InitialiserVie(); // Initialise les données du personnage
+        Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite(2f));
         Debug.Log("Vie du personnage : " + _donnees.pv);
         // _arme.gameObject.SetActive(false); // Désactive l'arme du personnage
     }
@@ -488,14 +489,13 @@ public class Perso : DetecteurSol
         }
     }
 
-    IEnumerator CoroutineAjusterInvincibilite()
+    IEnumerator CoroutineAjusterInvincibilite(float duree = 1f)
     {
         gameObject.layer = _LayerInvincibilite;
         _estInvinicible = true;
         Coroutine coroutine = StartCoroutine(CoroutineChangerCouleur());
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(duree);
         _estInvinicible = false;
-        // StopCoroutine(coroutine);
         gameObject.layer = _LayerDefault;
         
     }

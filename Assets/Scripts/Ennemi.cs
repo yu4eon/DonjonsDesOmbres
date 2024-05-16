@@ -1,7 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph;
+using Unity.Mathematics;
+
+// using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -43,6 +44,19 @@ public class Ennemi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+
+        Initialiser();
+
+        
+
+        
+    }
+
+    void Initialiser()
+    {
+        _pointsDeVieIni = Mathf.FloorToInt((float)_pointsDeVieIni + ((float)_donneesPerso.niveau/4 * (float)_pointsDeVieIni));
+        Debug.Log("Points de vie de l'ennemi : " + _pointsDeVieIni);
         _pointsDeVie = _pointsDeVieIni;
         _contenantBarreVie.SetActive(false);
         _barreVie.SetActive(false);
@@ -62,6 +76,8 @@ public class Ennemi : MonoBehaviour
             _lumiere.color = new Color(0.76f, 0.87f,0.89f);
             break;
         }
+
+
     }
     public void SubirDegats(int degats, TypePouvoir typePouvoir)
     {

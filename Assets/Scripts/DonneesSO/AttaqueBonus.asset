@@ -17,4 +17,4 @@ MonoBehaviour:
   _prixDeBase: 30
   _description: Augmente l'attaque du joueur pour le prochain niveau
   _estAcheter: 0
-  _typeObjet: 0
+  _typeObjet: 1

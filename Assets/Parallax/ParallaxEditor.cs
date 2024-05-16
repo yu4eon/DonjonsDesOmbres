@@ -1,13 +1,12 @@
 #if UNITY_EDITOR 
 using UnityEditor;
-#endif
+
 using UnityEngine;
 
 
 [CustomEditor(typeof(Parallax))]
 public class ParallaxEditor : Editor
 {
-
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -28,4 +27,6 @@ public class ParallaxEditor : Editor
         }
         GUILayout.EndHorizontal();
     }
+
 }
+#endif

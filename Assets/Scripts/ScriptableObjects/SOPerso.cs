@@ -24,7 +24,7 @@ public class SOPerso : ScriptableObject
 
     [Header("Stats")]
     [SerializeField] int baseAttaque = 10; // Attaque de base du personnage
-    int attaqueBonus;
+    int attaqueBonus = 0;
     // Attaque du personnage en ajoutant l'attaque de base et l'attaque bonus  #synthese Leon
     int _attaque => baseAttaque + attaqueBonus; 
     public int attaque => _attaque; // Propriété pour accéder à l'attaque du personnage

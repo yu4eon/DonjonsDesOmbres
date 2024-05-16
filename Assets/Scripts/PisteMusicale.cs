@@ -21,6 +21,7 @@ public class PisteMusicale : MonoBehaviour
             AjusterVolume();
         }
     }
+    public float volume = 1;
 
     // Composant AudioSource associé à la piste musicale.
     AudioSource _source;

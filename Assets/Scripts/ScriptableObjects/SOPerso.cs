@@ -102,7 +102,7 @@ public class SOPerso : ScriptableObject
         if (donneesObjet.typeObjet == TypeObjet.DefensePV) //Si l'objet est de type DefensePV, ajoute 10 à la défense et aux points de vie
         {
             defenseBonus += 10;
-            pvBonus += 100;
+            pvBonus += 50;
             Debug.Log("Bonus defense: " + defenseBonus);
             Debug.Log("Bonus pv: " + pvBonus);
         } 

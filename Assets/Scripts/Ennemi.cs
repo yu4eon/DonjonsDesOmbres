@@ -11,6 +11,7 @@ public class Ennemi : MonoBehaviour
     [SerializeField] int _pointsDeVieIni = 100; // Points de vie initial de l'ennemi
     int _pointsDeVie; // Points de vie actuels de l'ennemi
     [SerializeField] int _valeurScore = 500; // Score donné par l'ennemi
+    [SerializeField] int _degatsInfliges = 20; // Dégâts infligés par l'ennemi
     [SerializeField] Retroaction _retroModele; // Modèle de rétroaction lorsque l'ennemi prend des dégats
     [SerializeField] SOPerso _donneesPerso; // Données du joueur
     [SerializeField] Color _couleurEndommage = new Color(1, 0.6f, 0.6f); // Couleur de l'ennemi lorsqu'il est endommagé
@@ -138,7 +139,7 @@ public class Ennemi : MonoBehaviour
         {
             Debug.Log("Collision avec le joueur");
             Perso perso = other.gameObject.GetComponent<Perso>();
-            
+            perso.SubirDegats(_degatsInfliges);
         }
     }
 }

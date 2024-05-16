@@ -462,4 +462,10 @@ public class Perso : DetecteurSol
     {
         SoundManager.instance.JouerEffetSonore(_sonPerso[index]); // Joue le son correspondant à l'index passé en paramè
     }
+
+    public void SubirDegats(int degats)
+    {
+        int degatsFinaux = degats - (degats * _donnees.defense / 100);
+
+    }
 }

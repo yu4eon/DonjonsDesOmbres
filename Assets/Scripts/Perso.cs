@@ -243,6 +243,7 @@ public class Perso : DetecteurSol
     {
         if (_peutDash)
         {
+            _animator.SetTrigger("Dash");
             _veutDasher = false;
             _peutDash = false;
             _estEntrainDeDasher = true;

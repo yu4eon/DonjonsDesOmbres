@@ -210,6 +210,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 262026254076457687, guid: 5de59e18ab35a514cbf3730cc426c180, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 547870568683983540, guid: 5de59e18ab35a514cbf3730cc426c180, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 547870568683983540, guid: 5de59e18ab35a514cbf3730cc426c180, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 1417130969612900814, guid: 5de59e18ab35a514cbf3730cc426c180, type: 3}
       propertyPath: m_Name
       value: parallax

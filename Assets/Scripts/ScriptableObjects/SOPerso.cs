@@ -115,7 +115,7 @@ public class SOPerso : ScriptableObject
         _lesObjets.Add(donneesObjet);
         AfficherInventaire();
         // Leon : J'ai changé les ifs pour que ça check le type d'objet au lieu du nom de l'objet
-        if (donneesObjet.typeObjet == TypeObjet.Attaque) _attaqueBonus += 10; Debug.Log("Bonus attaque: " + _attaqueBonus);
+        if (donneesObjet.typeObjet == TypeObjet.Attaque) _attaqueBonus += 5; Debug.Log("Bonus attaque: " + _attaqueBonus);
         if (donneesObjet.typeObjet == TypeObjet.DefensePV) //Si l'objet est de type DefensePV, ajoute 10 à la défense et aux points de vie
         {
             _defenseBonus += 10;

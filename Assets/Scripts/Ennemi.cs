@@ -42,6 +42,18 @@ public class Ennemi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+
+        Initialiser();
+
+        
+
+        
+    }
+
+    void Initialiser()
+    {
+        _pointsDeVieIni = _pointsDeVieIni + (_donneesPerso.niveau/4 * _pointsDeVieIni);
         _pointsDeVie = _pointsDeVieIni;
         _contenantBarreVie.SetActive(false);
         _barreVie.SetActive(false);
@@ -62,7 +74,7 @@ public class Ennemi : MonoBehaviour
             break;
         }
 
-        
+
     }
     public void SubirDegats(int degats, TypePouvoir typePouvoir)
     {

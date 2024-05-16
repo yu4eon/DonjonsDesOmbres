@@ -113,8 +113,9 @@ public class ArmePerso : MonoBehaviour
         if (other.GetComponent<Ennemi>() != null)
         {
             // Debug.Log(_armeEquipee.nom);
-            Debug.Log(_armeEquipee.nom);
-            Debug.Log("Collision avec ennemi");
+            // Debug.Log(_armeEquipee.nom);
+            // Debug.Log("Collision avec ennemi");
+            Debug.Log(_donneesPerso.attaque);
             Ennemi ennemi = other.GetComponent<Ennemi>();
             float degatInfligee = _armeEquipee.degats * _donneesPerso.attaque;
             if(!_estLeger) degatInfligee *= 2;

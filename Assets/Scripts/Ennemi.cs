@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.Rendering.Universal;
 
 public class Ennemi : MonoBehaviour
 {
-    [SerializeField] AudioClip[] _sonEnnemi; // Sons de l'ennemi
+    // [SerializeField] AudioClip[] _sonEnnemi; // Sons de l'ennemi
+    // protected AudioClip[] sonEnnemi =>_sonEnnemi; // Variable qui contient le son de l'ennemi
+    [SerializeField] AudioClip _sonDegat; // Son lorsqu'un ennemi prend des dégâts
+    [SerializeField] AudioClip _sonMort; // Son lorsqu'un ennemi meurt
     [SerializeField] TypePouvoir _typePouvoirEnnemi; // Type de pouvoir de l'ennemi
     [SerializeField] int _pointsDeVieIni = 100; // Points de vie initial de l'ennemi
     int _pointsDeVie; // Points de vie actuels de l'ennemi
@@ -19,7 +23,8 @@ public class Ennemi : MonoBehaviour
     [SerializeField] GameObject _barreVie; // Barre de vie de l'ennemi
     Light2D _lumiere; // Lumière de l'ennemi
     float _delaiCouleur = 0.3f; // Délai pour reajuster la couleur de l'ennemi
-    SpriteRenderer _spriteRenderer; // Sprite de l'ennemi
+    SpriteRenderer _spriteRenderer; // Sprite Renderer de l'ennemi
+    Rigidbody2D _rb; // Rigidbody de l'ennemi
     bool _estInvulnerable = false; // Indique si l'ennemi est invulnérable
     bool _degatCritique = false; // Indique si l'ennemi a subi un dégât critique
 
@@ -37,6 +42,7 @@ public class Ennemi : MonoBehaviour
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _lumiere = GetComponentInChildren<Light2D>();
     }
@@ -45,6 +51,11 @@ public class Ennemi : MonoBehaviour
     {
         ChoisirTypePouvoir();
         Initialiser();
+    }
+
+    virtual protected void FixedUpdate()
+    {
+        _animator.SetFloat("X", _rb.velocity.x);
     }
 
     void ChoisirTypePouvoir()
@@ -86,22 +97,13 @@ public class Ennemi : MonoBehaviour
         _degatCritique = false;
         if (_estInvulnerable) return; // Si l'ennemi est invulnérable, ne fait rien
         // Debug.Log("L'ennemi subit " + degats + " dégâts de type " + typePouvoir);
+        // GestAudio.instance.JouerEffetSonore(_sonEnnemi[1]);
+        GestAudio.instance.JouerEffetSonore(_sonDegat);
         if (typePouvoir == _typePouvoirEnnemi)
         {
             degats *= 2;
             _degatCritique = true;
         }
-        // if (_faiblesses[typePouvoir] == _typePouvoirEnnemi)
-        // {
-        //     Debug.Log(_faiblesses[typePouvoir] + " " + _typePouvoirEnnemi);
-        //     degats *= 2; // Double les dégâts si l'ennemi est faible contre le pouvoir
-        //     Debug.Log("Double dégâts");
-        //     _degatCritique = true;
-        // }
-        // else
-        // {
-        //     Debug.Log("Dégâts normaux");
-        // }
         _estInvulnerable = true; // L'ennemi est invulnérable
         _spriteRenderer.color = _couleurEndommage; // Change la couleur de l'ennemi
         StartCoroutine(CoroutineReajusterCouleur()); // Réajuste la couleur de l'ennemi
@@ -125,6 +127,7 @@ public class Ennemi : MonoBehaviour
         if (_pointsDeVie <= 0)
         {
             Mourir();
+            // GestAudio.instance.JouerEffetSonore(_sonEnnemi[2]);
         }
     }
 
@@ -138,6 +141,7 @@ public class Ennemi : MonoBehaviour
     void Mourir()
     {
         // Debug.Log("L'ennemi est mort");
+        GestAudio.instance.JouerEffetSonore(_sonMort);
         _contenantBarreVie.SetActive(false);
         _barreVie.SetActive(false);
         _donneesPerso.AjouterScore(_valeurScore);
@@ -155,6 +159,7 @@ public class Ennemi : MonoBehaviour
         if(other.gameObject.GetComponent<Perso>() != null)
         {
             // Debug.Log("Collision avec le joueur");
+            _animator.SetTrigger("ContactJoueur");
             Perso perso = other.gameObject.GetComponent<Perso>();
             perso.SubirDegats(_degatsInfliges);
         }

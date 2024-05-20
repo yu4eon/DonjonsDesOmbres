@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Marteau
   m_EditorClassIdentifier: 
   _nom: Marteau
-  _sprite: {fileID: 0}
   _degatsBase: 3.5
   _typePouvoir: 3
+  _sonAttaque: {fileID: 8300000, guid: a1778aaeafd943a4ea1fe9ce54192d04, type: 3}

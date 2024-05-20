@@ -283,7 +283,7 @@ public class Perso : DetecteurSol
     void OnChangePoison()
     {
         InstantierParticules(0);
-        GestAudio.instance.JouerEffetSonore(_sonElements[0]);
+        // GestAudio.instance.JouerEffetSonore(_sonElements[0]);
     }
 
     /// <summary>
@@ -293,7 +293,7 @@ public class Perso : DetecteurSol
     void OnChangeOmbre()
     {
         InstantierParticules(1);
-        GestAudio.instance.JouerEffetSonore(_sonElements[1]);
+        // GestAudio.instance.JouerEffetSonore(_sonElements[1]);
     }
 
     /// <summary>
@@ -303,7 +303,7 @@ public class Perso : DetecteurSol
     void OnChangeFoudre()
     {
         InstantierParticules(2);
-        GestAudio.instance.JouerEffetSonore(_sonElements[2]);
+        // GestAudio.instance.JouerEffetSonore(_sonElements[2]);
     }
     /// <summary>
     /// Méthode qui est appelée lorsque le joueur appuie sur le 1 ou dpad haut pour
@@ -312,7 +312,7 @@ public class Perso : DetecteurSol
     void OnChangeGlace()
     {
         InstantierParticules(3);
-        GestAudio.instance.JouerEffetSonore(_sonElements[3]);
+        // GestAudio.instance.JouerEffetSonore(_sonElements[3]);
     }
 
 
@@ -325,6 +325,7 @@ public class Perso : DetecteurSol
             {
                 Destroy(_particulePouvoirActuelle);
                 _particulePouvoirActuelle = null;
+                GestAudio.instance.JouerEffetSonore(_sonElements[index]);
             }
             _pouvoirActuel = (TypePouvoir)index; // Change le pouvoir actuel en celle du pouvoir index.
             _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[index], transform.position, _particulesPouvoirs[index].transform.rotation, transform);
@@ -500,6 +501,7 @@ public class Perso : DetecteurSol
         UIJeu.instance.MettreAJourInfo();
         Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite());
         Debug.Log("Points de vie restants : " + _donnees.pv);
+        JouerSon(6);
         if (_donnees.pv <= 0)
         {
             // Debug.Log("Le joueur est mort");

@@ -7,6 +7,7 @@ public class EnnemiA : Ennemi
     [SerializeField] float detectionDistance = 1f;
     [SerializeField] LayerMask obstacleLayer;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] AudioClip _sonDeplacement; // Son de déplacement de l'ennemi
 
     bool deplacementDroite = true;
     bool estEnTrainDeChangerDirection = false;
@@ -35,6 +36,8 @@ public class EnnemiA : Ennemi
             return; // Si en train de changer de direction, ne fait rien
         }
 
+        // GestAudio.instance.JouerEffetSonore(sonEnnemi[0]);
+        // GestAudio.instance.JouerEffetSonore(_sonDeplacement);
         Vector2 direction = deplacementDroite ? Vector2.right : Vector2.left;
         Vector2 raycastOrigin = transform.position + Vector3.down * 0.5f;
 
@@ -51,6 +54,11 @@ public class EnnemiA : Ennemi
         }
 
         rb.velocity = direction * vitesse;
+    }
+
+    public void JouerSonDeplacement()
+    {
+        GestAudio.instance.JouerEffetSonore(_sonDeplacement);
     }
 
     IEnumerator ChangerDirectionCoroutine()

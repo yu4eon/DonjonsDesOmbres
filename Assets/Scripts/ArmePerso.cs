@@ -40,6 +40,7 @@ public class ArmePerso : MonoBehaviour
 
         _estLeger = estLeger;
         _armeEquipee = _tDonneesArmes[(int)typePouvoir];
+        GestAudio.instance.JouerEffetSonore(_armeEquipee.sonAttaque);
         if(_armeEquipee == null) Debug.LogWarning("Arme non trouvée");
         Coroutine coroutine = StartCoroutine(CoroutineChangerAlpha());
         switch(_armeEquipee.nom)

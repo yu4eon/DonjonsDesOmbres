@@ -15,7 +15,7 @@ public class Boutique : MonoBehaviour
     [SerializeField] TextMeshProUGUI _champArgent; // Champ de texte pour afficher l'argent du personnage.
     [SerializeField] PanneauInventaire _panneauInventaire; // Panneau d'inventaire pour afficher les objets.
     public PanneauInventaire panneauInventaire => _panneauInventaire; // Propriété publique pour accéder au panneau d'inventaire.
-    [SerializeField] AudioClip _sonCages; // Son d'accueil de la boutique.
+    [SerializeField] AudioClip _sonCages; // Son d'achat de la boutique.
 
     static Boutique _instance; // Instance statique de la boutique.
     static public Boutique instance => _instance; // Propriété publique pour accéder à l'instance de la boutique.
@@ -39,11 +39,11 @@ public class Boutique : MonoBehaviour
     /// </summary>
     void Start()
     {
+        // Changement de l'état des pistes musicales.
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, false);
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, false);
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, false);
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueMenu, true);
-        GestAudio.instance.JouerEffetSonore(_sonCages); // Joue le son d'accueil de la boutique.
     }
 
     /// <summary>

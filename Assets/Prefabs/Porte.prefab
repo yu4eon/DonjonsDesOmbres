@@ -108,8 +108,8 @@ MonoBehaviour:
   _lumierePorte: {fileID: 1899102367552597289}
   _lumierePortail: {fileID: 6303740085376926383}
   _sonPorte: {fileID: 8300000, guid: 104ff10a3dbd6c242bd7cb12ee3bb255, type: 3}
-  _limiteLuminosite: 4
-  _forceAjustementLuminosite: 5
+  _limiteLuminosite: 5
+  _forceAjustementLuminosite: 7
 --- !u!61 &-2455830018943470475
 BoxCollider2D:
   m_ObjectHideFlags: 0

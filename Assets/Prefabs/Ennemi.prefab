@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5262719966002861114}
   - component: {fileID: -4525279658510942318}
   - component: {fileID: 2959713015999374690}
-  - component: {fileID: 8074994718608905762}
+  - component: {fileID: 7649846778950761454}
   m_Layer: 10
   m_Name: Ennemi
   m_TagString: Ennemi
@@ -173,7 +173,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0.034992307, y: -0.017496109}
   m_Size: {x: 0.30754513, y: 1.017091}
   m_Direction: 0
---- !u!114 &8074994718608905762
+--- !u!114 &7649846778950761454
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,14 +182,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2720656751830220001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46b703a59c2b6c54291839266f162e60, type: 3}
+  m_Script: {fileID: 11500000, guid: a473cfe11d7ac6946b25843f39d3b076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sonEnnemi:
-  - {fileID: 8300000, guid: a7435a4d2c44a7e4c891cbc217e01640, type: 3}
-  - {fileID: 8300000, guid: dcbe1e85f7bf71648bac04afd9db59ea, type: 3}
+  _sonEnnemi: []
   _typePouvoirEnnemi: 0
-  _pointsDeVieIni: 150
+  _pointsDeVieIni: 100
   _valeurScore: 500
   _degatsInfliges: 20
   _retroModele: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
@@ -197,6 +195,14 @@ MonoBehaviour:
   _couleurEndommage: {r: 1, g: 0.6, b: 0.6, a: 1}
   _contenantBarreVie: {fileID: 7764986287032496931}
   _barreVie: {fileID: 3722225385814795697}
+  vitesse: 3
+  detectionDistance: 1.33
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &3722225385814795697
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,19 +438,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Center.x
-      value: -0.08059999
+      value: -0.08164999
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Center.y
-      value: -0.002849996
+      value: -0.0026999712
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Extent.x
-      value: 0.66349995
+      value: 0.66295004
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Extent.y
-      value: 1.48685
+      value: 1.4864
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

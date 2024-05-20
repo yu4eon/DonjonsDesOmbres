@@ -16,13 +16,16 @@ MonoBehaviour:
   - joueur: Stev4
     score: 7000
     estJoueurActuelle: 0
+  - joueur: Bobette
+    score: 6260
+    estJoueurActuelle: 0
+  - joueur: dasda
+    score: 3550
+    estJoueurActuelle: 0
   - joueur: Steve
     score: 3222
     estJoueurActuelle: 0
-  - joueur: Steven
-    score: 1100
-    estJoueurActuelle: 0
-  - joueur: Sad
-    score: 210
+  - joueur: NomGay
+    score: 2760
     estJoueurActuelle: 0
   _fichier: sauvegarde.TIM

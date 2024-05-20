@@ -43,15 +43,9 @@ public class Ennemi : MonoBehaviour
         _lumiere = GetComponentInChildren<Light2D>();
     }
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        
-
         Initialiser();
-
-        
-
-        
     }
 
     void Initialiser()
@@ -80,14 +74,15 @@ public class Ennemi : MonoBehaviour
 
 
     }
+    
     public void SubirDegats(int degats, TypePouvoir typePouvoir)
     {
         _contenantBarreVie.SetActive(true);
         _barreVie.SetActive(true);
         _degatCritique = false;
-        if(_estInvulnerable) return; // Si l'ennemi est invulnérable, ne fait rien
+        if (_estInvulnerable) return; // Si l'ennemi est invulnérable, ne fait rien
         Debug.Log("L'ennemi subit " + degats + " dégâts de type " + typePouvoir);
-        if(typePouvoir == _typePouvoirEnnemi)
+        if (typePouvoir == _typePouvoirEnnemi)
         {
             degats *= 2;
             _degatCritique = true;
@@ -107,7 +102,7 @@ public class Ennemi : MonoBehaviour
         _spriteRenderer.color = _couleurEndommage; // Change la couleur de l'ennemi
         StartCoroutine(CoroutineReajusterCouleur()); // Réajuste la couleur de l'ennemi
         Retroaction retro = Instantiate(_retroModele, transform.position, Quaternion.identity, transform.parent);
-        if(_degatCritique)
+        if (_degatCritique)
         {
             retro.ChangerTexte("-" + degats + "!", "#FF3535", 1f, 2f);
         }
@@ -115,14 +110,14 @@ public class Ennemi : MonoBehaviour
         {
             retro.ChangerTexte("-" + degats, "#FFE32E");
         }
-        Mathf.Clamp(_pointsDeVie -= degats, 0, _pointsDeVieIni); // Réduit les points de vie de l'ennemi
+        _pointsDeVie = Mathf.Clamp(_pointsDeVie - degats, 0, _pointsDeVieIni); // Réduit les points de vie de l'ennemi
         float fractionVie = (float)_pointsDeVie / _pointsDeVieIni;
         Debug.Log("Fraction de vie : " + fractionVie);
         _barreVie.transform.localScale = new Vector3(fractionVie, 1, 1);
 
         Debug.Log("Points de vie restants : " + _pointsDeVie);
         // Réduit les points de vie de l'ennemi
-        if(_pointsDeVie <= 0)
+        if (_pointsDeVie <= 0)
         {
             Mourir();
         }

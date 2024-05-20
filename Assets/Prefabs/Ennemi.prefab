@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: -4525279658510942318}
   - component: {fileID: 2959713015999374690}
   - component: {fileID: 3286905716972759867}
-  - component: {fileID: 1038176672601347347}
   m_Layer: 10
   m_Name: Ennemi
   m_TagString: Ennemi
@@ -182,7 +181,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2720656751830220001}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a473cfe11d7ac6946b25843f39d3b076, type: 3}
   m_Name: 
@@ -205,28 +204,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &1038176672601347347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2720656751830220001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46b703a59c2b6c54291839266f162e60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sonEnnemi: []
-  _typePouvoirEnnemi: 0
-  _pointsDeVieIni: 100
-  _valeurScore: 500
-  _degatsInfliges: 20
-  _retroModele: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
-  _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
-  _couleurEndommage: {r: 1, g: 0.6, b: 0.6, a: 1}
-  _contenantBarreVie: {fileID: 7764986287032496931}
-  _barreVie: {fileID: 3722225385814795697}
 --- !u!1 &3722225385814795697
 GameObject:
   m_ObjectHideFlags: 0

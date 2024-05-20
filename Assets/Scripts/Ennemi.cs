@@ -41,7 +41,7 @@ public class Ennemi : MonoBehaviour
         _lumiere = GetComponentInChildren<Light2D>();
     }
     // Start is called before the first frame update
-    protected void Start()
+    virtual protected void Start()
     {
         ChoisirTypePouvoir();
         Initialiser();

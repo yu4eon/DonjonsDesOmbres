@@ -12,8 +12,9 @@ public class EnnemiA : Ennemi
     bool estEnTrainDeChangerDirection = false;
     Rigidbody2D rb;
 
-    new void Start()
+    override protected void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(DeplacerEnnemiRoutine());
     }

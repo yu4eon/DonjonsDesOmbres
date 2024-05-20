@@ -15,6 +15,7 @@ public class Ennemi : MonoBehaviour
     [SerializeField] int _pointsDeVieIni = 100; // Points de vie initial de l'ennemi
     int _pointsDeVie; // Points de vie actuels de l'ennemi
     [SerializeField] int _valeurScore = 500; // Score donné par l'ennemi
+    [SerializeField] int _valeurArgent = 15; // Argent donné par l'ennemi
     [SerializeField] int _degatsInfliges = 20; // Dégâts infligés par l'ennemi
     [SerializeField] Retroaction _retroModele; // Modèle de rétroaction lorsque l'ennemi prend des dégats
     [SerializeField] SOPerso _donneesPerso; // Données du joueur
@@ -146,6 +147,7 @@ public class Ennemi : MonoBehaviour
         GestAudio.instance.JouerEffetSonore(_sonMort);
         _contenantBarreVie.SetActive(false);
         _barreVie.SetActive(false);
+        _donneesPerso.AjouterArgent(_valeurArgent);
         _donneesPerso.AjouterScore(_valeurScore);
         // _animator.SetTrigger("Meurt");
         gameObject.SetActive(false);

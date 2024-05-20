@@ -24,6 +24,7 @@ public class Joyau : MonoBehaviour
             Retroaction retro = Instantiate(_retroModele, transform.position, Quaternion.identity, transform.parent);
             retro.ChangerTexte("+" + _valeur + " or");
             _donneesPerso.AjouterArgent(_valeur); //Ajouter l'argent au joueur
+            _donneesPerso.AjouterScore(_valeur * 10); //Ajouter le score au joueur
             Destroy(gameObject);
             GestAudio.instance.JouerEffetSonore(_sonJoyaux);
         }

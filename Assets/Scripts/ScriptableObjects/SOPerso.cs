@@ -146,7 +146,6 @@ public class SOPerso : ScriptableObject
     {
         argent += value;
         // Debug.Log("Argent ajouté: " + argent);
-        AjouterScore(value * 10); //Ajoute le montant de l'argent au score multiplié par 10
     }
 
     /// <summary>

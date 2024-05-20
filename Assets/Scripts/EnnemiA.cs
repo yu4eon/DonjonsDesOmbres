@@ -64,7 +64,7 @@ public class EnnemiA : Ennemi
             float fractionDistance = Vector2.Distance(transform.position, perso.transform.position) / _distanceSon;
             float volume = Mathf.Clamp(1 - fractionDistance, 0.1f, 1f);
             Debug.Log("Fraction distance : " + fractionDistance);
-            GestAudio.instance.JouerEffetSonore(_sonDeplacement, fractionDistance);
+            GestAudio.instance.JouerEffetSonore(_sonDeplacement, volume);
 
         }
 

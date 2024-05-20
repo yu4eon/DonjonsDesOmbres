@@ -36,6 +36,7 @@ public class Boutique : MonoBehaviour
     /// </summary>
     void Start()
     {
+        // Changement de l'état des pistes musicales.
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, false);
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, false);
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, false);

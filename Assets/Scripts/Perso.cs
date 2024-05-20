@@ -13,6 +13,7 @@ using UnityEngine.InputSystem;
 public class Perso : DetecteurSol
 {
     [SerializeField] AudioClip[] _sonPerso; // Référence au son du saut
+    [SerializeField] AudioClip[] _sonElements;
     [SerializeField] float _vitesse = 10f; // Vitesse à laquelle le personnage se déplace.
     float _vitesseInitial;
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
@@ -258,7 +259,7 @@ public class Perso : DetecteurSol
             _rb.velocity = new Vector2(_direction * _dashForce, 0f);
             // _estInvincible = true;
             Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibiliteDash());
-
+            SoundManager.instance.JouerEffetSonore(_sonPerso[4]);
             yield return new WaitForSeconds(_tDash);
             _rb.gravityScale = graviteBase;
             // _estInvincible = false;
@@ -281,6 +282,7 @@ public class Perso : DetecteurSol
     void OnChangePoison()
     {
         InstantierParticules(0);
+        SoundManager.instance.JouerEffetSonore(_sonElements[0]);
     }
 
     /// <summary>
@@ -290,6 +292,7 @@ public class Perso : DetecteurSol
     void OnChangeOmbre()
     {
         InstantierParticules(1);
+        SoundManager.instance.JouerEffetSonore(_sonElements[1]);
     }
 
     /// <summary>
@@ -299,6 +302,7 @@ public class Perso : DetecteurSol
     void OnChangeFoudre()
     {
         InstantierParticules(2);
+        SoundManager.instance.JouerEffetSonore(_sonElements[2]);
     }
     /// <summary>
     /// Méthode qui est appelée lorsque le joueur appuie sur le 1 ou dpad haut pour
@@ -307,6 +311,7 @@ public class Perso : DetecteurSol
     void OnChangeGlace()
     {
         InstantierParticules(3);
+        SoundManager.instance.JouerEffetSonore(_sonElements[3]);
     }
 
 
@@ -537,6 +542,7 @@ public class Perso : DetecteurSol
 
     void Mourir()
     {
+        SoundManager.instance.JouerEffetSonore(_sonPerso[5]);
         _donneesNavigation.AllerSceneTableauHonneur();
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 // Classe responsable de la gestion des sons dans le jeu.
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] float _volumeMusicalRef = 1f; // Référence de volume pour la musique.
+    [SerializeField] float _volumeMusicalRef = 0.8f; // Référence de volume pour la musique.
     [SerializeField] Vector2 _pitchSonMinMax = new Vector2(0.9f, 1.1f); // Plage de hauteur de ton des sons.
 
     // Propriété pour accéder à la référence de volume musical.

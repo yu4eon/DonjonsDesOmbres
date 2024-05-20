@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 
-// using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -53,14 +51,19 @@ public class Ennemi : MonoBehaviour
     void Start()
     {   
 
-
+        ChoisirTypePouvoir();
         Initialiser();
+    }
+
+    void ChoisirTypePouvoir()
+    {
+        _typePouvoirEnnemi = (TypePouvoir)Random.Range(0, 4);
     }
 
     void Initialiser()
     {
         _pointsDeVieIni = Mathf.FloorToInt((float)_pointsDeVieIni + ((float)_donneesPerso.niveau/4 * (float)_pointsDeVieIni));
-        Debug.Log("Points de vie de l'ennemi : " + _pointsDeVieIni);
+        // Debug.Log("Points de vie de l'ennemi : " + _pointsDeVieIni);
         _pointsDeVie = _pointsDeVieIni;
         _contenantBarreVie.SetActive(false);
         _barreVie.SetActive(false);
@@ -83,13 +86,14 @@ public class Ennemi : MonoBehaviour
 
 
     }
+
     public void SubirDegats(int degats, TypePouvoir typePouvoir)
     {
         _contenantBarreVie.SetActive(true);
         _barreVie.SetActive(true);
         _degatCritique = false;
         if(_estInvulnerable) return; // Si l'ennemi est invulnérable, ne fait rien
-        Debug.Log("L'ennemi subit " + degats + " dégâts de type " + typePouvoir);
+        // Debug.Log("L'ennemi subit " + degats + " dégâts de type " + typePouvoir);
 
 
         if(typePouvoir == _typePouvoirEnnemi)
@@ -126,7 +130,7 @@ public class Ennemi : MonoBehaviour
         }
         Mathf.Clamp(_pointsDeVie -= degats, 0, _pointsDeVieIni); // Réduit les points de vie de l'ennemi
         float fractionVie = (float)_pointsDeVie / _pointsDeVieIni;
-        Debug.Log("Fraction de vie : " + fractionVie);
+        // Debug.Log("Fraction de vie : " + fractionVie);
         _barreVie.transform.localScale = new Vector3(fractionVie, 1, 1);
 
         Debug.Log("Points de vie restants : " + _pointsDeVie);
@@ -146,7 +150,7 @@ public class Ennemi : MonoBehaviour
 
     void Mourir()
     {
-        Debug.Log("L'ennemi est mort");
+        // Debug.Log("L'ennemi est mort");
         _contenantBarreVie.SetActive(false);
         _barreVie.SetActive(false);
         _donneesPerso.AjouterScore(_valeurScore);
@@ -163,7 +167,7 @@ public class Ennemi : MonoBehaviour
     {
         if(other.gameObject.GetComponent<Perso>() != null)
         {
-            Debug.Log("Collision avec le joueur");
+            // Debug.Log("Collision avec le joueur");
             Perso perso = other.gameObject.GetComponent<Perso>();
             perso.SubirDegats(_degatsInfliges);
         }

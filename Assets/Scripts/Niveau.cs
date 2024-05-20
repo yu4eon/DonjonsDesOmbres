@@ -138,10 +138,9 @@ public class Niveau : MonoBehaviour
 
         // Sélectionne un pouvoir aléatoire pour donner au personnage. #synthese Leon
         TypePouvoir pouvoirAleatoire = _pouvoirs[Random.Range(0, _pouvoirs.Length)];
-        Debug.Log("Pouvoir du personnage : " + pouvoirAleatoire); // Affiche le pouvoir du personnage.
+        // Debug.Log("Pouvoir du personnage : " + pouvoirAleatoire); // Affiche le pouvoir du personnage.
         _clonePerso.Initialiser(pouvoirAleatoire, _uiJeu); // Donne le pouvoir au joueur #synthese Leon
         _clonePerso.InstantierParticules((int)pouvoirAleatoire); // Instancie les particules du pouvoir du personnage. #synthese Leon
-        Debug.Log(_uiJeu.name);
         _donneesPerso.evenementMiseAJour.Invoke();
         // _uiJeu.MettreAJourInfo(); // Met à jour les informations du personnage
         // _uiJeu.ActiverParticulesPouvoir((int)pouvoirAleatoire); // Active les particules du pouvoir du personnage. #synthese Leon
@@ -396,8 +395,7 @@ public class Niveau : MonoBehaviour
                 }
             }
         }
-        Debug.Log(string.Join(", ", _lesSallesSurBordure)); //Test
-        // Debug.Log(string.Join(", ", niveauSurBordure)); //Test
+        // Debug.Log(string.Join(", ", _lesSallesSurBordure)); //Test
 
         // Calcul pour la taille du niveau avec une bordure, ainsi que les coordonnées minimales et maximales.
         Vector2Int tailleNiveau = _taille * tailleAvecUneBordure;

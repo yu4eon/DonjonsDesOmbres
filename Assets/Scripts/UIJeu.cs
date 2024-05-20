@@ -132,13 +132,9 @@ public class UIJeu : MonoBehaviour
         {
             entry.Value.color = _couleurCrystalInactif;
         }
-        // foreach (ParticleSystem particule in _tParticulesPouvoir)
-        // {
-        //     particule.Stop();
-        // }
 
         _tRectCrystalsPouvoir[index].sizeDelta = _tailleIni;
-        Debug.Log("Activer particules " + index);
+        // Debug.Log("Activer particules " + index);
         // _tParticulesPouvoir[index].Play();
         _tCrystalsPouvoir[index].color = Color.white;
     }
@@ -148,11 +144,4 @@ public class UIJeu : MonoBehaviour
         _tParticulesPouvoir[index].Play();
     }
 
-    // public void DesactiverParticulesPouvoir()
-    // {
-    //     foreach (ParticleSystem particule in _tParticulesPouvoir)
-    //     {
-    //         particule.Stop();
-    //     }
-    // }
 }

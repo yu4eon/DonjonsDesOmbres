@@ -98,7 +98,7 @@ public class Perso : DetecteurSol
         _donnees.InitialiserVie(); // Initialise les données du personnage
         UIJeu.instance.MettreAJourInfo(); // Initialise les points de vie dans l'UI #synthese Leon
         Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite(2f));
-        Debug.Log("Vie du personnage : " + _donnees.pv);
+        // Debug.Log("Vie du personnage : " + _donnees.pv);
         // _arme.gameObject.SetActive(false); // Désactive l'arme du personnage
     }
 
@@ -187,7 +187,7 @@ public class Perso : DetecteurSol
         if (_veutDasher)
         {
             StartCoroutine(Dash());
-            Debug.Log("Nooonnnnnn");
+            // Debug.Log("Nooonnnnnn");
         }
 
     }
@@ -332,7 +332,7 @@ public class Perso : DetecteurSol
         }
         else
         {
-            Debug.Log("Tu ne possède pas le pouvoir de " + ((TypePouvoir)index));
+            Debug.LogWarning("Tu ne possède pas le pouvoir de " + ((TypePouvoir)index));
         }
     }
 
@@ -414,7 +414,7 @@ public class Perso : DetecteurSol
         _pouvoirActuel = pouvoir;
         _donnees.AjouterPouvoir(pouvoir); // Ajoute le pouvoir au personnage
         // _arme.GetComponentInChildren<ArmePerso>(); // Initialise l'arme du personnage
-        Debug.Log("Pouvoir actuel : " + _pouvoirActuel);
+        // Debug.Log("Pouvoir actuel : " + _pouvoirActuel);
     }
 
     void OnLightAttack()
@@ -422,7 +422,7 @@ public class Perso : DetecteurSol
         if (_peutAttaquer)
         {
             _peutAttaquer = false;
-            Debug.Log("Attaque légère");
+            // Debug.Log("Attaque légère");
             _animator.SetTrigger("AttaqueLight");
             Coroutine coroutine = StartCoroutine(CoroutineAttaquer(true));
             CoroutineAttaquer(true);
@@ -438,7 +438,7 @@ public class Perso : DetecteurSol
         if (_peutAttaquer)
         {
             _peutAttaquer = false;
-            Debug.Log("Attaque lourde");
+            // Debug.Log("Attaque lourde");
             _animator.SetTrigger("AttaqueHeavy");
             Coroutine coroutine = StartCoroutine(CoroutineAttaquer(false));
         }
@@ -498,7 +498,7 @@ public class Perso : DetecteurSol
         _donnees.pv -= degatsFinaux;
         UIJeu.instance.MettreAJourInfo();
         Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite());
-        Debug.Log("Points de vie restants : " + _donnees.pv);
+        // Debug.Log("Points de vie restants : " + _donnees.pv);
         if (_donnees.pv <= 0)
         {
             Debug.Log("Le joueur est mort");

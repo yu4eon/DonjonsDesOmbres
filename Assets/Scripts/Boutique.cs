@@ -16,6 +16,7 @@ public class Boutique : MonoBehaviour
     public SOPerso donneesPerso => _donneesPerso; // Propriété publique pour accéder aux données du personnage.
     [SerializeField] TextMeshProUGUI _champNiveau; // Champ de texte pour afficher le niveau.
     [SerializeField] TextMeshProUGUI _champArgent; // Champ de texte pour afficher l'argent du personnage.
+    [SerializeField] AudioClip _sonCages; // Son d'accueil de la boutique.
 
     static Boutique _instance; // Instance statique de la boutique.
     static public Boutique instance => _instance; // Propriété publique pour accéder à l'instance de la boutique.
@@ -32,6 +33,11 @@ public class Boutique : MonoBehaviour
         MettreAJourInfos(); // Met à jour les informations affichées dans la boutique.
         _donneesPerso.evenementMiseAJour.AddListener(MettreAJourInfos); // Ajoute l'écouteur pour mettre à jour les infos.
 
+    }
+
+    void Start()
+    {
+        SoundManager.instance.JouerEffetSonore(_sonCages); // Joue le son d'accueil de la boutique.
     }
 
     /// <summary>

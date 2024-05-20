@@ -55,7 +55,7 @@ public class Ennemi : MonoBehaviour
     void Initialiser()
     {
         _pointsDeVieIni = Mathf.FloorToInt((float)_pointsDeVieIni + ((float)_donneesPerso.niveau/4 * (float)_pointsDeVieIni));
-        // Debug.Log("Points de vie de l'ennemi : " + _pointsDeVieIni);
+        Debug.Log("Points de vie de l'ennemi : " + _pointsDeVieIni);
         _pointsDeVie = _pointsDeVieIni;
         _contenantBarreVie.SetActive(false);
         _barreVie.SetActive(false);
@@ -116,7 +116,8 @@ public class Ennemi : MonoBehaviour
         }
         _pointsDeVie = Mathf.Clamp(_pointsDeVie - degats, 0, _pointsDeVieIni); // Réduit les points de vie de l'ennemi
         float fractionVie = (float)_pointsDeVie / _pointsDeVieIni;
-        // Debug.Log("Fraction de vie : " + fractionVie);
+        Debug.Log(degats + " dégâts infligés");
+        Debug.Log("Fraction de vie : " + fractionVie);
         _barreVie.transform.localScale = new Vector3(fractionVie, 1, 1);
 
         Debug.Log("Points de vie restants : " + _pointsDeVie);

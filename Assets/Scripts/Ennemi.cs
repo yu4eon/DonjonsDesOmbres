@@ -27,6 +27,8 @@ public class Ennemi : MonoBehaviour
     Rigidbody2D _rb; // Rigidbody de l'ennemi
     bool _estInvulnerable = false; // Indique si l'ennemi est invulnérable
     bool _degatCritique = false; // Indique si l'ennemi a subi un dégât critique
+    protected Perso _perso; // référence du joueur
+    public Perso perso { get => _perso; set => _perso = value; }
 
     // Dictionnaire des faiblesses de chaque pouvoir (a changer selon les demandes de l'artiste)
     // Dictionary<TypePouvoir, TypePouvoir> _faiblesses = new Dictionary<TypePouvoir, TypePouvoir>

@@ -55,9 +55,10 @@ public class Salle : MonoBehaviour
         return Vector2Int.FloorToInt(pos);
     }
 
-    public void PlacerEnnemiSurRepere(GameObject _modele, int index, Transform contenant)
+    public void PlacerEnnemiSurRepere(GameObject _modele, int index, Transform contenant, Perso perso)
     {
         Vector3 pos = _tReperesEnnemis[index].position;
-        Instantiate(_modele, pos, Quaternion.identity, contenant);
+        GameObject ennemi = Instantiate(_modele, pos, Quaternion.identity, contenant);
+        ennemi.GetComponent<Ennemi>().perso = perso;
     }
 }

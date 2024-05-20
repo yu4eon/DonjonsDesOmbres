@@ -199,6 +199,7 @@ MonoBehaviour:
   _barreVie: {fileID: 3722225385814795697}
   vitesse: 3
   detectionDistance: 1
+  _distanceSon: 20
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 8

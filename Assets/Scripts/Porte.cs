@@ -31,9 +31,9 @@ public class Porte : MonoBehaviour
     /// </summary>
     void Start()
     {
-        fond = GameObject.Find("Fond");
-        panneauBonus = GameObject.Find("PointsBonus");
-        panneauJoueur = GameObject.FindGameObjectsWithTag("PanneauJoueur");
+        // fond = GameObject.Find("Fond");
+        // panneauBonus = GameObject.Find("PointsBonus");
+        // panneauJoueur = GameObject.FindGameObjectsWithTag("PanneauJoueur");
         _lumiere.SetActive(false); // Désactive la lumière de la porte #tp4 Leon
         aCle = false; // Réinitialisation de la variable aCle
         _sr = GetComponent<SpriteRenderer>(); // Obtention du composant SpriteRenderer attaché à cet objet
@@ -78,22 +78,20 @@ public class Porte : MonoBehaviour
     void SceneBonus()
     {
         // Active l'objet 'fond' dans la scène.
-        fond.SetActive(true);
+        // fond.SetActive(true);
         // Active l'objet 'panneauBonus' dans la scène.
-        panneauBonus.SetActive(true);
+        // panneauBonus.SetActive(true);
+        Niveau.instance.ActiverBonus(); // Active le bonus du niveau
 
         Niveau.instance.ArreterCoroutine(); // Arrête la coroutine du niveau
 
-        panneauBonus.GetComponent<PanneauBonus>().CalculerPoints(); // Appelle la fonction 'CalculerPoints' du script 'PanneauBonus'
+        // panneauBonus.GetComponent<PanneauBonus>().CalculerPoints(); // Appelle la fonction 'CalculerPoints' du script 'PanneauBonus'
 
         // Désactive tous les objets enfants de 'panneauJoueur'.
-        foreach (var item in panneauJoueur)
-        {
-            item.SetActive(false);
-        }
-
-        // Définit le texte du premier composant TextMeshProUGUI trouvé dans 'panneauBonus'.
-        panneauBonus.GetComponentInChildren<TextMeshProUGUI>().text = "Bonus Collected!";
+        // foreach (var item in panneauJoueur)
+        // {
+        //     item.SetActive(false);
+        // }
 
         // Vide l'inventaire du joueur.
         _donneesPerso.ViderInventaire(); // Vidage de l'inventaire du joueur

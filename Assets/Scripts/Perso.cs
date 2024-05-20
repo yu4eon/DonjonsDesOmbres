@@ -259,7 +259,7 @@ public class Perso : DetecteurSol
             _rb.velocity = new Vector2(_direction * _dashForce, 0f);
             // _estInvincible = true;
             Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibiliteDash());
-            SoundManager.instance.JouerEffetSonore(_sonPerso[4]);
+            GestAudio.instance.JouerEffetSonore(_sonPerso[4]);
             yield return new WaitForSeconds(_tDash);
             _rb.gravityScale = graviteBase;
             // _estInvincible = false;
@@ -282,7 +282,7 @@ public class Perso : DetecteurSol
     void OnChangePoison()
     {
         InstantierParticules(0);
-        SoundManager.instance.JouerEffetSonore(_sonElements[0]);
+        GestAudio.instance.JouerEffetSonore(_sonElements[0]);
     }
 
     /// <summary>
@@ -292,7 +292,7 @@ public class Perso : DetecteurSol
     void OnChangeOmbre()
     {
         InstantierParticules(1);
-        SoundManager.instance.JouerEffetSonore(_sonElements[1]);
+        GestAudio.instance.JouerEffetSonore(_sonElements[1]);
     }
 
     /// <summary>
@@ -302,7 +302,7 @@ public class Perso : DetecteurSol
     void OnChangeFoudre()
     {
         InstantierParticules(2);
-        SoundManager.instance.JouerEffetSonore(_sonElements[2]);
+        GestAudio.instance.JouerEffetSonore(_sonElements[2]);
     }
     /// <summary>
     /// Méthode qui est appelée lorsque le joueur appuie sur le 1 ou dpad haut pour
@@ -311,7 +311,7 @@ public class Perso : DetecteurSol
     void OnChangeGlace()
     {
         InstantierParticules(3);
-        SoundManager.instance.JouerEffetSonore(_sonElements[3]);
+        GestAudio.instance.JouerEffetSonore(_sonElements[3]);
     }
 
 
@@ -487,7 +487,7 @@ public class Perso : DetecteurSol
 
     public void JouerSon(int index)
     {
-        SoundManager.instance.JouerEffetSonore(_sonPerso[index]); // Joue le son correspondant à l'index passé en paramè
+        GestAudio.instance.JouerEffetSonore(_sonPerso[index]); // Joue le son correspondant à l'index passé en paramè
     }
 
     public void SubirDegats(int degats)
@@ -506,7 +506,7 @@ public class Perso : DetecteurSol
         }
         if (_donnees.pv <= _donnees.pvIni / 4)
         {
-            SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, true);
+            GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, true);
         }
     }
 
@@ -542,7 +542,7 @@ public class Perso : DetecteurSol
 
     void Mourir()
     {
-        SoundManager.instance.JouerEffetSonore(_sonPerso[5]);
+        GestAudio.instance.JouerEffetSonore(_sonPerso[5]);
         _donneesNavigation.AllerSceneTableauHonneur();
     }
 

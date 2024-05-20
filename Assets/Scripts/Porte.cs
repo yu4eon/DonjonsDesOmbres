@@ -61,7 +61,7 @@ public class Porte : MonoBehaviour
             _sr.sprite = _sprites[1]; // Changement du sprite de la porte (ouverte)
             _lumierePortail.gameObject.SetActive(true); // Active la lumière de la porte #tp4 Leon
             // Coroutine _coroutine = StartCoroutine(ChangerScene()); // Appel de la coroutine pour changer de scène après un délai
-            SoundManager.instance.JouerEffetSonore(_sonPorte); // Joue le son de la porte
+            GestAudio.instance.JouerEffetSonore(_sonPorte); // Joue le son de la porte
         }
     }
 

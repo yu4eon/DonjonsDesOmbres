@@ -38,10 +38,11 @@ public class EnnemiA : Ennemi
         Vector2 raycastOrigin = transform.position + Vector3.down * 0.5f;
 
         RaycastHit2D hitWall = Physics2D.Raycast(raycastOrigin, direction, detectionDistance, obstacleLayer);
-        RaycastHit2D hitGround = Physics2D.Raycast(raycastOrigin, Vector2.down, detectionDistance, groundLayer);
+        RaycastHit2D hitGround = Physics2D.Raycast(raycastOrigin, new Vector2(1,1), detectionDistance, groundLayer);
 
         if (hitWall || !hitGround)
         {
+            rb.velocity = Vector2.zero;
             if (!estEnTrainDeChangerDirection)
             {
                 StartCoroutine(ChangerDirectionCoroutine());

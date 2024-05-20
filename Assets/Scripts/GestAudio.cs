@@ -1,10 +1,12 @@
+/// <summary>
+/// Synthese Antoine
+/// </summary>
+
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-// Classe responsable de la gestion des sons dans le jeu.
-public class SoundManager : MonoBehaviour
+public class GestAudio : MonoBehaviour
 {
     [SerializeField] float _volumeMusicalRef = 0.8f; // Référence de volume pour la musique.
     [SerializeField] Vector2 _pitchSonMinMax = new Vector2(0.9f, 1.1f); // Plage de hauteur de ton des sons.
@@ -17,10 +19,12 @@ public class SoundManager : MonoBehaviour
 
     AudioSource _sourceEffetsSonores; // AudioSource pour les effets sonores.
 
-    static SoundManager _instance; // Instance unique du SoundManager.
-    public static SoundManager instance => _instance; // Propriété pour accéder à l'instance unique.
+    static GestAudio _instance; // Instance unique du SoundManager.
+    public static GestAudio instance => _instance; // Propriété pour accéder à l'instance unique.
 
-    // Fonction appelée lors de l'initialisation de l'objet.
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
     void Awake()
     {
         // Assure qu'il n'y a qu'une seule instance de SoundManager dans la scène.
@@ -36,15 +40,20 @@ public class SoundManager : MonoBehaviour
         _sourceEffetsSonores = gameObject.AddComponent<AudioSource>();
     }
 
-
-    // Change le volume général de toutes les pistes musicales.
+    /// <summary>
+    /// Fonction permetant de changer le volume général de toutes les pistes musicales.
+    /// </summary>
+    /// <param name="volume">Le nouveau volume général.</param>
     public void ChangerVolumeGeneral(float volume)
     {
         _volumeMusicalRef = volume;
         foreach(PisteMusicale piste in _tPistes) piste.AjusterVolume();
     }
 
-    // Change la hauteur de ton de toutes les pistes musicales.
+    /// <summary>
+    /// Fonction qui permet de changer la hauteur de ton de toutes les pistes musicales.
+    /// </summary>
+    /// <param name="pitch">Le nouveau pitch des pistes musicales.</param>
     public void ChangerPitchMusique(float pitch)
     {
         foreach(PisteMusicale piste in _tPistes)
@@ -53,7 +62,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // Change l'état de lecture d'une piste musicale spécifique.
+    /// <summary>
+    /// Fonction qui change l'état de lecture d'une piste musicale spécifique.
+    /// </summary>
+    /// <param name="type">Le type de la piste musicale à modifier.</param>
+    /// <param name="estActive">L'état de lecture (actif ou non) de la piste musicale.</param>
     public void ChangerEtatLecturePiste(TypePiste type, bool estActive)
     {
         foreach(PisteMusicale piste in _tPistes)
@@ -61,13 +74,16 @@ public class SoundManager : MonoBehaviour
             if(piste.type == type)
             {
                 piste.estActif = estActive;
-                // StartCoroutine(FadeIn(piste, 2f));
+                if(estActive) StartCoroutine(FadeIn(piste, 2f));
+                else StartCoroutine(FadeOut(piste, 2f));
             }
-            // else StartCoroutine(FadeOut(piste, 2f));
         }
     }
 
-    // Joue un effet sonore avec un pitch aléatoire dans la plage spécifiée.
+    /// <summary>
+    /// Fonction qui joue un effet sonore avec un pitch aléatoire dans la plage spécifiée.
+    /// </summary>
+    /// <param name="clip">Le clip audio de l'effet sonore à jouer.</param>
     public void JouerEffetSonore(AudioClip clip)
     {
         float pitchAleatoire = Random.Range(_pitchSonMinMax.x, _pitchSonMinMax.y);
@@ -75,7 +91,10 @@ public class SoundManager : MonoBehaviour
         _sourceEffetsSonores.PlayOneShot(clip);
     }
 
-    // Assure qu'il n'y a qu'une seule instance de SoundManager dans la scène.
+    /// <summary>
+    /// Assure qu'il n'y a qu'une seule instance de SoundManager dans la scène.
+    /// </summary>
+    /// <returns>True si l'objet est devenu l'instance unique, false sinon.</returns>
     bool DevenirInstanceSingleton()
     {
         if (_instance != null)
@@ -88,7 +107,11 @@ public class SoundManager : MonoBehaviour
         return true; // Succès !
     }
 
-
+    /// <summary>
+    /// Coroutine pour effectuer un fade-in(fondu en entrée) sur une piste musicale.
+    /// </summary>
+    /// <param name="piste">La piste musicale à laquelle appliquer le fondu.</param>
+    /// <param name="dureeFade">La durée du fondu en secondes.</param>
     public IEnumerator FadeIn(PisteMusicale piste, float dureeFade)
     {
         float tempsEcoule = 0f;
@@ -96,26 +119,30 @@ public class SoundManager : MonoBehaviour
 
         while(tempsEcoule < dureeFade)
         {
-            piste.volume = Mathf.Lerp(volumeInitial, _volumeMusicalRef, tempsEcoule/dureeFade);
+            piste.source.volume = Mathf.Lerp(volumeInitial, piste.volume, tempsEcoule/dureeFade);
             tempsEcoule += Time.deltaTime;
             yield return null;
         }
-        piste.volume = _volumeMusicalRef;
-        piste.estActif = true;
+        piste.source.volume = _volumeMusicalRef;
     }
+
+    /// <summary>
+    /// Coroutine pour effectuer un fade-out(fondu en sortie) sur une piste musicale.
+    /// </summary>
+    /// <param name="piste">La piste musicale à laquelle appliquer le fondu.</param>
+    /// <param name="dureeFade">La durée du fondu en secondes.</param>
     public IEnumerator FadeOut(PisteMusicale piste, float dureeFade)
     {
         float tempsEcoule = 0f;
-        float volumeInitial = piste.volume;
+        float volumeInitial = piste.source.volume;
 
         while(tempsEcoule < dureeFade)
         {
-            piste.volume = Mathf.Lerp(volumeInitial, 0f, tempsEcoule/dureeFade);
+            piste.source.volume = Mathf.Lerp(volumeInitial, 0f, tempsEcoule/dureeFade);
             tempsEcoule += Time.deltaTime;
             yield return null;
         }
-        piste.volume = 0f;
+        piste.source.volume = 0f;
         piste.estActif = false;
     }
-
 }

@@ -29,7 +29,7 @@ public class Cle : MonoBehaviour
             porte.PossederCle(); // Indique que le joueur a la clé
             Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity, transform.parent); // Crée une rétroaction
             retro.ChangerTexte("Clé obtenue", "#FFFFFF", 0.5f); // Change le texte de la rétroaction
-            SoundManager.instance.JouerEffetSonore(_sonCle); // Joue le son de la clé
+            GestAudio.instance.JouerEffetSonore(_sonCle); // Joue le son de la clé
             Destroy(gameObject); //Détruit l'objet clé
         }
     }

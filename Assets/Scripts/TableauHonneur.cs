@@ -62,6 +62,11 @@ public class TableauHonneur : MonoBehaviour
             _lesJoueursScores.RemoveAt(_lesJoueursScores.Count - 1);
         }
         AfficherScores();
+
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, false);
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, false);
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, false);
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueMenu, true);
     }
 
 

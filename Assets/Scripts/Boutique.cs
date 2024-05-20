@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using TMPro;
 
 /// <summary>
@@ -32,6 +29,17 @@ public class Boutique : MonoBehaviour
         MettreAJourInfos(); // Met à jour les informations affichées dans la boutique.
         _donneesPerso.evenementMiseAJour.AddListener(MettreAJourInfos); // Ajoute l'écouteur pour mettre à jour les infos.
 
+    }
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
+    {
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, false);
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, false);
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, false);
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueMenu, true);
     }
 
     /// <summary>

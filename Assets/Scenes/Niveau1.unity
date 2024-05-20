@@ -598,6 +598,8 @@ MonoBehaviour:
   cvCamera: {fileID: 1235729713}
   _nbJoyauxParSalle: 5
   _limiteTemps: 120
+  _fondBonus: {fileID: 928111877}
+  _panneauBonus: {fileID: 37275263}
 --- !u!156049354 &308034227
 Grid:
   m_ObjectHideFlags: 0

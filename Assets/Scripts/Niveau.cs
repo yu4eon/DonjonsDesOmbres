@@ -40,10 +40,9 @@ public class Niveau : MonoBehaviour
     [Header("Paramètres de jeu")]
     [SerializeField, Range(0, 20)] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     [SerializeField, Range(40, 200)] int _limiteTemps = 120; // Limite de temps pour le niveau. #synthese Léon
-    [Header("UI")]
-    [SerializeField] GameObject _fondBonus;
-    [SerializeField] PanneauBonus _panneauBonus;
-    // [SerializeField] GameObject _panneauJoueur;
+    [Header("UI")] //(Initaliement dans Porte, mais déplacé ici puisque ca fait plus de sens ici)
+    [SerializeField] GameObject _fondBonus; // Fond pour le bonus. #synthese Léon
+    [SerializeField] PanneauBonus _panneauBonus; // Panneau pour le bonus. #synthese Léon 
     int _temps; // Temps écoulé dans le niveau. #synthese Léon
     public int temps => _temps; // Propriété publique pour accéder au temps écoulé. #synthese Léon
 

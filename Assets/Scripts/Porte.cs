@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using TMPro;
+using UnityEngine.EventSystems;
+using Unity.Mathematics;
 
 /// <summary>
 /// #Tp3
@@ -16,14 +18,17 @@ public class Porte : MonoBehaviour
     [SerializeField] SONavigation _navigation; // Référence au script de navigation entre les scènes
     [SerializeField] Sprite[] _sprites; // Tableau des sprites de la porte (ouverte et fermée)
     [SerializeField] SOPerso _donneesPerso; // Données du personnage (ScriptableObject)
-    [SerializeField] GameObject _lumiere; // Référence à la lumière de la porte #tp4 Leon
+    [SerializeField] Light2D _lumierePorte; // Référence à la lumière de la porte, actif au début pour rendre le portail plus visible #synthese Leon
+    [SerializeField] Light2D _lumierePortail; // Référence à la lumière du portail de la porte #tp4 Leon
     [SerializeField] AudioClip _sonPorte;
-    [SerializeField] GameObject fond;
-    [SerializeField] GameObject panneauBonus;
-    [SerializeField] GameObject[] panneauJoueur;
 
     SpriteRenderer _sr; // Référence au composant SpriteRenderer de la porte
-    static public bool aCle = false; // Booléen indiquant si la clé a été trouvée
+    bool _aCle = false; // Booléen indiquant si la clé a été trouvée 
+    [SerializeField] float _limiteLuminosite = 4f; // Limite de l'intensité de la lumière de la porte #Synthese Leon
+    [SerializeField] float _forceAjustementLuminosite = 3f; // Force pour ajuster la luminosité de la porte après avoir obtenu la clé #Synthese Leon
+    Coroutine _coroutine; // Référence à la coroutine pour ajuster la luminosité de la porte après avoir obtenu la clé #Synthese Leon
+    float _lumiereIntensiteIni; // Intensité initiale de la lumière de la porte #Synthese Leon
+
 
 
     /// <summary>
@@ -31,20 +36,13 @@ public class Porte : MonoBehaviour
     /// </summary>
     void Start()
     {
-        // fond = GameObject.Find("Fond");
-        // panneauBonus = GameObject.Find("PointsBonus");
-        // panneauJoueur = GameObject.FindGameObjectsWithTag("PanneauJoueur");
-        _lumiere.SetActive(false); // Désactive la lumière de la porte #tp4 Leon
-        aCle = false; // Réinitialisation de la variable aCle
+
+        _lumiereIntensiteIni = _lumierePorte.intensity; // Obtention de l'intensité initiale de la lumière de la porte #Synthese Leon
+        _lumierePorte.gameObject.SetActive(true); // Active la lumière de la porte #tp4 Leon
+        _lumierePortail.gameObject.SetActive(false); // Désactive la lumière de la porte #tp4 Leon
+        _aCle = false; // Réinitialisation de la variable aCle
         _sr = GetComponent<SpriteRenderer>(); // Obtention du composant SpriteRenderer attaché à cet objet
         _sr.sprite = _sprites[0]; // Définition du sprite initial de la porte (fermée)
-
-        fond.SetActive(false);
-        panneauBonus.SetActive(false);
-        foreach (var item in panneauJoueur)
-        {
-            item.SetActive(true);
-        }
     }
 
     /// <summary>
@@ -53,13 +51,15 @@ public class Porte : MonoBehaviour
     /// <param name="other">Le Collider2D entrant en collision avec cet objet.</param>
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (aCle && other.CompareTag("Player")) // Si la clé a été trouvée et le joueur entre en collision avec la porte
+        if (_aCle && other.CompareTag("Player")) // Si la clé a été trouvée et le joueur entre en collision avec la porte
         {
             SceneBonus();
+            StopCoroutine(_coroutine); // Arrête la coroutine
+            _lumierePorte.gameObject.SetActive(false); // Désactive la lumière de la porte #tp4 Leon
             Perso perso = other.GetComponent<Perso>();
             perso.DesactiverInputs();
             _sr.sprite = _sprites[1]; // Changement du sprite de la porte (ouverte)
-            _lumiere.SetActive(true); // Active la lumière de la porte #tp4 Leon
+            _lumierePortail.gameObject.SetActive(true); // Active la lumière de la porte #tp4 Leon
             // Coroutine _coroutine = StartCoroutine(ChangerScene()); // Appel de la coroutine pour changer de scène après un délai
             SoundManager.instance.JouerEffetSonore(_sonPorte); // Joue le son de la porte
         }
@@ -77,36 +77,30 @@ public class Porte : MonoBehaviour
 
     void SceneBonus()
     {
-        // Active l'objet 'fond' dans la scène.
-        // fond.SetActive(true);
-        // Active l'objet 'panneauBonus' dans la scène.
-        // panneauBonus.SetActive(true);
+
         Niveau.instance.ActiverBonus(); // Active le bonus du niveau
 
         Niveau.instance.ArreterCoroutine(); // Arrête la coroutine du niveau
 
-        // panneauBonus.GetComponent<PanneauBonus>().CalculerPoints(); // Appelle la fonction 'CalculerPoints' du script 'PanneauBonus'
-
-        // Désactive tous les objets enfants de 'panneauJoueur'.
-        // foreach (var item in panneauJoueur)
-        // {
-        //     item.SetActive(false);
-        // }
 
         // Vide l'inventaire du joueur.
         _donneesPerso.ViderInventaire(); // Vidage de l'inventaire du joueur
     }
 
-    /// <summary>
-    /// Callback sent to all game objects before the application is quit.
-    /// </summary>
-    void OnApplicationQuit()
+
+    public void PossederCle()
     {
-        fond.SetActive(false); // Désactive l'objet 'fond' dans la scène
-        panneauBonus.SetActive(false); // Désactive l'objet 'panneauBonus' dans la scène
-        foreach (var item in panneauJoueur) // Réactive tous les objets enfants de 'panneauJoueur'
+        _aCle = true; // Indique que le joueur a la clé
+        _coroutine = StartCoroutine(CouroutineAjusterLumiere()); // Appel de la coroutine pour ajuster la lumière après un délai
+
+    }
+
+    IEnumerator CouroutineAjusterLumiere()
+    {
+        while (true)
         {
-            item.SetActive(true);
+            _lumierePorte.intensity = Mathf.PingPong(Time.time * _forceAjustementLuminosite, _limiteLuminosite) + _lumiereIntensiteIni; // Ajustement de l'intensité de la lumière de la porte
+            yield return null;
         }
     }
 }

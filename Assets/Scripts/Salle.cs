@@ -21,6 +21,7 @@ public class Salle : MonoBehaviour
     public Transform[] tReperesEnnemis => _tReperesEnnemis; //Propriété pour accéder aux repères des ennemis
     [SerializeField] Transform[] _tEffectors; //Tableau des effectors dans la salle
     public Transform[] tEffectors => _tEffectors; //Propriété pour accéder aux effectors
+    static Porte _porte; //Porte de la salle #Synthese Léon
     
 
     // #tp3 leon, Supprimer la methode Tester car elle etait inutile
@@ -42,7 +43,15 @@ public class Salle : MonoBehaviour
     {
 
         Vector3 pos = _repereObjet.position;
-        Instantiate(_modele, pos, Quaternion.identity, transform.parent);
+        GameObject modele = Instantiate(_modele, pos, Quaternion.identity, transform.parent);
+        if(modele.GetComponent<Porte>() != null)
+        {
+            _porte = modele.GetComponent<Porte>();
+        }
+        if(modele.GetComponent<Cle>() != null)
+        {
+            modele.GetComponent<Cle>().porte = _porte;
+        }
         return Vector2Int.FloorToInt(pos);
     }
 

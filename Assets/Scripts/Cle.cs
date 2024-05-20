@@ -12,6 +12,8 @@ public class Cle : MonoBehaviour
 {
     [SerializeField] AudioClip _sonCle;
     [SerializeField] Retroaction _modeleRetro; // Modèle de rétroaction #synthese Leon
+    Porte _porte;
+    public Porte porte { get => _porte; set => _porte = value; }
     /// <summary>
     /// #Tp3 Antoine
     /// Sent when an incoming collider makes contact with this object's
@@ -22,7 +24,9 @@ public class Cle : MonoBehaviour
     {
         if (other.CompareTag("Player")) //Si le joueur entre en collision avec la clé
         {
-            Porte.aCle = true; // Indique que le joueur a la clé
+            Debug.Log(_porte);
+            // Porte.aCle = true; // Indique que le joueur a la clé
+            porte.PossederCle(); // Indique que le joueur a la clé
             Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity, transform.parent); // Crée une rétroaction
             retro.ChangerTexte("Clé obtenue", "#FFFFFF", 0.5f); // Change le texte de la rétroaction
             SoundManager.instance.JouerEffetSonore(_sonCle); // Joue le son de la clé

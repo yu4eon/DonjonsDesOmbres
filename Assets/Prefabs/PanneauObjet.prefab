@@ -246,6 +246,7 @@ MonoBehaviour:
   _champDescription: {fileID: 1301370780146151439}
   _image: {fileID: 2886793513079597193}
   _canvasGroup: {fileID: 3202940979445514654}
+  _modeleRetro: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
 --- !u!1 &701002652931039772
 GameObject:
   m_ObjectHideFlags: 0

@@ -66,4 +66,14 @@ public class SONavigation : ScriptableObject
     {
         SceneManager.LoadScene("Honneur");
     }
+
+    public void AllerSceneGenerique()
+    {
+        SceneManager.LoadScene("Generique");
+    }
+
+    public void AllerSceneExplication()
+    {
+        SceneManager.LoadScene("InterfaceExplicative");
+    }
 }

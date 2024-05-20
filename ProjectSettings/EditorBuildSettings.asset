@@ -17,5 +17,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Honneur.unity
     guid: d4106c8b4a5d0b34994b13ee905bc711
+  - enabled: 1
+    path: Assets/Scenes/InterfaceExplicative.unity
+    guid: 17f6387abfc236140aa1189cc0f410fa
+  - enabled: 1
+    path: Assets/Scenes/Generique.unity
+    guid: 739f082d13e36b84d9d928862eccd854
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 768ecea052066dc44a7e56f322bf7502, type: 2}

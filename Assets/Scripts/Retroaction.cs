@@ -24,6 +24,11 @@ public class Retroaction : MonoBehaviour
     /// <summary>
     /// Méthode qui change le texte de la rétroaction selon le texte donné
     /// </summary>
+    /// <param name="texte">Le texte à afficher</param>
+    /// <param name="couleur">La couleur du texte</param>
+    /// <param name="vitesse">La vitesse de l'animation</param>
+    /// <param name="taille">La taille de la rétroaction</param>
+    /// <returns></returns>
     public void ChangerTexte(string texte, string couleur = "#FFFFFF", float vitesse = 1f, float taille = 1f)
     {
         _animator.speed = vitesse;

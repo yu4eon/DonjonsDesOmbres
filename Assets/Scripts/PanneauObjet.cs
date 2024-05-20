@@ -22,6 +22,7 @@ public class PanneauObjet : MonoBehaviour
     [SerializeField] TextMeshProUGUI _champDescription; // Champ de texte pour afficher la description de l'objet.
     [SerializeField] Image _image; // Image pour afficher l'objet.
     [SerializeField] CanvasGroup _canvasGroup; // Groupe de canvas pour gérer l'interaction avec le panneau.
+    [SerializeField] Retroaction _modeleRetro; // Modèle de rétroaction #synthese Leon
 
     void Start()
     {
@@ -68,6 +69,8 @@ public class PanneauObjet : MonoBehaviour
     /// </summary>
     public void Acheter()
     {
+        Retroaction retroaction = Instantiate(_modeleRetro, transform.position, Quaternion.identity, transform.parent); // Crée une rétroaction.
+        retroaction.ChangerTexte("+" + _donnees.nom, "#FFFFFF", 0.5f, 50); // Change le texte de la rétroaction.
         Boutique.instance.donneesPerso.Acheter(_donnees); // Appelle la méthode d'achat de l'objet dans les données du personnage.
     }
 }

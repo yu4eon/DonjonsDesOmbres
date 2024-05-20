@@ -57,7 +57,7 @@ public class Autels : MonoBehaviour
     {
         if(collision.CompareTag("Player") && estActif)
         {
-            SoundManager.instance.JouerEffetSonore(_sonAutel);
+            GestAudio.instance.JouerEffetSonore(_sonAutel);
             Debug.Log("Element : " + _pouvoir); // Affiche l'élément de l'autel.
             _donneesPerso.AjouterPouvoir(_pouvoir); // Ajoute le pouvoir de l'autel au personnage.
             _donneesPerso.evenementMiseAJour.Invoke(); // Déclenche l'événement de mise à jour des données du personnage. #tp4 Leon

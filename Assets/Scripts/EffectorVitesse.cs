@@ -18,7 +18,7 @@ public class EffectorVitesse : MonoBehaviour
     {
         if(other.CompareTag("Player") )
         {
-            SoundManager.instance.JouerEffetSonore(_sonEffector);
+            GestAudio.instance.JouerEffetSonore(_sonEffector);
             other.GetComponent<Perso>().AugmenterVitesse();
         }
 

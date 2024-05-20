@@ -51,7 +51,7 @@ public class PisteMusicale : MonoBehaviour
     public void AjusterVolume() 
     {
         // Si la piste est active, ajuste le volume en fonction du volume musical de SoundManager.
-        if(estActif) _source.volume = SoundManager.instance.volumeMusicalRef;
+        if(estActif) _source.volume = GestAudio.instance.volumeMusicalRef;
         // Sinon, désactive le volume de la piste.
         else _source.volume = 0f;
     }

@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 3964472566388295048}
   m_Layer: 3
   m_Name: Tilemap25
-  m_TagString: Untagged
+  m_TagString: Sol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -725,7 +725,7 @@ GameObject:
   - component: {fileID: 2294224196317585030}
   m_Layer: 3
   m_Name: Tilemap100
-  m_TagString: Untagged
+  m_TagString: Sol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1993,7 +1993,7 @@ GameObject:
   - component: {fileID: 3487214895698403483}
   m_Layer: 3
   m_Name: Tilemap75
-  m_TagString: Untagged
+  m_TagString: Sol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2909,7 +2909,7 @@ GameObject:
   - component: {fileID: 1384680768938351260}
   m_Layer: 3
   m_Name: Tilemap50
-  m_TagString: Untagged
+  m_TagString: Sol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

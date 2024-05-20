@@ -89,6 +89,6 @@ public class SONavigation : ScriptableObject
 
     void JouerSon()
     {
-        SoundManager.instance.JouerEffetSonore(_sonBouton); // Joue le son du bouton
+        GestAudio.instance.JouerEffetSonore(_sonBouton); // Joue le son du bouton
     }
 }

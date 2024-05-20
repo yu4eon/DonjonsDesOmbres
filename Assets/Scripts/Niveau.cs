@@ -98,9 +98,10 @@ public class Niveau : MonoBehaviour
         // GameObject persoClone = (GameObject)GameObject.Instantiate(_perso.gameObject, _lesPosLibres[Random.Range(0, _lesPosLibres.Count)], Quaternion.identity);
         cvCamera.m_Follow = _clonePerso.transform;
         cm_collider.transform.localScale = new Vector2(_taille.x * 32 - 1, _taille.y * 18 - 1);
-        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, true);
-        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, false);
-        SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, false);
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, true);
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, false);
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, false);
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueMenu, false);
     }
 
     /// <summary>
@@ -498,7 +499,7 @@ public class Niveau : MonoBehaviour
             _uiJeu.MettreAJourTemps(_temps);
             if (_temps <= _limiteTemps / 4)
             {
-                SoundManager.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, true);
+                GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, true);
             }
         }
         _donneesNavigation.AllerSceneTableauHonneur();

@@ -7,6 +7,7 @@ TagManager:
   - Effector
   - PanneauJoueur
   - Ennemi
+  - Sol
   layers:
   - Default
   - TransparentFX

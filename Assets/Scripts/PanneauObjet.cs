@@ -12,6 +12,7 @@ using TMPro;
 /// </summary>
 public class PanneauObjet : MonoBehaviour
 {
+    [SerializeField] AudioClip _sonAchat; // Son quand le joueur achète un objet.
     [Header("LES DONNÉES")] // Titre de la section des données.
     [SerializeField] SOObjet _donnees; // ScriptableObject contenant les données de l'objet.
     public SOObjet donnees => _donnees; // Propriété publique pour accéder aux données de l'objet.
@@ -69,6 +70,7 @@ public class PanneauObjet : MonoBehaviour
     /// </summary>
     public void Acheter()
     {
+        GestAudio.instance.JouerEffetSonore(_sonAchat); // Joue le son d'achat.
         Retroaction retroaction = Instantiate(_modeleRetro, transform.position, Quaternion.identity, transform.parent); // Crée une rétroaction.
         retroaction.ChangerTexte("+" + _donnees.nom, "#FFFFFF", 0.5f, 50); // Change le texte de la rétroaction.
         Boutique.instance.donneesPerso.Acheter(_donnees); // Appelle la méthode d'achat de l'objet dans les données du personnage.

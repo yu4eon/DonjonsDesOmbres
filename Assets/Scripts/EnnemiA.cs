@@ -34,6 +34,7 @@ public class EnnemiA : Ennemi
             return; // Si en train de changer de direction, ne fait rien
         }
 
+        GestAudio.instance.JouerEffetSonore(sonEnnemi[0]);
         Vector2 direction = deplacementDroite ? Vector2.right : Vector2.left;
         Vector2 raycastOrigin = transform.position + Vector3.down * 0.5f;
 

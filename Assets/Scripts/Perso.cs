@@ -499,6 +499,7 @@ public class Perso : DetecteurSol
         UIJeu.instance.MettreAJourInfo();
         Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite());
         Debug.Log("Points de vie restants : " + _donnees.pv);
+        JouerSon(6);
         if (_donnees.pv <= 0)
         {
             Debug.Log("Le joueur est mort");

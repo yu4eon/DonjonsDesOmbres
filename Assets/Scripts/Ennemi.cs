@@ -9,6 +9,7 @@ using UnityEngine.Rendering.Universal;
 public class Ennemi : MonoBehaviour
 {
     [SerializeField] AudioClip[] _sonEnnemi; // Sons de l'ennemi
+    protected AudioClip[] sonEnnemi =>_sonEnnemi; // Variable qui contient le son de l'ennemi
     [SerializeField] TypePouvoir _typePouvoirEnnemi; // Type de pouvoir de l'ennemi
     [SerializeField] int _pointsDeVieIni = 100; // Points de vie initial de l'ennemi
     int _pointsDeVie; // Points de vie actuels de l'ennemi
@@ -82,6 +83,7 @@ public class Ennemi : MonoBehaviour
         _degatCritique = false;
         if (_estInvulnerable) return; // Si l'ennemi est invulnérable, ne fait rien
         Debug.Log("L'ennemi subit " + degats + " dégâts de type " + typePouvoir);
+        GestAudio.instance.JouerEffetSonore(_sonEnnemi[1]);
         if (typePouvoir == _typePouvoirEnnemi)
         {
             degats *= 2;
@@ -120,6 +122,7 @@ public class Ennemi : MonoBehaviour
         if (_pointsDeVie <= 0)
         {
             Mourir();
+            GestAudio.instance.JouerEffetSonore(_sonEnnemi[2]);
         }
     }
 

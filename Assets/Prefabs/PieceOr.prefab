@@ -101,6 +101,7 @@ MonoBehaviour:
   _valeur: 10
   _retroModele: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
+  _sonJoyaux: {fileID: 8300000, guid: 7904bad30a3c78a43bc57e2b405ad294, type: 3}
 --- !u!58 &1887438581210583668
 CircleCollider2D:
   m_ObjectHideFlags: 0

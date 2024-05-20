@@ -600,6 +600,7 @@ MonoBehaviour:
   _limiteTemps: 120
   _fondBonus: {fileID: 928111877}
   _panneauBonus: {fileID: 37275263}
+  _panneauInventaire: {fileID: 1664355235}
 --- !u!156049354 &308034227
 Grid:
   m_ObjectHideFlags: 0
@@ -1735,6 +1736,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1664355235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7169586012318911032, guid: 202628443940f8b4ca4b884d7bd87468, type: 3}
+  m_PrefabInstance: {fileID: 3586792196998098728}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf6dfaac3bcaed42b6b0418853756c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1766530582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,6 +2503,14 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Niv : 00'
       objectReference: {fileID: 0}
+    - target: {fileID: 5311406903375770323, guid: 202628443940f8b4ca4b884d7bd87468, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5463080847847315598, guid: 202628443940f8b4ca4b884d7bd87468, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 24.800003
+      objectReference: {fileID: 0}
     - target: {fileID: 5980544699149817388, guid: 202628443940f8b4ca4b884d7bd87468, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 46.199997
@@ -2515,6 +2535,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7169586012318911032, guid: 202628443940f8b4ca4b884d7bd87468, type: 3}
+      propertyPath: _panneauVignetteModele
+      value: 
+      objectReference: {fileID: 8698057440445728141, guid: 6dfad7fed65f6384db950d588b206c78, type: 3}
     - target: {fileID: 8892986210201809761, guid: 202628443940f8b4ca4b884d7bd87468, type: 3}
       propertyPath: m_text
       value: 0000 Or

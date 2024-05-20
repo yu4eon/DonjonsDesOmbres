@@ -98,6 +98,7 @@ public class Perso : DetecteurSol
         _donnees.InitialiserVie(); // Initialise les données du personnage
         UIJeu.instance.MettreAJourInfo(); // Initialise les points de vie dans l'UI #synthese Leon
         Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite(2f));
+        _donnees.AfficherInventaire(); // Affiche l'inventaire du joueur #synthese Leon
         // Debug.Log("Vie du personnage : " + _donnees.pv);
         // _arme.gameObject.SetActive(false); // Désactive l'arme du personnage
     }

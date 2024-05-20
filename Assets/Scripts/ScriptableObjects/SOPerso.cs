@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.Events;
+using UnityEngine.Rendering.Universal;
 
 [CreateAssetMenu(fileName = "SOPerso", menuName = "SOPerso")]
 
@@ -26,7 +28,7 @@ public class SOPerso : ScriptableObject
     [SerializeField] int _baseAttaque = 10; // Attaque de base du personnage
     int _attaqueBonus = 0;
     // Attaque du personnage en ajoutant l'attaque de base et l'attaque bonus  #synthese Leon
-    int _attaque => _baseAttaque + _attaqueBonus; 
+    int _attaque => _baseAttaque + _attaqueBonus;
     public int attaque => _attaque; // Propriété pour accéder à l'attaque du personnage
 
     [SerializeField] int baseDefense = 10;  // Défense de base du personnage
@@ -58,7 +60,7 @@ public class SOPerso : ScriptableObject
         get => _niveau;
         set
         {
-            _niveau = Mathf.Clamp(value, 1, int.MaxValue); 
+            _niveau = Mathf.Clamp(value, 1, int.MaxValue);
             _evenementMiseAJour.Invoke(); // Appelle l'événement de mise à jour
         }
     }
@@ -86,7 +88,8 @@ public class SOPerso : ScriptableObject
     UnityEvent _evenementMiseAJour = new UnityEvent(); // Événement de mise à jour
     public UnityEvent evenementMiseAJour => _evenementMiseAJour; // Propriété pour accéder à l'événement de mise à jour
 
-    List<SOObjet> _lesObjets = new List<SOObjet>(); // Liste des objets du personnage
+    // List<SOObjet> _lesObjets = new List<SOObjet>(); // Liste des objets du personnage
+    Dictionary<SOObjet, int> _dObjets = new Dictionary<SOObjet, int>(); // Dictionnaire des objets du personnage #synthese Leon
 
 
     public void Initialiser()
@@ -112,7 +115,14 @@ public class SOPerso : ScriptableObject
     public void Acheter(SOObjet donneesObjet)
     {
         argent -= donneesObjet.prix;
-        _lesObjets.Add(donneesObjet);
+        if (_dObjets.ContainsKey(donneesObjet))
+        {
+            _dObjets[donneesObjet]++;
+        }
+        else
+        {
+            _dObjets.Add(donneesObjet, 1);
+        }
         AfficherInventaire();
         // Leon : J'ai changé les ifs pour que ça check le type d'objet au lieu du nom de l'objet
         if (donneesObjet.typeObjet == TypeObjet.Attaque) _attaqueBonus += 5; Debug.Log("Bonus attaque: " + _attaqueBonus);
@@ -122,7 +132,7 @@ public class SOPerso : ScriptableObject
             _pvBonus += 50;
             Debug.Log("Bonus defense: " + _defenseBonus);
             Debug.Log("Bonus pv: " + _pvBonus);
-        } 
+        }
         if (donneesObjet.typeObjet == TypeObjet.DoubleSaut) Perso.possedeDoublesSauts = true;
         if (donneesObjet.estAcheter == false) donneesObjet.estAcheter = true;
     }
@@ -135,7 +145,7 @@ public class SOPerso : ScriptableObject
     public void AjouterArgent(int value)
     {
         argent += value;
-        Debug.Log("Argent ajouté: " + argent);
+        // Debug.Log("Argent ajouté: " + argent);
         AjouterScore(value * 10); //Ajoute le montant de l'argent au score multiplié par 10
     }
 
@@ -144,28 +154,39 @@ public class SOPerso : ScriptableObject
     /// Méthode qui ajoute du score au personnage
     /// </summary>
     /// <param name="value">Score qu'on ajoute au joueur</param>
-    public void AjouterScore(int value) 
+    public void AjouterScore(int value)
     {
         score += value;
-        Debug.Log("Score ajouté: " + score);
+        // Debug.Log("Score ajouté: " + score);
     }
 
     /// <summary>
     /// #tp3 Antoine
     /// Méthode qui affiche l'inventaire du joueur
     /// </summary>
-    void AfficherInventaire()
+    public void AfficherInventaire()
     {
-        string inventaire = "";
-        foreach (SOObjet objet in _lesObjets) //Pour chaque objet dans la liste des objets
+        PanneauVignette panneauVignette = null; //Crée une variable pour le panneau de la vignette précédente
+        if (Boutique.instance != null)
         {
-            if (inventaire != "") //Si l'inventaire n'est pas vide
+            Boutique.instance.panneauInventaire.Vider(); //Vide le panneau d'inventaire
+            foreach (KeyValuePair<SOObjet, int> objet in _dObjets)
             {
-                inventaire += ", "; //Ajoute une virgule
+                panneauVignette = Boutique.instance.panneauInventaire.Ajouter(objet.Key); //Ajoute l'objet au panneau d'inventaire
+                panneauVignette.nb = objet.Value; //Ajoute le nombre d'objets au panneau de la vignette
             }
-            inventaire += objet.nom;
         }
-        Debug.Log("Inventaire du perso : " + inventaire);
+        else if (Niveau.instance != null)
+        {
+        foreach (KeyValuePair<SOObjet, int> objet in _dObjets)
+        {
+            panneauVignette = Niveau.instance.panneauInventaire.Ajouter(objet.Key); //Ajoute l'objet au niveau
+            panneauVignette.nb = objet.Value; //Ajoute le nombre d'objets au panneau de la vignette	
+        }
+
+        }
+
+        // Debug.Log("Inventaire du perso : " + inventaire);
     }
 
     /// <summary>
@@ -174,12 +195,12 @@ public class SOPerso : ScriptableObject
     /// </summary>
     public void ViderInventaire()
     {
-        foreach (SOObjet objet in _lesObjets) //Pour chaque objet dans la liste des objets
-        {
-            objet.estAcheter = false; //Remet l'objet à non acheté
-        }
+        // foreach (SOObjet objet in _lesObjets) //Pour chaque objet dans la liste des objets
+        // {
+        //     objet.estAcheter = false; //Remet l'objet à non acheté
+        // }
         _pouvoirs.Clear(); //Vide la liste des pouvoirs 
-        _lesObjets.Clear(); //Vide la liste des objets
+        _dObjets.Clear(); //Vide le dictionnaire des objets
         _attaqueBonus = 0; //Remet l'attaque à 0
         _defenseBonus = 0; //Remet la défense à 0
         _pvBonus = 0; //Remet les points de vie à 0

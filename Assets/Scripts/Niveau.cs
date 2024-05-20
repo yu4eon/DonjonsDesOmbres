@@ -60,6 +60,8 @@ public class Niveau : MonoBehaviour
     List<Vector2Int> niveauSurBordure = new List<Vector2Int>();
     // Tableau des pouvoirs disponibles. #synthese Leon
     TypePouvoir[] _pouvoirs = { TypePouvoir.Poison, TypePouvoir.Ombre, TypePouvoir.Foudre, TypePouvoir.Glace };
+    [SerializeField] PanneauInventaire _panneauInventaire; // Panneau d'inventaire pour afficher les objets. #synthese Antoine
+    public PanneauInventaire panneauInventaire => _panneauInventaire; // Propriété publique pour accéder au panneau d'inventaire. #synthese Antoine
 
     Perso _clonePerso;
     void Awake()

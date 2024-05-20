@@ -40,6 +40,9 @@ public class Niveau : MonoBehaviour
     [Header("Paramètres de jeu")]
     [SerializeField, Range(0, 20)] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
     [SerializeField, Range(40, 200)] int _limiteTemps = 120; // Limite de temps pour le niveau. #synthese Léon
+    [Header("UI")] //(Initaliement dans Porte, mais déplacé ici puisque ca fait plus de sens ici)
+    [SerializeField] GameObject _fondBonus; // Fond pour le bonus. #synthese Léon
+    [SerializeField] PanneauBonus _panneauBonus; // Panneau pour le bonus. #synthese Léon 
     int _temps; // Temps écoulé dans le niveau. #synthese Léon
     public int temps => _temps; // Propriété publique pour accéder au temps écoulé. #synthese Léon
 
@@ -83,6 +86,10 @@ public class Niveau : MonoBehaviour
         PlacerAutels();//#tp3 Antoine
         PlacerLesJoyaux(); // #tp3 Léon
         PlacerEnnemis(); // #synthese Léon
+
+        _fondBonus.SetActive(false);
+        _panneauBonus.gameObject.SetActive(false);
+
         _temps = _limiteTemps; // #synthese Léon
         _uiJeu.MettreAJourTemps(_temps); // #synthese Léon
         Coroutine coroutine = StartCoroutine(CoroutineDecoulerTemps()); // #synthese Léon
@@ -502,5 +509,12 @@ public class Niveau : MonoBehaviour
     public void ArreterCoroutine()
     {
         StopAllCoroutines();
+    }
+
+    public void ActiverBonus()
+    {
+        _fondBonus.SetActive(true);
+        _panneauBonus.gameObject.SetActive(true);
+        _panneauBonus.CalculerPoints();
     }
 }

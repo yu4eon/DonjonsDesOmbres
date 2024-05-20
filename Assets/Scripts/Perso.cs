@@ -63,7 +63,7 @@ public class Perso : DetecteurSol
     bool _estEnAttaqueLourd; // Si le joueur est en train d'attaquer #synthese Leon
     [SerializeField] float _delaiAttaque = 0.1f; // Delai avant d'instancier l'arme #synthese Leon
     ArmePerso _arme; // Référence à l'arme du personnage #synthese Leon
-    
+
     int _LayerInvincibilite;
     int _LayerDefault;
 
@@ -124,7 +124,7 @@ public class Perso : DetecteurSol
         }
 
         _rb.velocity = new Vector2(_axeHorizontal * _vitesse, _rb.velocity.y); // Déplace le joueur en fonction de l'entrée horizontale.
-        if(_estEnAttaqueLourd)
+        if (_estEnAttaqueLourd)
         {
             _rb.velocity = new Vector2(0, _rb.velocity.y);
         }
@@ -208,7 +208,7 @@ public class Perso : DetecteurSol
     /// <param name="value">La valeur retournée par le Input system.</param>
     void OnMove(InputValue value)
     {
-        if(_estEnAttaqueLourd)
+        if (_estEnAttaqueLourd)
         {
             _axeHorizontal = 0;
             return;
@@ -249,6 +249,7 @@ public class Perso : DetecteurSol
     {
         if (_peutDash)
         {
+            _animator.SetTrigger("Dash");
             float graviteBase = _rb.gravityScale;
             _veutDasher = false;
             _peutDash = false;
@@ -316,18 +317,18 @@ public class Perso : DetecteurSol
 
     public void InstantierParticules(int index)
     {
-        Vector3 tailleParticules = new Vector3(2,2,2);
-        if(_donnees.pouvoirs.Contains((TypePouvoir)index))
+        Vector3 tailleParticules = new Vector3(2, 2, 2);
+        if (_donnees.pouvoirs.Contains((TypePouvoir)index))
         {
-        if(_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
-        {
-            Destroy(_particulePouvoirActuelle);
-            _particulePouvoirActuelle = null;
-        }
-        _pouvoirActuel = (TypePouvoir)index; // Change le pouvoir actuel en celle du pouvoir index.
-        _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[index], transform.position, _particulesPouvoirs[index].transform.rotation, transform);
-        _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
-        _uiJeu.ActiverPouvoir(index); // Active les particules de pouvoir dans l'UI. #synthese Leon
+            if (_particulePouvoirActuelle != null) // Si le joueur a déjà un pouvoir actif.
+            {
+                Destroy(_particulePouvoirActuelle);
+                _particulePouvoirActuelle = null;
+            }
+            _pouvoirActuel = (TypePouvoir)index; // Change le pouvoir actuel en celle du pouvoir index.
+            _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[index], transform.position, _particulesPouvoirs[index].transform.rotation, transform);
+            _particulePouvoirActuelle.transform.localScale = tailleParticules; // Change la taille des particules pour qu'elles soit plus visible.
+            _uiJeu.ActiverPouvoir(index); // Active les particules de pouvoir dans l'UI. #synthese Leon
         }
         else
         {
@@ -340,8 +341,8 @@ public class Perso : DetecteurSol
     /// </summary>
     /// <param name="value">La valeur retournée par le Input system.</param>
     void OnJump(InputValue value)
-    {   
-        if(_estEnAttaqueLourd)
+    {
+        if (_estEnAttaqueLourd)
         {
             return;
         }
@@ -418,13 +419,13 @@ public class Perso : DetecteurSol
 
     void OnLightAttack()
     {
-        if(_peutAttaquer)
+        if (_peutAttaquer)
         {
             _peutAttaquer = false;
             Debug.Log("Attaque légère");
             _animator.SetTrigger("AttaqueLight");
             Coroutine coroutine = StartCoroutine(CoroutineAttaquer(true));
-            CoroutineAttaquer(true);      
+            CoroutineAttaquer(true);
         }
         else
         {
@@ -434,7 +435,7 @@ public class Perso : DetecteurSol
 
     void OnHeavyAttack()
     {
-        if(_peutAttaquer)
+        if (_peutAttaquer)
         {
             _peutAttaquer = false;
             Debug.Log("Attaque lourde");
@@ -473,7 +474,7 @@ public class Perso : DetecteurSol
     {
         _estEnAttaqueLourd = false;
     }
-    
+
     void OnApplicationQuit()
     {
         _donnees.Initialiser(); // Initialise les données du personnage
@@ -498,7 +499,7 @@ public class Perso : DetecteurSol
         UIJeu.instance.MettreAJourInfo();
         Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite());
         Debug.Log("Points de vie restants : " + _donnees.pv);
-        if(_donnees.pv <= 0)
+        if (_donnees.pv <= 0)
         {
             Debug.Log("Le joueur est mort");
             Mourir();
@@ -526,15 +527,15 @@ public class Perso : DetecteurSol
         yield return new WaitForSeconds(duree);
         _estInvincible = false;
         gameObject.layer = _LayerDefault;
-        
+
     }
 
     IEnumerator CoroutineChangerCouleur()
     {
-        while(_estInvincible)
+        while (_estInvincible)
         {
-        yield return new WaitForSeconds(0.1f);
-        _sr.enabled = !_sr.enabled;
+            yield return new WaitForSeconds(0.1f);
+            _sr.enabled = !_sr.enabled;
         }
         _sr.enabled = true;
     }

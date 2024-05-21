@@ -989,6 +989,42 @@ PrefabInstance:
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
       objectReference: {fileID: -1548452049, guid: 599f98a68916c314597e89c775e53565, type: 3}
+    - target: {fileID: 4960335044552751255, guid: 627fc02b144a8f74e8222fde2ad57adc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960335044552751255, guid: 627fc02b144a8f74e8222fde2ad57adc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960335044552751255, guid: 627fc02b144a8f74e8222fde2ad57adc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: 7bfae785291759145a074c72fef7cad2, type: 2}
+    - target: {fileID: 4960335044552751255, guid: 627fc02b144a8f74e8222fde2ad57adc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960335044552751255, guid: 627fc02b144a8f74e8222fde2ad57adc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: JouerSon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960335044552751255, guid: 627fc02b144a8f74e8222fde2ad57adc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: AllerMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960335044552751255, guid: 627fc02b144a8f74e8222fde2ad57adc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SONavigation, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960335044552751255, guid: 627fc02b144a8f74e8222fde2ad57adc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960335044552751255, guid: 627fc02b144a8f74e8222fde2ad57adc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6965757836368489228, guid: 627fc02b144a8f74e8222fde2ad57adc, type: 3}
       propertyPath: scoreManager
       value: 

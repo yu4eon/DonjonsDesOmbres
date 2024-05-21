@@ -1929,6 +1929,26 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741826
+  - first: {x: 1, y: 11, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
+  - first: {x: 2, y: 11, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741826
   - first: {x: 9, y: 11, z: 0}
     second:
       serializedVersion: 2
@@ -1960,26 +1980,6 @@ Tilemap:
       dummyAlignment: 0
       m_AllTileFlags: 1073741826
   - first: {x: 12, y: 11, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741826
-  - first: {x: 1, y: 12, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741826
-  - first: {x: 2, y: 12, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 0
@@ -2170,23 +2170,23 @@ CompositeCollider2D:
   - m_Collider: {fileID: 7741938849336398945}
     m_ColliderPaths:
     - - X: 29583332
-        Y: 126770832
+        Y: 116770832
       - X: 30000000
-        Y: 128541672
+        Y: 118541672
       - X: 30000000
-        Y: 130000000
+        Y: 120000000
       - X: 10000000
-        Y: 130000000
+        Y: 120000000
       - X: 10000000
-        Y: 128750000
+        Y: 118750000
       - X: 10312500
-        Y: 126875000
+        Y: 116875000
       - X: 15625000
-        Y: 121979168
+        Y: 111979168
       - X: 17083334
-        Y: 120000000
+        Y: 110000000
       - X: 23020832
-        Y: 120000000
+        Y: 110000000
     - - X: 129583328
         Y: 116770832
       - X: 130000000
@@ -2223,11 +2223,7 @@ CompositeCollider2D:
         Y: 110000000
       - X: -56979164
         Y: 110000000
-    - - X: 89583328
-        Y: 106770832
-      - X: 90000000
-        Y: 108541672
-      - X: 90000000
+    - - X: 90000000
         Y: 110000000
       - X: 60000000
         Y: 110000000
@@ -2239,7 +2235,7 @@ CompositeCollider2D:
         Y: 101979168
       - X: 67083336
         Y: 100000000
-      - X: 83020832
+      - X: 90000000
         Y: 100000000
     - - X: -20416668
         Y: 106770832
@@ -2409,15 +2405,6 @@ CompositeCollider2D:
         Y: -30000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 2.302072, y: 12}
-      - {x: 2.958335, y: 12.677091}
-      - {x: 3, y: 12.854171}
-      - {x: 2.999971, y: 13}
-      - {x: 1, y: 12.99997}
-      - {x: 1.0000004, y: 12.874998}
-      - {x: 1.0312566, y: 12.687494}
-      - {x: 1.562501, y: 12.197915}
-      - {x: 1.7083468, y: 12}
     - - {x: 12.302073, y: 11}
       - {x: 12.958335, y: 11.677091}
       - {x: 13, y: 11.854171}
@@ -2427,6 +2414,15 @@ CompositeCollider2D:
       - {x: 9.031256, y: 11.687494}
       - {x: 9.562501, y: 11.197915}
       - {x: 9.708346, y: 11}
+    - - {x: 2.302072, y: 11}
+      - {x: 2.958335, y: 11.677091}
+      - {x: 3, y: 11.854171}
+      - {x: 2.999971, y: 12}
+      - {x: 1, y: 11.99997}
+      - {x: 1.0000004, y: 11.874998}
+      - {x: 1.0312566, y: 11.687494}
+      - {x: 1.562501, y: 11.197915}
+      - {x: 1.7083468, y: 11}
     - - {x: -5.6979275, y: 11}
       - {x: -5.041665, y: 11.677091}
       - {x: -5, y: 11.854171}
@@ -2436,9 +2432,7 @@ CompositeCollider2D:
       - {x: -8.968744, y: 11.687494}
       - {x: -8.437499, y: 11.197915}
       - {x: -8.291654, y: 11}
-    - - {x: 8.302073, y: 10}
-      - {x: 8.958335, y: 10.677091}
-      - {x: 9, y: 10.854171}
+    - - {x: 8.99997, y: 10}
       - {x: 8.99997, y: 11}
       - {x: 6, y: 10.99997}
       - {x: 6.0000005, y: 10.874998}

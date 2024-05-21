@@ -66,7 +66,7 @@ public class Perso : DetecteurSol
 
     int _LayerInvincibilite;
     int _LayerDefault;
-
+    Coroutine _coroutineVitesse = null;
 
     Rigidbody2D _rb; // Rigidbody du personnage.
     SpriteRenderer _sr; // SpriteRenderer du personnage.
@@ -198,10 +198,12 @@ public class Perso : DetecteurSol
     /// Permet de skipper le niveau, pour tester
     /// Pour activer, pèse sur Tab. Marche seulement lorsque le joueur est instancié dans la scène
     /// </summary>
-    void OnSkipNiveau()
-    {
-        _donneesNavigation.AllerSceneSuivante();
-    }
+    
+    /// Mise en commentaire pour la remise
+    // void OnSkipNiveau()
+    // {
+    //     _donneesNavigation.AllerSceneSuivante();
+    // }
 
     /// <summary>
     /// Méthode qui est appelée lorsque le joueur appuie sur les touches de déplacement.
@@ -377,16 +379,19 @@ public class Perso : DetecteurSol
     /// </summary>
     public void AugmenterVitesse()
     {
-        //Si le joueur est déjà rapide, on rafraishie le boost.
+        // Si le joueur est déjà rapide, on ne donne pas le boost.
+        // Changé pour un return, puisque StopAllCoroutines() provoquait des erreurs. #synthese Leon
         if (_estRapide)
         {
-            StopAllCoroutines();
+            // return;
+            // StopAllCoroutines();
+            StopCoroutine(_coroutineVitesse);
             _vitesse = _vitesseInitial;
         }
         _vitesse = _vitesse * 1.5f;
         _mainModule.startSize = _startSizeRapide;
         _estRapide = true;
-        Coroutine coroutineVitesse = StartCoroutine(ChangerVitesse());
+        _coroutineVitesse = StartCoroutine(ChangerVitesse());
     }
 
     /// <summary>

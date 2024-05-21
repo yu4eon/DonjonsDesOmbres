@@ -12,23 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d595fa8dc9faa41b01213ea27cc24f, type: 3}
   m_Name: Sauvegarde
   m_EditorClassIdentifier: 
-  _lesJoueursScores:
-  - joueur: Antoine
-    score: 18940
-    estJoueurActuelle: 0
-  - joueur: Stev4
-    score: 7000
-    estJoueurActuelle: 0
-  - joueur: Bobette
-    score: 6260
-    estJoueurActuelle: 0
-  - joueur: dasda
-    score: 3550
-    estJoueurActuelle: 0
-  - joueur: Steve
-    score: 3222
-    estJoueurActuelle: 0
-  - joueur: NomGay
-    score: 2760
-    estJoueurActuelle: 0
+  _lesJoueursScores: []
   _fichier: sauvegarde.TIM

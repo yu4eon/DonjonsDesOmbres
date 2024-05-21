@@ -3322,6 +3322,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fdfd2acf2e06ce4f838d4aeb60b086c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sonDegat: {fileID: 8300000, guid: 269fc13c3275d3c4ea7a0fa1ebb28069, type: 3}
+  _sonMort: {fileID: 8300000, guid: e8688649a56f6e047bd7c9ef8f021b1f, type: 3}
+  _typePouvoirEnnemi: 0
+  _pointsDeVieIni: 100
+  _valeurScore: 500
+  _valeurArgent: 15
+  _degatsInfliges: 20
+  _retroModele: {fileID: 0}
+  _donneesPerso: {fileID: 0}
+  _couleurEndommage: {r: 1, g: 0.6, b: 0.6, a: 1}
+  _contenantBarreVie: {fileID: 0}
+  _barreVie: {fileID: 0}
 --- !u!4 &8114612408620780629
 Transform:
   m_ObjectHideFlags: 0

@@ -22,6 +22,7 @@ public class Ennemi : MonoBehaviour
     [SerializeField] Color _couleurEndommage = new Color(1, 0.6f, 0.6f); // Couleur de l'ennemi lorsqu'il est endommagé
     [SerializeField] GameObject _contenantBarreVie; // Contenant de la barre de vie de l'ennemi
     [SerializeField] GameObject _barreVie; // Barre de vie de l'ennemi
+    private Color _couleurIni; // Couleur de base de l'ennemi
     Light2D _lumiere; // Lumière de l'ennemi
     float _delaiCouleur = 0.3f; // Délai pour reajuster la couleur de l'ennemi
     SpriteRenderer _spriteRenderer; // Sprite Renderer de l'ennemi
@@ -54,6 +55,7 @@ public class Ennemi : MonoBehaviour
     {
         ChoisirTypePouvoir();
         Initialiser();
+        _couleurIni = _spriteRenderer.color;
     }
 
     virtual protected void FixedUpdate()
@@ -137,7 +139,7 @@ public class Ennemi : MonoBehaviour
     IEnumerator CoroutineReajusterCouleur()
     {
         yield return new WaitForSeconds(_delaiCouleur);
-        _spriteRenderer.color = Color.white;
+        _spriteRenderer.color = _couleurIni;
         _estInvulnerable = false;
     }
 

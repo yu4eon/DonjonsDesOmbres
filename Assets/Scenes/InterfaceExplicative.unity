@@ -180,9 +180,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "  et   pour bouger, Espace pour sauter\n1,2,3,4 pour changer d'\xE9l\xE9ment\nToucher
-    \xE0 un autel pour d\xE9bloquer un \xE9l\xE9ment\nDasher vous rend invincible
-    contre toutes sortes d'attaques"
+  m_text: "  et   pour bouger, Espace pour sauter\n1,2,3,4 pour changer d'\xE9l\xE9ment.\r\nTouchez
+    un autel pour d\xE9bloquer un \xE9l\xE9ment.\r\nLe dash vous rend invincible
+    contre toutes sortes d'attaques."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a62df46c689d7be4c9ea3027122c6ad9, type: 2}
   m_sharedMaterial: {fileID: 6561000874956924161, guid: a62df46c689d7be4c9ea3027122c6ad9, type: 2}

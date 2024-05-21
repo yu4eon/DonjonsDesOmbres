@@ -51,6 +51,7 @@ public class Ennemi : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _lumiere = GetComponentInChildren<Light2D>();
+        _rb.gravityScale = 4;
     }
     // Start is called before the first frame update
     virtual protected void Start()

@@ -11,6 +11,8 @@ public class Ennemi : MonoBehaviour
     // protected AudioClip[] sonEnnemi =>_sonEnnemi; // Variable qui contient le son de l'ennemi
     [SerializeField] AudioClip _sonDegat; // Son lorsqu'un ennemi prend des dégâts
     [SerializeField] AudioClip _sonMort; // Son lorsqu'un ennemi meurt
+    [SerializeField] AudioClip _sonDeplacement; // Son de déplacement de l'ennemi
+    [SerializeField] float _distanceSon = 20f; // Distance à laquelle le son de déplacement de l'ennemi est joué
     [SerializeField] TypePouvoir _typePouvoirEnnemi; // Type de pouvoir de l'ennemi
     [SerializeField] int _pointsDeVieIni = 100; // Points de vie initial de l'ennemi
     int _pointsDeVie; // Points de vie actuels de l'ennemi
@@ -153,6 +155,20 @@ public class Ennemi : MonoBehaviour
         _donneesPerso.AjouterScore(_valeurScore);
         // _animator.SetTrigger("Meurt");
         gameObject.SetActive(false);
+    }
+
+    public void JouerSonDeplacement()
+    {
+        // Joue le son de déplacement de l'ennemi si le joueur est à proximité
+        if (Vector2.Distance(transform.position, perso.transform.position) < _distanceSon)
+        {
+            float fractionDistance = Vector2.Distance(transform.position, perso.transform.position) / _distanceSon;
+            float volume = Mathf.Clamp(1 - fractionDistance, 0.1f, 1f);
+            Debug.Log("Fraction distance : " + fractionDistance);
+            GestAudio.instance.JouerEffetSonore(_sonDeplacement, volume);
+
+        }
+
     }
 
     /// <summary>

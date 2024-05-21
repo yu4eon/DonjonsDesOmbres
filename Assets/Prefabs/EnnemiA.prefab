@@ -188,9 +188,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sonDegat: {fileID: 8300000, guid: 269fc13c3275d3c4ea7a0fa1ebb28069, type: 3}
   _sonMort: {fileID: 8300000, guid: e8688649a56f6e047bd7c9ef8f021b1f, type: 3}
+  _sonDeplacement: {fileID: 8300000, guid: a7435a4d2c44a7e4c891cbc217e01640, type: 3}
+  _distanceSon: 20
   _typePouvoirEnnemi: 0
   _pointsDeVieIni: 100
   _valeurScore: 500
+  _valeurArgent: 15
   _degatsInfliges: 20
   _retroModele: {fileID: 6748055150865434350, guid: 7c5220baaa41e4d409ce46fadfe36218, type: 3}
   _donneesPerso: {fileID: 11400000, guid: c451f5ae3d0c15443a60fc18c2216ee1, type: 2}
@@ -199,14 +202,12 @@ MonoBehaviour:
   _barreVie: {fileID: 3722225385814795697}
   vitesse: 3
   detectionDistance: 1
-  _distanceSon: 20
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 8
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  _sonDeplacement: {fileID: 8300000, guid: a7435a4d2c44a7e4c891cbc217e01640, type: 3}
 --- !u!1 &3722225385814795697
 GameObject:
   m_ObjectHideFlags: 0

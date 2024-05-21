@@ -189,6 +189,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sonDegat: {fileID: 8300000, guid: 269fc13c3275d3c4ea7a0fa1ebb28069, type: 3}
   _sonMort: {fileID: 8300000, guid: e8688649a56f6e047bd7c9ef8f021b1f, type: 3}
+  _sonDeplacement: {fileID: 8300000, guid: a7435a4d2c44a7e4c891cbc217e01640, type: 3}
+  _distanceSon: 20
   _typePouvoirEnnemi: 0
   _pointsDeVieIni: 120
   _valeurScore: 750
@@ -199,6 +201,10 @@ MonoBehaviour:
   _couleurEndommage: {r: 1, g: 0.6, b: 0.6, a: 1}
   _contenantBarreVie: {fileID: 4402352934134500248}
   _barreVie: {fileID: 5275177627354033581}
+  _pointAttaque: {fileID: 5951645441764270772}
+  _projectileModele: {fileID: 3827650788760084942, guid: f9649924b7b98ec4ea62b93bb8400a63, type: 3}
+  _distanceAttaque: 10
+  _delaiAttaque: 2.2
 --- !u!1 &4402352934134500248
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,19 +471,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Center.x
-      value: -0.08199999
+      value: -0.0817
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Center.y
-      value: -0.0029999614
+      value: -0.0031499863
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Extent.x
-      value: 0.66359997
+      value: 0.66349995
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Extent.y
-      value: 1.4865999
+      value: 1.48655
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -5,10 +5,9 @@ public class EnnemiA : Ennemi
 {
     [SerializeField] float vitesse = 3f;
     [SerializeField] float detectionDistance = 1f;
-    [SerializeField] float _distanceSon = 20f; // Distance à laquelle le son de déplacement de l'ennemi est joué
     [SerializeField] LayerMask obstacleLayer;
     [SerializeField] LayerMask groundLayer;
-    [SerializeField] AudioClip _sonDeplacement; // Son de déplacement de l'ennemi
+    
     bool deplacementDroite = true;
     bool estEnTrainDeChangerDirection = false;
     Rigidbody2D rb;
@@ -56,19 +55,7 @@ public class EnnemiA : Ennemi
         rb.velocity = direction * vitesse;
     }
 
-    public void JouerSonDeplacement()
-    {
-        // Joue le son de déplacement de l'ennemi si le joueur est à proximité
-        if (Vector2.Distance(transform.position, perso.transform.position) < _distanceSon)
-        {
-            float fractionDistance = Vector2.Distance(transform.position, perso.transform.position) / _distanceSon;
-            float volume = Mathf.Clamp(1 - fractionDistance, 0.1f, 1f);
-            Debug.Log("Fraction distance : " + fractionDistance);
-            GestAudio.instance.JouerEffetSonore(_sonDeplacement, volume);
-
-        }
-
-    }
+    
 
     IEnumerator ChangerDirectionCoroutine()
     {

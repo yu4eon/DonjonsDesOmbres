@@ -465,13 +465,6 @@ public class Perso : DetecteurSol
         _estEnAttaqueLourd = false;
         _peutAttaquer = true;
     }
-
-    // IEnumerator AjusterTimerAttaque(float delai)
-    // {
-    //     yield return new WaitForSeconds(delai);
-    //     _peutAttaquer = true;
-    // }
-
     public void TerminerAttaque()
     {
         _estEnAttaqueLourd = false;
@@ -529,6 +522,7 @@ public class Perso : DetecteurSol
         Coroutine coroutine = StartCoroutine(CoroutineChangerCouleur());
         yield return new WaitForSeconds(duree);
         _estInvincible = false;
+        _sr.enabled = true;
         gameObject.layer = _LayerDefault;
 
     }

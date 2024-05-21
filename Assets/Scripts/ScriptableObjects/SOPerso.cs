@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.Events;
@@ -117,7 +119,7 @@ public class SOPerso : ScriptableObject
         argent -= donneesObjet.prix;
         if (_dObjets.ContainsKey(donneesObjet))
         {
-            _dObjets[donneesObjet]++;
+            Mathf.Clamp(_dObjets[donneesObjet]++, 0, 99);
         }
         else
         {
@@ -125,7 +127,7 @@ public class SOPerso : ScriptableObject
         }
         AfficherInventaire();
         // Leon : J'ai changé les ifs pour que ça check le type d'objet au lieu du nom de l'objet
-        if (donneesObjet.typeObjet == TypeObjet.Attaque) _attaqueBonus += 5; Debug.Log("Bonus attaque: " + _attaqueBonus);
+        if (donneesObjet.typeObjet == TypeObjet.Attaque) _attaqueBonus += 3; Debug.Log("Bonus attaque: " + _attaqueBonus);
         if (donneesObjet.typeObjet == TypeObjet.DefensePV) //Si l'objet est de type DefensePV, ajoute 10 à la défense et aux points de vie
         {
             _defenseBonus += 10;

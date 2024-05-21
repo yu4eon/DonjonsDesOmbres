@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "  et   pour bouger, Espace pour sauter\n1,2,3,4 pour changer d'\xE9l\xE9ment\nToucher
+  m_text: "  et   pour bouger, Espace pour sauter\n1,2,3,4 pour changer d'\xE9l\xE9ment\nTouchez
     \xE0 un autel pour d\xE9bloquer un \xE9l\xE9ment\nDasher vous rend invincible
     contre toutes sortes d'attaques"
   m_isRightToLeft: 0

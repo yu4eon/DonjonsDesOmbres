@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Faux
   m_EditorClassIdentifier: 
   _nom: Faux
-  _sprite: {fileID: 0}
   _degatsBase: 3
   _typePouvoir: 1
+  _sonAttaque: {fileID: 8300000, guid: f5d1288164eb46d42a324b2fdaef0e02, type: 3}

@@ -13,6 +13,9 @@ public class Boutique : MonoBehaviour
     public SOPerso donneesPerso => _donneesPerso; // Propriété publique pour accéder aux données du personnage.
     [SerializeField] TextMeshProUGUI _champNiveau; // Champ de texte pour afficher le niveau.
     [SerializeField] TextMeshProUGUI _champArgent; // Champ de texte pour afficher l'argent du personnage.
+    [SerializeField] PanneauInventaire _panneauInventaire; // Panneau d'inventaire pour afficher les objets.
+    public PanneauInventaire panneauInventaire => _panneauInventaire; // Propriété publique pour accéder au panneau d'inventaire.
+    [SerializeField] AudioClip _sonCages; // Son d'achat de la boutique.
 
     static Boutique _instance; // Instance statique de la boutique.
     static public Boutique instance => _instance; // Propriété publique pour accéder à l'instance de la boutique.

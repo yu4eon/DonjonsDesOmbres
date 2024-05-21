@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -13,6 +14,7 @@ using UnityEngine.SceneManagement;
 public class SONavigation : ScriptableObject
 {
     [SerializeField] SOPerso _donneesPerso; // Référence aux données du personnage
+    [SerializeField] AudioClip _sonBouton; // Son joué lorsqu'un bouton est cliqué
 
     /// <summary>
     /// Tp3 Antoine
@@ -22,6 +24,7 @@ public class SONavigation : ScriptableObject
     {
         _donneesPerso.Initialiser(); // Initialise les données du personnage
         AllerSceneSuivante(); // Charge la scène suivante
+        JouerSon(); // Joue le son du bouton
     }
 
     /// <summary>
@@ -32,6 +35,7 @@ public class SONavigation : ScriptableObject
     {
         _donneesPerso.niveau++; // Incrémente le niveau du personnage
         SceneManager.LoadScene("niveau" + _donneesPerso.niveau); // Charge la scène du niveau suivant
+        JouerSon(); // Joue le son du bouton
     }
 
     /// <summary>
@@ -41,6 +45,7 @@ public class SONavigation : ScriptableObject
     public void AllerSceneSuivante()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Charge la scène suivante dans l'ordre de la build
+        JouerSon(); // Joue le son du bouton
     }
 
     /// <summary>
@@ -51,6 +56,7 @@ public class SONavigation : ScriptableObject
     {
         _donneesPerso.Initialiser(); // Initialise les données du personnage
         SceneManager.LoadScene("SceneTitre");
+        JouerSon(); // Joue le son du bouton
     }
 
     /// <summary>
@@ -60,20 +66,29 @@ public class SONavigation : ScriptableObject
     public void AllerScenePrecedente()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); // Charge la scène précédente dans l'ordre de la build
+        JouerSon(); // Joue le son du bouton
     }
 
     public void AllerSceneTableauHonneur()
     {
         SceneManager.LoadScene("Honneur");
+        JouerSon(); // Joue le son du bouton
     }
 
     public void AllerSceneGenerique()
     {
         SceneManager.LoadScene("Generique");
+        JouerSon(); // Joue le son du bouton
     }
 
     public void AllerSceneExplication()
     {
         SceneManager.LoadScene("InterfaceExplicative");
+        JouerSon(); // Joue le son du bouton
+    }
+
+    void JouerSon()
+    {
+        GestAudio.instance.JouerEffetSonore(_sonBouton); // Joue le son du bouton
     }
 }

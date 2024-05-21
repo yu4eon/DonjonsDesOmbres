@@ -98,7 +98,8 @@ public class Perso : DetecteurSol
         _donnees.InitialiserVie(); // Initialise les données du personnage
         UIJeu.instance.MettreAJourInfo(); // Initialise les points de vie dans l'UI #synthese Leon
         Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite(2f));
-        Debug.Log("Vie du personnage : " + _donnees.pv);
+        _donnees.AfficherInventaire(); // Affiche l'inventaire du joueur #synthese Leon
+        // Debug.Log("Vie du personnage : " + _donnees.pv);
         // _arme.gameObject.SetActive(false); // Désactive l'arme du personnage
     }
 
@@ -187,7 +188,7 @@ public class Perso : DetecteurSol
         if (_veutDasher)
         {
             StartCoroutine(Dash());
-            Debug.Log("Nooonnnnnn");
+            // Debug.Log("Nooonnnnnn");
         }
 
     }
@@ -282,7 +283,7 @@ public class Perso : DetecteurSol
     void OnChangePoison()
     {
         InstantierParticules(0);
-        GestAudio.instance.JouerEffetSonore(_sonElements[0]);
+        // GestAudio.instance.JouerEffetSonore(_sonElements[0]);
     }
 
     /// <summary>
@@ -292,7 +293,7 @@ public class Perso : DetecteurSol
     void OnChangeOmbre()
     {
         InstantierParticules(1);
-        GestAudio.instance.JouerEffetSonore(_sonElements[1]);
+        // GestAudio.instance.JouerEffetSonore(_sonElements[1]);
     }
 
     /// <summary>
@@ -302,7 +303,7 @@ public class Perso : DetecteurSol
     void OnChangeFoudre()
     {
         InstantierParticules(2);
-        GestAudio.instance.JouerEffetSonore(_sonElements[2]);
+        // GestAudio.instance.JouerEffetSonore(_sonElements[2]);
     }
     /// <summary>
     /// Méthode qui est appelée lorsque le joueur appuie sur le 1 ou dpad haut pour
@@ -311,7 +312,7 @@ public class Perso : DetecteurSol
     void OnChangeGlace()
     {
         InstantierParticules(3);
-        GestAudio.instance.JouerEffetSonore(_sonElements[3]);
+        // GestAudio.instance.JouerEffetSonore(_sonElements[3]);
     }
 
 
@@ -324,6 +325,7 @@ public class Perso : DetecteurSol
             {
                 Destroy(_particulePouvoirActuelle);
                 _particulePouvoirActuelle = null;
+                GestAudio.instance.JouerEffetSonore(_sonElements[index]);
             }
             _pouvoirActuel = (TypePouvoir)index; // Change le pouvoir actuel en celle du pouvoir index.
             _particulePouvoirActuelle = Instantiate(_particulesPouvoirs[index], transform.position, _particulesPouvoirs[index].transform.rotation, transform);
@@ -332,7 +334,7 @@ public class Perso : DetecteurSol
         }
         else
         {
-            Debug.Log("Tu ne possède pas le pouvoir de " + ((TypePouvoir)index));
+            Debug.LogWarning("Tu ne possède pas le pouvoir de " + ((TypePouvoir)index));
         }
     }
 
@@ -414,7 +416,7 @@ public class Perso : DetecteurSol
         _pouvoirActuel = pouvoir;
         _donnees.AjouterPouvoir(pouvoir); // Ajoute le pouvoir au personnage
         // _arme.GetComponentInChildren<ArmePerso>(); // Initialise l'arme du personnage
-        Debug.Log("Pouvoir actuel : " + _pouvoirActuel);
+        // Debug.Log("Pouvoir actuel : " + _pouvoirActuel);
     }
 
     void OnLightAttack()
@@ -422,7 +424,7 @@ public class Perso : DetecteurSol
         if (_peutAttaquer)
         {
             _peutAttaquer = false;
-            Debug.Log("Attaque légère");
+            // Debug.Log("Attaque légère");
             _animator.SetTrigger("AttaqueLight");
             Coroutine coroutine = StartCoroutine(CoroutineAttaquer(true));
             CoroutineAttaquer(true);
@@ -438,7 +440,7 @@ public class Perso : DetecteurSol
         if (_peutAttaquer)
         {
             _peutAttaquer = false;
-            Debug.Log("Attaque lourde");
+            // Debug.Log("Attaque lourde");
             _animator.SetTrigger("AttaqueHeavy");
             Coroutine coroutine = StartCoroutine(CoroutineAttaquer(false));
         }
@@ -502,7 +504,7 @@ public class Perso : DetecteurSol
         JouerSon(6);
         if (_donnees.pv <= 0)
         {
-            Debug.Log("Le joueur est mort");
+            // Debug.Log("Le joueur est mort");
             Mourir();
         }
         if (_donnees.pv <= _donnees.pvIni / 4)

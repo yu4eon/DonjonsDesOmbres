@@ -84,11 +84,12 @@ public class GestAudio : MonoBehaviour
     /// Fonction qui joue un effet sonore avec un pitch aléatoire dans la plage spécifiée.
     /// </summary>
     /// <param name="clip">Le clip audio de l'effet sonore à jouer.</param>
-    public void JouerEffetSonore(AudioClip clip)
+    /// <param name="volume">Le volume de l'effet sonore.</param>
+    public void JouerEffetSonore(AudioClip clip, float volume = 1f)
     {
         float pitchAleatoire = Random.Range(_pitchSonMinMax.x, _pitchSonMinMax.y);
         _sourceEffetsSonores.pitch = pitchAleatoire;
-        _sourceEffetsSonores.PlayOneShot(clip);
+        _sourceEffetsSonores.PlayOneShot(clip, volume);
     }
 
     /// <summary>

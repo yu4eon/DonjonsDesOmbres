@@ -60,8 +60,10 @@ public class Niveau : MonoBehaviour
     List<Vector2Int> niveauSurBordure = new List<Vector2Int>();
     // Tableau des pouvoirs disponibles. #synthese Leon
     TypePouvoir[] _pouvoirs = { TypePouvoir.Poison, TypePouvoir.Ombre, TypePouvoir.Foudre, TypePouvoir.Glace };
+    [SerializeField] PanneauInventaire _panneauInventaire; // Panneau d'inventaire pour afficher les objets. #synthese Antoine
+    public PanneauInventaire panneauInventaire => _panneauInventaire; // Propriété publique pour accéder au panneau d'inventaire. #synthese Antoine
 
-    Perso _clonePerso;
+    Perso _instancePerso;
     void Awake()
     {
         //Singleton #tp3 Léon
@@ -94,7 +96,7 @@ public class Niveau : MonoBehaviour
         _uiJeu.MettreAJourTemps(_temps); // #synthese Léon
         Coroutine coroutine = StartCoroutine(CoroutineDecoulerTemps()); // #synthese Léon
         // GameObject persoClone = (GameObject)GameObject.Instantiate(_perso.gameObject, _lesPosLibres[Random.Range(0, _lesPosLibres.Count)], Quaternion.identity);
-        cvCamera.m_Follow = _clonePerso.transform;
+        cvCamera.m_Follow = _instancePerso.transform;
         cm_collider.transform.localScale = new Vector2(_taille.x * 32 - 1, _taille.y * 18 - 1);
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, true);
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, false);
@@ -139,10 +141,9 @@ public class Niveau : MonoBehaviour
 
         // Sélectionne un pouvoir aléatoire pour donner au personnage. #synthese Leon
         TypePouvoir pouvoirAleatoire = _pouvoirs[Random.Range(0, _pouvoirs.Length)];
-        Debug.Log("Pouvoir du personnage : " + pouvoirAleatoire); // Affiche le pouvoir du personnage.
-        _clonePerso.Initialiser(pouvoirAleatoire, _uiJeu); // Donne le pouvoir au joueur #synthese Leon
-        _clonePerso.InstantierParticules((int)pouvoirAleatoire); // Instancie les particules du pouvoir du personnage. #synthese Leon
-        Debug.Log(_uiJeu.name);
+        // Debug.Log("Pouvoir du personnage : " + pouvoirAleatoire); // Affiche le pouvoir du personnage.
+        _instancePerso.Initialiser(pouvoirAleatoire, _uiJeu); // Donne le pouvoir au joueur #synthese Leon
+        _instancePerso.InstantierParticules((int)pouvoirAleatoire); // Instancie les particules du pouvoir du personnage. #synthese Leon
         _donneesPerso.evenementMiseAJour.Invoke();
         // _uiJeu.MettreAJourInfo(); // Met à jour les informations du personnage
         // _uiJeu.ActiverParticulesPouvoir((int)pouvoirAleatoire); // Active les particules du pouvoir du personnage. #synthese Leon
@@ -202,7 +203,7 @@ public class Niveau : MonoBehaviour
             {
                 int indexEnnemi = Random.Range(0, _tEnnemis.Length); // Sélectionne un ennemi aléatoire.
                 GameObject ennemiModele = _tEnnemis[indexEnnemi]; // Obtient le prefab de l'ennemi.
-                salle.PlacerEnnemiSurRepere(ennemiModele, i, contenant); // Place l'ennemi sur le repère de la salle.
+                salle.PlacerEnnemiSurRepere(ennemiModele, i, contenant, _instancePerso); // Place l'ennemi sur le repère de la salle.
             }
 
         }
@@ -273,7 +274,7 @@ public class Niveau : MonoBehaviour
         // Placer le personnage.
         Vector2Int posPerso = ObtenirPosLibre(); // Obtenir une position libre aléatoire.
         Vector3 pos3Perso = (Vector3)(Vector2)posPerso + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertir la position en Vector3.
-        _clonePerso = Instantiate(perso, pos3Perso, Quaternion.identity, contenant); // Instancier le personnage.
+        _instancePerso = Instantiate(perso, pos3Perso, Quaternion.identity, contenant); // Instancier le personnage.
 
         // Placer la porte.
         int sallePorteIndex = Random.Range(0, _lesSallesSurBordure.Count); // Prise aléatoire d'un chiffre entre 0 et le nombre de salles.
@@ -397,8 +398,7 @@ public class Niveau : MonoBehaviour
                 }
             }
         }
-        Debug.Log(string.Join(", ", _lesSallesSurBordure)); //Test
-        // Debug.Log(string.Join(", ", niveauSurBordure)); //Test
+        // Debug.Log(string.Join(", ", _lesSallesSurBordure)); //Test
 
         // Calcul pour la taille du niveau avec une bordure, ainsi que les coordonnées minimales et maximales.
         Vector2Int tailleNiveau = _taille * tailleAvecUneBordure;

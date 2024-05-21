@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Javelin
   m_EditorClassIdentifier: 
   _nom: Javelin
-  _sprite: {fileID: 0}
   _degatsBase: 2
   _typePouvoir: 2
+  _sonAttaque: {fileID: 8300000, guid: bd0f2d97a20974f4fad21d5620119448, type: 3}

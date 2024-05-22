@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 public class EnnemiA : Ennemi
 {
-    [SerializeField] float vitesse = 3f;
+    [SerializeField] float vitesse = 6f;
     [SerializeField] float detectionDistance = 1f;
     [SerializeField] LayerMask obstacleLayer;
     [SerializeField] LayerMask groundLayer;

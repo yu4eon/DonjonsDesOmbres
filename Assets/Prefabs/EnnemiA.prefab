@@ -124,10 +124,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 100
+  m_Mass: 1.8281468
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 60
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -200,7 +200,7 @@ MonoBehaviour:
   _couleurEndommage: {r: 1, g: 0.6, b: 0.6, a: 1}
   _contenantBarreVie: {fileID: 7764986287032496931}
   _barreVie: {fileID: 3722225385814795697}
-  vitesse: 3
+  vitesse: 6
   detectionDistance: 1
   obstacleLayer:
     serializedVersion: 2
@@ -649,7 +649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Center.x
-      value: -0.08110002
+      value: -0.080549985
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Center.y
@@ -657,7 +657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Extent.x
-      value: 0.6629
+      value: 0.66355
       objectReference: {fileID: 0}
     - target: {fileID: 6087858571637012754, guid: 747b5c477f0a6e74da4c2ee6079b8905, type: 3}
       propertyPath: m_LocalBounds.m_Extent.y

@@ -50,17 +50,21 @@ public class Activateur : MonoBehaviour
     /// <param name="other">The Collision2D data associated with this collision.</param>
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (_sr.sprite == _sInactif)
+        if (other.CompareTag("Player")) // Si le joueur entre en collision avec l'activateur.
         {
-            _sr.sprite = _sActif; // Change le sprite de l'activateur à l'état actif.
-            _lumiere.intensity = _intensiteLumiereActif; // Augmente l'intensité de la lumière de l'activateur à 3 #tp4 Leon
+            if (_sr.sprite == _sInactif)
+            {
+                _sr.sprite = _sActif; // Change le sprite de l'activateur à l'état actif.
+                _lumiere.intensity = _intensiteLumiereActif; // Augmente l'intensité de la lumière de l'activateur à 3 #tp4 Leon
 
-            Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity); // Instancie une rétroaction.
-            retro.ChangerTexte("Autels activés"); // Change le texte de la rétroaction.
+                Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity); // Instancie une rétroaction.
+                retro.ChangerTexte("Autels activés"); // Change le texte de la rétroaction.
 
-            _evenementActivateur.Invoke(); // Déclenche l'événement de l'activateur.
+                _evenementActivateur.Invoke(); // Déclenche l'événement de l'activateur.
 
-            GestAudio.instance.JouerEffetSonore(_sonActivateur); // Jouer l'effet sonore de l'activateur.
+                GestAudio.instance.JouerEffetSonore(_sonActivateur); // Jouer l'effet sonore de l'activateur.
+            }
+
         }
     }
 }

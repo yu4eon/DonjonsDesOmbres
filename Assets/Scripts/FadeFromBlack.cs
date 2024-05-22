@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Classe principale pour la gestion du fond, qui peut fade
-/// du noir au blanc et vice versa
+/// #synthese Léon
+/// Classe pour la gestion du fond, qui peut fade
+/// du noir au blanc
 /// </summary>
 public class FadeFromBlack : MonoBehaviour
 {
@@ -48,33 +49,22 @@ public class FadeFromBlack : MonoBehaviour
     /// </summary>
     IEnumerator FadeOutBlack()
     {
-        while (_alpha >= 0f)
+        while (_alpha >= 0f) //Tant que le niveau de transparence est supérieur à 0
         {
             _alpha -= Time.deltaTime * _fadeSpeed;
 
-            if (_alpha <= 0f)
+            if (_alpha <= 0f) //Si le niveau de transparence est inférieur ou égal à 0
             {
                 ChangeAlpha(0f);
                 
             }
             else
             {
-                ChangeAlpha(_alpha);
+                ChangeAlpha(_alpha); 
             }
 
             yield return new WaitForSeconds(Time.deltaTime);
         }
         StopAllCoroutines();
     }
-
-    // --- Méthodes Publiques -------------------------------------------------------
-
-    /// <summary>
-    /// Appelle la fonction FadeToBlack. J'aurais voulu appeller directement la Coroutine mais
-    /// je ne pense pas que c'est possible de l'appeller à partir d'un autre script
-    /// </summary>
-    // public void CommencerFade()
-    // {
-    //     StartCoroutine(FadeToBlack());
-    // }
 }

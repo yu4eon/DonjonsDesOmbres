@@ -1,11 +1,13 @@
-/// <summary>
-/// Synthese Antoine
-/// </summary>
-
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// #Synthese Antoine
+/// Classe pour la gestion des pistes musicales et des effets sonores.
+/// Auteur : Antoine Lachance
+/// Commentaires ajoutés par : Antoine Lachance
+/// </summary>
 public class GestAudio : MonoBehaviour
 {
     [SerializeField] float _volumeMusicalRef = 0.8f; // Référence de volume pour la musique.

@@ -63,20 +63,39 @@ public class SONavigation : ScriptableObject
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); // Charge la scène précédente dans l'ordre de la build
     }
+
+    /// <summary>
+    /// #synthese Léon
+    /// Méthode appelée pour charger la scène au tableau d'honneur.
+    /// </summary>
     public void AllerSceneTableauHonneur()
     {
         SceneManager.LoadScene("Honneur");
     }
+
+    /// <summary>
+    /// #synthese Léon
+    /// Méthode appelée pour charger la scène au Générique.
+    /// </summary>
     public void AllerSceneGenerique()
     {
         SceneManager.LoadScene("Generique");
     }
+
+    /// <summary>
+    /// #synthese Léon
+    /// Méthode appelée pour charger la scène de l'interface explicative.
+    /// </summary>
     public void AllerSceneExplication()
     {
         SceneManager.LoadScene("InterfaceExplicative");
     }
 
 
+    /// <summary>
+    /// #synthese Léon
+    /// Méthode appelée pour jouer le son du bouton.
+    /// </summary>
     public void JouerSon()
     {
         GestAudio.instance.JouerEffetSonore(_sonBouton); // Joue le son du bouton

@@ -64,8 +64,9 @@ public class Autels : MonoBehaviour
             Desactiver(); // Désactive l'autel.
             shape.scale = new Vector3(4f, 5f, 1f); // Modifie l'échelle des particules.
             emission.rateOverTime = 100f; // Modifie le taux d'émission des particules.
-            string couleur;
-            switch (_pouvoir) // Change la couleur de la rétroaction selon le pouvoir obtenu.
+            
+            string couleur; // Couleur de la rétroaction. #synthese Leon
+            switch (_pouvoir) // Change la couleur de la rétroaction selon le pouvoir obtenu. #synthese Leon
             {
                 case TypePouvoir.Glace:
                     couleur = "#c1dee2";
@@ -84,6 +85,7 @@ public class Autels : MonoBehaviour
                     break;
             }
 
+            //Affiche la rétroaction de l'élément obtenu #synthese Leon
             Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity); // Instancie une rétroaction.
             retro.ChangerTexte("Pouvoir obtenu : " + _pouvoir, couleur, 0.5f); // Change le texte de la rétroaction.
             UIJeu.instance.JouerParticulesPouvoir((int)_pouvoir); // Joue les particules du pouvoir.
@@ -110,6 +112,10 @@ public class Autels : MonoBehaviour
         ps.Play(); // Démarre le système de particules.
     }
 
+    /// <summary>
+    /// #tp4 Leon
+    /// Désactive l'autel.
+    /// </summary>
     void Desactiver()
     {
         _lumiere.intensity = 0; // Définit l'intensité de la lumière de l'autel à 0 #tp4 Leon

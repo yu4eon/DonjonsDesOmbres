@@ -5,6 +5,13 @@ using System.IO;
 using TMPro;
 using System.Runtime.InteropServices;
 
+
+/// <summary>
+/// #tp4 Léon
+/// Classe qui gère les informations des joueurs et les sauvegarde dans un fichier.
+/// auteur : Léon Yu
+/// commentaires : Léon Yu
+/// </summary>
 [CreateAssetMenu(menuName = "Sauvegarde", fileName = "Sauvegarde")]
 public class SOSauvegarde : ScriptableObject
 {

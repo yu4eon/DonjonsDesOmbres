@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 /// <summary>
+/// #synthese Léon Antoine
 /// Auteur du code : Léon Yu, Antoine Lachance
 /// Commentaires ajoutés par : Léon Yu, Antoine Lachance
 /// Classe qui contrôle les armes du personnage.
@@ -50,7 +51,11 @@ public class ArmePerso : MonoBehaviour
         _estLeger = estLeger;
         _armeEquipee = _tDonneesArmes[(int)typePouvoir];
         GestAudio.instance.JouerEffetSonore(_armeEquipee.sonAttaque);
-        if (_armeEquipee == null) Debug.LogWarning("Arme non trouvée");
+        if (_armeEquipee == null)
+        {
+            Debug.LogWarning("Arme non trouvée");
+            return;
+        }
         Coroutine coroutine = StartCoroutine(CoroutineChangerAlpha());
 
         // Ajuste la taille de l'arme en fonction de son type.
@@ -97,13 +102,13 @@ public class ArmePerso : MonoBehaviour
         {
             _estGauche = true;
             transform.localPosition = new Vector3(-_positionInitiale.x, _positionInitiale.y, _positionInitiale.z);
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-tailleActuelle.x, tailleActuelle.y, tailleActuelle.z);
         }
         else
         {
             _estGauche = false;
             transform.localPosition = _positionInitiale;
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(Mathf.Abs(tailleActuelle.x), tailleActuelle.y, tailleActuelle.z);
         }
     }
 
@@ -136,11 +141,10 @@ public class ArmePerso : MonoBehaviour
     /// <summary>
     /// Coroutine pour changer progressivement l'alpha de l'arme.
     /// </summary>
-    /// <returns></returns>
     IEnumerator CoroutineChangerAlpha()
     {
         float alpha = 0;
-        while (alpha < 1)
+        while (alpha < 1) // Tant que l'alpha n'est pas à 1.
         {
             alpha += 0.2f;
             _spriteRenderer.color = new Color(1, 1, 1, alpha);

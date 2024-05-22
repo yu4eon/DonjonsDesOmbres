@@ -11,6 +11,7 @@ using System.Linq;
 /// Auteur du code : Léon Yu. Antoine Lachance
 /// Commenteur du code : Léon Yu et Antoine Lachance
 /// Classe qui gère la tilemap principal, contenant toutes les salles du niveau
+/// </summary>
 public class Niveau : MonoBehaviour
 {
     [Header("Niveau")]
@@ -31,11 +32,11 @@ public class Niveau : MonoBehaviour
 
     [Header("Données")]
     [SerializeField] SOPerso _donneesPerso; // #Tp4 leon
-    [SerializeField] SONavigation _donneesNavigation; // #synthese leon
+    [SerializeField] SONavigation _donneesNavigation; // Reference au scriptable object de navigation #synthese leon
 
     [Header("Camera")]
-    [SerializeField] GameObject cm_collider;
-    [SerializeField] CinemachineVirtualCamera cvCamera;
+    [SerializeField] GameObject cm_collider; // Collider de la camera #synthese Antoine
+    [SerializeField] CinemachineVirtualCamera cvCamera; // Camera virtuelle #synthese Antoine
 
     [Header("Paramètres de jeu")]
     [SerializeField, Range(0, 20)] int _nbJoyauxParSalle = 5; // Nombre de joyaux par salle. #tp3 Léon , Range(0, 20)
@@ -43,6 +44,8 @@ public class Niveau : MonoBehaviour
     [Header("UI")] //(Initaliement dans Porte, mais déplacé ici puisque ca fait plus de sens ici)
     [SerializeField] GameObject _fondBonus; // Fond pour le bonus. #synthese Léon
     [SerializeField] PanneauBonus _panneauBonus; // Panneau pour le bonus. #synthese Léon 
+    [SerializeField] PanneauInventaire _panneauInventaire; // Panneau d'inventaire pour afficher les objets. #synthese Leon
+    public PanneauInventaire panneauInventaire => _panneauInventaire; // Propriété publique pour accéder au panneau d'inventaire. #synthese Leon
     int _temps; // Temps écoulé dans le niveau. #synthese Léon
     public int temps => _temps; // Propriété publique pour accéder au temps écoulé. #synthese Léon
 
@@ -59,11 +62,9 @@ public class Niveau : MonoBehaviour
 
     List<Vector2Int> niveauSurBordure = new List<Vector2Int>();
     // Tableau des pouvoirs disponibles. #synthese Leon
-    TypePouvoir[] _pouvoirs = { TypePouvoir.Poison, TypePouvoir.Ombre, TypePouvoir.Foudre, TypePouvoir.Glace };
-    [SerializeField] PanneauInventaire _panneauInventaire; // Panneau d'inventaire pour afficher les objets. #synthese Antoine
-    public PanneauInventaire panneauInventaire => _panneauInventaire; // Propriété publique pour accéder au panneau d'inventaire. #synthese Antoine
+    TypePouvoir[] _pouvoirs = { TypePouvoir.Poison, TypePouvoir.Ombre, TypePouvoir.Foudre, TypePouvoir.Glace }; //tableau des pouvoirs disponibles #tp4 Leon
 
-    Perso _instancePerso;
+    Perso _instancePerso; // Instance du personnage. #synthese Antoine
     void Awake()
     {
         //Singleton #tp3 Léon
@@ -95,10 +96,11 @@ public class Niveau : MonoBehaviour
         _temps = _limiteTemps; // #synthese Léon
         _uiJeu.MettreAJourTemps(_temps); // #synthese Léon
         Coroutine coroutine = StartCoroutine(CoroutineDecoulerTemps()); // #synthese Léon
-        // GameObject persoClone = (GameObject)GameObject.Instantiate(_perso.gameObject, _lesPosLibres[Random.Range(0, _lesPosLibres.Count)], Quaternion.identity);
-        cvCamera.m_Follow = _instancePerso.transform;
-        cm_collider.transform.localScale = new Vector2(_taille.x * 32 - 1, _taille.y * 18 - 1);
-        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, true);
+        cvCamera.m_Follow = _instancePerso.transform; // #synthese Antoine
+        cm_collider.transform.localScale = new Vector2(_taille.x * 32 - 1, _taille.y * 18 - 1); // #synthese Antoine
+
+        // Changement de l'état des pistes musicales. #synthese Antoine
+        GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueBase, true); 
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, false);
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, false);
         GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueMenu, false);
@@ -123,7 +125,6 @@ public class Niveau : MonoBehaviour
             Instantiate(joyauModele, pos3, Quaternion.identity, contenant); // Crée le joyau à la position obtenue.
             if (_lesPosLibres.Count == 0) // Si il n'y a plus de position libre.
             {
-                // Debug.LogWarning("Plus de place pour les joyaux"); // Affiche un message d'avertissement.
                 break; // Sort de la boucle.
             }
         }
@@ -145,8 +146,6 @@ public class Niveau : MonoBehaviour
         _instancePerso.Initialiser(pouvoirAleatoire, _uiJeu); // Donne le pouvoir au joueur #synthese Leon
         _instancePerso.InstantierParticules((int)pouvoirAleatoire); // Instancie les particules du pouvoir du personnage. #synthese Leon
         _donneesPerso.evenementMiseAJour.Invoke();
-        // _uiJeu.MettreAJourInfo(); // Met à jour les informations du personnage
-        // _uiJeu.ActiverParticulesPouvoir((int)pouvoirAleatoire); // Active les particules du pouvoir du personnage. #synthese Leon
 
         for (int i = 0; i < nbAutels; i++) // Boucle pour placer les autels.
         {
@@ -160,9 +159,9 @@ public class Niveau : MonoBehaviour
             if (PositionDessusEstVide(pos) && PositionDessousEstOccupee(pos))
             {
 
-                if (autelModele.pouvoir == pouvoirAleatoire) // Si le pouvoir de l'autel est le même que celui du personnage.
+                if (autelModele.pouvoir == pouvoirAleatoire) // Si le pouvoir de l'autel est le même que celui du personnage. #synthese Leon
                 {
-                    Debug.LogWarning("Même pouvoir que le personnage, " + pouvoirAleatoire); // Affiche un message d'avertissement.
+                    Debug.LogWarning("Même pouvoir que le personnage, " + pouvoirAleatoire); // Affiche un message d'avertissement. 
                     continue; // Passe à l'itération suivante.
                 }
                 Vector3 pos3 = (Vector3)(Vector2)pos + _tilemapNiveau.transform.position + _tilemapNiveau.tileAnchor; // Convertit la position
@@ -192,14 +191,18 @@ public class Niveau : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// #synthese Léon
+    /// Méthode pour placer les ennemis dans les salles du niveau.
+    /// </summary>
     void PlacerEnnemis()
     {
         Transform contenant = new GameObject("Ennemis").transform; // Crée un GameObject pour contenir les ennemis.
         contenant.parent = transform; // Assigne le niveau comme parent du contenant.
 
-        foreach (Salle salle in _lesSalles)
+        foreach (Salle salle in _lesSalles) // Pour chaque salle dans le niveau.
         {
-            for (int i = 0; i < salle.tReperesEnnemis.Length; i++)
+            for (int i = 0; i < salle.tReperesEnnemis.Length; i++) // Pour chaque repère d'ennemi dans la salle.
             {
                 int indexEnnemi = Random.Range(0, _tEnnemis.Length); // Sélectionne un ennemi aléatoire.
                 GameObject ennemiModele = _tEnnemis[indexEnnemi]; // Obtient le prefab de l'ennemi.

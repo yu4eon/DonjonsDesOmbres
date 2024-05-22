@@ -12,13 +12,28 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class Perso : DetecteurSol
 {
+
+    [Header("Sons")]
     [SerializeField] AudioClip[] _sonPerso; // Référence au son du saut
     [SerializeField] AudioClip[] _sonElements;
+    [Header("Stats")]
     [SerializeField] float _vitesse = 10f; // Vitesse à laquelle le personnage se déplace.
     float _vitesseInitial;
     [SerializeField] float _forceSaut = 120f; // L'amplitude du saut.
     [SerializeField] int _nbFramesMax = 10; // Nombre de frames maximum pendant lesquelles le joueur peut sauter.
-    [SerializeField] static bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
+    [SerializeField] float _dashForce = 24; // Force du dash #synthese Antoine
+    [Header("Scriptable Objects")]
+    [SerializeField] SOPerso _donnees; // Référence aux données du personnage #synthese Leon
+    [SerializeField] SONavigation _donneesNavigation; // Référence à la navigation du personnage #tp4 Leon
+    [Header("Particules")]
+    [SerializeField] ParticleSystem _particuleCourse; // Particule de course lorsque le joueur bouge #tp3 Leon
+    [SerializeField] ParticleSystem.MinMaxCurve _startSizeRapide; // Taille des particules lorsque le joueur est rapide #tp3 Leon
+    // vv Apparament, tu ne peux pas acceder au module renderer a partir du particle system vv
+    [SerializeField] ParticleSystemRenderer _renderModule; // Module de rendu des particules pour la particule de course #tp3 Leon
+    [SerializeField] ParticleSystem[] _particulesPouvoirs; // Particules des pouvoirs #tp3 Leon
+    [Header("Retroaction")]
+    [SerializeField] Retroaction _modeleRetro; // Modèle de rétroaction #synthese Leon
+    static bool _possedeDoublesSauts = false; // Si le personnage possède le pouvoir de double saut.
     static public bool possedeDoublesSauts // Propriété pour accéder à la variable privée _possedeDoublesSauts. 
     {
         set
@@ -26,14 +41,6 @@ public class Perso : DetecteurSol
             _possedeDoublesSauts = value;
         }
     }
-    [SerializeField] SOPerso _donnees; // Référence aux données du personnage #synthese Leon
-    [SerializeField] ParticleSystem _particuleCourse; // Particule de course lorsque le joueur bouge #tp3 Leon
-    [SerializeField] ParticleSystem.MinMaxCurve _startSizeRapide; // Taille des particules lorsque le joueur est rapide #tp3 Leon
-    // vv Apparament, tu ne peux pas acceder au module renderer a partir du particle system vv
-    [SerializeField] ParticleSystemRenderer _renderModule; // Module de rendu des particules pour la particule de course #tp3 Leon
-    [SerializeField] ParticleSystem[] _particulesPouvoirs; // Particules des pouvoirs #tp3 Leon
-    [SerializeField] Retroaction _modeleRetro; // Modèle de rétroaction #synthese Leon
-    [SerializeField] SONavigation _donneesNavigation; // Référence à la navigation du personnage #tp4 Leon
     UIJeu _uiJeu; // Référence à l'UI du jeu #synthese Leon
     ParticleSystem _particulePouvoirActuelle; // Particule du pouvoir actuel #tp3 Leon
     ParticleSystem.MinMaxCurve _startSizeInitial; // Taille des particules initiale #tp3 Leon
@@ -49,7 +56,6 @@ public class Perso : DetecteurSol
 
     bool _peutDash = true; // Si le joueur peut faire un dash #synthese Antoine
     bool _estEntrainDeDasher;
-    [SerializeField] float _dashForce = 24; // Force du dash #synthese Antoine
     int _direction = 1;
     float _tDash = 0.2f;
     float _dashDelai;
@@ -103,9 +109,6 @@ public class Perso : DetecteurSol
         // _arme.gameObject.SetActive(false); // Désactive l'arme du personnage
     }
 
-    /// <summary>
-    /// Méthode qui est appelée à chaque frame à un rythme fixe.
-    /// </summary>
     override protected void FixedUpdate()
     {
         if (_estEntrainDeDasher)
@@ -125,9 +128,9 @@ public class Perso : DetecteurSol
         }
 
         _rb.velocity = new Vector2(_axeHorizontal * _vitesse, _rb.velocity.y); // Déplace le joueur en fonction de l'entrée horizontale.
-        if (_estEnAttaqueLourd)
+        if (_estEnAttaqueLourd) // Si le joueur est dans une attaque lourde. #synthese Leon 
         {
-            _rb.velocity = new Vector2(0, _rb.velocity.y);
+            _rb.velocity = new Vector2(0, _rb.velocity.y); // Arrête le joueur de bouger.
         }
         _animator.SetFloat("VelocityY", _rb.velocity.y); // Donne la vitesse verticale au paramètre de l'Animator. #tp4 Leon
         _animator.SetFloat("VelocityX", _rb.velocity.x); // Donne la vitesse horizontale au paramètre de l'Animator. #tp3 Leon
@@ -188,7 +191,6 @@ public class Perso : DetecteurSol
         if (_veutDasher)
         {
             StartCoroutine(Dash());
-            // Debug.Log("Nooonnnnnn");
         }
 
     }
@@ -196,9 +198,9 @@ public class Perso : DetecteurSol
     /// <summary>
     /// Méthode temporaire à enlever pour la remise
     /// Permet de skipper le niveau, pour tester
-    /// Pour activer, pèse sur Tab. Marche seulement lorsque le joueur est instancié dans la scène
+    /// Pour activer, pèse sur Tabulation. Marche seulement lorsque le joueur est instancié dans la scène
     /// </summary>
-    
+
     /// Mise en commentaire pour la remise
     // void OnSkipNiveau()
     // {
@@ -241,6 +243,11 @@ public class Perso : DetecteurSol
         }
     }
 
+
+    /// <summary>
+    /// #synthese Antoine
+    /// Méthode qui est appelée lorsque le joueur appuie sur le bouton de dash.
+    /// </summary>
     void OnDash()
     {
         if (_peutDash == true)
@@ -248,6 +255,11 @@ public class Perso : DetecteurSol
             _veutDasher = true;
         }
     }
+
+    /// <summary>
+    /// #synthese Antoine
+    /// Coroutine qui permet de faire un dash.
+    /// </summary>
     private IEnumerator Dash()
     {
         if (_peutDash)
@@ -260,12 +272,10 @@ public class Perso : DetecteurSol
             _tr.emitting = true;
             _rb.gravityScale = 0;
             _rb.velocity = new Vector2(_direction * _dashForce, 0f);
-            // _estInvincible = true;
             Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibiliteDash());
             GestAudio.instance.JouerEffetSonore(_sonPerso[4]);
             yield return new WaitForSeconds(_tDash);
             _rb.gravityScale = graviteBase;
-            // _estInvincible = false;
             _estEntrainDeDasher = false;
             _tr.emitting = false;
             _rb.velocity = Vector2.zero;
@@ -274,8 +284,6 @@ public class Perso : DetecteurSol
         }
     }
 
-    // Note pour les 4 fonctions suivantes : on n'a pas arrivé à faire que le input system envoie in int spécifique,
-    // donc on a du faire une fonction pour chaque pouvoir. #tp3
     // Index de chaque pouvoir : 0 = Poison, 1 = Ombre, 2 = Foudre, 3 = Glace
 
     /// <summary>
@@ -285,7 +293,6 @@ public class Perso : DetecteurSol
     void OnChangePoison()
     {
         InstantierParticules(0);
-        // GestAudio.instance.JouerEffetSonore(_sonElements[0]);
     }
 
     /// <summary>
@@ -295,7 +302,6 @@ public class Perso : DetecteurSol
     void OnChangeOmbre()
     {
         InstantierParticules(1);
-        // GestAudio.instance.JouerEffetSonore(_sonElements[1]);
     }
 
     /// <summary>
@@ -305,7 +311,6 @@ public class Perso : DetecteurSol
     void OnChangeFoudre()
     {
         InstantierParticules(2);
-        // GestAudio.instance.JouerEffetSonore(_sonElements[2]);
     }
     /// <summary>
     /// Méthode qui est appelée lorsque le joueur appuie sur le 1 ou dpad haut pour
@@ -314,10 +319,12 @@ public class Perso : DetecteurSol
     void OnChangeGlace()
     {
         InstantierParticules(3);
-        // GestAudio.instance.JouerEffetSonore(_sonElements[3]);
     }
 
-
+    /// <summary>
+    /// #synthese Leon
+    /// Méthode qui instancie les particules du pouvoir actuel.
+    /// </summary>
     public void InstantierParticules(int index)
     {
         Vector3 tailleParticules = new Vector3(2, 2, 2);
@@ -411,6 +418,7 @@ public class Perso : DetecteurSol
     }
 
     /// <summary>
+    /// #synthese Leon
     /// Sera appelé pour initialiser le pouvoir du personnage par Niveau
     /// </summary>
     /// <param name="pouvoir">Pouvoir donnee</param>
@@ -424,15 +432,19 @@ public class Perso : DetecteurSol
         // Debug.Log("Pouvoir actuel : " + _pouvoirActuel);
     }
 
+
+    /// <summary>
+    /// #synthese Leon
+    /// Méthode d'attaque léger qui est appelée lorsque le 
+    /// joueur appuie sur le clic de souris gauche.
+    /// </summary>
     void OnLightAttack()
     {
-        if (_peutAttaquer)
+        if (_peutAttaquer) // Si le joueur peut attaquer.
         {
-            _peutAttaquer = false;
-            // Debug.Log("Attaque légère");
-            _animator.SetTrigger("AttaqueLight");
-            Coroutine coroutine = StartCoroutine(CoroutineAttaquer(true));
-            CoroutineAttaquer(true);
+            _peutAttaquer = false; // Déclare que le joueur ne peut plus attaquer.
+            _animator.SetTrigger("AttaqueLight"); // Déclenche l'animation d'attaque légère.
+            Coroutine coroutine = StartCoroutine(CoroutineAttaquer(true)); 
         }
         else
         {
@@ -440,13 +452,16 @@ public class Perso : DetecteurSol
         }
     }
 
+    /// <summary>
+    /// #synthese Leon
+    /// Méthode d'attaque lourde qui est appelée lorsque le
+    /// joueur appuie sur le clic de souris droit.
     void OnHeavyAttack()
     {
-        if (_peutAttaquer)
+        if (_peutAttaquer) // Si le joueur peut attaquer.
         {
-            _peutAttaquer = false;
-            // Debug.Log("Attaque lourde");
-            _animator.SetTrigger("AttaqueHeavy");
+            _peutAttaquer = false; // Déclare que le joueur ne peut plus attaquer.
+            _animator.SetTrigger("AttaqueHeavy"); // Déclenche l'animation d'attaque lourde.
             Coroutine coroutine = StartCoroutine(CoroutineAttaquer(false));
         }
         else
@@ -455,24 +470,27 @@ public class Perso : DetecteurSol
         }
     }
 
+    /// <summary>
+    /// #synthese Leon
+    /// Méthode qui permet d'initialiser l'attaque du personnage.
+    /// </summary>
+    /// <param name="estLeger">Si l'attaque est légère ou lourde.</param>
     IEnumerator CoroutineAttaquer(bool estLeger)
     {
-        // Debug.Log(_pouvoirActuel);
-        // Debug.Log(_arme);
-        yield return new WaitForSeconds(_delaiAttaque);
-        _arme.gameObject.SetActive(true);
-        _estEnAttaqueLourd = !estLeger;
+        yield return new WaitForSeconds(_delaiAttaque); // Attend un certain temps avant d'instancier l'arme pour que l'animation soit bien synchronisée.
+        _arme.gameObject.SetActive(true); // Active l'arme du personnage
+        _estEnAttaqueLourd = !estLeger; 
         _arme.InitialiserArme(_pouvoirActuel, estLeger); // Initialise l'arme du personnage
     }
 
+    /// <summary>
+    /// #synthese Leon
+    /// Méthode qui permet au personnage d'attaquer.
+    /// </summary>
     public void PermettreAttaque()
     {
         _estEnAttaqueLourd = false;
         _peutAttaquer = true;
-    }
-    public void TerminerAttaque()
-    {
-        _estEnAttaqueLourd = false;
     }
 
     void OnApplicationQuit()
@@ -485,39 +503,46 @@ public class Perso : DetecteurSol
         _donnees.ViderInventaire();
     }
 
+    /// <summary>
+    /// #synthese Antoine
+    /// Méthode qui permet de jouer un son.
+    /// </summary>
     public void JouerSon(int index)
     {
         GestAudio.instance.JouerEffetSonore(_sonPerso[index]); // Joue le son correspondant à l'index passé en paramè
     }
 
     /// <summary>
+    /// #synthese Leon
     /// Méthode qui permet de faire des dégats au personnage.
     /// </summary>
     /// <param name="degats">Nombre de dégat envoyé au personnage</param>
     public void SubirDegats(int degats)
     {
-        int degatsFinaux = Mathf.Clamp((degats - (degats * _donnees.defense / 100)), 1, int.MaxValue);
-        Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity, transform.parent);
+        int degatsFinaux = Mathf.Clamp((degats - (degats * _donnees.defense / 100)), 1, int.MaxValue); // Calcule les dégats finaux en fonction de la défense du personnage.
+        Retroaction retro = Instantiate(_modeleRetro, transform.position, Quaternion.identity, transform.parent); 
         retro.ChangerTexte("-" + degatsFinaux, "#FF3535");
-        _donnees.pv -= degatsFinaux;
+        _donnees.pv -= degatsFinaux; // Enlève les dégats au personnage.
         UIJeu.instance.MettreAJourInfo();
         Coroutine coroutine = StartCoroutine(CoroutineAjusterInvincibilite());
         Debug.Log("Points de vie restants : " + _donnees.pv);
         JouerSon(6);
-        if (_donnees.pv <= 0)
+        if (_donnees.pv <= 0) // Si le joueur n'a plus de points de vie.
         {
             // Debug.Log("Le joueur est mort");
             Mourir();
         }
-        if (_donnees.pv <= _donnees.pvIni / 4)
+        if (_donnees.pv <= _donnees.pvIni / 4) // si le joueur a moins de 25% de sa vie
         {
             GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenA, true);
         }
     }
 
     /// <summary>
+    /// #synthese Antoine
     /// Coroutine qui permet de mettre le joueur en invincibilité pendant le dash.
     /// </summary>
+    /// <param name="duree">Durée de l'invincibilité</param>
     IEnumerator CoroutineAjusterInvincibiliteDash(float duree = 0.5f)
     {
         gameObject.layer = _LayerInvincibilite;
@@ -527,6 +552,12 @@ public class Perso : DetecteurSol
         gameObject.layer = _LayerDefault;
 
     }
+
+    /// <summary>
+    /// #synthese Leon
+    /// Coroutine qui permet de mettre le joueur en invincibilité pendant un certain temps.
+    /// </summary>
+    /// <param name="duree">Durée de l'invincibilité</param>
     IEnumerator CoroutineAjusterInvincibilite(float duree = 1f)
     {
         gameObject.layer = _LayerInvincibilite;
@@ -539,6 +570,10 @@ public class Perso : DetecteurSol
 
     }
 
+    /// <summary>
+    /// #synthese Leon
+    /// Coroutine qui permet de changer la couleur du personnage pendant l'invincibilité.
+    /// </summary>
     IEnumerator CoroutineChangerCouleur()
     {
         while (_estInvincible)
@@ -550,6 +585,7 @@ public class Perso : DetecteurSol
     }
 
     /// <summary>
+    /// #synthese Leon
     /// Méthode qui permet de faire mourir le joueur.
     /// </summary>
     void Mourir()
@@ -558,6 +594,10 @@ public class Perso : DetecteurSol
         _donneesNavigation.AllerSceneTableauHonneur();
     }
 
+    /// <summary>
+    /// #synthese Leon
+    /// Méthode qui permet de désactiver les inputs du joueur.
+    /// </summary>
     public void DesactiverInputs()
     {
         _playerInput.actions.Disable();

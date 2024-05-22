@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// #synthese Léon
+/// Classe qui gère le panneau d'inventaire du jeu
+/// Auteur : Léon Yu
+/// Commentaires : Léon Yu, Antoine Lachance
+/// </summary>
 public class PanneauInventaire : MonoBehaviour
 {
     [SerializeField] PanneauVignette _panneauVignetteModele; // Modèle de panneau vignette utilisé pour afficher les objets dans l'inventaire
 
-    // Méthode appelée au démarrage du script
     void Start()
     {
         // Vérifie si l'instance de la boutique existe
@@ -17,7 +22,11 @@ public class PanneauInventaire : MonoBehaviour
         }
     }
 
-    // Méthode pour ajouter un objet à l'inventaire et afficher sa vignette
+    /// <summary>
+    /// Méthode pour ajouter une vignette à l'inventaire
+    /// </summary>
+    /// <param name="donnees">Les donnees de l'objet</param>
+    /// <returns></returns>
     public PanneauVignette Ajouter(SOObjet donnees)
     {
         // Instantie un nouveau panneau vignette comme enfant de l'objet transform
@@ -27,7 +36,9 @@ public class PanneauInventaire : MonoBehaviour
         return vignette; // Retourne la vignette nouvellement créée
     }
     
-    // Méthode pour vider l'inventaire en supprimant tous les objets enfants
+    /// <summary>
+    /// Méthode pour vider le panneau d'inventaire
+    /// </summary>
     public void Vider()
     {
         // Boucle à travers tous les enfants de l'objet transform

@@ -114,31 +114,47 @@ public class UIJeu : MonoBehaviour
             }
         }
     } 
+
+    /// <summary>
+    /// #synthese Léon
+    /// Méthode qui met à jour le temps de jeu
+    /// </summary>
+    /// <param name="temps">Le temps de jeu en secondes</param>
     public void MettreAJourTemps(int temps)
     {
         
-        int minutes = (temps / 60);
-        int secondes = (temps % 60);
+        int minutes = temps / 60; 
+        int secondes = temps % 60;
         _champTemps.text = ((minutes < 10)? "0" +minutes: minutes) + ":" + ((secondes < 10)? "0" +secondes: secondes);
     }
 
+    /// <summary>
+    /// #synthese Léon
+    /// Méthode qui active un cristal de pouvoir
+    /// </summary>
     public void ActiverPouvoir(int index)
     {
-        foreach (RectTransform rect in _tRectCrystalsPouvoir)
+        foreach (RectTransform rect in _tRectCrystalsPouvoir) // On désactive tous les cristaux
         {
-            rect.sizeDelta = _tailleInactif;
+            rect.sizeDelta = _tailleInactif; 
         }
-        foreach (KeyValuePair<TypePouvoir, Image> entry in _dCrystalsPouvoir)
+        foreach (KeyValuePair<TypePouvoir, Image> entry in _dCrystalsPouvoir) // Pour chaque cristal, on les met inactifs
         {
             entry.Value.color = _couleurCrystalInactif;
         }
 
+
+        // On active le cristal sélectionné
         _tRectCrystalsPouvoir[index].sizeDelta = _tailleIni;
-        // Debug.Log("Activer particules " + index);
-        // _tParticulesPouvoir[index].Play();
         _tCrystalsPouvoir[index].color = Color.white;
     }
 
+
+    /// <summary>
+    /// #synthese Léon
+    /// Méthode qui joue les particules de pouvoir
+    /// Joue lorsqu'on obtient un pouvoir
+    /// </summary>
     public void JouerParticulesPouvoir(int index)
     {
         _tParticulesPouvoir[index].Play();

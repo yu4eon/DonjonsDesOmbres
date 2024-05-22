@@ -9,9 +9,9 @@ using Unity.Mathematics;
 
 /// <summary>
 /// #Tp3
-/// Auteur du code : Antoine Lachance
-/// Commentaires ajoutés par : Antoine Lachance
-/// Classe qui gère la porte
+/// Auteur du code : Antoine Lachance, Léon Yu
+/// Commentaires ajoutés par : Antoine Lachance, Léon Yu
+/// /// Classe qui gère la porte
 /// </summary>
 public class Porte : MonoBehaviour
 {
@@ -75,6 +75,10 @@ public class Porte : MonoBehaviour
         _navigation.AllerSceneSuivante(); // Appel de la fonction pour aller à la scène suivante dans le script de navigation
     }
 
+    /// <summary>
+    /// #synthese Léon
+    /// Méthode qui active le bonus du niveau et arrête la coroutine du niveau
+    /// </summary>
     void SceneBonus()
     {
 
@@ -87,7 +91,10 @@ public class Porte : MonoBehaviour
         _donneesPerso.ViderInventaire(); // Vidage de l'inventaire du joueur
     }
 
-
+    /// <summary>
+    /// #synthese Léon
+    /// Méthode qui indique que le joueur a la clé et ajuste la lumière de la porte.
+    /// </summary>
     public void PossederCle()
     {
         _aCle = true; // Indique que le joueur a la clé
@@ -95,6 +102,10 @@ public class Porte : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// #synthese Léon
+    /// Coroutine qui ajuste la luminosité de la porte.
+    /// </summary>
     IEnumerator CouroutineAjusterLumiere()
     {
         while (true)

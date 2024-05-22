@@ -4,13 +4,15 @@
 
 à faire :
 
-1 Ennemi
-1 fonctionnalité (à confirmer)
+
 
 
 
 fini :
 
+Peaufinage du jeu
+1 Ennemi
+1 fonctionnalité
 Placement des ennemis
 Règlage de bogues du TP4
 
@@ -22,9 +24,9 @@ Règlage de bogues du TP4
 
 à faire :
 
-Sonorisation
-1 Ennemi
-Règlage des bogues
 
 fini :
 1 fonctionnalité (à confirmer)
+Sonorisation
+1 Ennemi
+Règlage des bogues

@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using System.Security;
 using UnityEngine;
 
+
+/// <summary>
+/// #synthese
+/// Classe qui gère les projectiles des ennemis
+/// Auteur : Leon Yu
+/// Commentaires : Leon Yu
+/// </summary>
 public class ProjectileEnnemi : MonoBehaviour
 {
     Transform _cible; // La cible du projectile
-    public Transform cible { get => _cible; set => _cible = value; }
+    public Transform cible { get => _cible; set => _cible = value; } // Propriété pour obtenir et définir la cible du projectile
     [SerializeField] float _vitesse = 5f; // La vitesse du projectile
     [SerializeField] int _degats = 30; // Les dégâts du projectile
     [SerializeField] float _dureeVie = 5f; // La durée de vie du projectile
@@ -43,11 +50,11 @@ public class ProjectileEnnemi : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.CompareTag("Sol"));
-        if (collision.GetComponent<Perso>() != null)
+        if (collision.GetComponent<Perso>() != null) // Si le projectile touche le joueur, on le détruit
         {
-            LayerMask maskInvincible = LayerMask.NameToLayer("JoueurInvincible");
+            LayerMask maskInvincible = LayerMask.NameToLayer("JoueurInvincible"); 
             Debug.Log(collision.gameObject.layer + " " + maskInvincible.value);
-            if (collision.gameObject.layer == maskInvincible.value)
+            if (collision.gameObject.layer == maskInvincible.value) // Si le joueur est invincible, on ne lui inflige pas de dégâts
             {
                 Detruire();
                 return;
@@ -58,23 +65,29 @@ public class ProjectileEnnemi : MonoBehaviour
             Detruire();
             // Si le projectile touche le joueur, on le détruit
         }
-        else if (collision.CompareTag("Sol"))
-        {
-            Debug.Log("Collision avec le sol");
-            // Si le projectile touche une tuile, on le détruit
-            Detruire();
-        }
-        else
-        {
-            Debug.Log("Collision avec " + collision.gameObject.name);
-        }
+
+        // Initalement, on voulait que le projectile soit détruit lorsqu'il touche le sol
+        // Cependant, la collision avec le sol ne fonctionnait pas
+        // else if (collision.CompareTag("Sol"))
+        // { 
+        //     Debug.Log("Collision avec le sol");
+        //     // Si le projectile touche une tuile, on le détruit
+        //     Detruire();
+        // }
     }
+
+    /// <summary>
+    /// Coroutine qui détruit le projectile après un certain temps
+    /// </summary>
     IEnumerator CoroutineDestruction()
     {
         yield return new WaitForSeconds(_dureeVie);
         Detruire();
     }
 
+    /// <summary>
+    /// Méthode qui détruit le projectile et instancie les particules d'impact
+    /// </summary>
     void Detruire()
     {
         Instantiate(_particulesImpact, transform.position, Quaternion.identity);

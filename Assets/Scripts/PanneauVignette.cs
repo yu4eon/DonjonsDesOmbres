@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// #synthese Léon
+/// Classe qui gère les vignettes d'objets dans l'inventaire
+/// Auteur : Léon Yu
+/// Commentaires : Léon Yu, Antoine Lachance
+/// </summary>
 public class PanneauVignette : MonoBehaviour
 {
     [SerializeField] Image _image; // Image de la vignette représentant l'objet
@@ -22,7 +28,7 @@ public class PanneauVignette : MonoBehaviour
         }
     }	
 
-    int _nb = 1; // Nombre d'objets représentés par cette vignette
+    int _nb = 1; // Nombre d'objets
 
     // Propriété pour obtenir et définir le nombre d'objets
     public int nb

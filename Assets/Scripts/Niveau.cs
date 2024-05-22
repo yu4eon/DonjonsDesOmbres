@@ -492,22 +492,25 @@ public class Niveau : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// #synthese Léon
+    /// Coroutine pour faire écoulé le temps dans le niveau.
+    /// Si le temps est écoulé, le joueur est redirigé vers le tableau d'honneur.
+    /// </summary>
     IEnumerator CoroutineDecoulerTemps()
     {
-        while (_temps > 0)
+        while (_temps > 0) // Tant que le temps n'est pas écoulé.
         {
             // Debug.Log("Temps : " + _temps);
             yield return new WaitForSeconds(1);
             _temps--;
             _uiJeu.MettreAJourTemps(_temps);
-            if (_temps <= _limiteTemps / 4)
+            if (_temps <= _limiteTemps / 4) // Si le temps est inférieur à 1/4 de la limite de temps.
             {
                 GestAudio.instance.ChangerEtatLecturePiste(TypePiste.MusiqueEvenB, true);
             }
         }
-        _donneesNavigation.AllerSceneTableauHonneur();
-        // Debug.Log("Temps écoulé");
-        // SceneManager.LoadScene("SceneTitre");
+        _donneesNavigation.AllerSceneTableauHonneur(); 
     }
 
     /// <summary>

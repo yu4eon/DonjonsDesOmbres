@@ -4,6 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// #synthese Léon
+/// Classe qui gère le panneau de bonus du jeu
+/// Auteur : Léon Yu
+/// Commentaires : Léon Yu, Antoine Lachance
+/// </summary>
 public class PanneauBonus : MonoBehaviour
 {
     [SerializeField] SOPerso _donneesPerso; // Référence aux données du personnage (ScriptableObject)
@@ -11,7 +18,10 @@ public class PanneauBonus : MonoBehaviour
     [SerializeField] TextMeshProUGUI _champPoints; // Champ de texte pour afficher les points bonus
     [SerializeField] TextMeshProUGUI _champScore; // Champ de texte pour afficher le score total du personnage
     
-    // Méthode pour calculer et afficher les points bonus en fonction du temps restant
+    /// <summary>
+    /// Méthode qui calcule les points bonus en fonction du temps restant
+    /// et met à jour les champs de texte pour afficher le temps restant, les points bonus et le score total
+    /// </summary>
     public void CalculerPoints()
     {
         int tempsRestants = Niveau.instance.temps; // Récupère le temps restant depuis une instance de niveau

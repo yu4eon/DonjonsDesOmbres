@@ -10,15 +10,12 @@ using UnityEngine.UI;
 /// </summary>
 public class FadeFromBlack : MonoBehaviour
 {
-    // --- Champs --------------------------------------------------------------
     private Image _img; //Le composant image
     private float _alpha =1f; // Le niveau de transparence initial
 
     [SerializeField]
     [Range(0.1f, 5f)]
     private float _fadeSpeed; //Vitesse du fade
-
-    // --- Initialisation -------------------------------------------------------
 
     private void Awake()
     {
@@ -31,8 +28,6 @@ public class FadeFromBlack : MonoBehaviour
         StartCoroutine(FadeOutBlack());
         ChangeAlpha(_alpha);
     }
-
-    // --- Méthodes Privées -------------------------------------------------------
 
     /// <summary>
     /// Change la transparence de l'image

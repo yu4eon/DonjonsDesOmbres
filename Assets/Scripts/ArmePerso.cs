@@ -4,22 +4,26 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+/// <summary>
+/// Auteur du code : Léon Yu, Antoine Lachance
+/// Commentaires ajoutés par : Léon Yu, Antoine Lachance
+/// Classe qui contrôle les armes du personnage.
+/// </summary>
 public class ArmePerso : MonoBehaviour
 {
-    [SerializeField] SOArme[] _tDonneesArmes; // Tableau des données des armes
-    [SerializeField] SOPerso _donneesPerso; // Données du joueur
-    [SerializeField] Vector3 _tailleJavelin = new Vector3(0.8f, 0.8f, 0.8f); // Taille de la javelin
-    [SerializeField] Vector3 _tailleMarteau = new Vector3(1.2f, 1.2f, 1.2f); // Taille du marteau
-    [SerializeField] float _delaiAlpha = 0.05f; // Délai pour changer l'alpha de l'arme
-    SOArme _armeEquipee; // Arme équipée par le joueur
-    SpriteRenderer _spriteRenderer; // Sprite de l'arme
-    Animator _animator; // Animator de l'arme
-    Perso _perso; // Script du joueur
-    Vector3 _positionInitiale; // Position initiale de l'arme
-    Collider2D _collider; // Collider de l'arme
-    bool _estLeger; // Si l'attaque est léger
-    bool _estGauche; // Si l'attaque est à gauche
-
+    [SerializeField] SOArme[] _tDonneesArmes; // Tableau des données des armes.
+    [SerializeField] SOPerso _donneesPerso; // Données du personnage.
+    [SerializeField] Vector3 _tailleJavelin = new Vector3(0.8f, 0.8f, 0.8f); // Taille de la javelin.
+    [SerializeField] Vector3 _tailleMarteau = new Vector3(1.2f, 1.2f, 1.2f); // Taille du marteau.
+    [SerializeField] float _delaiAlpha = 0.05f; // Délai pour changer l'alpha de l'arme.
+    SOArme _armeEquipee; // Arme équipée par le joueur.
+    SpriteRenderer _spriteRenderer; // Sprite de l'arme.
+    Animator _animator; // Animator de l'arme.
+    Perso _perso; // Script du personnage.
+    Vector3 _positionInitiale; // Position initiale de l'arme.
+    Collider2D _collider; // Collider de l'arme.
+    bool _estLeger; // Si l'attaque est légère.
+    bool _estGauche; // Si l'attaque est à gauche.
 
     void Awake()
     {
@@ -33,101 +37,110 @@ public class ArmePerso : MonoBehaviour
         _collider.enabled = false;
         _positionInitiale = transform.localPosition;
         _perso = GetComponentInParent<Perso>();
-        DesactiverArme();
+        DesactiverArme(); // Désactive l'arme au démarrage.
     }
+
+    /// <summary>
+    /// Initialise l'arme en fonction du type de pouvoir et de l'attaque légère ou lourde.
+    /// </summary>
+    /// <param name="typePouvoir">Le type de pouvoir de l'arme.</param>
+    /// <param name="estLeger">Indique si l'attaque est légère.</param>
     public void InitialiserArme(TypePouvoir typePouvoir, bool estLeger)
     {
-
         _estLeger = estLeger;
         _armeEquipee = _tDonneesArmes[(int)typePouvoir];
         GestAudio.instance.JouerEffetSonore(_armeEquipee.sonAttaque);
-        if(_armeEquipee == null) Debug.LogWarning("Arme non trouvée");
+        if (_armeEquipee == null) Debug.LogWarning("Arme non trouvée");
         Coroutine coroutine = StartCoroutine(CoroutineChangerAlpha());
-        switch(_armeEquipee.nom)
+
+        // Ajuste la taille de l'arme en fonction de son type.
+        switch (_armeEquipee.nom)
         {
             case "Javelin":
                 transform.localScale = _tailleJavelin;
-                if(_estGauche)
+                if (_estGauche)
                 {
                     transform.localScale = new Vector3(-_tailleJavelin.x, _tailleJavelin.y, _tailleJavelin.z);
                 }
                 break;
             case "Marteau":
                 transform.localScale = _tailleMarteau;
-                if(_estGauche)
+                if (_estGauche)
                 {
                     transform.localScale = new Vector3(-_tailleMarteau.x, _tailleMarteau.y, _tailleMarteau.z);
                 }
                 break;
             default:
                 transform.localScale = new Vector3(1, 1, 1);
-                if(_estGauche)
+                if (_estGauche)
                 {
                     transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 }
                 break;
         }
 
-        // Jouer animation de l'arme
+        // Joue l'animation de l'arme.
         string nomAnimation = _armeEquipee.nom;
         _animator.SetTrigger(nomAnimation);
         _animator.SetBool("estLeger", estLeger);
         Debug.Log("Arme activée");
-        // _spriteRenderer.sprite = _armeEquipee.sprite;
-
     }
 
-
-
+    /// <summary>
+    /// Change la direction de l'arme en fonction de la direction du personnage.
+    /// </summary>
+    /// <param name="estGauche">Indique si l'arme doit être orientée à gauche.</param>
     public void ChangerDirection(bool estGauche)
     {
-        // Debug.Log(_armeEquipee.nom);
-        // Debug.Log("Changer direction " + _estGauche);
         Vector3 tailleActuelle = transform.localScale;
         if (estGauche)
         {
             _estGauche = true;
-            // Debug.Log(transform.localPosition);
             transform.localPosition = new Vector3(-_positionInitiale.x, _positionInitiale.y, _positionInitiale.z);
-            // _spriteRenderer.flipX = true;
             transform.localScale = new Vector3(-1, 1, 1);
-            // transform.localScale = new Vector3(-Mathf.Abs(tailleActuelle.x), tailleActuelle.y, tailleActuelle.z);
         }
         else
         {
             _estGauche = false;
-            // Debug.Log(transform.localPosition);
             transform.localPosition = _positionInitiale;
-            // _spriteRenderer.flipX = false;
             transform.localScale = new Vector3(1, 1, 1);
-            // transform.localScale = new Vector3(Mathf.Abs(tailleActuelle.x), tailleActuelle.y, tailleActuelle.z);
         }
     }
 
+    /// <summary>
+    /// Désactive le collider de l'arme.
+    /// </summary>
     public void DesactiverCollider()
     {
         _collider.enabled = false;
     }
+
+    /// <summary>
+    /// Active le collider de l'arme.
+    /// </summary>
     public void ActiverCollider()
     {
         _collider.enabled = true;
     }
+
     /// <summary>
-    /// Sera appelé pour desactiver l'arme par animation event plus tard, pour l'instant, on l'appelleras par Coroutine
+    /// Désactive l'arme.
     /// </summary>
     public void DesactiverArme()
     {
-        // _perso = GetComponentInParent<Perso>();
         DesactiverCollider();
-        _perso.PermettreAttaque();
+        _perso.PermettreAttaque(); // Permet au personnage d'attaquer à nouveau.
         gameObject.SetActive(false);
-        // Désactiver l'arme
     }
 
+    /// <summary>
+    /// Coroutine pour changer progressivement l'alpha de l'arme.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator CoroutineChangerAlpha()
     {
         float alpha = 0;
-        while(alpha < 1)
+        while (alpha < 1)
         {
             alpha += 0.2f;
             _spriteRenderer.color = new Color(1, 1, 1, alpha);
@@ -135,22 +148,18 @@ public class ArmePerso : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gère la collision de l'arme avec d'autres objets.
+    /// </summary>
+    /// <param name="other">Le collider de l'objet avec lequel l'arme entre en collision.</param>
     void OnTriggerEnter2D(Collider2D other)
     {
-        // _armeEquipee = _tDonneesArmes[_indexPouvoir];
-        // Debug.Log(this.gameObject.name);
-        // Si le joueur entre en collision avec un ennemi
-        if (other.GetComponent<Ennemi>() != null)
+        if (other.GetComponent<Ennemi>() != null) // Si l'arme entre en collision avec un ennemi.
         {
-            // Debug.Log(_armeEquipee.nom);
-            // Debug.Log(_armeEquipee.nom);
-            // Debug.Log("Collision avec ennemi");
-            Debug.Log(_donneesPerso.attaque);
             Ennemi ennemi = other.GetComponent<Ennemi>();
             float degatInfligee = _armeEquipee.degats * _donneesPerso.attaque;
-            if(!_estLeger) degatInfligee *= 2;
-            ennemi.SubirDegats(Mathf.CeilToInt(degatInfligee), _armeEquipee.typePouvoir);
+            if (!_estLeger) degatInfligee *= 2; // Double les dégâts si l'attaque n'est pas légère.
+            ennemi.SubirDegats(Mathf.CeilToInt(degatInfligee), _armeEquipee.typePouvoir); // Inflige les dégâts à l'ennemi.
         }
-
     }
 }

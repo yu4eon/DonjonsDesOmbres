@@ -21,4 +21,9 @@ public enum TypePouvoir
     Foudre = 2,
     Glace = 3,
 }
+
+/// <summary>
+/// #tp3 Antoine
+/// Enumération des types de pistes
+/// </summary>
 public enum TypePiste { MusiqueBase=0, MusiqueEvenA=1, MusiqueEvenB=2, MusiqueMenu=3 }

@@ -67,12 +67,16 @@ public class SOSauvegarde : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Méthode qui permet de remettre à zéro les informations des joueurs
+    /// et de créer des nouveaux joueurs de test
+    /// </summary>
     public void Reinitialiser()
     {
-        _lesJoueursScores.Clear();
-        _lesJoueursScores.Add(new JoueurScore { joueur = "Bob", score = 7000, estJoueurActuelle = false });
-        _lesJoueursScores.Add(new JoueurScore { joueur = "Alice", score = 5000, estJoueurActuelle = false });
-        EcrireFichier();
+        _lesJoueursScores.Clear(); // Supprime tous les joueurs
+        _lesJoueursScores.Add(new JoueurScore { joueur = "Bob", score = 7000, estJoueurActuelle = false }); // Crée un joueur de test
+        _lesJoueursScores.Add(new JoueurScore { joueur = "Alice", score = 5000, estJoueurActuelle = false }); // Crée un joueur de test
+        EcrireFichier(); // Ecrit les informations dans le fichier
     }
 
 }

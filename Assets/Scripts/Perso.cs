@@ -490,6 +490,10 @@ public class Perso : DetecteurSol
         GestAudio.instance.JouerEffetSonore(_sonPerso[index]); // Joue le son correspondant à l'index passé en paramè
     }
 
+    /// <summary>
+    /// Méthode qui permet de faire des dégats au personnage.
+    /// </summary>
+    /// <param name="degats">Nombre de dégat envoyé au personnage</param>
     public void SubirDegats(int degats)
     {
         int degatsFinaux = Mathf.Clamp((degats - (degats * _donnees.defense / 100)), 1, int.MaxValue);
@@ -511,6 +515,9 @@ public class Perso : DetecteurSol
         }
     }
 
+    /// <summary>
+    /// Coroutine qui permet de mettre le joueur en invincibilité pendant le dash.
+    /// </summary>
     IEnumerator CoroutineAjusterInvincibiliteDash(float duree = 0.5f)
     {
         gameObject.layer = _LayerInvincibilite;
@@ -542,6 +549,9 @@ public class Perso : DetecteurSol
         _sr.enabled = true;
     }
 
+    /// <summary>
+    /// Méthode qui permet de faire mourir le joueur.
+    /// </summary>
     void Mourir()
     {
         GestAudio.instance.JouerEffetSonore(_sonPerso[5]);

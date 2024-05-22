@@ -13,9 +13,9 @@ public class SOArme : ScriptableObject
     [SerializeField] TypePouvoir _typePouvoir; // Type de pouvoir de l'arme
     [SerializeField] AudioClip _sonAttaque; // Son d'attaque de l'arme
     
-    public AudioClip sonAttaque { get => _sonAttaque; set => _sonAttaque = value; }
-    public float degats { get => _degatsBase; set => _degatsBase = value; }
-    public TypePouvoir typePouvoir { get => _typePouvoir; set => _typePouvoir = value; }
-    public string nom { get => _nom; set => _nom = value; }
+    public AudioClip sonAttaque { get => _sonAttaque; set => _sonAttaque = value; } // Son d'attaque de l'arme
+    public float degats { get => _degatsBase; set => _degatsBase = value; } // Dégâts de l'arme
+    public TypePouvoir typePouvoir { get => _typePouvoir; set => _typePouvoir = value; } // Type de pouvoir de l'arme
+    public string nom { get => _nom; set => _nom = value; } // Nom de l'arme
         
 }

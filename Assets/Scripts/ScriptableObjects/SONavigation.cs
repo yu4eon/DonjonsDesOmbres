@@ -57,27 +57,25 @@ public class SONavigation : ScriptableObject
 
     /// <summary>
     /// Tp3 Antoine
-    /// Méthode appelée pour charger la scène précédente dans l'ordre de la build.
+    /// Méthodes appelées pour charger la scène désirée.
     /// </summary>
     public void AllerScenePrecedente()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); // Charge la scène précédente dans l'ordre de la build
     }
-
     public void AllerSceneTableauHonneur()
     {
         SceneManager.LoadScene("Honneur");
     }
-
     public void AllerSceneGenerique()
     {
         SceneManager.LoadScene("Generique");
     }
-
     public void AllerSceneExplication()
     {
         SceneManager.LoadScene("InterfaceExplicative");
     }
+
 
     public void JouerSon()
     {

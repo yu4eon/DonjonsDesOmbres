@@ -39,13 +39,7 @@ public class ProjectileEnnemi : MonoBehaviour
 
         }
     }
-    // void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     if (collision.collider.CompareTag("Sol"))
-    //     {
-    //         Detruire();
-    //     }
-    // }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.CompareTag("Sol"));

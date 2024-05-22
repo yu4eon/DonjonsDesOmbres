@@ -42,33 +42,6 @@ public class FadeFromBlack : MonoBehaviour
         _img.color = new Color(_img.color.r, _img.color.g, _img.color.b, valeur);
     }
 
-    /// <summary>
-    /// Met le fond de blanc à noir
-    /// </summary>
-    // private IEnumerator FadeToBlack()
-    // {
-    //     while (_alpha <= 1f)
-    //     {
-            
-    //         _alpha += Time.deltaTime * _fadeSpeed;
-    //         //Debug.Log(_alpha);
-
-    //         if (_alpha >= 1f)
-    //         {
-    //             ChangeAlpha(1f);
-
-    //         }
-    //         else
-    //         {
-    //             ChangeAlpha(_alpha);
-    //         }
-
-    //         yield return new WaitForSeconds(Time.deltaTime);
-    //     }
-
-    //     Time.timeScale = 0;
-    //     StopAllCoroutines();
-    // }
 
     /// <summary>
     /// met le fond de noir à blanc

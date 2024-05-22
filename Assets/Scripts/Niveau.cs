@@ -507,11 +507,17 @@ public class Niveau : MonoBehaviour
         // SceneManager.LoadScene("SceneTitre");
     }
 
+    /// <summary>
+    /// Méthode publique pour arrèter tout les coroutines.
+    /// </summary>
     public void ArreterCoroutine()
     {
         StopAllCoroutines();
     }
 
+    /// <summary>
+    /// Méthode publique pour activer le bonus.
+    /// </summary>
     public void ActiverBonus()
     {
         _fondBonus.SetActive(true);

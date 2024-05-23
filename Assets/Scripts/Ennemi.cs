@@ -25,9 +25,9 @@ public class Ennemi : MonoBehaviour
     [SerializeField] GameObject _contenantBarreVie; // Contenant de la barre de vie de l'ennemi
     [SerializeField] GameObject _barreVie; // Barre de vie de l'ennemi
     private Color _couleurIni; // Couleur de base de l'ennemi
-    Light2D _lumiere; // Lumière de l'ennemi
+    protected Light2D _lumiere; // Lumière de l'ennemi
     float _delaiCouleur = 0.3f; // Délai pour reajuster la couleur de l'ennemi
-    SpriteRenderer _spriteRenderer; // Sprite Renderer de l'ennemi
+    protected SpriteRenderer _spriteRenderer; // Sprite Renderer de l'ennemi
     Rigidbody2D _rb; // Rigidbody de l'ennemi
     bool _estInvulnerable = false; // Indique si l'ennemi est invulnérable
     bool _degatCritique = false; // Indique si l'ennemi a subi un dégât critique

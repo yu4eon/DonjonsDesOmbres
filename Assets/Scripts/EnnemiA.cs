@@ -27,6 +27,7 @@ public class EnnemiA : Ennemi
         rb = GetComponent<Rigidbody2D>(); // Obtient le composant Rigidbody2D attaché à l'ennemi
         sr = GetComponent<SpriteRenderer>(); // Obtient le composant SpriteRenderer attaché à l'ennemi
         sr.flipX = true; // Inverse le sprite de l'ennemi pour qu'il regarde à droite
+        _lumiere.GetComponent<Transform>().transform.Rotate(0, 180, 0); // Inversion initiale de la lumière de l'ennemi
     }
 
     /// <summary>
@@ -58,6 +59,7 @@ public class EnnemiA : Ennemi
             if (estEnTrainDeChangerDirection == false)
             {
                 sr.flipX = !sr.flipX; // Inverse le sprite de l'ennemi
+                _lumiere.GetComponent<Transform>().transform.Rotate(0, 180, 0); // Inverse la lumière de l'ennemi
                 deplacementDroite = !deplacementDroite; // Change la direction du déplacement
                 StartCoroutine(ChangerDirectionCoroutine()); // Lance la coroutine pour gérer le changement de direction
             }

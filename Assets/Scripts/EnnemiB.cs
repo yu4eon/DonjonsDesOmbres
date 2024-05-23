@@ -9,15 +9,15 @@ public class EnnemiB : Ennemi
     [SerializeField] float _distanceAttaque = 10f; // La distance à laquelle l'ennemi peut attaquer
     [SerializeField] float _delaiAttaque = 2f; // Le délai entre chaque attaque
     bool _peutAttaquer = false; // Indique si l'ennemi peut attaquer
+    Vector3 _scaleLumiere;
 
-    // Méthode appelée au démarrage du script
     protected override void Start()
     {
         base.Start(); // Appelle la méthode Start de la classe de base
         Coroutine coroutine = StartCoroutine(CoroutinePermettreAttaque()); // Lance la coroutine permettant à l'ennemi d'attaquer après un délai initial
+        _scaleLumiere = _lumiere.GetComponent<Transform>().transform.localScale; // Obtient l'échelle de la lumière de l'ennemi
     }
 
-    // Méthode appelée à chaque frame avec un framerate fixe, si le MonoBehaviour est activé
     protected override void FixedUpdate()
     {
         base.FixedUpdate(); // Appelle la méthode FixedUpdate de la classe de base
@@ -43,6 +43,19 @@ public class EnnemiB : Ennemi
                 _peutAttaquer = false; // Désactive l'attaque jusqu'à la fin du délai
                 Coroutine coroutine = StartCoroutine(CoroutinePermettreAttaque()); // Relance la coroutine pour réactiver l'attaque après un délai
             }
+        }
+        
+        Vector3 scaleLumiereInverse = new Vector3(-_scaleLumiere.x, _scaleLumiere.y, _scaleLumiere.z); // Inverse l'échelle de la lumière de l'ennemi
+        // Flip l'ennemi pour qu'il regarde vers le joueur
+        if (perso.transform.position.x < transform.position.x)
+        {
+            _spriteRenderer.flipX = false;
+            _lumiere.GetComponent<Transform>().transform.localScale = new Vector3(Mathf.Abs(_scaleLumiere.x), _scaleLumiere.y, _scaleLumiere.z); // Inverse la lumière de l'ennemi
+        }
+        else
+        {
+            _spriteRenderer.flipX = true;
+            _lumiere.GetComponent<Transform>().transform.localScale = scaleLumiereInverse; // Inverse la lumière de l'ennemi
         }
     }
 
